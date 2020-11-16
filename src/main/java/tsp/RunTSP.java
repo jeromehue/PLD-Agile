@@ -1,5 +1,6 @@
 package tsp;
 
+
 public class RunTSP {
 	public static void main(String[] args) {
 		TSP tsp = new TSP1();
