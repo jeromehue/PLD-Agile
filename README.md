@@ -6,3 +6,6 @@ Sous éclipse :
 File -> Import -> Git -> Projects from git (Smart import) -> clone URI -> ...   
 Une fois le projet importé, faire un clic droit dans le fichier pom.xml -> Maven -> Update project .
 Vous devriez voir apparaître les dépendances dans un dossier maven dependancies.
+
+
+#
