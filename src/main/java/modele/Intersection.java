@@ -27,7 +27,13 @@ public class Intersection {
     	return neighbors;
     }
 
+    public void addOutboundSegment(Segment segment) {
+    	this.outboundSegments.add(segment);
+    }
     
+    public void removeOutboundSegment(Segment segment) {
+    	this.outboundSegments.remove(segment);
+    }
     
 	@Override
 	public String toString() {
