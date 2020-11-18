@@ -1,6 +1,6 @@
 package modele;
 
-mport java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Request {
 	private ArrayList<Intersection> pickUpLocations;
