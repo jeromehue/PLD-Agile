@@ -52,7 +52,7 @@ public class Intersection {
 		this.longitude = longitude;
 	}
 	
-	public double getId() {
+	public Long getId() {
 		return id;
 	}
 
