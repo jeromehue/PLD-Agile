@@ -1,24 +1,37 @@
 package modele;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Intersection {
 
 
-    private Long Id;
+    private Long id;
     private double latitude;
     private double longitude;
+    private ArrayList<Segment> outboundSegments;
 
-    public Intersection(Long Id, double latitude, double longitude) {
+    public Intersection(Long Id, double latitude, double longitude, ArrayList<Segment> segments) {
 
-        this.Id = Id;
+        this.id = Id;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.outboundSegments = new ArrayList<Segment>(segments);
+    }
+    
+    public List<Intersection> getNeighbors() {
+    	ArrayList<Intersection> neighbors = new ArrayList<Intersection>();
+    	for(Segment seg : outboundSegments) {
+    		neighbors.add(seg.getDestination());
+    	}
+    	return neighbors;
     }
 
     
     
 	@Override
 	public String toString() {
-		return "Intersection [Id=" + Id + ", latitude=" + latitude + ", longitude=" + longitude + "]";
+		return "Intersection [Id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + "]";
 	}
 
 
@@ -37,6 +50,10 @@ public class Intersection {
 
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
+	}
+	
+	public double getId() {
+		return id;
 	}
 
 
