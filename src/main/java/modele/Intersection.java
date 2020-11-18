@@ -52,6 +52,10 @@ public class Intersection {
 		this.longitude = longitude;
 	}
 	
+	public ArrayList<Segment> getOutboundSegments() {
+		return outboundSegments;
+	}
+
 	public Long getId() {
 		return id;
 	}
