@@ -2,12 +2,12 @@ package modele;
 
 import java.util.ArrayList;
 
-public class Map {
+public class CityMap {
 
 	private ArrayList<Intersection> intersections;
 	private ArrayList<Segment> segments;
 	
-	public Map() {}
+	public CityMap() {}
 	
 	public void addIntersection(Intersection inter) {
 		intersections.add(inter);

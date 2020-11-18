@@ -27,7 +27,13 @@ public class Intersection {
     	return neighbors;
     }
 
+    public void addOutboundSegment(Segment segment) {
+    	this.outboundSegments.add(segment);
+    }
     
+    public void removeOutboundSegment(Segment segment) {
+    	this.outboundSegments.remove(segment);
+    }
     
 	@Override
 	public String toString() {
@@ -52,6 +58,10 @@ public class Intersection {
 		this.longitude = longitude;
 	}
 	
+	public ArrayList<Segment> getOutboundSegments() {
+		return outboundSegments;
+	}
+
 	public Long getId() {
 		return id;
 	}
