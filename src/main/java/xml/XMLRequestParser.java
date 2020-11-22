@@ -16,16 +16,22 @@ import modele.*;
 
 public class XMLRequestParser extends XMLParser {
 
-	public XMLRequestParser (String filename) {
+	public XMLRequestParser(String filename) {
 		super(filename);
 	}
 	
-	public Request parse () /* throws ... */ {
-
+	public Request parse() /* throws ... */ {
+	
 		try {
+			
+			
 		
-		    List<Intersection> intersections =  new ArrayList<Intersection>(); 	
-		    List<Segment> segments = new ArrayList<Segment>();	
+			ArrayList<Long> 		pickUpLocations   	= new ArrayList<>();
+			ArrayList<Long> 		deliveryLocations 	= new ArrayList<>();
+		    Long 					startingLocation	= (long) 0;
+		    String 					startingTime 		= new String();
+		    ArrayList<Integer> 	pickUpDurations   		= new ArrayList<>();
+		    ArrayList<Integer>	deliveryDurations 		= new ArrayList<>();
 		    
 		    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -37,7 +43,7 @@ public class XMLRequestParser extends XMLParser {
 		
 		    System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 		            
-		    NodeList nodes = doc.getElementsByTagName("intersection");
+		    NodeList nodes = doc.getElementsByTagName("depot");
 		            
 		    System.out.println("----------------------------");
 		
@@ -49,43 +55,49 @@ public class XMLRequestParser extends XMLParser {
 		
 		            Element element = (Element) node;
 		            
-		            Intersection intersection = new Intersection(
-			            Long.parseLong(element.getAttribute("id")),
-			            Double.parseDouble((element.getAttribute("latitude"))), 
-			            Double.parseDouble(element.getAttribute("longitude")),
-			            new ArrayList<Segment>()
-		            );
-		            
-		            intersections.add(intersection);
+		            System.out.println(element.getAttribute("address"));
+		            System.out.println(element.getAttribute("departureTime"));
+		            startingLocation  = Long.parseLong(element.getAttribute("address"));
+		            startingTime = element.getAttribute("departureTime");
 		        }
 		    }
-		
-		    nodes = doc.getElementsByTagName("segment");
-		
-		    for (int i = 0; i < nodes.getLength(); ++i) {
-		
-		        Node node = nodes.item(i);
-		                
-		        if (node.getNodeType() == Node.ELEMENT_NODE) {
-		
-		            Element element = (Element) node;
+		    
+		    nodes = doc.getElementsByTagName("request"); 
+		    
+		    for (int i=0; i < nodes.getLength(); ++i){
+		    	
+		    	Node node = nodes.item(i);
+		    	
+		        if (node.getNodeType() == Node.ELEMENT_NODE) { 
+		        	
+		        	Element element = (Element) node;
+		        	
+		        	System.out.println(element.getAttribute("pickupAddress"));
+		            System.out.println(element.getAttribute("deliveryAddress"));
+		            System.out.println(element.getAttribute("pickupDuration"));
+		            System.out.println(element.getAttribute("deliveryDuration"));
+		            pickUpLocations.add(Long.parseLong(element.getAttribute("pickupAddress")));
+		            deliveryLocations.add(Long.parseLong(element.getAttribute("deliveryAddress")));
+		            pickUpDurations.add(Integer.parseInt(element.getAttribute("pickupDuration")));
+		            deliveryDurations.add(Integer.parseInt(element.getAttribute("deliveryDuration")));
 		            
-		            Segment segment = new Segment(
-		            	Double.parseDouble(element.getAttribute("length")),
-						(element.getAttribute("name")), 
-						Long.parseLong(element.getAttribute("destination")),
-						Long.parseLong(element.getAttribute("origin"))
-					);
-
-					segments.add(segment);
-		
 		        }
+		    	
+	            
+		    	
 		    }
-
-    
+		
+		    Request r = new Request(startingLocation, startingTime, pickUpDurations,
+					 deliveryDurations,  pickUpLocations,  deliveryLocations);
+		    return (r);
+		    
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return (new Request());
+		
+		
+		
 	}
 
 }
