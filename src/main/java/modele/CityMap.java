@@ -1,6 +1,7 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class CityMap {
 
@@ -23,6 +24,13 @@ public class CityMap {
 
 	public ArrayList<Segment> getSegments() {
 		return segments;
+	}
+	
+	/**
+	 * @return an iterator on all Segments in the CityMap
+	 */
+	public Iterator<Segment> getShapeIterator(){
+		return segments.iterator();
 	}
 	
 	
