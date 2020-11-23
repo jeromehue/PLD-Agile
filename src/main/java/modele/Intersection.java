@@ -16,7 +16,14 @@ public class Intersection {
         this.id = Id;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.outboundSegments = new ArrayList<Segment>(segments);
+        if(segments != null) {
+        	this.outboundSegments = new ArrayList<Segment>(segments);
+        }
+        else
+        {
+        	this.outboundSegments = new ArrayList<Segment>();
+        }
+        
     }
     
     public List<Long> getNeighbors() {

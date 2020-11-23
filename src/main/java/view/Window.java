@@ -64,7 +64,7 @@ public class Window extends JFrame{
     {
         messageFrame = new JLabel();
 		messageFrame.setBorder(BorderFactory.createTitledBorder("Messages"));
-        messageFrame.setPreferredSize(new Dimension(50,100));
+        messageFrame.setPreferredSize(new Dimension(50,150));
         return messageFrame;
     } 
 }
