@@ -26,8 +26,8 @@ public class Intersection {
         
     }
     
-    public List<Long> getNeighbors() {
-    	ArrayList<Long> neighbors = new ArrayList<Long>();
+    public List<Intersection> getNeighbors() {
+    	ArrayList<Intersection> neighbors = new ArrayList<Intersection>();
     	for(Segment seg : outboundSegments) {
     		neighbors.add(seg.getDestination());
     	}
