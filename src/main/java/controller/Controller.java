@@ -8,6 +8,6 @@ public class Controller {
 	private Window window;
 	
 	public Controller() {
-		window = new Window();
+		window = new Window(this);
 	}
 }

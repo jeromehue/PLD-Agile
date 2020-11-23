@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import controller.Controller;
 
-public class ButtonListener {
+public class ButtonListener  implements ActionListener  {
 
 	private Controller controler;
 	

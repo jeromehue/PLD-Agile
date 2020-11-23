@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 
+import controller.Controller;
+
 public class Window extends JFrame{
 
 	private static final long serialVersionUID = 1L;
@@ -17,8 +19,11 @@ public class Window extends JFrame{
 	private TextualView textualView;
 	private JLabel messageFrame;
     private JToolBar toolBar;
+    
+    //Listeners 
+    private ButtonListener buttonListener;
 
-    public Window(){
+    public Window(Controller controller){
         super( "Hubert If");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1000,1000);
@@ -30,7 +35,7 @@ public class Window extends JFrame{
         messageFrame = createMessageFrame();
         contentPane.add(messageFrame,BorderLayout.SOUTH);
 
-        toolBar = createToolBar();
+        toolBar = createToolBar(controller);
         contentPane.add(toolBar,BorderLayout.NORTH);
         
         textualView = new TextualView();
@@ -43,12 +48,14 @@ public class Window extends JFrame{
 
     }
 
-    JToolBar createToolBar()
+    JToolBar createToolBar(Controller controller)
     {
         JToolBar toolBar = new JToolBar();
         toolBar.setPreferredSize(new Dimension(100,30));
 
         JButton loadMapButton = new JButton("Charger une carte");
+        buttonListener = new ButtonListener(controller);
+        loadMapButton.addActionListener(buttonListener);
         toolBar.add(loadMapButton);
 
         JButton loadRequestsButton = new JButton("Charger des requêtes");
