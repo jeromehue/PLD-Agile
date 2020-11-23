@@ -1,29 +1,39 @@
 package tsp;
 
+import java.util.List;
+import java.util.HashMap;
+
+import modele.Intersection;
+import pcc.IntersectionPcc;
+
 public class CompleteGraph implements Graph {
-	private static final int MAX_COST = 40;
-	private static final int MIN_COST = 10;
-	int nbVertices;
-	int[][] cost;
+	private int nbVertices;
+	private double[][] costsMatrix;
+	private HashMap<Long, Integer> index; // Id d'intersection, index dans le tableau de couts
 	
 	/**
 	 * Create a complete directed graph such that each edge has a weight within [MIN_COST,MAX_COST]
 	 * @param nbVertices
 	 */
-	public CompleteGraph(int nbVertices){
-		this.nbVertices = nbVertices;
-		int iseed = 1;
-		cost = new int[nbVertices][nbVertices];
-		for (int i=0; i<nbVertices; i++){
-		    for (int j=0; j<nbVertices; j++){
-		        if (i == j) cost[i][j] = -1;
-		        else {
-		            int it = 16807 * (iseed % 127773) - 2836 * (iseed / 127773);
-		            if (it > 0)	iseed = it;
-		            else iseed = 2147483647 + it;
-		            cost[i][j] = MIN_COST + iseed % (MAX_COST-MIN_COST+1);
-		        }
-		    }
+	public CompleteGraph(List<Intersection> startVertexes){
+		this.nbVertices = startVertexes.size();
+		index = new HashMap<Long, Integer>();
+		
+		this.costsMatrix = new double[nbVertices][nbVertices];
+		for(int i = 0 ; i < nbVertices ; ++i) {
+			Intersection inter = startVertexes.get(i);
+			index.put(inter.getId(), i); // initialisation de index
+
+			for(int j = 0 ; j < nbVertices ; ++j) {
+				costsMatrix[i][j] = 0.0;
+			}
+		}
+	}
+	
+	public void updateCompleteGraph(Long startId, HashMap<Long, IntersectionPcc> costs) {
+		Integer startIndex = index.get(startId);
+		for(HashMap.Entry<Long, IntersectionPcc> inter : costs.entrySet()) {
+			costsMatrix[startIndex][index.get(inter.getKey())] = inter.getValue().getCost();
 		}
 	}
 
@@ -33,10 +43,10 @@ public class CompleteGraph implements Graph {
 	}
 
 	@Override
-	public int getCost(int i, int j) {
+	public double getCost(int i, int j) {
 		if (i<0 || i>=nbVertices || j<0 || j>=nbVertices)
 			return -1;
-		return cost[i][j];
+		return costsMatrix[i][j];
 	}
 
 	@Override
@@ -44,6 +54,22 @@ public class CompleteGraph implements Graph {
 		if (i<0 || i>=nbVertices || j<0 || j>=nbVertices)
 			return false;
 		return i != j;
+	}
+	
+	@Override
+	public String toString() {
+		String ret = "";
+		for(int i = 0 ; i < nbVertices ; ++i) {
+			ret += "Cout pour aller de " + i + " a :\n";
+			for(int j = 0 ; j < nbVertices ; ++j) {
+				if(costsMatrix[i][j] == Long.MAX_VALUE) {
+					ret += j + " = Unreachable\n";
+				} else {
+					ret += j + " = " + costsMatrix[i][j] + "\n";
+				}
+			}
+		}
+		return ret;
 	}
 
 }
