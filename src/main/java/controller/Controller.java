@@ -20,8 +20,8 @@ public class Controller {
 		currentState = initState;
 	}
 	
-	public void loadMap() {
-		currentState.loadMap(this, this.window);
+	public void loadMap(String path) {
+		currentState.loadMap(this, this.window, path);
 	}
 
 }

@@ -3,6 +3,8 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFileChooser;
+
 import controller.Controller;
 
 public class ButtonListener  implements ActionListener  {
@@ -18,9 +20,18 @@ public class ButtonListener  implements ActionListener  {
 		// Envoi au controleur du message correspondant au bouton clique
 		switch (e.getActionCommand()){
 			default: 	System.out.println("Action performed from " + e.getActionCommand());
-						controller.loadMap();
+						final JFileChooser fc = new JFileChooser();
+						int returnVal = fc.showOpenDialog(null);
+						String absPath = "";
+				        if(returnVal == JFileChooser.APPROVE_OPTION) {
+				            System.out.println("You chose to open this file: " +
+				                    fc.getSelectedFile().getAbsolutePath()) ;
+				            absPath = fc.getSelectedFile().getAbsolutePath();
+				        }
+						controller.loadMap(absPath);
 						break;
 		}
 	}
 
 }
+	
