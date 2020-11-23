@@ -12,7 +12,7 @@ public class InitState implements State {
 		System.out.println("Affichage de la carte normalement");
 		XMLCityMapParser p = new XMLCityMapParser("src/main/resources/largeMap.xml");
 		CityMap cityMap = p.parse();
-		c.setCityMap(cityMap);
+
 		w.graphicalView.setCityMap(cityMap);
 	}
 	
