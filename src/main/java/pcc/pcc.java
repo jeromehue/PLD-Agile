@@ -69,7 +69,7 @@ public class pcc {
 		
 		List<Intersection> startVertexes = new ArrayList<Intersection>();
 		startVertexes.add(inter1);
-		startVertexes.add(inter2);
+		startVertexes.add(inter4);
 		List<Intersection> allVertexes = new ArrayList<Intersection>();
 		allVertexes.add(inter1);
 		allVertexes.add(inter2);
@@ -116,20 +116,6 @@ public class pcc {
 			
 			while(!greyVertexes.isEmpty() && !allBlackStartVertexes) {
 				
-				//On met à jour la condition de fin
-				i++;
-				if(i==END_TEST_CYCLE) {//Pour ne pas tester trop souvent
-					i=0;
-					nbBlackStartVertexes=0;
-					for(Intersection sVertex : startVertexes ) {
-						if(allVertexesPcc.get(sVertex.getId()).getColor() == 2) {
-							nbBlackStartVertexes++;
-						}
-					}
-					if(nbBlackStartVertexes == startVertexes.size()) {
-						allBlackStartVertexes = true;
-					}
-				}
 				
 				minVertex = greyVertexes.poll();//On prend l'intersection grise 
 											    //avec un cout minimal
@@ -158,7 +144,23 @@ public class pcc {
 				///On colorie l'intersection en noir quand elle n'a plus de voisins gris ou blancs
 				minVertex.setColor(2);
 				allVertexesPcc.put(minVertex.getId(), minVertex);
-			}
+
+				//On met à jour la condition de fin
+				i++;
+				if(i==END_TEST_CYCLE) {//Pour ne pas tester trop souvent
+					i=0;
+					nbBlackStartVertexes=0;
+					for(Intersection sVertex : startVertexes ) {
+						if(allVertexesPcc.get(sVertex.getId()).getColor() == 2) {
+							nbBlackStartVertexes++;
+						}
+					}
+					if(nbBlackStartVertexes == startVertexes.size()) {
+						allBlackStartVertexes = true;
+					}
+				}
+			}//Fin while
+			
 			//sauvegarder le résultat obtenu pour un des points de départ
 			for(Long idInter : allVertexesPcc.keySet()) {
 				IntersectionPcc inter = allVertexesPcc.get(idInter);
