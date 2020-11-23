@@ -2,17 +2,20 @@ package modele;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class CityMap {
 
-	private ArrayList<Intersection> intersections;
-	private ArrayList<Segment> segments;
+	private List<Intersection> intersections;
+	private List<Segment> segments;
 	private double minLatitude;
 	private double minLongitude;
 	private double maxLatitude;
 	private double maxLongitude;
 	
-	public CityMap() {
+	public CityMap(List<Intersection> intersections, List<Segment> segments) {
+		this.intersections = intersections;
+		this.segments = segments;
 		findMinMax();
 	}
 	
@@ -24,18 +27,18 @@ public class CityMap {
 		segments.add(seg);
 	}
 
-	public ArrayList<Intersection> getIntersections() {
+	public List<Intersection> getIntersections() {
 		return intersections;
 	}
 
-	public ArrayList<Segment> getSegments() {
+	public List<Segment> getSegments() {
 		return segments;
 	}
 	
 	/**
 	 * @return an iterator on all Segments in the CityMap
 	 */
-	public Iterator<Segment> getShapeIterator(){
+	public Iterator<Segment> getSegementsIterator(){
 		return segments.iterator();
 	}
 	

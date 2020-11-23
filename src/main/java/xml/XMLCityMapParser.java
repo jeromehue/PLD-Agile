@@ -22,11 +22,12 @@ public class XMLCityMapParser extends XMLParser {
 	}
 	
 	public CityMap parse() /* throws ... */ {
-		
+
+		List<Intersection> intersections =  new ArrayList<>(); 	
+	    List<Segment> segments = new ArrayList<>();
+	    
 		try {
 
-			List<Intersection> intersections =  new ArrayList<>(); 	
-		    List<Segment> segments = new ArrayList<>();
 		    HashMap<Long, Intersection> mapIntersections = new HashMap<>();
 		    
 		    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -88,8 +89,8 @@ public class XMLCityMapParser extends XMLParser {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return new CityMap();
+
+		return new CityMap(intersections, segments);
 	}
 
 }
