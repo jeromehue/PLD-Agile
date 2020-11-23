@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import modele.CityMap;
 import modele.Intersection;
 import modele.Segment;
+import xml.XMLCityMapParser;
+import xml.XMLRequestParser;
 
 public class GraphicalView extends JPanel{
 
@@ -29,6 +31,9 @@ public class GraphicalView extends JPanel{
 		minLatitude = 3;
 		this.setBorder(BorderFactory.createTitledBorder("Vue Graphique"));
 		this.setLayout(null);
+
+		XMLCityMapParser p = new XMLCityMapParser("src/main/resources/smallMap.xml");
+		cityMap = p.parse();
 	}
 	
 	/**
