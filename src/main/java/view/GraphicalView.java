@@ -2,17 +2,13 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import modele.CityMap;
-import modele.Intersection;
 import modele.Segment;
-import xml.XMLCityMapParser;
-import xml.XMLRequestParser;
 
 public class GraphicalView extends JPanel{
 
@@ -20,7 +16,7 @@ public class GraphicalView extends JPanel{
 	
 	private CityMap cityMap;
 
-	public GraphicalView() {
+	public GraphicalView(CityMap cityMap) {
 		super();
 		/*maxLongitude = 20;
 		minLongitude = 10;
@@ -28,9 +24,7 @@ public class GraphicalView extends JPanel{
 		minLatitude = 3;*/
 		this.setBorder(BorderFactory.createTitledBorder("Vue Graphique"));
 		this.setLayout(null);
-
-		XMLCityMapParser p = new XMLCityMapParser("src/main/resources/largeMap.xml");
-		cityMap = p.parse();
+		this.cityMap=cityMap;
 	}
 	
 	/**

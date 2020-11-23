@@ -41,7 +41,7 @@ public class Window extends JFrame{
         textualView = new TextualView();
         contentPane.add(textualView,BorderLayout.WEST);
         
-        graphicalView = new GraphicalView();
+        graphicalView = new GraphicalView(controller.getCityMap());
         contentPane.add(graphicalView,BorderLayout.CENTER);
 
         setVisible(true);
