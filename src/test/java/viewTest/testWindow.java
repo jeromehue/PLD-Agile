@@ -1,6 +1,5 @@
 package viewTest;
 
-import view.Window;
 import controller.Controller;
 
 public class testWindow {

@@ -8,11 +8,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import modele.CityMap;
-import modele.Coordinates;
 import modele.Intersection;
 import modele.Request;
 import modele.Segment;
-import xml.XMLRequestParser;
 
 public class GraphicalView extends JPanel{
 
@@ -22,7 +20,10 @@ public class GraphicalView extends JPanel{
 	private Request request;
 
 	
-	
+	public void setRequest(Request request) {
+		this.request = request;
+		this.repaint();
+	}
 	
 	public void setCityMap(CityMap cityMap) {
 		this.cityMap = cityMap;
@@ -33,10 +34,8 @@ public class GraphicalView extends JPanel{
 		super();
 		this.setBorder(BorderFactory.createTitledBorder("Vue Graphique"));
 		this.setLayout(null);
-		this.cityMap=cityMap;
-		XMLRequestParser p = new XMLRequestParser("src/main/resources/requestsLarge.xml");
-		request = p.parse();
-		
+		this.cityMap = cityMap;
+		this.request = null;
 	}
 	
 	/**
@@ -49,41 +48,41 @@ public class GraphicalView extends JPanel{
 		// draw white background
 		graphics.setColor(Color.white);
 		graphics.fillRect(0, 0, getWidth(), getHeight());
-	
+		
+		//draw the cityMap
 		if(cityMap != null) {
-			//draw the cityMap
-			graphics.setColor(Color.black);
-			Iterator<Segment> itSegements = cityMap.getSegementsIterator();
-			while(itSegements.hasNext())
+			drawCityMap(graphics);
+		}
+		
+		//draw the request
+		if(request != null)
+		{
+			graphics.setColor(Color.blue);
+			Long pickUpAdress;
+			Iterator<Long> itPickUpLocations = request.getPickUpLocationsIterator();
+			while(itPickUpLocations.hasNext())
 			{
-				drawSegement(graphics,itSegements.next());
+				pickUpAdress = itPickUpLocations.next();
+				Intersection intersectionToDraw = cityMap.getCoordinatesFromAddress(pickUpAdress);
+				if (intersectionToDraw != null)
+				{
+					drawIntersection(graphics, intersectionToDraw);
+				}
+			}
+			
+			graphics.setColor(Color.green);
+			Long deliveryAdress;
+			Iterator<Long> itDeliveryLocations = request.getDeliveryLocationsIterator();
+			while(itDeliveryLocations.hasNext())
+			{
+				deliveryAdress = itDeliveryLocations.next();
+				Intersection intersectionToDraw = cityMap.getCoordinatesFromAddress(deliveryAdress);
+				if (intersectionToDraw != null)
+				{
+					drawIntersection(graphics, intersectionToDraw);
+				}
 			}
 		}
-		//draw request
-		/*Coordinates coordinates;
-		for(Long l :  request.getDeliveryLocations())
-		{
-			coordinates = cityMap.getCoordinatesFromAddress(l);
-			if (coordinates !=null)
-			{
-				graphics.setColor(Color.red);
-				graphics.fillOval(latitudeToPixel(coordinates.latitude)-5, longitudeToPixel(coordinates.longitude)-5, 10, 10);
-
-			}
-			else
-			{
-				graphics.setColor(Color.blue);
-				graphics.fillRect(0, 0, getWidth(), getHeight());
-			}
-		}*/
-	}
-
-	private void drawSegement(Graphics graphics, Segment s) {
-		graphics.drawLine(latitudeToPixel(s.getOrigin().getLatitude()),
-						  longitudeToPixel(s.getOrigin().getLongitude()),
-						  latitudeToPixel(s.getDestination().getLatitude()),
-						  longitudeToPixel(s.getDestination().getLongitude())
-		);
 	}
 	
 	private int longitudeToPixel(double longitude ) {
@@ -93,8 +92,30 @@ public class GraphicalView extends JPanel{
 	private int latitudeToPixel(double latitude ) {
 		return (int)((double)getWidth() * ( cityMap.getMaxLatitude() - latitude) / (cityMap.getMaxLatitude() - cityMap.getMinLatitude()));
 	}
-	private void drawSteps () {
-		
+	
+	private void drawCityMap(Graphics graphics) {
+		graphics.setColor(Color.black);
+		Iterator<Segment> itSegements = cityMap.getSegementsIterator();
+		while(itSegements.hasNext())
+		{
+			drawSegement(graphics,itSegements.next());
+		}	
+	}
+	
+	private void drawIntersection(Graphics graphics, Intersection intersection){
+		graphics.drawString("(" + intersection.getId() + ")", 
+				latitudeToPixel(intersection.getLatitude()) + 5, 
+				longitudeToPixel(intersection.getLongitude()) - 10 );
+		graphics.fillOval(latitudeToPixel(intersection.getLatitude())-5, 
+				          longitudeToPixel(intersection.getLongitude())-5, 10, 10);
+	}
+
+	private void drawSegement(Graphics graphics, Segment s) {
+		graphics.drawLine(latitudeToPixel(s.getOrigin().getLatitude()),
+						  longitudeToPixel(s.getOrigin().getLongitude()),
+						  latitudeToPixel(s.getDestination().getLatitude()),
+						  longitudeToPixel(s.getDestination().getLongitude())
+		);
 	}
 	
 }

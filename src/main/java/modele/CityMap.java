@@ -2,7 +2,6 @@ package modele;
 
 import java.util.Iterator;
 import java.util.List;
-import modele.Coordinates;
 
 public class CityMap {
 
@@ -86,15 +85,14 @@ public class CityMap {
 			}
 		}
 	}
-	public Coordinates getCoordinatesFromAddress(Long address) {
-		for(Intersection i: intersections)
+	public Intersection getCoordinatesFromAddress(Long address) {
+		for(Intersection intersection : intersections)
 		{
-			if (i.getId()==address) 
+			if(address.equals(intersection.getId())) 
 			{
-				return new Coordinates (i.getLatitude(), i.getLongitude());
+				return intersection;
 			}
 		}
-		return null;
-		
+		return null;	
 	}
 }
