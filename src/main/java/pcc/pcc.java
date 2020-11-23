@@ -38,27 +38,25 @@ public class pcc {
 		Intersection inter4 = new Intersection(new Long(4), 2.0, 2.0, l1);
 		Intersection inter5 = new Intersection(new Long(5), 3.0, 2.0, l1);
 		Intersection inter6 = new Intersection(new Long(6), 3.0, 1.0, l1);
-		Segment s1 = new Segment(1.0, "", inter1, inter2);
-		Segment s2 = new Segment(2.0, "", inter2, inter4);
-		Segment s3 = new Segment(3.0, "", inter1, inter3);
-		Segment s4 = new Segment(4.0, "", inter3, inter4);
-		Segment s5 = new Segment(5.0, "", inter4, inter5);
-		Segment s6 = new Segment(6.0, "", inter3, inter6);
-		Segment s7 = new Segment(7.0, "", inter5, inter6);		
-		inter1.addOutboundSegment(s1);
-		inter1.addOutboundSegment(s3);
-		inter2.addOutboundSegment(s1);
-		inter2.addOutboundSegment(s2);
-		inter3.addOutboundSegment(s3);
-		inter3.addOutboundSegment(s4);
-		inter3.addOutboundSegment(s6);
-		inter4.addOutboundSegment(s2);
-		inter4.addOutboundSegment(s4);
-		inter4.addOutboundSegment(s5);
-		inter5.addOutboundSegment(s5);
-		inter5.addOutboundSegment(s7);
-		inter6.addOutboundSegment(s6);
-		inter6.addOutboundSegment(s7);
+		Segment s12 = new Segment(1.0, "", inter1, inter2);
+		Segment s24 = new Segment(2.0, "", inter2, inter4);
+		Segment s13 = new Segment(5.0, "", inter1, inter3);
+		Segment s34 = new Segment(1.0, "", inter3, inter4);
+		Segment s43 = new Segment(1.0, "", inter4, inter3);
+		Segment s45 = new Segment(2.0, "", inter4, inter5);
+		Segment s36 = new Segment(10.0, "", inter3, inter6);
+		Segment s56 = new Segment(5.0, "", inter5, inter6);	
+		Segment s65 = new Segment(5.0, "", inter6, inter5);		
+		
+		inter1.addOutboundSegment(s12);
+		inter1.addOutboundSegment(s13);
+		inter2.addOutboundSegment(s24);
+		inter3.addOutboundSegment(s34);
+		inter3.addOutboundSegment(s36);
+		inter4.addOutboundSegment(s43);
+		inter4.addOutboundSegment(s45);
+		inter5.addOutboundSegment(s56);
+		inter6.addOutboundSegment(s65);
 		
 		
 		List<Intersection> startVertexes = new ArrayList<Intersection>();
@@ -109,8 +107,10 @@ public class pcc {
 					neighbor = allVertexesPcc.get(s.getDestination().getId());
 					if(neighbor.getColor() == 0 || neighbor.getColor()== 1) {//Si le voisin est blanc ou gris
 						//relacher (minVertex, voisin, predecesseur, cout) : 
+						System.out.println("On relache "+minVertex.getId()+" et "+neighbor.getId());
+
 						if( minVertex.getCost() + s.getLength() < neighbor.getCost() ) {
-							System.out.println("On relache "+minVertex.getId()+" et "+neighbor.getId());
+							System.out.println("On met a jour "+minVertex.getId()+" et "+neighbor.getId());
 							neighbor.setCost( minVertex.getCost() + s.getLength() );
 							predecesors.put(neighbor.getId(), minVertex.getId());
 						}
