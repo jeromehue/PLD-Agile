@@ -17,7 +17,8 @@ public class RunTSP {
 			System.out.println("0");
 		}*/
 		
-		Pcc unPcc = new Pcc();			
+		Pcc unPcc = new Pcc();
+		System.out.println(unPcc.init().toString());
 	}
 
 }
