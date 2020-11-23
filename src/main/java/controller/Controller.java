@@ -14,14 +14,14 @@ public class Controller {
 	protected final InitState initState = new InitState();
 	
 	public Controller() {
-		XMLCityMapParser p = new XMLCityMapParser("src/main/resources/largeMap.xml");
-		cityMap = p.parse();
+		//XMLCityMapParser p = new XMLCityMapParser("src/main/resources/largeMap.xml");
+		//cityMap = p.parse();
 		window = new Window(this);
 		currentState = initState;
 	}
 	
 	public void loadMap() {
-		currentState.loadMap(this.window);
+		currentState.loadMap(this, this.window);
 	}
 	public void setCityMap(CityMap cityMap) {
 		this.cityMap = cityMap;

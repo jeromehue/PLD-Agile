@@ -16,6 +16,14 @@ public class GraphicalView extends JPanel{
 	
 	private CityMap cityMap;
 
+	
+	
+	
+	public void setCityMap(CityMap cityMap) {
+		this.cityMap = cityMap;
+		this.repaint();
+	}
+
 	public GraphicalView(CityMap cityMap) {
 		super();
 		/*maxLongitude = 20;
@@ -38,12 +46,14 @@ public class GraphicalView extends JPanel{
 		graphics.setColor(Color.white);
 		graphics.fillRect(0, 0, getWidth(), getHeight());
 	
-		//draw the cityMap
-		graphics.setColor(Color.black);
-		Iterator<Segment> itSegements = cityMap.getSegementsIterator();
-		while(itSegements.hasNext())
-		{
-			drawSegement(graphics,itSegements.next());
+		if(cityMap != null) {
+			//draw the cityMap
+			graphics.setColor(Color.black);
+			Iterator<Segment> itSegements = cityMap.getSegementsIterator();
+			while(itSegements.hasNext())
+			{
+				drawSegement(graphics,itSegements.next());
+			}
 		}
 	}
 
