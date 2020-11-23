@@ -15,13 +15,13 @@ public class CompleteGraph implements Graph {
 	 * Create a complete directed graph such that each edge has a weight within [MIN_COST,MAX_COST]
 	 * @param nbVertices
 	 */
-	public CompleteGraph(List<Intersection> startVertexes){
-		this.nbVertices = startVertexes.size();
+	public CompleteGraph(List<Intersection> startVertices){
+		this.nbVertices = startVertices.size();
 		index = new HashMap<Long, Integer>();
 		
 		this.costsMatrix = new double[nbVertices][nbVertices];
 		for(int i = 0 ; i < nbVertices ; ++i) {
-			Intersection inter = startVertexes.get(i);
+			Intersection inter = startVertices.get(i);
 			index.put(inter.getId(), i); // initialisation de index
 
 			for(int j = 0 ; j < nbVertices ; ++j) {

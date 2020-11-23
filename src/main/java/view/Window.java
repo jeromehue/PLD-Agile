@@ -22,6 +22,13 @@ public class Window extends JFrame{
     
     //Listeners 
     private ButtonListener buttonListener;
+    
+    //Buttons titles
+    protected final static String LOAD_MAP = "Charger une carte";
+    protected final static String LOAD_REQUEST = "Charger des requêtes";
+    protected final static String COMPUTE_TOUR = "Calculer la tournée";
+    
+    
 
     public Window(Controller controller){
         super( "Hubert If");
@@ -53,15 +60,15 @@ public class Window extends JFrame{
         JToolBar toolBar = new JToolBar();
         toolBar.setPreferredSize(new Dimension(100,30));
 
-        JButton loadMapButton = new JButton("Charger une carte");
+        JButton loadMapButton = new JButton(LOAD_MAP);
         buttonListener = new ButtonListener(controller);
         loadMapButton.addActionListener(buttonListener);
         toolBar.add(loadMapButton);
 
-        JButton loadRequestsButton = new JButton("Charger des requêtes");
+        JButton loadRequestsButton = new JButton(LOAD_REQUEST);
         toolBar.add(loadRequestsButton);
 
-        JButton calcuateTourButton = new JButton("Calculer la tournée");
+        JButton calcuateTourButton = new JButton(COMPUTE_TOUR);
         toolBar.add(calcuateTourButton);
 
         return toolBar;
