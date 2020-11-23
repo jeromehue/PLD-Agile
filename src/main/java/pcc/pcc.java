@@ -124,6 +124,8 @@ public class pcc {
 				
 				greyVertexes.remove(minVertex.getId());//On enlève l'intersection quand elle n'a plus de voisins
 												//gris ou blancs -> (on la colorie en boir)
+				minVertex.setColor(2);
+				allVertexesPcc.put(minVertex.getId(), minVertex);
 			}
 			//sauvegarder le résultat obtenu pour un des points de départ
 			for(Long idInter : allVertexesPcc.keySet()) {
