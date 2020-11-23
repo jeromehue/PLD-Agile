@@ -23,8 +23,5 @@ public class Controller {
 	public void loadMap() {
 		currentState.loadMap(this.window);
 	}
-	public void setCityMap(CityMap cityMap) {
-		this.cityMap = cityMap;
-	}
 
 }
