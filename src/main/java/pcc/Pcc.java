@@ -18,7 +18,9 @@ public class Pcc {
 		cityMap = city;
 		this.request = request;
 	}
-	public Pcc() {
+	public Pcc() {};
+	
+	public CompleteGraph init() {
 		ArrayList<Segment> l1 = new ArrayList<>();
 		Intersection inter1 = new Intersection(new Long(1), 1.0, 1.0, l1);
 		Intersection inter2 = new Intersection(new Long(2), 1.0, 2.0, l1);
@@ -70,7 +72,7 @@ public class Pcc {
 		allVertexes.add(inter4);
 		allVertexes.add(inter5);
 		allVertexes.add(inter6);
-		computePcc(allVertexes, startVertexes);
+		return computePcc(allVertexes, startVertexes);
 	}
 	
 	public CompleteGraph computePcc(List<Intersection> allVertexes, List<Intersection> startVertexes) {
