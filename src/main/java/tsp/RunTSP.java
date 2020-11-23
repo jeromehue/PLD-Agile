@@ -1,6 +1,6 @@
 package tsp;
 
-import pcc.pcc;
+import pcc.Pcc;
 
 public class RunTSP {
 	public static void main(String[] args) {
@@ -17,9 +17,7 @@ public class RunTSP {
 			System.out.println("0");
 		}*/
 		
-		pcc unPcc = new pcc();
-		unPcc.calculPcc();
-			
+		Pcc unPcc = new Pcc();			
 	}
 
 }

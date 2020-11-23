@@ -10,29 +10,15 @@ import java.util.PriorityQueue;
 import java.util.HashMap;
 import java.lang.Math;
 
-public class pcc {
+public class Pcc {
 	private CityMap cityMap;
 	private Request request;
 	
-	public pcc(CityMap city , Request request ){
+	public Pcc(CityMap city , Request request ){
 		cityMap = city;
+		this.request = request;
 	}
-	public pcc() {};
-	
-	public CompleteGraph calculPcc() {
-		//Pbm parce que request.get... renvoie un long (id de l'intersection)
-		// au lieu de l'intersection...
-		/* Commentaires pour tester l'algo
-		List<Intersection> startVertexes = cityMap.getIntersectionsById(request.getDeliveryLocations());
-		startVertexes.addAll(request.getPickUpLocations());
-		startVertexes.addAll(request.getStartingLocation());
-
-		List<Intersection> allVertexes = cityMap.getIntersections();
-		 */
-		
-		//TESTS
-		CompleteGraph graph;
-		
+	public Pcc() {
 		ArrayList<Segment> l1 = new ArrayList<>();
 		Intersection inter1 = new Intersection(new Long(1), 1.0, 1.0, l1);
 		Intersection inter2 = new Intersection(new Long(2), 1.0, 2.0, l1);
@@ -85,8 +71,22 @@ public class pcc {
 		allVertexes.add(inter4);
 		allVertexes.add(inter5);
 		allVertexes.add(inter6);
+		computePcc(allVertexes, startVertexes);
+	}
+	
+	public CompleteGraph computePcc(List<Intersection> allVertexes, List<Intersection> startVertexes) {
+		//Pbm parce que request.get... renvoie un long (id de l'intersection)
+		// au lieu de l'intersection...
+		/* Commentaires pour tester l'algo
+		List<Intersection> startVertexes = cityMap.getIntersectionsById(request.getDeliveryLocations());
+		startVertexes.addAll(request.getPickUpLocations());
+		startVertexes.addAll(request.getStartingLocation());
+
+		List<Intersection> allVertexes = cityMap.getIntersections();
+		 */
 		
-		graph = new CompleteGraph(allVertexes);
+		//TESTS
+		CompleteGraph graph = new CompleteGraph(allVertexes);
 		
 		final int END_TEST_CYCLE = 1;
 		boolean allBlackStartVertexes=false;	
