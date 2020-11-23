@@ -38,7 +38,7 @@ public class CityMap {
 	/**
 	 * @return an iterator on all Segments in the CityMap
 	 */
-	public Iterator<Segment> getShapeIterator(){
+	public Iterator<Segment> getSegementsIterator(){
 		return segments.iterator();
 	}
 	
