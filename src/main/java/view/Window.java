@@ -25,6 +25,9 @@ public class Window extends JFrame{
     
     //Buttons titles
     protected final static String LOAD_MAP = "Charger une carte";
+    protected final static String LOAD_REQUEST = "Charger des requêtes";
+    protected final static String COMPUTE_TOUR = "Calculer la tournée";
+    
     
 
     public Window(Controller controller){
@@ -62,10 +65,10 @@ public class Window extends JFrame{
         loadMapButton.addActionListener(buttonListener);
         toolBar.add(loadMapButton);
 
-        JButton loadRequestsButton = new JButton("Charger des requêtes");
+        JButton loadRequestsButton = new JButton(LOAD_REQUEST);
         toolBar.add(loadRequestsButton);
 
-        JButton calcuateTourButton = new JButton("Calculer la tournée");
+        JButton calcuateTourButton = new JButton(COMPUTE_TOUR);
         toolBar.add(calcuateTourButton);
 
         return toolBar;
