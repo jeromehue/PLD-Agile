@@ -85,7 +85,7 @@ public class CityMap {
 			}
 		}
 	}
-	public Intersection getCoordinatesFromAddress(Long address) {
+	public Intersection getIntersectionFromAddress(Long address) {
 		for(Intersection intersection : intersections)
 		{
 			if(address.equals(intersection.getId())) 

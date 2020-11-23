@@ -45,7 +45,7 @@ public class GraphicalView extends JPanel{
 	protected void paintComponent(Graphics graphics) {
 		super.paintComponent(graphics);
 		
-		// draw white background
+		//draw white background
 		graphics.setColor(Color.white);
 		graphics.fillRect(0, 0, getWidth(), getHeight());
 		
@@ -57,31 +57,7 @@ public class GraphicalView extends JPanel{
 		//draw the request
 		if(request != null)
 		{
-			graphics.setColor(Color.blue);
-			Long pickUpAdress;
-			Iterator<Long> itPickUpLocations = request.getPickUpLocationsIterator();
-			while(itPickUpLocations.hasNext())
-			{
-				pickUpAdress = itPickUpLocations.next();
-				Intersection intersectionToDraw = cityMap.getCoordinatesFromAddress(pickUpAdress);
-				if (intersectionToDraw != null)
-				{
-					drawIntersection(graphics, intersectionToDraw);
-				}
-			}
-			
-			graphics.setColor(Color.green);
-			Long deliveryAdress;
-			Iterator<Long> itDeliveryLocations = request.getDeliveryLocationsIterator();
-			while(itDeliveryLocations.hasNext())
-			{
-				deliveryAdress = itDeliveryLocations.next();
-				Intersection intersectionToDraw = cityMap.getCoordinatesFromAddress(deliveryAdress);
-				if (intersectionToDraw != null)
-				{
-					drawIntersection(graphics, intersectionToDraw);
-				}
-			}
+			drawRequest(graphics);
 		}
 	}
 	
@@ -102,11 +78,55 @@ public class GraphicalView extends JPanel{
 		}	
 	}
 	
+	private void drawRequest(Graphics graphics) {
+		//draw start point
+		Long startAdress = request.getStartingLocation();
+		Intersection startIntersection = cityMap.getIntersectionFromAddress(startAdress);
+		drawStartIntersection(graphics, startIntersection);
+		
+		//draw pick up points
+		graphics.setColor(Color.blue);
+		Long pickUpAdress;
+		Iterator<Long> itPickUpLocations = request.getPickUpLocationsIterator();
+		while(itPickUpLocations.hasNext())
+		{
+			pickUpAdress = itPickUpLocations.next();
+			Intersection intersectionToDraw = cityMap.getIntersectionFromAddress(pickUpAdress);
+			if (intersectionToDraw != null)
+			{
+				drawIntersection(graphics, intersectionToDraw);
+			}
+		}
+
+		//draw delivery points
+		graphics.setColor(Color.magenta);
+		Long deliveryAdress;
+		Iterator<Long> itDeliveryLocations = request.getDeliveryLocationsIterator();
+		while(itDeliveryLocations.hasNext())
+		{
+			deliveryAdress = itDeliveryLocations.next();
+			Intersection intersectionToDraw = cityMap.getIntersectionFromAddress(deliveryAdress);
+			if (intersectionToDraw != null)
+			{
+				drawIntersection(graphics, intersectionToDraw);
+			}
+		}
+	}
+	
 	private void drawIntersection(Graphics graphics, Intersection intersection){
 		graphics.drawString("(" + intersection.getId() + ")", 
 				latitudeToPixel(intersection.getLatitude()) + 5, 
 				longitudeToPixel(intersection.getLongitude()) - 10 );
 		graphics.fillOval(latitudeToPixel(intersection.getLatitude())-5, 
+				          longitudeToPixel(intersection.getLongitude())-5, 10, 10);
+	}
+	
+	private void drawStartIntersection(Graphics graphics, Intersection intersection){
+		graphics.setColor(Color.red);
+		graphics.drawString("Start point (" + intersection.getId() + ")", 
+				latitudeToPixel(intersection.getLatitude()) + 5, 
+				longitudeToPixel(intersection.getLongitude()) - 10 );
+		graphics.fillRect(latitudeToPixel(intersection.getLatitude())-5, 
 				          longitudeToPixel(intersection.getLongitude())-5, 10, 10);
 	}
 
