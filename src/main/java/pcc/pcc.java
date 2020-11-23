@@ -40,24 +40,32 @@ public class pcc {
 		Intersection inter4 = new Intersection(new Long(4), 2.0, 2.0, l1);
 		Intersection inter5 = new Intersection(new Long(5), 3.0, 2.0, l1);
 		Intersection inter6 = new Intersection(new Long(6), 3.0, 1.0, l1);
+
+
 		Segment s12 = new Segment(1.0, "", inter1, inter2);
 		Segment s24 = new Segment(2.0, "", inter2, inter4);
+		Segment s21 = new Segment(1.0, "", inter2, inter1);
 		Segment s13 = new Segment(5.0, "", inter1, inter3);
 		Segment s34 = new Segment(1.0, "", inter3, inter4);
 		Segment s43 = new Segment(1.0, "", inter4, inter3);
 		Segment s45 = new Segment(2.0, "", inter4, inter5);
 		Segment s36 = new Segment(10.0, "", inter3, inter6);
+		Segment s32 = new Segment(10.0, "", inter3, inter2);
 		Segment s56 = new Segment(5.0, "", inter5, inter6);	
+		Segment s54 = new Segment(2.0, "", inter5, inter4);	
 		Segment s65 = new Segment(5.0, "", inter6, inter5);		
 		
 		inter1.addOutboundSegment(s12);
 		inter1.addOutboundSegment(s13);
 		inter2.addOutboundSegment(s24);
+		inter2.addOutboundSegment(s21);
 		inter3.addOutboundSegment(s34);
 		inter3.addOutboundSegment(s36);
+		inter3.addOutboundSegment(s32);
 		inter4.addOutboundSegment(s43);
 		inter4.addOutboundSegment(s45);
 		inter5.addOutboundSegment(s56);
+		inter5.addOutboundSegment(s54);
 		inter6.addOutboundSegment(s65);
 		
 		
@@ -78,8 +86,11 @@ public class pcc {
 		allVertexes.add(inter6);
 		
 		graph = new CompleteGraph(allVertexes);
-			
-		HashMap<Long, IntersectionPcc> allVertexesPcc = new HashMap<Long, IntersectionPcc>();;//HashMaps pour retrouver les voisins
+		
+		final int END_TEST_CYCLE = 1;
+		boolean allBlackStartVertexes=false;	
+		HashMap<Long, IntersectionPcc> allVertexesPcc = new HashMap<Long, IntersectionPcc>();
+		//HashMaps pour retrouver les voisins
 		PriorityQueue<IntersectionPcc> greyVertexes; // tas binaire
 		HashMap<Long, Long> predecessors;//<Intersection id, Intersection id du prédecesseur  >
 		
@@ -107,9 +118,30 @@ public class pcc {
 			allVertexesPcc.put(startPcc.getId(), startPcc);
 			greyVertexes.add(startPcc);
 			
-			while(!greyVertexes.isEmpty()) {
+
+			allBlackStartVertexes=false;
+			int i=0;
+			int nbBlackStartVertexes=0;
+			
+			while(!greyVertexes.isEmpty() && !allBlackStartVertexes) {
+				
+				//On met à jour la condition de fin
+				i++;
+				if(i==END_TEST_CYCLE) {//Pour ne pas tester trop souvent
+					i=0;
+					nbBlackStartVertexes=0;
+					for(Intersection sVertex : startVertexes ) {
+						if(allVertexesPcc.get(sVertex.getId()).getColor() == 2) {
+							nbBlackStartVertexes++;
+						}
+					}
+					if(nbBlackStartVertexes == startVertexes.size()) {
+						allBlackStartVertexes = true;
+					}
+				}
+				
 				minVertex = greyVertexes.poll();//On prend l'intersection grise 
-																//avec un cout minimal
+											    //avec un cout minimal
 				System.out.println("On regarde le sommet "+minVertex.getId());
 				
 				//On regarde tous les voisins "neighbor" de l'intersection "minVertex"
