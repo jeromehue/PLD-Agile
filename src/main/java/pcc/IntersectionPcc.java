@@ -2,8 +2,8 @@ package pcc;
 import modele.Intersection;
 
 public class IntersectionPcc extends Intersection implements Comparable<IntersectionPcc>{
-	Integer color;
-	Double cost;
+	private Integer color;
+	private Double cost;
 	
 	public IntersectionPcc(Intersection inter, Integer color, Double cost) {
 		super(inter.getId(), inter.getLatitude(), inter.getLongitude(), inter.getOutboundSegments());
@@ -11,6 +11,23 @@ public class IntersectionPcc extends Intersection implements Comparable<Intersec
 		this.cost = cost;
 	}
 	
+	
+	public Integer getColor() {
+		return color;
+	}
+
+	public Double getCost() {
+		return cost;
+	}
+
+	public void setColor(Integer color) {
+		this.color = color;
+	}
+
+	public void setCost(Double cost) {
+		this.cost = cost;
+	}
+
 	@Override 
 	public int compareTo (IntersectionPcc inter) {
 		if (this.cost - inter.cost > 0) {
@@ -21,4 +38,5 @@ public class IntersectionPcc extends Intersection implements Comparable<Intersec
 			return -1;
 		}
 	}
+	
 }

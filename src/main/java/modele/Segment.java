@@ -4,12 +4,12 @@ public class Segment {
 
 	private double length;
 	private String name;
-	private Intersection origin;
-	private Intersection destination;
+	private Long origin;
+	private Long destination;
 	
 	public Segment() {}
 
-	public Segment(double length, String name, Intersection origin, Intersection destination) {
+	public Segment(double length, String name, Long origin, Long destination) {
 		super();
 		this.length = length;
 		this.name = name;
@@ -31,11 +31,11 @@ public class Segment {
 		return name;
 	}
 
-	public Intersection getOrigin() {
+	public Long getOrigin() {
 		return origin;
 	}
 
-	public Intersection getDestination() {
+	public Long getDestination() {
 		return destination;
 	}
 }

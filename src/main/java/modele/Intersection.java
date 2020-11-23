@@ -19,8 +19,8 @@ public class Intersection {
         this.outboundSegments = new ArrayList<Segment>(segments);
     }
     
-    public List<Intersection> getNeighbors() {
-    	ArrayList<Intersection> neighbors = new ArrayList<Intersection>();
+    public List<Long> getNeighbors() {
+    	ArrayList<Long> neighbors = new ArrayList<Long>();
     	for(Segment seg : outboundSegments) {
     		neighbors.add(seg.getDestination());
     	}

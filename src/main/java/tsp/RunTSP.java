@@ -1,5 +1,6 @@
 package tsp;
 
+import pcc.pcc;
 
 public class RunTSP {
 	public static void main(String[] args) {
@@ -15,6 +16,10 @@ public class RunTSP {
 				System.out.print(tsp.getSolution(i)+" ");
 			System.out.println("0");
 		}
+		
+		pcc unPcc = new pcc();
+		unPcc.calculPcc();
+			
 	}
 
 }
