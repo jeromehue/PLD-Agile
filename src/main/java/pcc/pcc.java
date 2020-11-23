@@ -31,41 +31,35 @@ public class pcc {
 		 */
 		
 		//TESTS
-		Segment s1 = new Segment(1.0, "", new Long(1), new Long(2));
-		Segment s2 = new Segment(2.0, "", new Long(2), new Long(4));
-		Segment s3 = new Segment(3.0, "", new Long(1), new Long(3));
-		Segment s4 = new Segment(4.0, "", new Long(3), new Long(4));
-		Segment s5 = new Segment(5.0, "", new Long(4), new Long(5));
-		Segment s6 = new Segment(6.0, "", new Long(3), new Long(6));
-		Segment s7 = new Segment(7.0, "", new Long(5), new Long(6));
-		
 		ArrayList<Segment> l1 = new ArrayList<>();
-		l1.add(s1);
-		l1.add(s3);
-		ArrayList<Segment> l2 = new ArrayList<>();
-		l2.add(s1);
-		l2.add(s2);
-		ArrayList<Segment> l3 = new ArrayList<>();
-		l3.add(s4);
-		l3.add(s3);
-		l3.add(s6);
-		ArrayList<Segment> l4 = new ArrayList<>();
-		l4.add(s2);
-		l4.add(s5);
-		l4.add(s4);
-		ArrayList<Segment> l5 = new ArrayList<>();
-		l5.add(s5);
-		l5.add(s7);
-		ArrayList<Segment> l6 = new ArrayList<>();
-		l6.add(s7);
-		l6.add(s6);
-		
 		Intersection inter1 = new Intersection(new Long(1), 1.0, 1.0, l1);
-		Intersection inter2 = new Intersection(new Long(2), 1.0, 2.0, l2);
-		Intersection inter3 = new Intersection(new Long(3), 2.0, 1.0, l3);
-		Intersection inter4 = new Intersection(new Long(4), 2.0, 2.0, l4);
-		Intersection inter5 = new Intersection(new Long(5), 3.0, 2.0, l5);
-		Intersection inter6 = new Intersection(new Long(6), 3.0, 1.0, l6);
+		Intersection inter2 = new Intersection(new Long(2), 1.0, 2.0, l1);
+		Intersection inter3 = new Intersection(new Long(3), 2.0, 1.0, l1);
+		Intersection inter4 = new Intersection(new Long(4), 2.0, 2.0, l1);
+		Intersection inter5 = new Intersection(new Long(5), 3.0, 2.0, l1);
+		Intersection inter6 = new Intersection(new Long(6), 3.0, 1.0, l1);
+		Segment s1 = new Segment(1.0, "", inter1, inter2);
+		Segment s2 = new Segment(2.0, "", inter2, inter4);
+		Segment s3 = new Segment(3.0, "", inter1, inter3);
+		Segment s4 = new Segment(4.0, "", inter3, inter4);
+		Segment s5 = new Segment(5.0, "", inter4, inter5);
+		Segment s6 = new Segment(6.0, "", inter3, inter6);
+		Segment s7 = new Segment(7.0, "", inter5, inter6);		
+		inter1.addOutboundSegment(s1);
+		inter1.addOutboundSegment(s3);
+		inter2.addOutboundSegment(s1);
+		inter2.addOutboundSegment(s2);
+		inter3.addOutboundSegment(s3);
+		inter3.addOutboundSegment(s4);
+		inter3.addOutboundSegment(s6);
+		inter4.addOutboundSegment(s2);
+		inter4.addOutboundSegment(s4);
+		inter4.addOutboundSegment(s5);
+		inter5.addOutboundSegment(s5);
+		inter5.addOutboundSegment(s7);
+		inter6.addOutboundSegment(s6);
+		inter6.addOutboundSegment(s7);
+		
 		
 		List<Intersection> startVertexes = new ArrayList<Intersection>();
 		startVertexes.add(inter1);
@@ -112,7 +106,7 @@ public class pcc {
 				
 				//On regarde tous les voisins "neighbor" de l'intersection "minVertex"
 				for(Segment s : minVertex.getOutboundSegments()) {
-					neighbor = allVertexesPcc.get(s.getDestination());
+					neighbor = allVertexesPcc.get(s.getDestination().getId());
 					if(neighbor.getColor() == 0 || neighbor.getColor()== 1) {//Si le voisin est blanc ou gris
 						//relacher (minVertex, voisin, predecesseur, cout) : 
 						if( minVertex.getCost() + s.getLength() < neighbor.getCost() ) {
