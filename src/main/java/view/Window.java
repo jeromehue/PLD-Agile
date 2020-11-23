@@ -15,7 +15,7 @@ import controller.Controller;
 public class Window extends JFrame{
 
 	private static final long serialVersionUID = 1L;
-	private GraphicalView graphicalView;
+	public GraphicalView graphicalView;
 	private TextualView textualView;
 	private JLabel messageFrame;
     private JToolBar toolBar;
