@@ -31,6 +31,8 @@ public class pcc {
 		 */
 		
 		//TESTS
+		CompleteGraph graph;
+		
 		ArrayList<Segment> l1 = new ArrayList<>();
 		Intersection inter1 = new Intersection(new Long(1), 1.0, 1.0, l1);
 		Intersection inter2 = new Intersection(new Long(2), 1.0, 2.0, l1);
@@ -61,6 +63,12 @@ public class pcc {
 		
 		List<Intersection> startVertexes = new ArrayList<Intersection>();
 		startVertexes.add(inter1);
+		startVertexes.add(inter2);
+		startVertexes.add(inter3);
+		startVertexes.add(inter4);
+		startVertexes.add(inter5);
+		startVertexes.add(inter6);
+
 		List<Intersection> allVertexes = new ArrayList<Intersection>();
 		allVertexes.add(inter1);
 		allVertexes.add(inter2);
@@ -68,8 +76,10 @@ public class pcc {
 		allVertexes.add(inter4);
 		allVertexes.add(inter5);
 		allVertexes.add(inter6);
+		
+		graph = new CompleteGraph(allVertexes);
 			
-		HashMap<Long, IntersectionPcc> allVertexesPcc;//HashMaps pour retrouver les voisins
+		HashMap<Long, IntersectionPcc> allVertexesPcc = new HashMap<Long, IntersectionPcc>();;//HashMaps pour retrouver les voisins
 		PriorityQueue<IntersectionPcc> greyVertexes; // tas binaire
 		HashMap<Long, Long> predecessors;//<Intersection id, Intersection id du prédecesseur  >
 		
@@ -132,9 +142,12 @@ public class pcc {
 				System.out.println("En partant du sommet "+startPcc.getId()+
 					" le chemin le plus court pour arriver au point "+inter.getId()+
 					" a une distance de "+inter.getCost()+"\n");
+				graph.updateCompleteGraph(startPcc.getId(), allVertexesPcc);
 			}
-		}	
-		return new CompleteGraph(2);
+		}
+		
+		System.out.println(graph.toString());
+		return graph;
 	}
 	
 	public static Double distance (IntersectionPcc a, IntersectionPcc b) {
