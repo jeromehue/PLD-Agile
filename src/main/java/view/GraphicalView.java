@@ -88,7 +88,9 @@ public class GraphicalView extends JPanel{
 		//draw start point
 		Long startAdress = request.getStartingLocation();
 		Intersection startIntersection = cityMap.getIntersectionFromAddress(startAdress);
-		drawStartIntersection(graphics, startIntersection);
+		if(startIntersection != null ) 
+		{ drawStartIntersection(graphics, startIntersection); }
+		
 		
 		Long pickUpAdressTest;
 		Long deliveryAdressTest;
@@ -113,7 +115,7 @@ public class GraphicalView extends JPanel{
 			Intersection deliveryAdressToDraw = cityMap.getIntersectionFromAddress(deliveryAdressTest);
 			System.out.println(deliveryAdressToDraw);
 			if(deliveryAdressToDraw != null ) 
-			{ drawIntersectionSquare(graphics, deliveryAdressToDraw); }
+			{ drawIntersection(graphics, deliveryAdressToDraw); }
 			
 		}
 		

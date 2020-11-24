@@ -85,9 +85,11 @@ public class XMLRequestParser extends XMLParser {
 		    return (r);
 		    
 		} catch (Exception e) {
+			System.out.println("Erreur lors de la récupération du fichier XML de requête : ");
 			e.printStackTrace();
+			return (null);
 		}
-		return (new Request());
+		//return (new Request());
 		
 		
 		

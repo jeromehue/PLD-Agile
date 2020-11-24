@@ -15,7 +15,7 @@ public class MapLoadedState implements State {
 			String path = w.createDialogBoxToGetFilePath();
 			if(path != null) 
 			{
-				System.out.println("Affichage de la carte normalement");
+				System.out.println("Affichage de la carte");
 				XMLCityMapParser p = new XMLCityMapParser(path);
 				CityMap cityMap = p.parse();
 				
@@ -34,13 +34,15 @@ public class MapLoadedState implements State {
 			String path = w.createDialogBoxToGetFilePath();
 			if(path != null) 
 			{
-				System.out.println("Affichage de la requête normalement");
+				System.out.println("Affichage de la requête");
 				XMLRequestParser p = new XMLRequestParser(path);
 				Request request = p.parse();
-				System.out.println("debug");
 				w.graphicalView.setRequest(request);
-				System.out.println("debug2 : " + request);
-				c.setCurrentstate(c.requestLoadedState);
+				// Si pas d'erreur dans le fichier
+				if (request != null) {
+					c.setCurrentstate(c.requestLoadedState);
+				}
+				
 			}
 			else 
 			{
