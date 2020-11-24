@@ -106,7 +106,7 @@ public class GraphicalView extends JPanel{
 			
 			Intersection pickUpAdresseToDraw   = cityMap.getIntersectionFromAddress(pickUpAdressTest);
 			System.out.println(pickUpAdresseToDraw);
-			drawIntersection(graphics, pickUpAdresseToDraw);
+			drawIntersectionSquare(graphics, pickUpAdresseToDraw);
 			
 			Intersection deliveryAdressToDraw = cityMap.getIntersectionFromAddress(deliveryAdressTest);
 			System.out.println(deliveryAdressToDraw);
@@ -150,6 +150,18 @@ public class GraphicalView extends JPanel{
 		graphics.fillOval(intersectionToPixelLattitude(intersection)-5, 
 				          intersectionToPixelLongitude(intersection)-5, 10, 10);
 	}
+	
+	private void drawIntersectionSquare(Graphics graphics, Intersection intersection){
+		graphics.drawString("(" + intersection.getId() + ")", 
+				intersectionToPixelLattitude(intersection) + 5, 
+				intersectionToPixelLongitude(intersection) - 10 );
+		graphics.fillRect(intersectionToPixelLattitude(intersection)-5, 
+				          intersectionToPixelLongitude(intersection)-5, 10, 10);
+	}
+	
+	
+	
+	
 	
 	private void drawStartIntersection(Graphics graphics, Intersection intersection){
 		graphics.setColor(Color.red);
