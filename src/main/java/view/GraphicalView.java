@@ -60,12 +60,16 @@ public class GraphicalView extends JPanel{
 		}
 	}
 	
-	private int longitudeToPixel(double longitude ) {
-		return (int)((double)getHeight() * ( cityMap.getMaxLongitude() - longitude) / ( cityMap.getMaxLongitude() - cityMap.getMinLongitude()));
+	private int intersectionToPixelLattitude(Intersection i) {
+		double longPourcent = ( cityMap.getMaxLongitude() - i.getLongitude()) / ( cityMap.getMaxLongitude() - cityMap.getMinLongitude());
+		double latitudePixel =( 1 - longPourcent ) * getWidth();
+		return (int)latitudePixel;
 	}
 	
-	private int latitudeToPixel(double latitude ) {
-		return (int)((double)getWidth() * ( cityMap.getMaxLatitude() - latitude) / (cityMap.getMaxLatitude() - cityMap.getMinLatitude()));
+	private int intersectionToPixelLongitude(Intersection i) {
+		double latPourcent = ( cityMap.getMaxLatitude() - i.getLatitude()) / (cityMap.getMaxLatitude() - cityMap.getMinLatitude());
+		double longitudePixel =  latPourcent  * getHeight();
+		return (int)longitudePixel;
 	}
 	
 	private void drawCityMap(Graphics graphics) {
@@ -114,26 +118,26 @@ public class GraphicalView extends JPanel{
 	
 	private void drawIntersection(Graphics graphics, Intersection intersection){
 		graphics.drawString("(" + intersection.getId() + ")", 
-				latitudeToPixel(intersection.getLatitude()) + 5, 
-				longitudeToPixel(intersection.getLongitude()) - 10 );
-		graphics.fillOval(latitudeToPixel(intersection.getLatitude())-5, 
-				          longitudeToPixel(intersection.getLongitude())-5, 10, 10);
+				intersectionToPixelLattitude(intersection) + 5, 
+				intersectionToPixelLongitude(intersection) - 10 );
+		graphics.fillOval(intersectionToPixelLattitude(intersection)-5, 
+				          intersectionToPixelLongitude(intersection)-5, 10, 10);
 	}
 	
 	private void drawStartIntersection(Graphics graphics, Intersection intersection){
 		graphics.setColor(Color.red);
 		graphics.drawString("Start point (" + intersection.getId() + ")", 
-				latitudeToPixel(intersection.getLatitude()) + 5, 
-				longitudeToPixel(intersection.getLongitude()) - 10 );
-		graphics.fillRect(latitudeToPixel(intersection.getLatitude())-5, 
-				          longitudeToPixel(intersection.getLongitude())-5, 10, 10);
+				intersectionToPixelLattitude(intersection) + 5, 
+				intersectionToPixelLongitude(intersection) - 10 );
+		graphics.fillRect(intersectionToPixelLattitude(intersection)-5, 
+				          intersectionToPixelLongitude(intersection)-5, 10, 10);
 	}
 
 	private void drawSegement(Graphics graphics, Segment s) {
-		graphics.drawLine(latitudeToPixel(s.getOrigin().getLatitude()),
-						  longitudeToPixel(s.getOrigin().getLongitude()),
-						  latitudeToPixel(s.getDestination().getLatitude()),
-						  longitudeToPixel(s.getDestination().getLongitude())
+		graphics.drawLine(intersectionToPixelLattitude(s.getOrigin()),
+						  intersectionToPixelLongitude(s.getOrigin()),
+						  intersectionToPixelLattitude(s.getDestination()),
+						  intersectionToPixelLongitude(s.getDestination())
 		);
 	}
 	

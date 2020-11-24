@@ -32,6 +32,7 @@ public class Window extends JFrame{
 
     public Window(Controller controller){
         super( "Hubert If");
+        buttonListener = new ButtonListener(controller);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1000,1000);
         setLocationRelativeTo(null);
@@ -61,7 +62,6 @@ public class Window extends JFrame{
         toolBar.setPreferredSize(new Dimension(100,30));
 
         JButton loadMapButton = new JButton(LOAD_MAP);
-        buttonListener = new ButtonListener(controller);
         loadMapButton.addActionListener(buttonListener);
         toolBar.add(loadMapButton);
 
