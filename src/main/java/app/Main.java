@@ -1,10 +1,9 @@
 package app;
 
-import view.Window;
 import controller.Controller;
 
 public class Main {
-	public static void main() {
+	public static void main(String[] args) {
 		new Controller();
 	}
 }

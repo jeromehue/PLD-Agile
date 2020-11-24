@@ -1,11 +1,11 @@
-package algo;
+package algoTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import pcc.Pcc;
-import tsp.CompleteGraph;
+import algo.CompleteGraph;
+import algo.Pcc;
 
 class testPcc {
 

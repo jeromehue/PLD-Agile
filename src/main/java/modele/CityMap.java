@@ -1,6 +1,5 @@
 package modele;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -86,5 +85,14 @@ public class CityMap {
 			}
 		}
 	}
-	
+	public Intersection getIntersectionFromAddress(Long address) {
+		for(Intersection intersection : intersections)
+		{
+			if(address.equals(intersection.getId())) 
+			{
+				return intersection;
+			}
+		}
+		return null;	
+	}
 }
