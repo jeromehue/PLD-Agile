@@ -88,8 +88,9 @@ public class Window extends JFrame{
     
     public String createDialogBoxToGetFilePath() {
 		  final JFileChooser fc = new JFileChooser();
-		  FileNameExtensionFilter filter = new FileNameExtensionFilter("XML files", "xml");
+		  FileNameExtensionFilter filter = new FileNameExtensionFilter("XML files (*.xml)", "xml");
 		  	fc.setFileFilter(filter);
+		  	fc.setAcceptAllFileFilterUsed(false);
 		    fc.setCurrentDirectory(new File("./src/main"));
 		    int returnVal = fc.showOpenDialog(null);
 		    String absPath = null;
