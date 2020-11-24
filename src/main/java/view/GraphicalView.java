@@ -12,6 +12,8 @@ import modele.Intersection;
 import modele.Request;
 import modele.Segment;
 
+import java.lang.Math;
+
 public class GraphicalView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
@@ -87,6 +89,31 @@ public class GraphicalView extends JPanel{
 		Intersection startIntersection = cityMap.getIntersectionFromAddress(startAdress);
 		drawStartIntersection(graphics, startIntersection);
 		
+		Long pickUpAdressTest;
+		Long deliveryAdressTest;
+		Iterator<Long> itPickUpTest = request.getPickUpLocationsIterator();
+		Iterator<Long> itDeliveryTest = request.getDeliveryLocationsIterator();
+		while(itPickUpTest.hasNext())
+		{
+			
+			int red=  (int) (Math.random()*256);
+			int green= (int) (Math.random()*256);
+			int blue= (int) (Math.random()*256);
+			Color color=new Color(red,green,blue);
+			graphics.setColor(color);
+			pickUpAdressTest = itPickUpTest.next();
+			deliveryAdressTest = itDeliveryTest.next();
+			
+			Intersection pickUpAdresseToDraw   = cityMap.getIntersectionFromAddress(pickUpAdressTest);
+			System.out.println(pickUpAdresseToDraw);
+			drawIntersection(graphics, pickUpAdresseToDraw);
+			
+			Intersection deliveryAdressToDraw = cityMap.getIntersectionFromAddress(deliveryAdressTest);
+			System.out.println(deliveryAdressToDraw);
+			drawIntersection(graphics, deliveryAdressToDraw);
+		}
+		
+		/*
 		//draw pick up points
 		graphics.setColor(Color.blue);
 		Long pickUpAdress;
@@ -113,7 +140,7 @@ public class GraphicalView extends JPanel{
 			{
 				drawIntersection(graphics, intersectionToDraw);
 			}
-		}
+		}*/
 	}
 	
 	private void drawIntersection(Graphics graphics, Intersection intersection){
