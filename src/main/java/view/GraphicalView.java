@@ -83,6 +83,7 @@ public class GraphicalView extends JPanel{
 		}	
 	}
 	
+	
 	private void drawRequest(Graphics graphics) {
 		//draw start point
 		Long startAdress = request.getStartingLocation();

@@ -86,6 +86,7 @@ public class XMLCityMapParser extends XMLParser {
 		    }
 			
 		} catch (Exception e) {
+			System.out.println("Erreur dans XMLCityMapParser");
 			e.printStackTrace();
 		}
 

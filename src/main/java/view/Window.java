@@ -92,12 +92,12 @@ public class Window extends JFrame{
 		  	fc.setFileFilter(filter);
 		    fc.setCurrentDirectory(new File("./src/main"));
 		    int returnVal = fc.showOpenDialog(null);
-		    String absPath = "";
+		    String absPath = null;
 		    if(returnVal == JFileChooser.APPROVE_OPTION) 
 		    {
 		      System.out.println("You chose to open this file: " + fc.getSelectedFile().getAbsolutePath()) ;
 		      absPath = fc.getSelectedFile().getAbsolutePath();
-		    }
+		    } 
 		    return absPath;
 	}
 }

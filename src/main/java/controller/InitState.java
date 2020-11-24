@@ -17,6 +17,7 @@ public class InitState implements State {
 			XMLCityMapParser p = new XMLCityMapParser(path);
 			CityMap cityMap = p.parse();
 			w.graphicalView.setCityMap(cityMap);
+			c.setCurrentstate(c.mapLoadedState);
 		}
 		else 
 		{
@@ -26,6 +27,9 @@ public class InitState implements State {
 	
 	@Override
 	public void loadRequest(Controller c,Window w) {
+		
+		System.out.println("Avant de charger des requêtes, commencez par charger une carte");
+		/*
 		String path = w.createDialogBoxToGetFilePath();
 		if(path != null) 
 		{
@@ -37,7 +41,8 @@ public class InitState implements State {
 		else 
 		{
 			System.out.println("Echec de l'obtention du chemin avec la boite de dialogue");
-		}
+		}*/
+		
 	}
 	
 }
