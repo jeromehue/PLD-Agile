@@ -18,14 +18,15 @@ public class ButtonListener  implements ActionListener  {
 	}
 	
 	public void actionPerformed(ActionEvent e) { 
-		// Methode appelee par l'ecouteur de boutons a chaque fois qu'un bouton est clique
+		// Méthode appelée par l'ecouteur de boutons a chaque fois qu'un bouton est clique
 		// Envoi au controleur du message correspondant au bouton clique
 		switch (e.getActionCommand()){
-		case Window.LOAD_REQUEST: controller.loadRequest("src/main/resources/requestsLarge7.xml"); 
-		System.out.println("click request");
-		break;
-		default: 	System.out.println("Action performed from " + e.getActionCommand());
-					
+		case Window.LOAD_REQUEST: 
+			System.out.println("Click on LOAD_REQUEST button");
+			controller.loadRequest("src/main/resources/requestsLarge7.xml"); 
+			break;
+		case Window.LOAD_MAP: 	
+					System.out.println("Action performed from " + e.getActionCommand());
 					final JFileChooser fc = new JFileChooser();
 					
 					FileNameExtensionFilter filter = new FileNameExtensionFilter(
