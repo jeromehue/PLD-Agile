@@ -8,7 +8,6 @@ import xml.XMLRequestParser;
 
 public class InitState implements State {
 
-	
 	@Override
 	public void loadMap(Controller c,Window w) {
 		String path = w.createDialogBoxToGetFilePath();
@@ -39,7 +38,6 @@ public class InitState implements State {
 		{
 			System.out.println("Echec de l'obtention du chemin avec la boite de dialogue");
 		}
-		
 	}
 	
 }

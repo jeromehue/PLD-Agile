@@ -18,7 +18,7 @@ public class ButtonListener  implements ActionListener  {
 	}
 	
 	public void actionPerformed(ActionEvent e) { 
-		// Methode appelee par l'ecouteur de boutons a chaque fois qu'un bouton est clique
+		// Méthode appelée par l'ecouteur de boutons a chaque fois qu'un bouton est clique
 		// Envoi au controleur du message correspondant au bouton clique
 		switch (e.getActionCommand()) {
 		case Window.LOAD_REQUEST: System.out.println("Click on LOAD_REQUEST button");

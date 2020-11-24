@@ -39,11 +39,11 @@ public class XMLRequestParser extends XMLParser {
 		    // Read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
 		    doc.getDocumentElement().normalize();
 		
-		    System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+		    //System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 		            
 		    NodeList nodes = doc.getElementsByTagName("depot");
 		            
-		    System.out.println("----------------------------");
+		    //System.out.println("----------------------------");
 		
 		    for (int i = 0; i < nodes.getLength(); ++i) {
 		
@@ -53,8 +53,6 @@ public class XMLRequestParser extends XMLParser {
 		
 		            Element element = (Element) node;
 		            
-		            System.out.println(element.getAttribute("address"));
-		            System.out.println(element.getAttribute("departureTime"));
 		            startingLocation  = Long.parseLong(element.getAttribute("address"));
 		            startingTime = element.getAttribute("departureTime");
 		        }
@@ -70,10 +68,7 @@ public class XMLRequestParser extends XMLParser {
 		        	
 		        	Element element = (Element) node;
 		        	
-		        	System.out.println(element.getAttribute("pickupAddress"));
-		            System.out.println(element.getAttribute("deliveryAddress"));
-		            System.out.println(element.getAttribute("pickupDuration"));
-		            System.out.println(element.getAttribute("deliveryDuration"));
+		        	
 		            pickUpLocations.add(Long.parseLong(element.getAttribute("pickupAddress")));
 		            deliveryLocations.add(Long.parseLong(element.getAttribute("deliveryAddress")));
 		            pickUpDurations.add(Integer.parseInt(element.getAttribute("pickupDuration")));
