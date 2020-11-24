@@ -13,6 +13,7 @@ public class Controller {
 	private State currentState;
 	protected final InitState initState = new InitState();
 	protected final MapLoadedState mapLoadedState = new MapLoadedState();
+	protected final RequestLoadedState requestLoadedState = new RequestLoadedState();
 	
 	
 	public CityMap getCityMap() {
@@ -27,6 +28,7 @@ public class Controller {
 	
 	protected void setCurrentstate(State state){
 		currentState = state;
+		System.out.println("Updated state, CURRENT STATE is : "+ currentState);
 	}
 	
 	public void loadMap() {

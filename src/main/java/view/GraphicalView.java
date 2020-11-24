@@ -107,11 +107,14 @@ public class GraphicalView extends JPanel{
 			
 			Intersection pickUpAdresseToDraw   = cityMap.getIntersectionFromAddress(pickUpAdressTest);
 			System.out.println(pickUpAdresseToDraw);
-			drawIntersectionSquare(graphics, pickUpAdresseToDraw);
+			if(pickUpAdresseToDraw != null ) 
+			{ drawIntersectionSquare(graphics, pickUpAdresseToDraw); }
 			
 			Intersection deliveryAdressToDraw = cityMap.getIntersectionFromAddress(deliveryAdressTest);
 			System.out.println(deliveryAdressToDraw);
-			drawIntersection(graphics, deliveryAdressToDraw);
+			if(deliveryAdressToDraw != null ) 
+			{ drawIntersectionSquare(graphics, deliveryAdressToDraw); }
+			
 		}
 		
 		/*
@@ -145,19 +148,23 @@ public class GraphicalView extends JPanel{
 	}
 	
 	private void drawIntersection(Graphics graphics, Intersection intersection){
+		if(intersection.getId() != null) {
 		graphics.drawString("(" + intersection.getId() + ")", 
 				intersectionToPixelLattitude(intersection) + 5, 
 				intersectionToPixelLongitude(intersection) - 10 );
 		graphics.fillOval(intersectionToPixelLattitude(intersection)-5, 
 				          intersectionToPixelLongitude(intersection)-5, 10, 10);
+		}
 	}
 	
 	private void drawIntersectionSquare(Graphics graphics, Intersection intersection){
+		
 		graphics.drawString("(" + intersection.getId() + ")", 
 				intersectionToPixelLattitude(intersection) + 5, 
 				intersectionToPixelLongitude(intersection) - 10 );
 		graphics.fillRect(intersectionToPixelLattitude(intersection)-5, 
-				          intersectionToPixelLongitude(intersection)-5, 10, 10);
+				          intersectionToPixelLongitude(intersection)-5, 10, 10); 
+		
 	}
 	
 	

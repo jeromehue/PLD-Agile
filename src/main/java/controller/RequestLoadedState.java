@@ -6,7 +6,7 @@ import view.Window;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
-public class MapLoadedState implements State {
+public class RequestLoadedState implements State {
 
 	
 		@Override
@@ -37,10 +37,7 @@ public class MapLoadedState implements State {
 				System.out.println("Affichage de la requête normalement");
 				XMLRequestParser p = new XMLRequestParser(path);
 				Request request = p.parse();
-				System.out.println("debug");
 				w.graphicalView.setRequest(request);
-				System.out.println("debug2 : " + request);
-				c.setCurrentstate(c.requestLoadedState);
 			}
 			else 
 			{
