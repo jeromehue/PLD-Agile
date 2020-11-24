@@ -1,6 +1,4 @@
-package tsp;
-
-import pcc.Pcc;
+package algo;
 
 public class RunTSP {
 	public static void main(String[] args) {

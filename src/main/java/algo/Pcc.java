@@ -1,9 +1,9 @@
-package pcc;
-import modele.Request;
-import modele.CityMap;
+package algo;
+//import modele.Request;
+//import modele.CityMap;
 import modele.Intersection;
 import modele.Segment;
-import tsp.CompleteGraph;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.lang.Math;
 
 public class Pcc {
-	private CityMap cityMap;
+	/*private CityMap cityMap;
 	private Request request;
 	
 	public Pcc(CityMap city , Request request ){
 		cityMap = city;
 		this.request = request;
-	}
+	}*/
 	public Pcc() {};
 	
 	public CompleteGraph init() {

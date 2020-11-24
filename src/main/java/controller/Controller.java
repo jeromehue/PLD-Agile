@@ -2,7 +2,7 @@ package controller;
 
 import modele.CityMap;
 import view.Window;
-import xml.XMLCityMapParser;
+//import xml.XMLCityMapParser;
 
 public class Controller {
 	private CityMap cityMap;

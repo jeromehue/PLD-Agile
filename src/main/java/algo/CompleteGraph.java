@@ -1,10 +1,9 @@
-package tsp;
+package algo;
 
 import java.util.List;
 import java.util.HashMap;
 
 import modele.Intersection;
-import pcc.IntersectionPcc;
 
 public class CompleteGraph implements Graph {
 	private int nbVertices;

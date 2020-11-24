@@ -1,4 +1,4 @@
-package tsp;
+package algo;
 
 public interface TSP {
 	/**

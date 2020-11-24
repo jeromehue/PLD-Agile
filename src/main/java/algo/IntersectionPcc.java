@@ -1,4 +1,4 @@
-package pcc;
+package algo;
 import modele.Intersection;
 
 public class IntersectionPcc extends Intersection implements Comparable<IntersectionPcc>{
