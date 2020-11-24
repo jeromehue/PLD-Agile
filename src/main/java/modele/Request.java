@@ -1,6 +1,7 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Request {
 	
@@ -66,7 +67,20 @@ public class Request {
 	public ArrayList<Long> getDeliveryLocations() {
 		return deliveryLocations;
 	}
-
+	
+	/**
+	 * @return an iterator on all pick up locations in the request
+	 */
+	public Iterator<Long> getPickUpLocationsIterator(){
+		return pickUpLocations.iterator();
+	}
+	
+	/**
+	 * @return an iterator on all delivery locations in the request
+	 */
+	public Iterator<Long> getDeliveryLocationsIterator(){
+		return deliveryLocations.iterator();
+	}
 
 	@Override
 	public String toString() {

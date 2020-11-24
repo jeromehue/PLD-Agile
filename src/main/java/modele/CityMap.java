@@ -85,5 +85,14 @@ public class CityMap {
 			}
 		}
 	}
-	
+	public Intersection getIntersectionFromAddress(Long address) {
+		for(Intersection intersection : intersections)
+		{
+			if(address.equals(intersection.getId())) 
+			{
+				return intersection;
+			}
+		}
+		return null;	
+	}
 }
