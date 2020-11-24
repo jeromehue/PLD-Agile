@@ -23,5 +23,9 @@ public class Controller {
 	public void loadMap(String path) {
 		currentState.loadMap(this, this.window, path);
 	}
+	
+	public void loadRequest(String path) {
+		currentState.loadRequest(this, this.window, path);
+	}
 
 }

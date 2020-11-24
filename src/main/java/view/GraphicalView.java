@@ -19,6 +19,13 @@ public class GraphicalView extends JPanel{
 	private CityMap cityMap;
 	private Request request;
 
+	public GraphicalView(CityMap cityMap) {
+		super();
+		this.setBorder(BorderFactory.createTitledBorder("Vue Graphique"));
+		this.setLayout(null);
+		this.cityMap = cityMap;
+		this.request = null;
+	}
 	
 	public void setRequest(Request request) {
 		this.request = request;
@@ -28,14 +35,6 @@ public class GraphicalView extends JPanel{
 	public void setCityMap(CityMap cityMap) {
 		this.cityMap = cityMap;
 		this.repaint();
-	}
-
-	public GraphicalView(CityMap cityMap) {
-		super();
-		this.setBorder(BorderFactory.createTitledBorder("Vue Graphique"));
-		this.setLayout(null);
-		this.cityMap = cityMap;
-		this.request = null;
 	}
 	
 	/**

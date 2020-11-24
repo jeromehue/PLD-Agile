@@ -66,6 +66,7 @@ public class Window extends JFrame{
         toolBar.add(loadMapButton);
 
         JButton loadRequestsButton = new JButton(LOAD_REQUEST);
+        loadRequestsButton.addActionListener(buttonListener);
         toolBar.add(loadRequestsButton);
 
         JButton calcuateTourButton = new JButton(COMPUTE_TOUR);
