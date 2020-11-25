@@ -20,16 +20,17 @@ public class RequestLoadedState implements State {
 	
 		@Override
 		public void loadMap(Controller c, Window w) {
-			w.graphicalView.setRequest(null);
+			
 			String path = w.createDialogBoxToGetFilePath();
 			if(path != null) 
 			{
 				System.out.println("Affichage de la carte normalement");
 				XMLCityMapParser p = new XMLCityMapParser(path);
 				CityMap cityMap = p.parse();
-				
 				w.graphicalView.setCityMap(cityMap);
 				c.setCurrentstate(c.mapLoadedState);
+				w.graphicalView.setRequest(null);
+				w.graphicalView.setTour(null);
 			}
 			else 
 			{
@@ -39,7 +40,6 @@ public class RequestLoadedState implements State {
 	
 		@Override
 		public void loadRequest(Controller c, Window w) {
-		
 			String path = w.createDialogBoxToGetFilePath();
 			if(path != null) 
 			{
@@ -49,6 +49,7 @@ public class RequestLoadedState implements State {
 					w.graphicalView.setRequest(request);
 					c.setCurrentstate(c.requestLoadedState);
 					w.setMessage("Requête chargée avecsuccès");
+					w.graphicalView.setTour(null);
 				} catch (InvalidRequestException e) {
 					w.setMessage(e.getMessage());
 				}

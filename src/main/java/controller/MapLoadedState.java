@@ -12,14 +12,13 @@ public class MapLoadedState implements State {
 	
 		@Override
 		public void loadMap(Controller c, Window w) {
-			w.graphicalView.setRequest(null);
+			
 			String path = w.createDialogBoxToGetFilePath();
 			if(path != null) 
 			{
 				System.out.println("Affichage de la carte");
 				XMLCityMapParser p = new XMLCityMapParser(path);
 				CityMap cityMap = p.parse();
-				
 				w.graphicalView.setCityMap(cityMap);
 				c.setCurrentstate(c.mapLoadedState);
 				w.setMessage ("La carte a été chargée avec succès. Veuillez charger des requêtes.");
@@ -32,7 +31,6 @@ public class MapLoadedState implements State {
 	
 		@Override
 		public void loadRequest(Controller c, Window w) {
-		
 			String path = w.createDialogBoxToGetFilePath();
 			if(path != null) 
 			{
