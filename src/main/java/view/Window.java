@@ -83,6 +83,7 @@ public class Window extends JFrame{
         messageFrame = new JLabel();
 		messageFrame.setBorder(BorderFactory.createTitledBorder("Messages"));
         messageFrame.setPreferredSize(new Dimension(50,150));
+        messageFrame.setText("Pour commencer, chargez une carte au format XML.");
         return messageFrame;
     } 
     
@@ -101,6 +102,9 @@ public class Window extends JFrame{
 		    } 
 		    return absPath;
 	}
+    public void setMessage (String message) {
+    	messageFrame.setText(message);
+    }
 }
         
         
