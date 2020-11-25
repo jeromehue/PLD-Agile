@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import algo.TSP1;
 import modele.CityMap;
 import modele.Request;
+import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
@@ -27,7 +28,13 @@ public class testTSP {
 
 		
 		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsSmall1.xml", city);
-		Request request = rp.parse();
+		Request request = new Request();
+		try {
+			request = rp.parse();
+		} catch (InvalidRequestException e) {
+			e.printStackTrace();
+			fail();
+		}
 		
 		
 		Pcc pcc = new Pcc(city, request);

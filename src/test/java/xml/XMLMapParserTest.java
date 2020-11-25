@@ -3,8 +3,6 @@ package xml;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import modele.CityMap;
-
 class XMLMapParserTest {
 
 	@Test
