@@ -18,6 +18,8 @@ public class Pcc {
 	private List<Intersection> deliveryVertices;
 	private Intersection start;
 	//private List<Segment> edges;
+	private HashMap<Long, HashMap<Long, Segment>> savePredecessors;
+	HashMap<Long, IntersectionPcc> allVerticesPcc;
 	
 	public Pcc() {};
 	
@@ -26,6 +28,7 @@ public class Pcc {
 		pickUpVertices = request.getPickUpLocations();
 		deliveryVertices = request.getDeliveryLocations();
 		start = request.getStartingLocation();
+		savePredecessors = new HashMap<Long, HashMap<Long, Segment>>();//< idStartVertex, <idCurrentVertex, idLastVertex> >
 		//edges = city.getSegments();
 	}
 	
@@ -36,20 +39,22 @@ public class Pcc {
 		startVertices.addAll(pickUpVertices);
 		startVertices.addAll(deliveryVertices);
 		
-		CompleteGraph graph = new CompleteGraph(allVertices);
+		CompleteGraph graph = new CompleteGraph(startVertices);
 		
 		final int END_TEST_CYCLE = 1;
 		boolean allBlackStartVertices=false;	
 		HashMap<Long, IntersectionPcc> allVerticesPcc = new HashMap<Long, IntersectionPcc>();
 		//HashMaps pour retrouver les voisins
 		PriorityQueue<IntersectionPcc> greyVertices; // tas binaire
-		HashMap<Long, Long> predecessors;//<Intersection id, Intersection id du prédecesseur  >
+		// < Intersection id, segment qui relie le prédecesseur à l'intersection  >
+		HashMap<Long, Segment> predecessors;
+		
 		
 		IntersectionPcc neighbor;
 		IntersectionPcc minVertex;
 		
 		//On fait un Dijkstra par point à visiter
-		for (Intersection start  :  startVertices) {
+		for (Intersection start : startVertices) {
 			//Les sommets gris sont initialisés à null
 
 			/*Début de l'algorithme classique de Dijkstra*/
@@ -57,7 +62,7 @@ public class Pcc {
 			//Pour chaque objet Intesection on crée un objet IntersectionPcc qu'on initialise 
 			//avec un cout MAX et la couleur blanche
 			allVerticesPcc = new HashMap<Long, IntersectionPcc>();
-			predecessors = new HashMap<Long, Long>();
+			predecessors = new HashMap<Long, Segment>();
 			for (Intersection inter : allVertices) {
 				allVerticesPcc.put( inter.getId(), new IntersectionPcc(inter, 0, Double.MAX_VALUE ));
 				predecessors.put(inter.getId(), null);
@@ -90,7 +95,7 @@ public class Pcc {
 						if( minVertex.getCost() + s.getLength() < neighbor.getCost() ) {
 							//System.out.println("On met a jour "+minVertex.getId()+" et "+neighbor.getId());
 							neighbor.setCost( minVertex.getCost() + s.getLength() );
-							predecessors.put(neighbor.getId(), minVertex.getId());
+							predecessors.put(neighbor.getId(), s);
 						}
 					}
 					if(neighbor.getColor() == 0) {
@@ -120,14 +125,10 @@ public class Pcc {
 				}
 			}
 			
-			//sauvegarder le résultat obtenu pour un des points de départ
-			for(Long idInter : allVerticesPcc.keySet()) {
-				IntersectionPcc inter = allVerticesPcc.get(idInter);
-				System.out.println("En partant du sommet "+startPcc.getId()+
-					" le chemin le plus court pour arriver au point "+inter.getId()+
-					" a une distance de "+inter.getCost()+"\n");
-				graph.updateCompleteGraph(startPcc.getId(), allVerticesPcc);
-			}
+			//sauvegarder le résultat obtenu pour le point de départ
+			graph.updateCompleteGraph(startPcc.getId(), allVerticesPcc, startVertices);
+			// puis sauvegarder une HashMap des predecessors
+			savePredecessors.put(start.getId(), predecessors);
 		}
 		
 		System.out.println(graph.toString());
@@ -144,20 +145,20 @@ public class Pcc {
 		Intersection inter6 = new Intersection(new Long(6), 3.0, 1.0, l1);
 
 
-		Segment s12 = new Segment(1.0, "", inter1, inter2);
-		Segment s24 = new Segment(2.0, "", inter2, inter4);
-		Segment s21 = new Segment(1.0, "", inter2, inter1);
-		Segment s13 = new Segment(5.0, "", inter1, inter3);
-		Segment s34 = new Segment(1.0, "", inter3, inter4);
-		Segment s43 = new Segment(1.0, "", inter4, inter3);
-		Segment s45 = new Segment(2.0, "", inter4, inter5);
-		Segment s36 = new Segment(10.0, "", inter3, inter6);
-		Segment s32 = new Segment(10.0, "", inter3, inter2);
-		Segment s56 = new Segment(5.0, "", inter5, inter6);	
-		Segment s54 = new Segment(2.0, "", inter5, inter4);	
-		Segment s65 = new Segment(5.0, "", inter6, inter5);		
-		Segment s15 = new Segment(6.0, "", inter1, inter5);		
-		Segment s51 = new Segment(7.0, "", inter5, inter1);		
+		Segment s12 = new Segment(1.0, "rue 12", inter1, inter2);
+		Segment s24 = new Segment(2.0, "rue 24", inter2, inter4);
+		Segment s21 = new Segment(1.0, "rue 21", inter2, inter1);
+		Segment s13 = new Segment(5.0, "rue 13", inter1, inter3);
+		Segment s34 = new Segment(1.0, "rue 34", inter3, inter4);
+		Segment s43 = new Segment(1.0, "rue 43", inter4, inter3);
+		Segment s45 = new Segment(2.0, "rue 45", inter4, inter5);
+		Segment s36 = new Segment(10.0, "rue 36", inter3, inter6);
+		Segment s32 = new Segment(10.0, "rue 32", inter3, inter2);
+		Segment s56 = new Segment(5.0, "rue 56", inter5, inter6);	
+		Segment s54 = new Segment(2.0, "rue 54", inter5, inter4);	
+		Segment s65 = new Segment(5.0, "rue 65", inter6, inter5);		
+		Segment s15 = new Segment(6.0, "rue 15", inter1, inter5);		
+		Segment s51 = new Segment(7.0, "rue 51", inter5, inter1);		
 		
 		inter1.addOutboundSegment(s12);
 		inter1.addOutboundSegment(s13);
@@ -206,11 +207,11 @@ public class Pcc {
 		 */
 		
 		//TESTS
-		CompleteGraph graph = new CompleteGraph(allVertices);
+		CompleteGraph graph = new CompleteGraph(startVertices);
 		
 		final int END_TEST_CYCLE = 1;
 		boolean allBlackStartVertices=false;	
-		HashMap<Long, IntersectionPcc> allVerticesPcc = new HashMap<Long, IntersectionPcc>();
+		allVerticesPcc = new HashMap<Long, IntersectionPcc>();
 		//HashMaps pour retrouver les voisins
 		PriorityQueue<IntersectionPcc> greyVertices; // tas binaire
 		HashMap<Long, Long> predecessors;//<Intersection id, Intersection id du prédecesseur  >
@@ -290,18 +291,64 @@ public class Pcc {
 				}
 			}
 			
-			//sauvegarder le résultat obtenu pour un des points de départ
-			for(Long idInter : allVerticesPcc.keySet()) {
-				IntersectionPcc inter = allVerticesPcc.get(idInter);
-				System.out.println("En partant du sommet "+startPcc.getId()+
-					" le chemin le plus court pour arriver au point "+inter.getId()+
-					" a une distance de "+inter.getCost()+"\n");
-				graph.updateCompleteGraph(startPcc.getId(), allVerticesPcc);
-			}
+			//sauvegarder le résultat obtenu pour le point de départ
+			graph.updateCompleteGraph(startPcc.getId(), allVerticesPcc, startVertices);
+			
+			/*System.out.println("Le chemin a l'envers du point 6 au sommet de départ "+ start.getId()+"est : ");
+			Long currentPoint = new Long(6);
+			do {
+				System.out.print(currentPoint+" - ");
+				currentPoint = predecessors.get(currentPoint);
+			}while(currentPoint != null);
+			System.out.println();
+			//On enregistre une HashMap predecessors par point de départ
+			 */
+			//savePredecessors.put(start.getId(), predecessors);
 		}
 		
 		System.out.println(graph.toString());
 		return graph;
+	}
+	
+	public List<Segment> getRoads(Intersection start, Intersection finish){
+		ArrayList<Segment> segmentsList =  new ArrayList<Segment>();
+		HashMap<Long, Segment> predecessors = savePredecessors.get(start.getId());
+		Long currentPoint = finish.getId();
+		Segment path = predecessors.get(currentPoint);
+		
+		do {
+			segmentsList.add(0, path);
+			
+			currentPoint = path.getOrigin().getId();
+			path = predecessors.get(currentPoint);
+		}while(path != null);
+		
+		
+		Intersection passage = segmentsList.get(0).getOrigin();
+
+		System.out.println("Affichage de trajet : ");
+		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
+		System.out.println(" de la rue " + segmentsList.get(0).getName());
+		System.out.println("->");
+
+		passage = segmentsList.get(segmentsList.size() - 1).getDestination();
+		
+		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
+		System.out.println(" de la rue " + segmentsList.get(segmentsList.size() - 1).getName());
+		
+		passage = segmentsList.get(0).getOrigin();
+
+		System.out.println("\n\nOn commence au point (" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
+		for(Segment s : segmentsList) {
+			passage = s.getDestination();
+			System.out.print("On prend la rue : ");
+			System.out.println(s.getName());
+			
+			System.out.println("On passe au point (" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
+		}
+		System.out.println();
+		
+		return segmentsList;
 	}
 	
 	public static Double distance (IntersectionPcc a, IntersectionPcc b) {

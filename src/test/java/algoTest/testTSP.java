@@ -8,15 +8,35 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import algo.TSP;
 import algo.TSP1;
+import modele.CityMap;
+import modele.Request;
+import xml.XMLCityMapParser;
+import xml.XMLRequestParser;
 
 public class testTSP {
 	@Test
 	void test() {
-		TSP tsp = new TSP1();
-		Pcc pcc = new Pcc();
-		CompleteGraph graph = pcc.initTest();		
+		
+		System.out.println("TEST\n-----------------" + "testTSP.java : test");
+		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/smallMap.xml");
+		CityMap city = cmpp.parse();
+		
+		assertTrue(city.getIntersections() != null);
+		assertTrue(city.getIntersections().size() > 7);
+
+		
+		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsSmall1.xml", city);
+		Request request = rp.parse();
+		
+		
+		Pcc pcc = new Pcc(city, request);
+		
+		CompleteGraph graph = pcc.computePcc();
+		TSP1 tsp = new TSP1();
+
+		tsp.addGraph(graph);
+		tsp.init();
 		
 		long startTime = System.currentTimeMillis();
 		tsp.searchSolution(20000, graph);

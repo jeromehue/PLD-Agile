@@ -37,6 +37,15 @@ public abstract class TemplateTSP implements TSP {
 		return -1;
 	}
 	
+	public void addGraph(Graph gr) {
+		this.g=gr;
+	}
+	
+	/**
+	 * Method to init minimums in TSP1
+	 */
+	public abstract void init();
+	
 	/**
 	 * Method that must be defined in TemplateTSP subclasses
 	 * @param currentVertex
@@ -74,6 +83,7 @@ public abstract class TemplateTSP implements TSP {
 	    	}
 	    } else if (currentCost+bound(currentVertex,unvisited) < bestSolCost){
 	        Iterator<Integer> it = iterator(currentVertex, unvisited, g);
+	        // it is null, we have to fix it
 	        while (it.hasNext()){
 	        	Integer nextVertex = it.next();
 	        	visited.add(nextVertex);
