@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import algo.CompleteGraph;
 import algo.Pcc;
 import modele.CityMap;
 import modele.Intersection;
@@ -15,21 +14,27 @@ import modele.Request;
 import modele.Segment;
 import modele.Tour;
 import view.GraphicalView;
+import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
 public class testGraphicalView {
 	public static void main(String[] args) {
 		
-	try
-	{
 		JFrame frame = new JFrame("test vue grapique");
 		
 		XMLCityMapParser p = new XMLCityMapParser("src/main/resources/largeMap.xml");
 		CityMap cityMap = p.parse();
 		
 		XMLRequestParser p2 = new XMLRequestParser("src/main/resources/requestsLarge7.xml", cityMap);
-		Request request = p2.parse();
+		Request request = new Request();
+		try {
+			request = p2.parse();
+		} catch (InvalidRequestException e) {
+			System.err.println("Error while parsing request");
+			e.printStackTrace();
+			System.exit(0);
+		}
 		
 		GraphicalView graphicalView = new GraphicalView(cityMap);
 		graphicalView.setRequest(request);
@@ -61,16 +66,5 @@ public class testGraphicalView {
 		frame.setSize(1000,1000);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-	}
-	catch(Exception e)
-	{
-		System.out.println("Exception when testing graphicalView: " + e);
-	}
-		
-		
-		
-		
-		
-		
 	}
 }
