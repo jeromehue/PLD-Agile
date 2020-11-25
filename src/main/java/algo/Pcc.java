@@ -42,9 +42,12 @@ public class Pcc {
 		Segment s56 = new Segment(5.0, "", inter5, inter6);	
 		Segment s54 = new Segment(2.0, "", inter5, inter4);	
 		Segment s65 = new Segment(5.0, "", inter6, inter5);		
+		Segment s15 = new Segment(6.0, "", inter1, inter5);		
+		Segment s51 = new Segment(7.0, "", inter5, inter1);		
 		
 		inter1.addOutboundSegment(s12);
 		inter1.addOutboundSegment(s13);
+		inter1.addOutboundSegment(s15);
 		inter2.addOutboundSegment(s24);
 		inter2.addOutboundSegment(s21);
 		inter3.addOutboundSegment(s34);
@@ -52,6 +55,7 @@ public class Pcc {
 		inter3.addOutboundSegment(s32);
 		inter4.addOutboundSegment(s43);
 		inter4.addOutboundSegment(s45);
+		inter5.addOutboundSegment(s51);
 		inter5.addOutboundSegment(s56);
 		inter5.addOutboundSegment(s54);
 		inter6.addOutboundSegment(s65);
@@ -130,17 +134,17 @@ public class Pcc {
 				
 				minVertex = greyVertices.poll();//On prend l'intersection grise 
 											    //avec un cout minimal
-				System.out.println("On regarde le sommet "+minVertex.getId());
+				//System.out.println("On regarde le sommet "+minVertex.getId());
 				
 				//On regarde tous les voisins "neighbor" de l'intersection "minVertex"
 				for(Segment s : minVertex.getOutboundSegments()) {
 					neighbor = allVerticesPcc.get(s.getDestination().getId());
 					if(neighbor.getColor() == 0 || neighbor.getColor()== 1) { // blanc ou gris
 						//relacher (minVertex, voisin, predecesseur, cout) : 
-						System.out.println("On relache "+minVertex.getId() + " et "+neighbor.getId());
+						//System.out.println("On relache "+minVertex.getId() + " et "+neighbor.getId());
 
 						if( minVertex.getCost() + s.getLength() < neighbor.getCost() ) {
-							System.out.println("On met a jour "+minVertex.getId()+" et "+neighbor.getId());
+							//System.out.println("On met a jour "+minVertex.getId()+" et "+neighbor.getId());
 							neighbor.setCost( minVertex.getCost() + s.getLength() );
 							predecessors.put(neighbor.getId(), minVertex.getId());
 						}
