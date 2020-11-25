@@ -10,12 +10,14 @@ public class Intersection {
     private double latitude;
     private double longitude;
     private ArrayList<Segment> outboundSegments;
+    private Point coordinates;
 
     public Intersection(Long Id, double latitude, double longitude, ArrayList<Segment> segments) {
 
         this.id = Id;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.coordinates = null;
         if(segments != null) {
         	this.outboundSegments = new ArrayList<Segment>(segments);
         }
@@ -26,7 +28,15 @@ public class Intersection {
         
     }
     
-    public List<Intersection> getNeighbors() {
+    public Point getCoordinates() {
+		return coordinates;
+	}
+
+	public void setCoordinates(Point coordinates) {
+		this.coordinates = coordinates;
+	}
+
+	public List<Intersection> getNeighbors() {
     	ArrayList<Intersection> neighbors = new ArrayList<Intersection>();
     	for(Segment seg : outboundSegments) {
     		neighbors.add(seg.getDestination());

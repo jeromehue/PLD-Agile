@@ -3,6 +3,8 @@ package modele;
 import java.util.Iterator;
 import java.util.List;
 
+import view.GraphicalView;
+
 public class CityMap {
 
 	private List<Intersection> intersections;
@@ -16,6 +18,16 @@ public class CityMap {
 		this.intersections = intersections;
 		this.segments = segments;
 		findMinMax();
+	}
+	
+	public void setIntersectionCordinates(GraphicalView graphicalView) {
+		PointFactory.initPointFactory(graphicalView, this);
+		Iterator<Intersection> itIntersections = getIntersectionsIterator();
+		while(itIntersections.hasNext()) {
+			Intersection intersection = itIntersections.next();
+			Point coordinates = PointFactory.createPoint(intersection);
+			intersection.setCoordinates(coordinates);
+		}
 	}
 	
 	public void addIntersection(Intersection inter) {
@@ -40,6 +52,14 @@ public class CityMap {
 	public Iterator<Segment> getSegementsIterator(){
 		return segments.iterator();
 	}
+	
+	/**
+	 * @return an iterator on all Intersections in the CityMap
+	 */
+	public Iterator<Intersection> getIntersectionsIterator(){
+		return intersections.iterator();
+	}
+	
 	
 	public double getMinLatitude() {
 		return minLatitude;
