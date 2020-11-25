@@ -8,7 +8,7 @@ public class Tour {
 
 	
 	private Intersection startingIntersection;
-	private List<Request> request;
+	private Request request;
 	private List<Segment> path;
 	private HashMap<Long, Integer> arrivalTime;
 	private HashMap<Long, Integer> departureTime;
