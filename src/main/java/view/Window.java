@@ -31,10 +31,8 @@ public class Window extends JFrame{
     protected final static String LOAD_REQUEST = "Charger des requêtes";
     protected final static String COMPUTE_TOUR = "Calculer la tournée";
     
-    
-
     public Window(Controller controller){
-        super( "Hubert If");
+        super("Hubert If");
         buttonListener = new ButtonListener(controller);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1000,1000);
@@ -52,7 +50,7 @@ public class Window extends JFrame{
         textualView = new TextualView();
         contentPane.add(textualView,BorderLayout.WEST);
         
-        graphicalView = new GraphicalView(controller.getCityMap());
+        graphicalView = new GraphicalView(null);
         contentPane.add(graphicalView,BorderLayout.CENTER);
 
         setVisible(true);

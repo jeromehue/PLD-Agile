@@ -35,7 +35,7 @@ public class MapLoadedState implements State {
 			if(path != null) 
 			{
 				System.out.println("Affichage de la requête");
-				XMLRequestParser p = new XMLRequestParser(path);
+				XMLRequestParser p = new XMLRequestParser(path, w.graphicalView.getCityMap());
 				Request request = p.parse();
 				w.graphicalView.setRequest(request);
 				// Si pas d'erreur dans le fichier

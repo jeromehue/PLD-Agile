@@ -14,36 +14,31 @@ import modele.*;
 
 public class XMLRequestParser extends XMLParser {
 
-	public XMLRequestParser(String filename) {
+	private CityMap cityMap;
+	
+	public XMLRequestParser(String filename, CityMap cityMap) {
 		super(filename);
+		this.cityMap = cityMap;
 	}
 	
 	public Request parse() /* throws ... */ {
-	
 		try {
-			
-			
-		
-			ArrayList<Long> 		pickUpLocations   	= new ArrayList<>();
-			ArrayList<Long> 		deliveryLocations 	= new ArrayList<>();
-		    Long 					startingLocation	= (long) 0;
+			ArrayList<Intersection> pickUpLocations   	= new ArrayList<>();
+			ArrayList<Intersection> deliveryLocations 	= new ArrayList<>();
+		    Intersection			startingLocation	= null;
 		    String 					startingTime 		= new String();
-		    ArrayList<Integer> 	pickUpDurations   		= new ArrayList<>();
-		    ArrayList<Integer>	deliveryDurations 		= new ArrayList<>();
+		    ArrayList<Integer> 		pickUpDurations   	= new ArrayList<>();
+		    ArrayList<Integer>		deliveryDurations 	= new ArrayList<>();
 		    
 		    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		    Document doc = dBuilder.parse(this.file);
 		            
 		    // Optional, but recommended
-		    // Read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+		    // http://stackoverflow.com/questions/13786607/
 		    doc.getDocumentElement().normalize();
-		
-		    //System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-		            
+				            
 		    NodeList nodes = doc.getElementsByTagName("depot");
-		            
-		    //System.out.println("----------------------------");
 		
 		    for (int i = 0; i < nodes.getLength(); ++i) {
 		
@@ -52,9 +47,13 @@ public class XMLRequestParser extends XMLParser {
 		        if (node.getNodeType() == Node.ELEMENT_NODE) {
 		
 		            Element element = (Element) node;
-		            
-		            startingLocation  = Long.parseLong(element.getAttribute("address"));
+		            Long startingLocationId = Long.parseLong(element.getAttribute("address"));
+		            startingLocation = this.cityMap.getIntersectionFromAddress(startingLocationId);
 		            startingTime = element.getAttribute("departureTime");
+
+		            if (startingLocation == null) {
+		            	System.out.println("Starting location could not be found on the map.");
+		            }
 		        }
 		    }
 		    
@@ -68,31 +67,25 @@ public class XMLRequestParser extends XMLParser {
 		        	
 		        	Element element = (Element) node;
 		        	
-		        	
-		            pickUpLocations.add(Long.parseLong(element.getAttribute("pickupAddress")));
-		            deliveryLocations.add(Long.parseLong(element.getAttribute("deliveryAddress")));
+		        	Long pickUpLocationId = Long.parseLong(element.getAttribute("pickupAddress"));
+		            pickUpLocations.add(this.cityMap.getIntersectionFromAddress(pickUpLocationId));
+		            
+		            Long deliveryLocationId = Long.parseLong(element.getAttribute("deliveryAddress"));
+		            deliveryLocations.add(this.cityMap.getIntersectionFromAddress(deliveryLocationId));
+		            
 		            pickUpDurations.add(Integer.parseInt(element.getAttribute("pickupDuration")));
 		            deliveryDurations.add(Integer.parseInt(element.getAttribute("deliveryDuration")));
-		            
-		        }
-		    	
-	            
-		    	
+		        }		    	
 		    }
 		
-		    Request r = new Request(startingLocation, startingTime, pickUpDurations,
-					 deliveryDurations,  pickUpLocations,  deliveryLocations);
+		    Request r = new Request(startingLocation, startingTime, pickUpDurations, deliveryDurations,  pickUpLocations,  deliveryLocations);
 		    return (r);
 		    
 		} catch (Exception e) {
 			System.out.println("Erreur lors de la récupération du fichier XML de requête : ");
 			e.printStackTrace();
 			return (null);
-		}
-		//return (new Request());
-		
-		
-		
+		}		
 	}
 
 }

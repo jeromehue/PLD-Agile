@@ -5,13 +5,13 @@ import java.util.Iterator;
 
 public class Request {
 	
-	private Long startingLocation; 
+	private Intersection startingLocation; 
 	private String startingTime;
 	// List of pickup/delivery points with their duration
     private ArrayList<Integer> pickUpDurations;
     private ArrayList<Integer> deliveryDurations;
-    private ArrayList<Long> pickUpLocations;
-	private ArrayList<Long> deliveryLocations;
+    private ArrayList<Intersection> pickUpLocations;
+	private ArrayList<Intersection> deliveryLocations;
 
     
     /**
@@ -28,8 +28,8 @@ public class Request {
 	 * @param pickUpLocations
 	 * @param deliveryLocations
 	 */
-	public Request(Long startingLocation, String startingTime, ArrayList<Integer> pickUpDurations,
-			ArrayList<Integer> deliveryDurations, ArrayList<Long> pickUpLocations, ArrayList<Long> deliveryLocations) {
+	public Request(Intersection startingLocation, String startingTime, ArrayList<Integer> pickUpDurations,
+			ArrayList<Integer> deliveryDurations, ArrayList<Intersection> pickUpLocations, ArrayList<Intersection> deliveryLocations) {
 		this.startingLocation = startingLocation;
 		this.startingTime = startingTime;
 		this.pickUpDurations = pickUpDurations;
@@ -39,7 +39,7 @@ public class Request {
 	}
 
 
-	public Long getStartingLocation() {
+	public Intersection getStartingLocation() {
 		return startingLocation;
 	}
 
@@ -59,26 +59,26 @@ public class Request {
 	}
 
 
-	public ArrayList<Long> getPickUpLocations() {
+	public ArrayList<Intersection> getPickUpLocations() {
 		return pickUpLocations;
 	}
 
 
-	public ArrayList<Long> getDeliveryLocations() {
+	public ArrayList<Intersection> getDeliveryLocations() {
 		return deliveryLocations;
 	}
 	
 	/**
 	 * @return an iterator on all pick up locations in the request
 	 */
-	public Iterator<Long> getPickUpLocationsIterator(){
+	public Iterator<Intersection> getPickUpLocationsIterator(){
 		return pickUpLocations.iterator();
 	}
 	
 	/**
 	 * @return an iterator on all delivery locations in the request
 	 */
-	public Iterator<Long> getDeliveryLocationsIterator(){
+	public Iterator<Intersection> getDeliveryLocationsIterator(){
 		return deliveryLocations.iterator();
 	}
 

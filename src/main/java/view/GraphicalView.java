@@ -33,10 +33,14 @@ public class GraphicalView extends JPanel{
 		this.request = request;
 		this.repaint();
 	}
-	
+
 	public void setCityMap(CityMap cityMap) {
 		this.cityMap = cityMap;
 		this.repaint();
+	}
+	
+	public CityMap getCityMap() {
+		return this.cityMap;
 	}
 	
 	/**
@@ -86,37 +90,31 @@ public class GraphicalView extends JPanel{
 	
 	private void drawRequest(Graphics graphics) {
 		//draw start point
-		Long startAdress = request.getStartingLocation();
-		Intersection startIntersection = cityMap.getIntersectionFromAddress(startAdress);
+		Intersection startIntersection = request.getStartingLocation();
 		if(startIntersection != null ) 
 		{ drawStartIntersection(graphics, startIntersection); }
 		
-		
-		Long pickUpAdressTest;
-		Long deliveryAdressTest;
-		Iterator<Long> itPickUpTest = request.getPickUpLocationsIterator();
-		Iterator<Long> itDeliveryTest = request.getDeliveryLocationsIterator();
+		Intersection pickUpAdresseToDraw;
+		Intersection deliveryAdressToDraw;
+		Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
+		Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
 		while(itPickUpTest.hasNext())
 		{
-			
 			int red=  (int) (Math.random()*256);
 			int green= (int) (Math.random()*256);
 			int blue= (int) (Math.random()*256);
 			Color color=new Color(red,green,blue);
 			graphics.setColor(color);
-			pickUpAdressTest = itPickUpTest.next();
-			deliveryAdressTest = itDeliveryTest.next();
+			pickUpAdresseToDraw = itPickUpTest.next();
+			deliveryAdressToDraw = itDeliveryTest.next();
 			
-			Intersection pickUpAdresseToDraw   = cityMap.getIntersectionFromAddress(pickUpAdressTest);
 			System.out.println(pickUpAdresseToDraw);
 			if(pickUpAdresseToDraw != null ) 
 			{ drawIntersectionSquare(graphics, pickUpAdresseToDraw); }
 			
-			Intersection deliveryAdressToDraw = cityMap.getIntersectionFromAddress(deliveryAdressTest);
 			System.out.println(deliveryAdressToDraw);
 			if(deliveryAdressToDraw != null ) 
-			{ drawIntersection(graphics, deliveryAdressToDraw); }
-			
+			{ drawIntersection(graphics, deliveryAdressToDraw); }	
 		}
 		
 		/*
