@@ -3,6 +3,7 @@ package algoTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +11,7 @@ import algo.CompleteGraph;
 import algo.Pcc;
 import modele.CityMap;
 import modele.Request;
+import modele.Segment;
 import modele.Intersection;
 import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
@@ -36,8 +38,6 @@ class testPcc {
 			fail();
 		}
 		
-		
-		
 		Pcc pcc = new Pcc(city, request);
 		
 		CompleteGraph graph = pcc.computePcc();
@@ -46,7 +46,20 @@ class testPcc {
 		ArrayList<Intersection> deliveries = request.getDeliveryLocations();
 		Integer randomDeliveryLocation = (int)((Math.random()*deliveries.size()));
 
-		pcc.getRoads(request.getStartingLocation(), deliveries.get(randomDeliveryLocation));
+		List<Segment> chemin = pcc.getRoads(request.getStartingLocation(), deliveries.get(randomDeliveryLocation));
+		
+		Intersection passage = chemin.get(0).getOrigin();
+
+		System.out.println("\n\nOn commence au point (" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
+		for(Segment s : chemin) {
+			passage = s.getDestination();
+			System.out.print("On prend la rue : ");
+			System.out.println(s.getName());
+			
+			System.out.println("On passe au point (" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
+		}
+		System.out.println();
+		
 		for(int i = 0 ; i < graph.getNbVertices() ; ++i) {
 			for(int j = 0 ; j < graph.getNbVertices() ; ++j) {
 				if(i == j) {

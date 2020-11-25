@@ -336,17 +336,6 @@ public class Pcc {
 		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
 		System.out.println(" de la rue " + segmentsList.get(segmentsList.size() - 1).getName());
 		
-		passage = segmentsList.get(0).getOrigin();
-
-		System.out.println("\n\nOn commence au point (" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
-		for(Segment s : segmentsList) {
-			passage = s.getDestination();
-			System.out.print("On prend la rue : ");
-			System.out.println(s.getName());
-			
-			System.out.println("On passe au point (" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
-		}
-		System.out.println();
 		
 		return segmentsList;
 	}
