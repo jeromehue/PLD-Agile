@@ -11,6 +11,7 @@ import modele.CityMap;
 import modele.Intersection;
 import modele.Request;
 import modele.Segment;
+import modele.Tour;
 
 import java.lang.Math;
 
@@ -20,6 +21,7 @@ public class GraphicalView extends JPanel{
 	
 	private CityMap cityMap;
 	private Request request;
+	private Tour tour;
 
 	public GraphicalView(CityMap cityMap) {
 		super();
@@ -27,6 +29,7 @@ public class GraphicalView extends JPanel{
 		this.setLayout(null);
 		this.cityMap = cityMap;
 		this.request = null;
+		this.tour = null;
 	}
 	
 	public void setRequest(Request request) {
@@ -41,6 +44,11 @@ public class GraphicalView extends JPanel{
 	
 	public CityMap getCityMap() {
 		return this.cityMap;
+	}
+
+	public void setTour(Tour tour) {
+		this.tour = tour;
+		this.repaint();
 	}
 	
 	/**
@@ -64,6 +72,12 @@ public class GraphicalView extends JPanel{
 		{
 			drawRequest(graphics);
 		}
+		
+		//draw the tour
+		if(tour != null)
+		{
+			drawTour(graphics);
+		}
 	}
 	
 	private int intersectionToPixelLattitude(Intersection i) {
@@ -78,12 +92,29 @@ public class GraphicalView extends JPanel{
 		return (int)longitudePixel;
 	}
 	
+	private void drawTour(Graphics graphics) {
+		graphics.setColor(Color.red);
+		Iterator<Segment> itSegements = tour.getSegementsIterator();
+		while(itSegements.hasNext())
+		{
+			drawSegement(graphics,itSegements.next());
+		}	
+	}
+	
 	private void drawCityMap(Graphics graphics) {
 		graphics.setColor(Color.black);
 		Iterator<Segment> itSegements = cityMap.getSegementsIterator();
 		while(itSegements.hasNext())
 		{
-			drawSegement(graphics,itSegements.next());
+			Segment segment = itSegements.next();
+			drawSegement(graphics,segment);
+			/*Intersection i = new Intersection(null, 
+					(segment.getOrigin().getLatitude() - segment.getDestination().getLatitude())/2.00, 
+					(segment.getOrigin().getLongitude() - segment.getDestination().getLongitude())/2.00,
+					null);
+			graphics.drawString(segment.getName(),	
+								,
+								Math.abs());*/
 		}	
 	}
 	
