@@ -2,6 +2,7 @@ package modele;
 
 import java.util.List;
 import java.util.HashMap;
+import java.util.Iterator;
 
 
 public class Tour {
@@ -20,6 +21,38 @@ public class Tour {
 		this.path = path;
 		this.arrivalTime = arrivalTime;
 		this.departureTime = departureTime;
+	}
+	
+	public Tour(Request request) {
+		this.request = request;
+		
+	}
+	
+	public void setStartingIntersection(Intersection startingIntersection) {
+		this.startingIntersection = startingIntersection;
+	}
+
+	public void setRequest(Request request) {
+		this.request = request;
+	}
+
+	public void setPath(List<Segment> path) {
+		this.path = path;
+	}
+
+	public void setArrivalTime(HashMap<Long, Integer> arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
+
+	public void setDepartureTime(HashMap<Long, Integer> departureTime) {
+		this.departureTime = departureTime;
+	}
+
+	/**
+	 * @return an iterator on all Segments in the tour
+	 */
+	public Iterator<Segment> getSegementsIterator(){
+		return path.iterator();
 	}
 
 	public Intersection getStartingIntersection() {

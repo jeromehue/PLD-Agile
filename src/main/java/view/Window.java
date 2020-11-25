@@ -31,10 +31,8 @@ public class Window extends JFrame{
     protected final static String LOAD_REQUEST = "Charger des requêtes";
     protected final static String COMPUTE_TOUR = "Calculer la tournée";
     
-    
-
     public Window(Controller controller){
-        super( "Hubert If");
+        super("Hubert If");
         buttonListener = new ButtonListener(controller);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1000,1000);
@@ -52,7 +50,7 @@ public class Window extends JFrame{
         textualView = new TextualView();
         contentPane.add(textualView,BorderLayout.WEST);
         
-        graphicalView = new GraphicalView(controller.getCityMap());
+        graphicalView = new GraphicalView(null);
         contentPane.add(graphicalView,BorderLayout.CENTER);
 
         setVisible(true);
@@ -83,6 +81,7 @@ public class Window extends JFrame{
         messageFrame = new JLabel();
 		messageFrame.setBorder(BorderFactory.createTitledBorder("Messages"));
         messageFrame.setPreferredSize(new Dimension(50,150));
+        messageFrame.setText("Pour commencer, chargez une carte au format XML.");
         return messageFrame;
     } 
     
@@ -101,6 +100,9 @@ public class Window extends JFrame{
 		    } 
 		    return absPath;
 	}
+    public void setMessage (String message) {
+    	messageFrame.setText(message);
+    }
 }
         
         

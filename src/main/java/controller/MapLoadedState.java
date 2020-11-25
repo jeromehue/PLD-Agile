@@ -21,10 +21,11 @@ public class MapLoadedState implements State {
 				
 				w.graphicalView.setCityMap(cityMap);
 				c.setCurrentstate(c.mapLoadedState);
+				w.setMessage ("La carte a été chargée avec succès. Veuillez charger des requêtes.");
 			}
 			else 
 			{
-				System.out.println("Echec de l'obtention du chemin avec la boite de dialogue");
+				w.setMessage("Echec du chargement de la carte lors de l'obtention du chemin avec la boite de dialogue");
 			}
 		}
 	
@@ -35,18 +36,19 @@ public class MapLoadedState implements State {
 			if(path != null) 
 			{
 				System.out.println("Affichage de la requête");
-				XMLRequestParser p = new XMLRequestParser(path);
+				XMLRequestParser p = new XMLRequestParser(path, w.graphicalView.getCityMap());
 				Request request = p.parse();
 				w.graphicalView.setRequest(request);
 				// Si pas d'erreur dans le fichier
 				if (request != null) {
 					c.setCurrentstate(c.requestLoadedState);
 				}
+				w.setMessage("Requêtes chargées avec succès");
 				
 			}
 			else 
 			{
-				System.out.println("Echec de l'obtention du chemin avec la boite de dialogue");
+				w.setMessage("Echec du chargement des requêtes lors de l'obtention du chemin avec la boite de dialogue");
 			}
 			
 		}

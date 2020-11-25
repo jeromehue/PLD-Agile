@@ -11,6 +11,7 @@ import modele.CityMap;
 import modele.Intersection;
 import modele.Request;
 import modele.Segment;
+import modele.Tour;
 
 import java.lang.Math;
 
@@ -20,6 +21,7 @@ public class GraphicalView extends JPanel{
 	
 	private CityMap cityMap;
 	private Request request;
+	private Tour tour;
 
 	public GraphicalView(CityMap cityMap) {
 		super();
@@ -27,15 +29,25 @@ public class GraphicalView extends JPanel{
 		this.setLayout(null);
 		this.cityMap = cityMap;
 		this.request = null;
+		this.tour = null;
 	}
 	
 	public void setRequest(Request request) {
 		this.request = request;
 		this.repaint();
 	}
-	
+
 	public void setCityMap(CityMap cityMap) {
 		this.cityMap = cityMap;
+		this.repaint();
+	}
+	
+	public CityMap getCityMap() {
+		return this.cityMap;
+	}
+
+	public void setTour(Tour tour) {
+		this.tour = tour;
 		this.repaint();
 	}
 	
@@ -60,6 +72,12 @@ public class GraphicalView extends JPanel{
 		{
 			drawRequest(graphics);
 		}
+		
+		//draw the tour
+		if(tour != null)
+		{
+			drawTour(graphics);
+		}
 	}
 	
 	private int intersectionToPixelLattitude(Intersection i) {
@@ -74,49 +92,60 @@ public class GraphicalView extends JPanel{
 		return (int)longitudePixel;
 	}
 	
-	private void drawCityMap(Graphics graphics) {
-		graphics.setColor(Color.black);
-		Iterator<Segment> itSegements = cityMap.getSegementsIterator();
+	private void drawTour(Graphics graphics) {
+		graphics.setColor(Color.red);
+		Iterator<Segment> itSegements = tour.getSegementsIterator();
 		while(itSegements.hasNext())
 		{
 			drawSegement(graphics,itSegements.next());
 		}	
 	}
 	
+	private void drawCityMap(Graphics graphics) {
+		graphics.setColor(Color.black);
+		Iterator<Segment> itSegements = cityMap.getSegementsIterator();
+		while(itSegements.hasNext())
+		{
+			Segment segment = itSegements.next();
+			drawSegement(graphics,segment);
+			/*Intersection i = new Intersection(null, 
+					(segment.getOrigin().getLatitude() - segment.getDestination().getLatitude())/2.00, 
+					(segment.getOrigin().getLongitude() - segment.getDestination().getLongitude())/2.00,
+					null);
+			graphics.drawString(segment.getName(),	
+								,
+								Math.abs());*/
+		}	
+	}
+	
 	
 	private void drawRequest(Graphics graphics) {
 		//draw start point
-		Long startAdress = request.getStartingLocation();
-		Intersection startIntersection = cityMap.getIntersectionFromAddress(startAdress);
+		Intersection startIntersection = request.getStartingLocation();
 		if(startIntersection != null ) 
 		{ drawStartIntersection(graphics, startIntersection); }
 		
-		
-		Long pickUpAdressTest;
-		Long deliveryAdressTest;
-		Iterator<Long> itPickUpTest = request.getPickUpLocationsIterator();
-		Iterator<Long> itDeliveryTest = request.getDeliveryLocationsIterator();
+		Intersection pickUpAdresseToDraw;
+		Intersection deliveryAdressToDraw;
+		Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
+		Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
 		while(itPickUpTest.hasNext())
 		{
-			
 			int red=  (int) (Math.random()*256);
 			int green= (int) (Math.random()*256);
 			int blue= (int) (Math.random()*256);
 			Color color=new Color(red,green,blue);
 			graphics.setColor(color);
-			pickUpAdressTest = itPickUpTest.next();
-			deliveryAdressTest = itDeliveryTest.next();
+			pickUpAdresseToDraw = itPickUpTest.next();
+			deliveryAdressToDraw = itDeliveryTest.next();
 			
-			Intersection pickUpAdresseToDraw   = cityMap.getIntersectionFromAddress(pickUpAdressTest);
 			System.out.println(pickUpAdresseToDraw);
 			if(pickUpAdresseToDraw != null ) 
 			{ drawIntersectionSquare(graphics, pickUpAdresseToDraw); }
 			
-			Intersection deliveryAdressToDraw = cityMap.getIntersectionFromAddress(deliveryAdressTest);
 			System.out.println(deliveryAdressToDraw);
 			if(deliveryAdressToDraw != null ) 
-			{ drawIntersection(graphics, deliveryAdressToDraw); }
-			
+			{ drawIntersection(graphics, deliveryAdressToDraw); }	
 		}
 		
 		/*

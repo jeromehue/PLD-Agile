@@ -6,7 +6,6 @@ import view.Window;
 
 public class Controller {
 	
-	private CityMap cityMap;
 	private Window window;
 	
 	//States
@@ -14,12 +13,6 @@ public class Controller {
 	protected final InitState initState = new InitState();
 	protected final MapLoadedState mapLoadedState = new MapLoadedState();
 	protected final RequestLoadedState requestLoadedState = new RequestLoadedState();
-	
-	
-	public CityMap getCityMap() {
-		return cityMap;
-	}
-	
 	
 	public Controller() {
 		window = new Window(this);
@@ -32,7 +25,8 @@ public class Controller {
 	}
 	
 	public void loadMap() {
-		currentState.loadMap(this, this.window);	
+		currentState.loadMap(this, this.window);
+		
 	}
 	
 	public void loadRequest() {
