@@ -15,11 +15,11 @@ public class InitState implements State {
 			CityMap cityMap = p.parse();
 			w.graphicalView.setCityMap(cityMap);
 			c.setCurrentstate(c.mapLoadedState);
-			w.setMessage ("La carte a été chargée avec succès. Veuillez charger des requêtes.");
+			w.setMessage ("La carte a été chargée avec succès. Vous pouvez charger une requête.");
 		}
 		else 
 		{
-			w.setMessage("Echec du chargement de la carte lors de l'obtention du chemin avec la boite de dialogue");
+			w.setMessage("Veuillez charger une carte au format XML.");
 		}
 	}
 	
@@ -30,7 +30,7 @@ public class InitState implements State {
 	
 	@Override
 	public void computeTour(Controller c,Window w) {
-		w.setMessage("Avant de calculer la tournée, charger une carte puiq une requête");
+		w.setMessage("Avant de calculer la tournée, chargez une carte puis une requête");
 	}
 	
 }

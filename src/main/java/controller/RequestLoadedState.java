@@ -34,7 +34,7 @@ public class RequestLoadedState implements State {
 			}
 			else 
 			{
-				System.out.println("Echec de l'obtention du chemin avec la boite de dialogue");
+				w.setMessage("Vous pouvez charger une carte, charger une requête ou calculer la tournée.");
 			}
 		}
 	
@@ -48,16 +48,15 @@ public class RequestLoadedState implements State {
 					Request request = p.parse();
 					w.graphicalView.setRequest(request);
 					c.setCurrentstate(c.requestLoadedState);
-					w.setMessage("Requête chargée avecsuccès");
+					w.setMessage("Requête chargée, vous pouvez charger une autre requête, charger une carte ou calculer la tournée.");
 					w.graphicalView.setTour(null);
 				} catch (InvalidRequestException e) {
-					w.setMessage(e.getMessage());
+					System.out.println(e.getMessage());
 				}
 			}
 			else 
 			{
-				System.out.println("Echec de l'obtention du chemin avec la boite de dialogue");
-				w.setMessage("La requête n'a pas pu être chargé");
+				w.setMessage("Vous pouvez charger une carte, charger une requête ou calculer la tournée.");
 			}
 			
 		}
@@ -98,5 +97,6 @@ public class RequestLoadedState implements State {
 			tour.setPath(paths);
 				
 			w.graphicalView.setTour(tour);
+			w.setMessage("Votre tournée");
 		}
 }

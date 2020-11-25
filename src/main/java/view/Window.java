@@ -90,6 +90,10 @@ public class Window extends JFrame{
         return messageFrame;
     } 
     
+    public void setMessage (String message) {
+    	messageFrame.setText(message);
+    }
+    
     public String createDialogBoxToGetFilePath() {
 		  final JFileChooser fc = new JFileChooser();
 		  FileNameExtensionFilter filter = new FileNameExtensionFilter("XML files (*.xml)", "xml");
@@ -105,9 +109,7 @@ public class Window extends JFrame{
 		    } 
 		    return absPath;
 	}
-    public void setMessage (String message) {
-    	messageFrame.setText(message);
-    }
+    
 }
         
         

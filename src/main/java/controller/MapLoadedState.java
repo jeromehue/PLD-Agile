@@ -25,7 +25,7 @@ public class MapLoadedState implements State {
 			}
 			else 
 			{
-				w.setMessage("Echec du chargement de la carte lors de l'obtention du chemin avec la boite de dialogue.");
+				w.setMessage("Veuillez charger une carte ou une requête au format XML.");
 			}
 		}
 	
@@ -39,7 +39,7 @@ public class MapLoadedState implements State {
 					Request request = p.parse();
 					w.graphicalView.setRequest(request);
 					c.setCurrentstate(c.requestLoadedState);
-					w.setMessage("Requests loaded successfully.");
+					w.setMessage("Requête chargée, vous pouvez calculer la tournée");
 				} catch (InvalidRequestException e) {
 					w.setMessage(e.getMessage());
 				}
@@ -47,8 +47,13 @@ public class MapLoadedState implements State {
 			else 
 			{
 				System.out.println("Echec de l'obtention du chemin avec la boite de dialogue");
-				w.setMessage("Echec du chargement des requêtes lors de l'obtention du chemin avec la boite de dialogue.");
+				w.setMessage("Veuillez charger une requête au format XML.");
 			}
 			
+		}
+		
+		@Override
+		public void computeTour(Controller c,Window w) {
+			w.setMessage("Avant de calculer la tournée, chargez une requête");
 		}
 }
