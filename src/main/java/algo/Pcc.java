@@ -144,17 +144,17 @@ public class Pcc {
 				
 				minVertex = greyVertices.poll();//On prend l'intersection grise 
 											    //avec un cout minimal
-				System.out.println("On regarde le sommet "+minVertex.getId());
+				//System.out.println("On regarde le sommet "+minVertex.getId());
 				
 				//On regarde tous les voisins "neighbor" de l'intersection "minVertex"
 				for(Segment s : minVertex.getOutboundSegments()) {
 					neighbor = allVerticesPcc.get(s.getDestination().getId());
 					if(neighbor.getColor() == 0 || neighbor.getColor()== 1) { // blanc ou gris
 						//relacher (minVertex, voisin, predecesseur, cout) : 
-						System.out.println("On relache "+minVertex.getId() + " et "+neighbor.getId());
+						//System.out.println("On relache "+minVertex.getId() + " et "+neighbor.getId());
 
 						if( minVertex.getCost() + s.getLength() < neighbor.getCost() ) {
-							System.out.println("On met a jour "+minVertex.getId()+" et "+neighbor.getId());
+							//System.out.println("On met a jour "+minVertex.getId()+" et "+neighbor.getId());
 							neighbor.setCost( minVertex.getCost() + s.getLength() );
 							predecessors.put(neighbor.getId(), minVertex.getId());
 						}
