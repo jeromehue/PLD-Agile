@@ -1,15 +1,10 @@
 package algoTest;
 
-import algo.Graph;
 import algo.Pcc;
 import algo.CompleteGraph;
-import modele.Intersection;
-import modele.Segment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +16,7 @@ public class testTSP {
 	void test() {
 		TSP tsp = new TSP1();
 		Pcc pcc = new Pcc();
-		CompleteGraph graph = pcc.init();		
+		CompleteGraph graph = pcc.initTest();		
 		
 		long startTime = System.currentTimeMillis();
 		tsp.searchSolution(20000, graph);

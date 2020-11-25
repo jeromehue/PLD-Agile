@@ -1,7 +1,9 @@
 package algo;
+import modele.CityMap;
 //import modele.Request;
 //import modele.CityMap;
 import modele.Intersection;
+import modele.Request;
 import modele.Segment;
 
 import java.util.ArrayList;
@@ -11,16 +13,128 @@ import java.util.HashMap;
 import java.lang.Math;
 
 public class Pcc {
-	/*private CityMap cityMap;
-	private Request request;
+	private List<Intersection> allVertices;
+	private List<Intersection> pickUpVertices;
+	private List<Intersection> deliveryVertices;
+	private Intersection start;
+	//private List<Segment> edges;
 	
-	public Pcc(CityMap city , Request request ){
-		cityMap = city;
-		this.request = request;
-	}*/
 	public Pcc() {};
 	
-	public CompleteGraph init() {
+	public Pcc(CityMap city, Request request) {
+		allVertices = city.getIntersections();
+		pickUpVertices = request.getPickUpLocations();
+		deliveryVertices = request.getDeliveryLocations();
+		start = request.getStartingLocation();
+		//edges = city.getSegments();
+	}
+	
+	public CompleteGraph computePcc() {
+		
+		ArrayList<Intersection> startVertices = new ArrayList<>();
+		startVertices.add(start);
+		startVertices.addAll(pickUpVertices);
+		startVertices.addAll(deliveryVertices);
+		
+		CompleteGraph graph = new CompleteGraph(allVertices);
+		
+		final int END_TEST_CYCLE = 1;
+		boolean allBlackStartVertices=false;	
+		HashMap<Long, IntersectionPcc> allVerticesPcc = new HashMap<Long, IntersectionPcc>();
+		//HashMaps pour retrouver les voisins
+		PriorityQueue<IntersectionPcc> greyVertices; // tas binaire
+		HashMap<Long, Long> predecessors;//<Intersection id, Intersection id du prédecesseur  >
+		
+		IntersectionPcc neighbor;
+		IntersectionPcc minVertex;
+		
+		//On fait un Dijkstra par point à visiter
+		for (Intersection start  :  startVertices) {
+			//Les sommets gris sont initialisés à null
+
+			/*Début de l'algorithme classique de Dijkstra*/
+			
+			//Pour chaque objet Intesection on crée un objet IntersectionPcc qu'on initialise 
+			//avec un cout MAX et la couleur blanche
+			allVerticesPcc = new HashMap<Long, IntersectionPcc>();
+			predecessors = new HashMap<Long, Long>();
+			for (Intersection inter : allVertices) {
+				allVerticesPcc.put( inter.getId(), new IntersectionPcc(inter, 0, Double.MAX_VALUE ));
+				predecessors.put(inter.getId(), null);
+			}
+			
+			//On colorie le point de départ en gris et on met son cout à 0.
+			greyVertices = new PriorityQueue<IntersectionPcc>();
+			IntersectionPcc startPcc = new IntersectionPcc (start, 1, 0.0);
+			allVerticesPcc.put(startPcc.getId(), startPcc);
+			greyVertices.add(startPcc);
+			
+
+			allBlackStartVertices=false;
+			int i=0;
+			int nbBlackStartVertices=0;
+			
+			while(!greyVertices.isEmpty() && !allBlackStartVertices) {			
+				
+				minVertex = greyVertices.poll();//On prend l'intersection grise 
+											    //avec un cout minimal
+				//System.out.println("On regarde le sommet "+minVertex.getId());
+				
+				//On regarde tous les voisins "neighbor" de l'intersection "minVertex"
+				for(Segment s : minVertex.getOutboundSegments()) {
+					neighbor = allVerticesPcc.get(s.getDestination().getId());
+					if(neighbor.getColor() == 0 || neighbor.getColor()== 1) { // blanc ou gris
+						//relacher (minVertex, voisin, predecesseur, cout) : 
+						//System.out.println("On relache "+minVertex.getId() + " et "+neighbor.getId());
+
+						if( minVertex.getCost() + s.getLength() < neighbor.getCost() ) {
+							//System.out.println("On met a jour "+minVertex.getId()+" et "+neighbor.getId());
+							neighbor.setCost( minVertex.getCost() + s.getLength() );
+							predecessors.put(neighbor.getId(), minVertex.getId());
+						}
+					}
+					if(neighbor.getColor() == 0) {
+						neighbor.setColor(1);
+						greyVertices.add(neighbor);
+					}
+					allVerticesPcc.put(neighbor.getId(), neighbor);//On enregistre les modifs faites à neighbor
+				}
+				
+				///On colorie l'intersection en noir quand elle n'a plus de voisins gris ou blancs
+				minVertex.setColor(2);
+
+				allVerticesPcc.put(minVertex.getId(), minVertex);
+				//On met à jour la condition de fin
+				i++;
+				if(i==END_TEST_CYCLE) {//Pour ne pas tester trop souvent
+					i=0;
+					nbBlackStartVertices=0;
+					for(Intersection sVertex : startVertices ) {
+						if(allVerticesPcc.get(sVertex.getId()).getColor() == 2) {
+							nbBlackStartVertices++;
+						}
+					}
+					if(nbBlackStartVertices == startVertices.size()) {
+						allBlackStartVertices = true;
+					}
+				}
+			}
+			
+			//sauvegarder le résultat obtenu pour un des points de départ
+			for(Long idInter : allVerticesPcc.keySet()) {
+				IntersectionPcc inter = allVerticesPcc.get(idInter);
+				System.out.println("En partant du sommet "+startPcc.getId()+
+					" le chemin le plus court pour arriver au point "+inter.getId()+
+					" a une distance de "+inter.getCost()+"\n");
+				graph.updateCompleteGraph(startPcc.getId(), allVerticesPcc);
+			}
+		}
+		
+		System.out.println(graph.toString());
+		return graph;
+	}
+	
+	public CompleteGraph initTest() {
 		ArrayList<Segment> l1 = new ArrayList<>();
 		Intersection inter1 = new Intersection(new Long(1), 1.0, 1.0, l1);
 		Intersection inter2 = new Intersection(new Long(2), 1.0, 2.0, l1);
@@ -77,10 +191,10 @@ public class Pcc {
 		allVertices.add(inter4);
 		allVertices.add(inter5);
 		allVertices.add(inter6);
-		return computePcc(allVertices, startVertices);
+		return testComputePcc(allVertices, startVertices);
 	}
 	
-	public CompleteGraph computePcc(List<Intersection> allVertices, List<Intersection> startVertices) {
+	public CompleteGraph testComputePcc(List<Intersection> allVertices, List<Intersection> startVertices) {
 		//Pbm parce que request.get... renvoie un long (id de l'intersection)
 		// au lieu de l'intersection...
 		/* Commentaires pour tester l'algo
@@ -194,8 +308,4 @@ public class Pcc {
 		return Math.sqrt( (a.getLatitude()-b.getLatitude())*(a.getLatitude()-b.getLatitude())
 			 + (a.getLongitude()-b.getLongitude())*(a.getLongitude()-b.getLongitude()) );
 	}
-	
-	
-
-	HashMap<Long, Long> colors;
 }
