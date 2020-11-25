@@ -19,9 +19,11 @@ import algo.TSP1;
 public class testTSP {
 	@Test
 	void test() {
-		TSP tsp = new TSP1();
+		TSP1 tsp = new TSP1();
 		Pcc pcc = new Pcc();
-		CompleteGraph graph = pcc.init();		
+		CompleteGraph graph = pcc.init();	
+		tsp.addGraph(graph);
+		tsp.init();
 		
 		long startTime = System.currentTimeMillis();
 		tsp.searchSolution(20000, graph);

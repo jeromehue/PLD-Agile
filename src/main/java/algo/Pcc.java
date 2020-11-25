@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.lang.Math;
 
 public class Pcc {
+	private HashMap<Long, HashMap<Long, Long>> savePredecessors = new HashMap<Long, HashMap<Long, Long>>();//< idStartVertex, <idCurrentVertex, idLastVertex> >
+	HashMap<Long, IntersectionPcc> allVerticesPcc;
 	/*private CityMap cityMap;
 	private Request request;
 	
@@ -30,20 +32,20 @@ public class Pcc {
 		Intersection inter6 = new Intersection(new Long(6), 3.0, 1.0, l1);
 
 
-		Segment s12 = new Segment(1.0, "", inter1, inter2);
-		Segment s24 = new Segment(2.0, "", inter2, inter4);
-		Segment s21 = new Segment(1.0, "", inter2, inter1);
-		Segment s13 = new Segment(5.0, "", inter1, inter3);
-		Segment s34 = new Segment(1.0, "", inter3, inter4);
-		Segment s43 = new Segment(1.0, "", inter4, inter3);
-		Segment s45 = new Segment(2.0, "", inter4, inter5);
-		Segment s36 = new Segment(10.0, "", inter3, inter6);
-		Segment s32 = new Segment(10.0, "", inter3, inter2);
-		Segment s56 = new Segment(5.0, "", inter5, inter6);	
-		Segment s54 = new Segment(2.0, "", inter5, inter4);	
-		Segment s65 = new Segment(5.0, "", inter6, inter5);		
-		Segment s15 = new Segment(6.0, "", inter1, inter5);		
-		Segment s51 = new Segment(7.0, "", inter5, inter1);		
+		Segment s12 = new Segment(1.0, "rue 12", inter1, inter2);
+		Segment s24 = new Segment(2.0, "rue 24", inter2, inter4);
+		Segment s21 = new Segment(1.0, "rue 21", inter2, inter1);
+		Segment s13 = new Segment(5.0, "rue 13", inter1, inter3);
+		Segment s34 = new Segment(1.0, "rue 34", inter3, inter4);
+		Segment s43 = new Segment(1.0, "rue 43", inter4, inter3);
+		Segment s45 = new Segment(2.0, "rue 45", inter4, inter5);
+		Segment s36 = new Segment(10.0, "rue 36", inter3, inter6);
+		Segment s32 = new Segment(10.0, "rue 32", inter3, inter2);
+		Segment s56 = new Segment(5.0, "rue 56", inter5, inter6);	
+		Segment s54 = new Segment(2.0, "rue 54", inter5, inter4);	
+		Segment s65 = new Segment(5.0, "rue 65", inter6, inter5);		
+		Segment s15 = new Segment(6.0, "rue 15", inter1, inter5);		
+		Segment s51 = new Segment(7.0, "rue 51", inter5, inter1);		
 		
 		inter1.addOutboundSegment(s12);
 		inter1.addOutboundSegment(s13);
@@ -96,7 +98,7 @@ public class Pcc {
 		
 		final int END_TEST_CYCLE = 1;
 		boolean allBlackStartVertices=false;	
-		HashMap<Long, IntersectionPcc> allVerticesPcc = new HashMap<Long, IntersectionPcc>();
+		allVerticesPcc = new HashMap<Long, IntersectionPcc>();
 		//HashMaps pour retrouver les voisins
 		PriorityQueue<IntersectionPcc> greyVertices; // tas binaire
 		HashMap<Long, Long> predecessors;//<Intersection id, Intersection id du prédecesseur  >
@@ -184,10 +186,49 @@ public class Pcc {
 					" a une distance de "+inter.getCost()+"\n");
 				graph.updateCompleteGraph(startPcc.getId(), allVerticesPcc);
 			}
+			
+			System.out.println("Le chemin a l'envers du point 6 au sommet de départ "+ start.getId()+"est : ");
+			Long currentPoint = new Long(6);
+			do {
+				System.out.print(currentPoint+" - ");
+				currentPoint = predecessors.get(currentPoint);
+			}while(currentPoint != null);
+			System.out.println();
+			//On enregistre une HashMap predecessors par point de départ
+			savePredecessors.put(start.getId(), predecessors);
 		}
 		
 		System.out.println(graph.toString());
 		return graph;
+	}
+	
+	public List<Segment> getRoads(Intersection start, Intersection finish){
+		ArrayList<Segment> segmentsList =  new ArrayList<Segment>();
+		ArrayList<Segment> goodOrder =  new ArrayList<Segment>();
+		HashMap<Long, Long> predecessors = savePredecessors.get(start.getId());
+		Long currentPoint = finish.getId();
+		Long lastPoint = predecessors.get(currentPoint);
+		do {
+			Intersection interB = allVerticesPcc.get(lastPoint); 
+			
+			//On parcourt les segments depuis lastPoint pour trouver le segment entre lastPoint et currentPoint 
+			for(Segment s : interB.getOutboundSegments()) {
+				if(s.getDestination().getId().equals(currentPoint) ) {
+					segmentsList.add(0,s); 					
+					break;
+				}
+			}
+			currentPoint = predecessors.get(currentPoint);
+			lastPoint = predecessors.get(lastPoint);
+		}while(lastPoint != null);
+				
+		System.out.print("On passe par les rues : ");
+		for(Segment s : segmentsList) {
+			System.out.println(s.getName()+" puis ");
+		}
+		System.out.println();
+		
+		return segmentsList;
 	}
 	
 	public static Double distance (IntersectionPcc a, IntersectionPcc b) {
