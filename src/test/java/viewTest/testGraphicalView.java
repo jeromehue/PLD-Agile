@@ -44,17 +44,27 @@ public class testGraphicalView {
 		Pcc shortestPathComputer = new Pcc(cityMap, request);
 		shortestPathComputer.computePcc();
 		
-		Intersection pickUpAdressTest = request.getStartingLocation();
-		Intersection oldPickUpAdressTest;
+		Intersection intersection = request.getStartingLocation();
+		Intersection oldIntersecction;
 		ArrayList<Segment> paths = new ArrayList<Segment>();
 		Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
 		while(itPickUpTest.hasNext())
 		{
-			oldPickUpAdressTest = pickUpAdressTest;
-			pickUpAdressTest = itPickUpTest.next();
+			oldIntersecction = intersection;
+			intersection = itPickUpTest.next();
 			
-			List<Segment> localPaths = shortestPathComputer.getRoads(oldPickUpAdressTest,pickUpAdressTest);
+			List<Segment> localPaths = shortestPathComputer.getRoads(oldIntersecction,intersection);
 			paths.addAll(localPaths);
+			
+		}
+		Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
+		while(itDeliveryTest.hasNext())
+		{
+			oldIntersecction = intersection;
+			intersection = itDeliveryTest.next();
+			
+			List<Segment> localPaths2 = shortestPathComputer.getRoads(oldIntersecction,intersection);
+			paths.addAll(localPaths2);
 			
 		}
 		tour.setPath(paths);
