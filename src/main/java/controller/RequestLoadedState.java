@@ -3,6 +3,7 @@ package controller;
 import modele.CityMap;
 import modele.Request;
 import view.Window;
+import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
@@ -34,17 +35,14 @@ public class RequestLoadedState implements State {
 			String path = w.createDialogBoxToGetFilePath();
 			if(path != null) 
 			{
-				XMLRequestParser p = new XMLRequestParser(path, w.graphicalView.getCityMap());
-				Request request = p.parse();
-				w.graphicalView.setRequest(request);
-				// Si pas d'erreur dans le fichier
-				if (request != null) {
+				try {
+					XMLRequestParser p = new XMLRequestParser(path, w.graphicalView.getCityMap());
+					Request request = p.parse();
+					w.graphicalView.setRequest(request);
 					c.setCurrentstate(c.requestLoadedState);
-					w.setMessage("Requêtes chargées avec succès.");
-				}
-				else
-				{
-					w.setMessage("Echec du chargement des requêtes : fichier mal formé.");
+					w.setMessage("Requests loaded successfully.");
+				} catch (InvalidRequestException e) {
+					w.setMessage(e.getMessage());
 				}
 			}
 			else 
