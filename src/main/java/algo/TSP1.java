@@ -29,8 +29,8 @@ public class TSP1 extends TemplateTSP {
 			minimumQueue.add( g.getCost(currentVertex, index));
 		}
 		
-		//return (int)((unvisited.size()+1) * minimumQueue.peek());
-		return 0;
+		return (int)((unvisited.size()+1) * minimumQueue.peek());
+		//return 0;
 	}
 
 	@Override
