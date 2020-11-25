@@ -2,30 +2,41 @@ package controller;
 
 import modele.CityMap;
 import view.Window;
-//import xml.XMLCityMapParser;
+
 
 public class Controller {
+	
 	private CityMap cityMap;
+	private Window window;
+	
+	//States
+	private State currentState;
+	protected final InitState initState = new InitState();
+	protected final MapLoadedState mapLoadedState = new MapLoadedState();
+	protected final RequestLoadedState requestLoadedState = new RequestLoadedState();
+	
+	
 	public CityMap getCityMap() {
 		return cityMap;
 	}
-	private Window window;
-	private State currentState;
-	protected final InitState initState = new InitState();
+	
 	
 	public Controller() {
-		//XMLCityMapParser p = new XMLCityMapParser("src/main/resources/largeMap.xml");
-		//cityMap = p.parse();
 		window = new Window(this);
 		currentState = initState;
 	}
 	
-	public void loadMap(String path) {
-		currentState.loadMap(this, this.window, path);
+	protected void setCurrentstate(State state){
+		currentState = state;
+		System.out.println("Updated state, CURRENT STATE is : "+ currentState);
 	}
 	
-	public void loadRequest(String path) {
-		currentState.loadRequest(this, this.window, path);
+	public void loadMap() {
+		currentState.loadMap(this, this.window);	
+	}
+	
+	public void loadRequest() {
+		currentState.loadRequest(this, this.window);
 	}
 
 }

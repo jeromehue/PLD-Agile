@@ -2,9 +2,12 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JToolBar;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -32,6 +35,7 @@ public class Window extends JFrame{
 
     public Window(Controller controller){
         super( "Hubert If");
+        buttonListener = new ButtonListener(controller);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1000,1000);
         setLocationRelativeTo(null);
@@ -61,7 +65,6 @@ public class Window extends JFrame{
         toolBar.setPreferredSize(new Dimension(100,30));
 
         JButton loadMapButton = new JButton(LOAD_MAP);
-        buttonListener = new ButtonListener(controller);
         loadMapButton.addActionListener(buttonListener);
         toolBar.add(loadMapButton);
 
@@ -82,6 +85,22 @@ public class Window extends JFrame{
         messageFrame.setPreferredSize(new Dimension(50,150));
         return messageFrame;
     } 
+    
+    public String createDialogBoxToGetFilePath() {
+		  final JFileChooser fc = new JFileChooser();
+		  FileNameExtensionFilter filter = new FileNameExtensionFilter("XML files (*.xml)", "xml");
+		  	fc.setFileFilter(filter);
+		  	fc.setAcceptAllFileFilterUsed(false);
+		    fc.setCurrentDirectory(new File("./src/main"));
+		    int returnVal = fc.showOpenDialog(null);
+		    String absPath = null;
+		    if(returnVal == JFileChooser.APPROVE_OPTION) 
+		    {
+		      System.out.println("You chose to open this file: " + fc.getSelectedFile().getAbsolutePath()) ;
+		      absPath = fc.getSelectedFile().getAbsolutePath();
+		    } 
+		    return absPath;
+	}
 }
         
         
