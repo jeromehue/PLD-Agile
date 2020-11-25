@@ -19,7 +19,6 @@ class XMLRequestParserTest {
 	
 	@BeforeAll
 	void setup() {
-		System.out.println("setup()");
 		XMLCityMapParser p;
 		p = new XMLCityMapParser("src/main/resources/smallMap.xml");
 		this.smallMap = p.parse();
@@ -31,7 +30,7 @@ class XMLRequestParserTest {
 
 	@Test
 	@DisplayName("Loading small requests")
-	void smallRequestTest() {
+	void smallRequestTest() throws InvalidRequestException {
 		XMLRequestParser p;
 		p = new XMLRequestParser("src/main/resources/requestsSmall1.xml", this.smallMap);
 		p.parse();
@@ -39,7 +38,7 @@ class XMLRequestParserTest {
 
 	@Test
 	@DisplayName("Loading medium requests")
-	void mediumRequestTest() {
+	void mediumRequestTest() throws InvalidRequestException {
 		XMLRequestParser p;
 		p = new XMLRequestParser("src/main/resources/requestsMedium3.xml", this.mediumMap);
 		p.parse();
@@ -47,7 +46,7 @@ class XMLRequestParserTest {
 
 	@Test
 	@DisplayName("Loading large requests")
-	void largeRequestTest() {
+	void largeRequestTest() throws InvalidRequestException {
 		XMLRequestParser p;
 		p = new XMLRequestParser("src/main/resources/requestsLarge7.xml", this.largeMap);
 		p.parse();

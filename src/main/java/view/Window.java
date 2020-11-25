@@ -25,6 +25,7 @@ public class Window extends JFrame{
     
     //Listeners 
     private ButtonListener buttonListener;
+    private MouseListener mouseListener;
     
     //Buttons titles
     protected final static String LOAD_MAP = "Charger une carte";
@@ -33,6 +34,9 @@ public class Window extends JFrame{
     
     public Window(Controller controller){
         super("Hubert If");
+        
+        mouseListener = new MouseListener( controller,  this, graphicalView);
+		addMouseMotionListener(mouseListener);
         buttonListener = new ButtonListener(controller);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1000,1000);

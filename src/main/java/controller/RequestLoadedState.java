@@ -3,6 +3,7 @@ package controller;
 import modele.CityMap;
 import modele.Request;
 import view.Window;
+import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
@@ -34,14 +35,20 @@ public class RequestLoadedState implements State {
 			String path = w.createDialogBoxToGetFilePath();
 			if(path != null) 
 			{
-				System.out.println("Affichage de la requête normalement");
-				XMLRequestParser p = new XMLRequestParser(path, w.graphicalView.getCityMap());
-				Request request = p.parse();
-				w.graphicalView.setRequest(request);
+				try {
+					XMLRequestParser p = new XMLRequestParser(path, w.graphicalView.getCityMap());
+					Request request = p.parse();
+					w.graphicalView.setRequest(request);
+					c.setCurrentstate(c.requestLoadedState);
+					w.setMessage("Requests loaded successfully.");
+				} catch (InvalidRequestException e) {
+					w.setMessage(e.getMessage());
+				}
 			}
 			else 
 			{
 				System.out.println("Echec de l'obtention du chemin avec la boite de dialogue");
+				w.setMessage("Echec du chargement des requêtes lors de l'obtention du chemin avec la boite de dialogue.");
 			}
 			
 		}

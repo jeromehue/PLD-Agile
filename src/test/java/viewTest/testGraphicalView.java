@@ -1,17 +1,10 @@
 package viewTest;
 
-import java.awt.Color;
-import java.awt.List;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
-import java.util.Iterator;
 
 import modele.CityMap;
-import modele.Intersection;
 import modele.Request;
-import modele.Segment;
-import modele.Tour;
 import view.GraphicalView;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;

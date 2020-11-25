@@ -3,8 +3,11 @@ package algo;
 import java.util.Collection;
 import java.util.Iterator;
 
+import modele.Request;
+
 public class SeqIter implements Iterator<Integer> {
 	private Integer[] candidates;
+	//private ArrayList candidates;
 	private int nbCandidates;
 
 	/**
@@ -15,7 +18,7 @@ public class SeqIter implements Iterator<Integer> {
 	 * @param currentVertex
 	 * @param g
 	 */
-	public SeqIter(Collection<Integer> unvisited, int currentVertex, Graph g){
+	public SeqIter(Collection<Integer> unvisited, int currentVertex, Graph g, Request request){
 		this.candidates = new Integer[unvisited.size()];
 		for (Integer s : unvisited){
 			if (g.isArc(currentVertex, s))
