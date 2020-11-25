@@ -13,7 +13,7 @@ class testPcc {
 	void test() {
 		Pcc pcc = new Pcc();
 		CompleteGraph graph = pcc.init();
-		System.out.println(graph.toString());
+		//System.out.println(graph.toString());
 
 		for(int i = 0 ; i < graph.getNbVertices() ; ++i) {
 			for(int j = 0 ; j < graph.getNbVertices() ; ++j) {

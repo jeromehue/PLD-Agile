@@ -42,9 +42,12 @@ public class Pcc {
 		Segment s56 = new Segment(5.0, "", inter5, inter6);	
 		Segment s54 = new Segment(2.0, "", inter5, inter4);	
 		Segment s65 = new Segment(5.0, "", inter6, inter5);		
+		Segment s15 = new Segment(6.0, "", inter1, inter5);		
+		Segment s51 = new Segment(7.0, "", inter5, inter1);		
 		
 		inter1.addOutboundSegment(s12);
 		inter1.addOutboundSegment(s13);
+		inter1.addOutboundSegment(s15);
 		inter2.addOutboundSegment(s24);
 		inter2.addOutboundSegment(s21);
 		inter3.addOutboundSegment(s34);
@@ -52,6 +55,7 @@ public class Pcc {
 		inter3.addOutboundSegment(s32);
 		inter4.addOutboundSegment(s43);
 		inter4.addOutboundSegment(s45);
+		inter5.addOutboundSegment(s51);
 		inter5.addOutboundSegment(s56);
 		inter5.addOutboundSegment(s54);
 		inter6.addOutboundSegment(s65);
@@ -64,6 +68,7 @@ public class Pcc {
 		startVertices.add(inter4);
 		startVertices.add(inter5);
 		startVertices.add(inter6);
+
 
 		List<Intersection> allVertices = new ArrayList<Intersection>();
 		allVertices.add(inter1);
@@ -125,8 +130,36 @@ public class Pcc {
 			int i=0;
 			int nbBlackStartVertices=0;
 			
-			while(!greyVertices.isEmpty() && !allBlackStartVertices) {
+			while(!greyVertices.isEmpty() && !allBlackStartVertices) {			
 				
+				minVertex = greyVertices.poll();//On prend l'intersection grise 
+											    //avec un cout minimal
+				//System.out.println("On regarde le sommet "+minVertex.getId());
+				
+				//On regarde tous les voisins "neighbor" de l'intersection "minVertex"
+				for(Segment s : minVertex.getOutboundSegments()) {
+					neighbor = allVerticesPcc.get(s.getDestination().getId());
+					if(neighbor.getColor() == 0 || neighbor.getColor()== 1) { // blanc ou gris
+						//relacher (minVertex, voisin, predecesseur, cout) : 
+						//System.out.println("On relache "+minVertex.getId() + " et "+neighbor.getId());
+
+						if( minVertex.getCost() + s.getLength() < neighbor.getCost() ) {
+							//System.out.println("On met a jour "+minVertex.getId()+" et "+neighbor.getId());
+							neighbor.setCost( minVertex.getCost() + s.getLength() );
+							predecessors.put(neighbor.getId(), minVertex.getId());
+						}
+					}
+					if(neighbor.getColor() == 0) {
+						neighbor.setColor(1);
+						greyVertices.add(neighbor);
+					}
+					allVerticesPcc.put(neighbor.getId(), neighbor);//On enregistre les modifs faites à neighbor
+				}
+				
+				///On colorie l'intersection en noir quand elle n'a plus de voisins gris ou blancs
+				minVertex.setColor(2);
+
+				allVerticesPcc.put(minVertex.getId(), minVertex);
 				//On met à jour la condition de fin
 				i++;
 				if(i==END_TEST_CYCLE) {//Pour ne pas tester trop souvent
@@ -141,35 +174,8 @@ public class Pcc {
 						allBlackStartVertices = true;
 					}
 				}
-				
-				minVertex = greyVertices.poll();//On prend l'intersection grise 
-											    //avec un cout minimal
-				System.out.println("On regarde le sommet "+minVertex.getId());
-				
-				//On regarde tous les voisins "neighbor" de l'intersection "minVertex"
-				for(Segment s : minVertex.getOutboundSegments()) {
-					neighbor = allVerticesPcc.get(s.getDestination().getId());
-					if(neighbor.getColor() == 0 || neighbor.getColor()== 1) { // blanc ou gris
-						//relacher (minVertex, voisin, predecesseur, cout) : 
-						System.out.println("On relache "+minVertex.getId() + " et "+neighbor.getId());
-
-						if( minVertex.getCost() + s.getLength() < neighbor.getCost() ) {
-							System.out.println("On met a jour "+minVertex.getId()+" et "+neighbor.getId());
-							neighbor.setCost( minVertex.getCost() + s.getLength() );
-							predecessors.put(neighbor.getId(), minVertex.getId());
-						}
-					}
-					if(neighbor.getColor() == 0) {
-						neighbor.setColor(1);
-						greyVertices.add(neighbor);
-					}
-					allVerticesPcc.put(neighbor.getId(), neighbor);//On enregistre les modifs faites à neighbor
-				}
-				
-				///On colorie l'intersection en noir quand elle n'a plus de voisins gris ou blancs
-				minVertex.setColor(2);
-				allVerticesPcc.put(minVertex.getId(), minVertex);
 			}
+			
 			//sauvegarder le résultat obtenu pour un des points de départ
 			for(Long idInter : allVerticesPcc.keySet()) {
 				IntersectionPcc inter = allVerticesPcc.get(idInter);
