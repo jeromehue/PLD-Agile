@@ -32,7 +32,8 @@ public class Controller {
 	}
 	
 	public void loadMap() {
-		currentState.loadMap(this, this.window);	
+		currentState.loadMap(this, this.window);
+		
 	}
 	
 	public void loadRequest() {
