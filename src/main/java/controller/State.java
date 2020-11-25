@@ -10,4 +10,6 @@ public interface State {
 	public default void loadMap(Controller c, Window w) {}
 	
 	public default void loadRequest(Controller c, Window w) {}
+	
+	public default void computeTour(Controller c, Window w) {}
 }

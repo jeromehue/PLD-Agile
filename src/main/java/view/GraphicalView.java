@@ -21,8 +21,7 @@ import java.lang.Math;
 public class GraphicalView extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	
-	private PointFactory pointFactory;
+
 	private CityMap cityMap;
 	private Request request;
 	private Tour tour;
@@ -46,14 +45,22 @@ public class GraphicalView extends JPanel{
 		this.cityMap = cityMap;
 		this.repaint();
 	}
-	
-	public CityMap getCityMap() {
-		return this.cityMap;
-	}
 
 	public void setTour(Tour tour) {
 		this.tour = tour;
 		this.repaint();
+	}
+	
+	public CityMap getCityMap() {
+		return this.cityMap;
+	}
+	
+	public Request getRequest() {
+		return this.request;
+	}
+	
+	public Tour getTour() {
+		return this.tour;
 	}
 	
 	/**
@@ -183,5 +190,6 @@ public class GraphicalView extends JPanel{
 				10, 
 				10);
 	}
+	
 	
 }

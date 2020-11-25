@@ -31,5 +31,9 @@ public class Controller {
 	public void loadRequest() {
 		currentState.loadRequest(this, this.window);
 	}
+	
+	public void computeTour() {
+		currentState.computeTour(this, this.window);
+	}
 
 }

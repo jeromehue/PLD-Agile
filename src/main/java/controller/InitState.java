@@ -11,7 +11,6 @@ public class InitState implements State {
 		String path = w.createDialogBoxToGetFilePath();
 		if(path != null) 
 		{
-
 			XMLCityMapParser p = new XMLCityMapParser(path);
 			CityMap cityMap = p.parse();
 			w.graphicalView.setCityMap(cityMap);
@@ -26,22 +25,12 @@ public class InitState implements State {
 	
 	@Override
 	public void loadRequest(Controller c,Window w) {
-		
-		w.setMessage("Avant de charger des requêtes, commencez par charger une carte");
-		/*
-		String path = w.createDialogBoxToGetFilePath();
-		if(path != null) 
-		{
-			System.out.println("Affichage de la requête normalement");
-			XMLRequestParser p = new XMLRequestParser(path);
-			Request request = p.parse();
-			w.graphicalView.setRequest(request);
-		}
-		else 
-		{
-			System.out.println("Echec de l'obtention du chemin avec la boite de dialogue");
-		}*/
-		
+		w.setMessage("Avant de charger une requête, chargez une carte");
+	}
+	
+	@Override
+	public void computeTour(Controller c,Window w) {
+		w.setMessage("Avant de calculer la tournée, charger une carte puiq une requête");
 	}
 	
 }

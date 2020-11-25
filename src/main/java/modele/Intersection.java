@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Intersection {
 
-
     private Long id;
     private double latitude;
     private double longitude;

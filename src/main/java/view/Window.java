@@ -75,6 +75,7 @@ public class Window extends JFrame{
         toolBar.add(loadRequestsButton);
 
         JButton calcuateTourButton = new JButton(COMPUTE_TOUR);
+        calcuateTourButton.addActionListener(buttonListener);
         toolBar.add(calcuateTourButton);
 
         return toolBar;

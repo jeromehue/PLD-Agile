@@ -1,7 +1,15 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import algo.Pcc;
 import modele.CityMap;
+import modele.Intersection;
 import modele.Request;
+import modele.Segment;
+import modele.Tour;
 import view.Window;
 import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
@@ -40,7 +48,7 @@ public class RequestLoadedState implements State {
 					Request request = p.parse();
 					w.graphicalView.setRequest(request);
 					c.setCurrentstate(c.requestLoadedState);
-					w.setMessage("Requests loaded successfully.");
+					w.setMessage("Requête chargée avecsuccès");
 				} catch (InvalidRequestException e) {
 					w.setMessage(e.getMessage());
 				}
@@ -48,8 +56,36 @@ public class RequestLoadedState implements State {
 			else 
 			{
 				System.out.println("Echec de l'obtention du chemin avec la boite de dialogue");
-				w.setMessage("Echec du chargement des requêtes lors de l'obtention du chemin avec la boite de dialogue.");
+				w.setMessage("La requête n'a pas pu être chargé");
 			}
 			
+		}
+		
+		@Override
+		public void computeTour(Controller c, Window w) {
+			Request request = w.graphicalView.getRequest();
+			CityMap cityMap = w.graphicalView.getCityMap();
+			
+			//create a Tour 
+			Tour tour = new Tour(request);
+			Pcc shortestPathComputer = new Pcc(cityMap , request);
+			shortestPathComputer.computePcc();
+			
+			Intersection pickUpAdressTest = request.getStartingLocation();
+			Intersection oldPickUpAdressTest;
+			ArrayList<Segment> paths = new ArrayList<Segment>();
+			Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
+			while(itPickUpTest.hasNext())
+			{
+				oldPickUpAdressTest = pickUpAdressTest;
+				pickUpAdressTest = itPickUpTest.next();
+				
+				List<Segment> localPaths = shortestPathComputer.getRoads(oldPickUpAdressTest,pickUpAdressTest);
+				paths.addAll(localPaths);
+				
+			}
+			tour.setPath(paths);
+				
+			w.graphicalView.setTour(tour);
 		}
 }
