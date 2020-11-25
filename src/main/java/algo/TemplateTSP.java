@@ -37,6 +37,15 @@ public abstract class TemplateTSP implements TSP {
 		return -1;
 	}
 	
+	public void addGraph(Graph gr) {
+		this.g=gr;
+	}
+	
+	/**
+	 * Method to init minimums in TSP1
+	 */
+	public abstract void init();
+	
 	/**
 	 * Method that must be defined in TemplateTSP subclasses
 	 * @param currentVertex
