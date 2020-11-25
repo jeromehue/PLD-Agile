@@ -24,7 +24,7 @@ public class TSP1 extends TemplateTSP {
 	
 	@Override
 	protected int bound(Integer currentVertex, Collection<Integer> unvisited) {
-		PriorityQueue<Double> minimumQueue = new PriorityQueue<>();
+		minimumQueue = new PriorityQueue<>();
 		for(Integer index : unvisited) {
 			minimumQueue.add( g.getCost(currentVertex, index));
 		}

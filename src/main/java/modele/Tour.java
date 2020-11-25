@@ -13,7 +13,7 @@ public class Tour {
 	private HashMap<Long, Integer> arrivalTime;
 	private HashMap<Long, Integer> departureTime;
 	
-	public Tour(Intersection start, List<Request> request, List<Segment> path, 
+	public Tour(Intersection start, Request request, List<Segment> path, 
 			HashMap<Long, Integer> arrivalTime, HashMap<Long, Integer> departureTime) {
 		this.startingIntersection = start;
 		this.request = request;
@@ -26,7 +26,7 @@ public class Tour {
 		return startingIntersection;
 	}
 
-	public List<Request> getRequest() {
+	public Request getRequest() {
 		return request;
 	}
 
