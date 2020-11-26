@@ -7,7 +7,11 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -39,8 +43,10 @@ public class Window extends JFrame{
 		addMouseMotionListener(mouseListener);
         buttonListener = new ButtonListener(controller);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(1000,1000);
+        setSize(1250,1020);
         setLocationRelativeTo(null);
+        try { UIManager.setLookAndFeel(new NimbusLookAndFeel()); }
+        catch(Exception e){}
     
         JPanel contentPane = (JPanel)getContentPane();
         contentPane.setLayout( new BorderLayout());
@@ -84,8 +90,10 @@ public class Window extends JFrame{
     JLabel createMessageFrame()
     {
         messageFrame = new JLabel();
+		messageFrame.setPreferredSize(new Dimension(50,150));
 		messageFrame.setBorder(BorderFactory.createTitledBorder("Messages"));
-        messageFrame.setPreferredSize(new Dimension(50,150));
+        messageFrame.setHorizontalAlignment(SwingConstants.CENTER);
+        messageFrame.setVerticalAlignment(SwingConstants.TOP);
         messageFrame.setText("Pour commencer, chargez une carte au format XML.");
         return messageFrame;
     } 

@@ -3,7 +3,7 @@ package modele;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Intersection {
+public class Intersection{
 
     private Long id;
     private double latitude;
@@ -24,9 +24,8 @@ public class Intersection {
         {
         	this.outboundSegments = new ArrayList<Segment>();
         }
-        
     }
-    
+
     public Point getCoordinates() {
 		return coordinates;
 	}
@@ -56,8 +55,6 @@ public class Intersection {
 		return "Intersection [Id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + "]";
 	}
 
-
-
 	public double getLatitude() {
 		return latitude;
 	}
@@ -80,9 +77,5 @@ public class Intersection {
 
 	public Long getId() {
 		return id;
-	}
-
-
-    
-    
+	}    
 }

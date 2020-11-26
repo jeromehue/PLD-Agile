@@ -1,11 +1,14 @@
 package modele;
 
 import java.util.List;
+
+import observer.Observable;
+
 import java.util.HashMap;
 import java.util.Iterator;
 
 
-public class Tour {
+public class Tour{
 
 	
 	private Intersection startingIntersection;
@@ -25,7 +28,6 @@ public class Tour {
 	
 	public Tour(Request request) {
 		this.request = request;
-		
 	}
 	
 	public void setStartingIntersection(Intersection startingIntersection) {
