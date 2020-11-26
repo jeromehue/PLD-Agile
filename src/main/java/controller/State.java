@@ -1,5 +1,6 @@
 package controller;
 
+import modele.Tour;
 import view.Window;
 
 public interface State {
@@ -7,9 +8,9 @@ public interface State {
 	/**
 	 * Méthode appelée lors du chargement de la carte
 	 */
-	public default void loadMap(Controller c, Window w) {}
+	public default void loadMap(Controller c, Window w, Tour t) {}
 	
-	public default void loadRequest(Controller c, Window w) {}
+	public default void loadRequest(Controller c, Window w, Tour t) {}
 	
-	public default void computeTour(Controller c, Window w) {}
+	public default void computeTour(Controller c, Window w, Tour t) {}
 }

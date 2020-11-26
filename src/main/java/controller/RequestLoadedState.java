@@ -19,7 +19,7 @@ public class RequestLoadedState implements State {
 
 	
 		@Override
-		public void loadMap(Controller c, Window w) {
+		public void loadMap(Controller c, Window w, Tour t) {
 			
 			String path = w.createDialogBoxToGetFilePath();
 			if(path != null) 
@@ -30,7 +30,7 @@ public class RequestLoadedState implements State {
 				w.graphicalView.setCityMap(cityMap);
 				c.setCurrentstate(c.mapLoadedState);
 				w.graphicalView.setRequest(null);
-				w.graphicalView.setTour(null);
+				t.ClearTour();
 			}
 			else 
 			{
@@ -39,7 +39,7 @@ public class RequestLoadedState implements State {
 		}
 	
 		@Override
-		public void loadRequest(Controller c, Window w) {
+		public void loadRequest(Controller c, Window w, Tour t) {
 			String path = w.createDialogBoxToGetFilePath();
 			if(path != null) 
 			{
@@ -49,7 +49,7 @@ public class RequestLoadedState implements State {
 					w.graphicalView.setRequest(request);
 					c.setCurrentstate(c.requestLoadedState);
 					w.setMessage("Requête chargée, vous pouvez charger une autre requête, charger une carte ou calculer la tournée.");
-					w.graphicalView.setTour(null);
+					t.ClearTour();
 				} catch (InvalidRequestException e) {
 					System.out.println(e.getMessage());
 				}
@@ -62,13 +62,12 @@ public class RequestLoadedState implements State {
 		}
 		
 		@Override
-		public void computeTour(Controller c, Window w) {
+		public void computeTour(Controller c, Window w, Tour t) {
 			Request request = w.graphicalView.getRequest();
 			CityMap cityMap = w.graphicalView.getCityMap();
 			
-			//create a Tour 
-			Tour tour = new Tour(request);
-			w.textualView.setTour(tour);
+			//Modify the tour
+			
 			Pcc shortestPathComputer = new Pcc(cityMap , request);
 			shortestPathComputer.computePcc();
 			
@@ -81,7 +80,7 @@ public class RequestLoadedState implements State {
 				intersection = itPickUpTest.next();
 				
 				List<Segment> localPaths = shortestPathComputer.getRoads(oldIntersecction,intersection);
-				tour.addAllSegmentsInPath(localPaths);
+				t.addAllSegmentsInPath(localPaths);
 				
 			}
 			Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
@@ -91,12 +90,8 @@ public class RequestLoadedState implements State {
 				intersection = itDeliveryTest.next();
 				
 				List<Segment> localPaths2 = shortestPathComputer.getRoads(oldIntersecction,intersection);
-				tour.addAllSegmentsInPath(localPaths2);
-				
+				t.addAllSegmentsInPath(localPaths2);
 			}
-				
-			w.graphicalView.setTour(tour);
-		
 			w.setMessage("Votre tournée");
 		}
 }

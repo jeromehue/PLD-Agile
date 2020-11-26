@@ -15,25 +15,29 @@ import modele.PointFactory;
 import modele.Request;
 import modele.Segment;
 import modele.Tour;
+import modele.Visitor;
+import observer.Observable;
+import observer.Observer;
 
 import java.lang.Math;
 
-public class GraphicalView extends JPanel{
+public class GraphicalView extends JPanel implements Observer, Visitor{
 
 	private static final long serialVersionUID = 1L;
 
 	private CityMap cityMap;
 	private Request request;
-	private Tour tour;
+	private Tour tour; // tour is unique -> modified in the controller and observed to display changes here
 
-	public GraphicalView(CityMap cityMap) {
+	public GraphicalView(Tour tour)  {
 		super();
 		this.setBorder(BorderFactory.createTitledBorder("Vue Graphique"));
 		this.setLayout(null);
 		PointFactory.initPointFactory(this, cityMap);
-		this.cityMap = cityMap;
+		this.cityMap = null;
 		this.request = null;
-		this.tour = null;
+		this.tour = tour;
+		this.tour.addObserver(this); // observes tour changes
 	}
 	
 	public void setRequest(Request request) {
@@ -43,11 +47,6 @@ public class GraphicalView extends JPanel{
 
 	public void setCityMap(CityMap cityMap) {
 		this.cityMap = cityMap;
-		this.repaint();
-	}
-
-	public void setTour(Tour tour) {
-		this.tour = tour;
 		this.repaint();
 	}
 	
@@ -61,6 +60,11 @@ public class GraphicalView extends JPanel{
 	
 	public Tour getTour() {
 		return this.tour;
+	}
+	
+	@Override
+	public void update(Observable observed, Object arg) {
+		this.repaint();
 	}
 	
 	/**
@@ -190,6 +194,10 @@ public class GraphicalView extends JPanel{
 				10, 
 				10);
 	}
-	
-	
+
+	@Override
+	public void display(Segment s) {
+		// TODO Auto-generated method stub
+		
+	}	
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import modele.Tour;
 import view.Window;
 
 
@@ -9,12 +10,14 @@ public class Controller {
 	
 	//States
 	private State currentState;
+	private Tour tour;
 	protected final InitState initState = new InitState();
 	protected final MapLoadedState mapLoadedState = new MapLoadedState();
 	protected final RequestLoadedState requestLoadedState = new RequestLoadedState();
 	
 	public Controller() {
-		window = new Window(this);
+		this.tour = new Tour();
+		window = new Window(this, tour);
 		currentState = initState;
 	}
 	
@@ -24,16 +27,16 @@ public class Controller {
 	}
 	
 	public void loadMap() {
-		currentState.loadMap(this, this.window);
+		currentState.loadMap(this, this.window, this.tour);
 		
 	}
 	
 	public void loadRequest() {
-		currentState.loadRequest(this, this.window);
+		currentState.loadRequest(this, this.window, this.tour);
 	}
 	
 	public void computeTour() {
-		currentState.computeTour(this, this.window);
+		currentState.computeTour(this, this.window, this.tour);
 	}
 
 }

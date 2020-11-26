@@ -32,16 +32,27 @@ public class Tour extends Observable{
 		this.path = new ArrayList<Segment>();
 	}
 	
+	public Tour() {
+		this.startingIntersection = null;
+		this.path = new ArrayList<Segment>();
+		this.arrivalTime = null;
+		this.departureTime = null;
+		this.request = null;
+	}
+	
+	public void ClearTour() {
+		path.clear();
+		notifyObservers();
+	}
+	
 	public void addSegmentInPath(Segment s) {
 		path.add(s);
-		notifyObservers(s);
+		notifyObservers();
 	}
 	
 	public void addAllSegmentsInPath(List<Segment> listS) {
 		path.addAll(listS);
-		for(Segment s : listS){
-			notifyObservers(s);
-		}
+		notifyObservers();
 	}
 	
 	public void setStartingIntersection(Intersection startingIntersection) {

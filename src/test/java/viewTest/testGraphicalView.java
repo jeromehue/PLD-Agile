@@ -36,9 +36,6 @@ public class testGraphicalView {
 			System.exit(0);
 		}
 		
-		GraphicalView graphicalView = new GraphicalView(cityMap);
-		graphicalView.setRequest(request);
-		
 		//create a Tour 
 		Tour tour = new Tour(request);
 		Pcc shortestPathComputer = new Pcc(cityMap, request);
@@ -68,8 +65,11 @@ public class testGraphicalView {
 			
 		}
 		tour.setPath(paths);
-			
-		graphicalView.setTour(tour);
+		
+		//set graphical view
+		GraphicalView graphicalView = new GraphicalView(tour);
+		graphicalView.setCityMap(cityMap);
+		graphicalView.setRequest(request);
 		
 		frame.getContentPane().add(graphicalView);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

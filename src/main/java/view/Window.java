@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 
 import controller.Controller;
+import modele.Tour;
 
 public class Window extends JFrame{
 
@@ -36,14 +37,14 @@ public class Window extends JFrame{
     protected final static String LOAD_REQUEST = "Charger des requêtes";
     protected final static String COMPUTE_TOUR = "Calculer la tournée";
     
-    public Window(Controller controller){
+    public Window(Controller controller, Tour tour){
         super("Hubert If");
         
         mouseListener = new MouseListener( controller,  this, graphicalView);
 		addMouseMotionListener(mouseListener);
         buttonListener = new ButtonListener(controller);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(1250,1020);
+        setSize(1450,1020);
         setLocationRelativeTo(null);
         try { UIManager.setLookAndFeel(new NimbusLookAndFeel()); }
         catch(Exception e){}
@@ -57,10 +58,10 @@ public class Window extends JFrame{
         toolBar = createToolBar(controller);
         contentPane.add(toolBar,BorderLayout.NORTH);
         
-        textualView = new TextualView();
+        textualView = new TextualView(tour);
         contentPane.add(textualView,BorderLayout.WEST);
         
-        graphicalView = new GraphicalView(null);
+        graphicalView = new GraphicalView(tour);
         contentPane.add(graphicalView,BorderLayout.CENTER);
 
         setVisible(true);

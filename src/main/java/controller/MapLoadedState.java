@@ -2,6 +2,7 @@ package controller;
 
 import modele.CityMap;
 import modele.Request;
+import modele.Tour;
 import view.Window;
 import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
@@ -11,7 +12,7 @@ public class MapLoadedState implements State {
 
 	
 		@Override
-		public void loadMap(Controller c, Window w) {
+		public void loadMap(Controller c, Window w, Tour t) {
 			
 			String path = w.createDialogBoxToGetFilePath();
 			if(path != null) 
@@ -30,7 +31,7 @@ public class MapLoadedState implements State {
 		}
 	
 		@Override
-		public void loadRequest(Controller c, Window w) {
+		public void loadRequest(Controller c, Window w, Tour t) {
 			String path = w.createDialogBoxToGetFilePath();
 			if(path != null) 
 			{
@@ -53,7 +54,7 @@ public class MapLoadedState implements State {
 		}
 		
 		@Override
-		public void computeTour(Controller c,Window w) {
+		public void computeTour(Controller c,Window w, Tour t) {
 			w.setMessage("Avant de calculer la tournée, chargez une requête");
 		}
 }

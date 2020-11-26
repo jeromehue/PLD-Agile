@@ -19,18 +19,18 @@ public class TextualView extends JLabel implements Observer, Visitor{
 	private String text;
 	private Tour tour;
 
-	public TextualView(){
+	public TextualView(Tour tour){
 		super();
 		setBorder(BorderFactory.createTitledBorder("Vue textuelle"));
 		this.setVerticalTextPosition(TOP);
 		this.setVerticalAlignment(TOP);
-        this.setPreferredSize(new Dimension(300,30));
-        this.tour = null;
+        this.setPreferredSize(new Dimension(500,30));
+        this.tour = tour;
+        this.tour.addObserver(this);
 	}
 
-	public void setTour(Tour tour) {
-		this.tour = tour;
-		this.tour.addObserver(this);
+	public Tour getTour(Tour tour) {
+		return this.tour;
 	}
 
 	@Override
@@ -43,17 +43,17 @@ public class TextualView extends JLabel implements Observer, Visitor{
 		if(this.tour != null)
 		{
 			Iterator<Segment> itSegmentTour = tour.getSegementsIterator();
-			text = "<html><ul>";
+			text = "<html><ul>Trajet: <br />";
 			while (itSegmentTour.hasNext())
 				itSegmentTour.next().display(this);
-			text = text+"</ul></html>";
+			text += "</ul></html>";
 			setText(text);
 		}
 	}
 	
 	@Override
 	public void display(Segment s) {
-		text += '\n' + "Affichage de "+ s.getName();
+		text += s.getName() + " sur  " + (int)s.getLength() +" mètres <br />";
 		if (s.getIsSelected())
 		{
 			text += "est selectionné";
