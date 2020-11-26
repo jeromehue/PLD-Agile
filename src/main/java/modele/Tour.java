@@ -4,11 +4,12 @@ import java.util.List;
 
 import observer.Observable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
 
-public class Tour{
+public class Tour extends Observable{
 
 	
 	private Intersection startingIntersection;
@@ -28,6 +29,19 @@ public class Tour{
 	
 	public Tour(Request request) {
 		this.request = request;
+		this.path = new ArrayList<Segment>();
+	}
+	
+	public void addSegmentInPath(Segment s) {
+		path.add(s);
+		notifyObservers(s);
+	}
+	
+	public void addAllSegmentsInPath(List<Segment> listS) {
+		path.addAll(listS);
+		for(Segment s : listS){
+			notifyObservers(s);
+		}
 	}
 	
 	public void setStartingIntersection(Intersection startingIntersection) {

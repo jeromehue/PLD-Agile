@@ -23,7 +23,7 @@ public class Window extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	public GraphicalView graphicalView;
-	private TextualView textualView;
+	public TextualView textualView;
 	private JLabel messageFrame;
     private JToolBar toolBar;
     

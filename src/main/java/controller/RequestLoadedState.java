@@ -68,12 +68,12 @@ public class RequestLoadedState implements State {
 			
 			//create a Tour 
 			Tour tour = new Tour(request);
+			w.textualView.setTour(tour);
 			Pcc shortestPathComputer = new Pcc(cityMap , request);
 			shortestPathComputer.computePcc();
 			
 			Intersection intersection = request.getStartingLocation();
 			Intersection oldIntersecction;
-			ArrayList<Segment> paths = new ArrayList<Segment>();
 			Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
 			while(itPickUpTest.hasNext())
 			{
@@ -81,7 +81,7 @@ public class RequestLoadedState implements State {
 				intersection = itPickUpTest.next();
 				
 				List<Segment> localPaths = shortestPathComputer.getRoads(oldIntersecction,intersection);
-				paths.addAll(localPaths);
+				tour.addAllSegmentsInPath(localPaths);
 				
 			}
 			Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
@@ -91,12 +91,12 @@ public class RequestLoadedState implements State {
 				intersection = itDeliveryTest.next();
 				
 				List<Segment> localPaths2 = shortestPathComputer.getRoads(oldIntersecction,intersection);
-				paths.addAll(localPaths2);
+				tour.addAllSegmentsInPath(localPaths2);
 				
 			}
-			tour.setPath(paths);
 				
 			w.graphicalView.setTour(tour);
+		
 			w.setMessage("Votre tournée");
 		}
 }
