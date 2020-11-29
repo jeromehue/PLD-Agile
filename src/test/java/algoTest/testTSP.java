@@ -1,27 +1,47 @@
 package algoTest;
 
-import algo.Graph;
 import algo.Pcc;
 import algo.CompleteGraph;
-import modele.Intersection;
-import modele.Segment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import algo.TSP;
 import algo.TSP1;
+import modele.CityMap;
+import modele.Request;
+import xml.InvalidRequestException;
+import xml.XMLCityMapParser;
+import xml.XMLRequestParser;
 
 public class testTSP {
 	@Test
 	void test() {
+		
+		System.out.println("TEST\n-----------------" + "testTSP.java : test");
+		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/smallMap.xml");
+		CityMap city = cmpp.parse();
+		
+		assertTrue(city.getIntersections() != null);
+		assertTrue(city.getIntersections().size() > 7);
+
+		
+		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsSmall1.xml", city);
+		Request request = new Request();
+		try {
+			request = rp.parse();
+		} catch (InvalidRequestException e) {
+			e.printStackTrace();
+			fail();
+		}
+		
+		
+		Pcc pcc = new Pcc(city, request);
+		
+		CompleteGraph graph = pcc.computePcc();
 		TSP1 tsp = new TSP1();
-		Pcc pcc = new Pcc();
-		CompleteGraph graph = pcc.init();	
+
 		tsp.addGraph(graph);
 		tsp.init();
 		

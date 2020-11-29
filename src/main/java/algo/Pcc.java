@@ -1,7 +1,9 @@
 package algo;
+import modele.CityMap;
 //import modele.Request;
 //import modele.CityMap;
 import modele.Intersection;
+import modele.Request;
 import modele.Segment;
 
 import java.util.ArrayList;
@@ -11,18 +13,129 @@ import java.util.HashMap;
 import java.lang.Math;
 
 public class Pcc {
-	private HashMap<Long, HashMap<Long, Long>> savePredecessors = new HashMap<Long, HashMap<Long, Long>>();//< idStartVertex, <idCurrentVertex, idLastVertex> >
+	private List<Intersection> allVertices;
+	private List<Intersection> pickUpVertices;
+	private List<Intersection> deliveryVertices;
+	private Intersection start;
+	//private List<Segment> edges;
+	private HashMap<Long, HashMap<Long, Segment>> savePredecessors;
 	HashMap<Long, IntersectionPcc> allVerticesPcc;
-	/*private CityMap cityMap;
-	private Request request;
 	
-	public Pcc(CityMap city , Request request ){
-		cityMap = city;
-		this.request = request;
-	}*/
 	public Pcc() {};
 	
-	public CompleteGraph init() {
+	public Pcc(CityMap city, Request request) {
+		allVertices = city.getIntersections();
+		pickUpVertices = request.getPickUpLocations();
+		deliveryVertices = request.getDeliveryLocations();
+		start = request.getStartingLocation();
+		savePredecessors = new HashMap<Long, HashMap<Long, Segment>>();//< idStartVertex, <idCurrentVertex, idLastVertex> >
+		//edges = city.getSegments();
+	}
+	
+	public CompleteGraph computePcc() {
+		
+		ArrayList<Intersection> startVertices = new ArrayList<>();
+		startVertices.add(start);
+		startVertices.addAll(pickUpVertices);
+		startVertices.addAll(deliveryVertices);
+		
+		CompleteGraph graph = new CompleteGraph(startVertices);
+		
+		final int END_TEST_CYCLE = 1;
+		boolean allBlackStartVertices=false;	
+		HashMap<Long, IntersectionPcc> allVerticesPcc = new HashMap<Long, IntersectionPcc>();
+		//HashMaps pour retrouver les voisins
+		PriorityQueue<IntersectionPcc> greyVertices; // tas binaire
+		// < Intersection id, segment qui relie le prédecesseur à l'intersection  >
+		HashMap<Long, Segment> predecessors;
+		
+		
+		IntersectionPcc neighbor;
+		IntersectionPcc minVertex;
+		
+		//On fait un Dijkstra par point à visiter
+		for (Intersection start : startVertices) {
+			//Les sommets gris sont initialisés à null
+
+			/*Début de l'algorithme classique de Dijkstra*/
+			
+			//Pour chaque objet Intesection on crée un objet IntersectionPcc qu'on initialise 
+			//avec un cout MAX et la couleur blanche
+			allVerticesPcc = new HashMap<Long, IntersectionPcc>();
+			predecessors = new HashMap<Long, Segment>();
+			for (Intersection inter : allVertices) {
+				allVerticesPcc.put( inter.getId(), new IntersectionPcc(inter, 0, Double.MAX_VALUE ));
+				predecessors.put(inter.getId(), null);
+			}
+			
+			//On colorie le point de départ en gris et on met son cout à 0.
+			greyVertices = new PriorityQueue<IntersectionPcc>();
+			IntersectionPcc startPcc = new IntersectionPcc (start, 1, 0.0);
+			allVerticesPcc.put(startPcc.getId(), startPcc);
+			greyVertices.add(startPcc);
+			
+
+			allBlackStartVertices=false;
+			int i=0;
+			int nbBlackStartVertices=0;
+			
+			while(!greyVertices.isEmpty() && !allBlackStartVertices) {			
+				
+				minVertex = greyVertices.poll();//On prend l'intersection grise 
+											    //avec un cout minimal
+				//System.out.println("On regarde le sommet "+minVertex.getId());
+				
+				//On regarde tous les voisins "neighbor" de l'intersection "minVertex"
+				for(Segment s : minVertex.getOutboundSegments()) {
+					neighbor = allVerticesPcc.get(s.getDestination().getId());
+					if(neighbor.getColor() == 0 || neighbor.getColor()== 1) { // blanc ou gris
+						//relacher (minVertex, voisin, predecesseur, cout) : 
+						//System.out.println("On relache "+minVertex.getId() + " et "+neighbor.getId());
+
+						if( minVertex.getCost() + s.getLength() < neighbor.getCost() ) {
+							//System.out.println("On met a jour "+minVertex.getId()+" et "+neighbor.getId());
+							neighbor.setCost( minVertex.getCost() + s.getLength() );
+							predecessors.put(neighbor.getId(), s);
+						}
+					}
+					if(neighbor.getColor() == 0) {
+						neighbor.setColor(1);
+						greyVertices.add(neighbor);
+					}
+					allVerticesPcc.put(neighbor.getId(), neighbor);//On enregistre les modifs faites à neighbor
+				}
+				
+				///On colorie l'intersection en noir quand elle n'a plus de voisins gris ou blancs
+				minVertex.setColor(2);
+
+				allVerticesPcc.put(minVertex.getId(), minVertex);
+				//On met à jour la condition de fin
+				i++;
+				if(i==END_TEST_CYCLE) {//Pour ne pas tester trop souvent
+					i=0;
+					nbBlackStartVertices=0;
+					for(Intersection sVertex : startVertices ) {
+						if(allVerticesPcc.get(sVertex.getId()).getColor() == 2) {
+							nbBlackStartVertices++;
+						}
+					}
+					if(nbBlackStartVertices == startVertices.size()) {
+						allBlackStartVertices = true;
+					}
+				}
+			}
+			
+			//sauvegarder le résultat obtenu pour le point de départ
+			graph.updateCompleteGraph(startPcc.getId(), allVerticesPcc, startVertices);
+			// puis sauvegarder une HashMap des predecessors
+			savePredecessors.put(start.getId(), predecessors);
+		}
+		
+		System.out.println(graph.toString());
+		return graph;
+	}
+	
+	public CompleteGraph initTest() {
 		ArrayList<Segment> l1 = new ArrayList<>();
 		Intersection inter1 = new Intersection(new Long(1), 1.0, 1.0, l1);
 		Intersection inter2 = new Intersection(new Long(2), 1.0, 2.0, l1);
@@ -79,10 +192,10 @@ public class Pcc {
 		allVertices.add(inter4);
 		allVertices.add(inter5);
 		allVertices.add(inter6);
-		return computePcc(allVertices, startVertices);
+		return testComputePcc(allVertices, startVertices);
 	}
 	
-	public CompleteGraph computePcc(List<Intersection> allVertices, List<Intersection> startVertices) {
+	public CompleteGraph testComputePcc(List<Intersection> allVertices, List<Intersection> startVertices) {
 		//Pbm parce que request.get... renvoie un long (id de l'intersection)
 		// au lieu de l'intersection...
 		/* Commentaires pour tester l'algo
@@ -94,7 +207,7 @@ public class Pcc {
 		 */
 		
 		//TESTS
-		CompleteGraph graph = new CompleteGraph(allVertices);
+		CompleteGraph graph = new CompleteGraph(startVertices);
 		
 		final int END_TEST_CYCLE = 1;
 		boolean allBlackStartVertices=false;	
@@ -178,16 +291,10 @@ public class Pcc {
 				}
 			}
 			
-			//sauvegarder le résultat obtenu pour un des points de départ
-			for(Long idInter : allVerticesPcc.keySet()) {
-				IntersectionPcc inter = allVerticesPcc.get(idInter);
-				System.out.println("En partant du sommet "+startPcc.getId()+
-					" le chemin le plus court pour arriver au point "+inter.getId()+
-					" a une distance de "+inter.getCost()+"\n");
-				graph.updateCompleteGraph(startPcc.getId(), allVerticesPcc);
-			}
+			//sauvegarder le résultat obtenu pour le point de départ
+			graph.updateCompleteGraph(startPcc.getId(), allVerticesPcc, startVertices);
 			
-			System.out.println("Le chemin a l'envers du point 6 au sommet de départ "+ start.getId()+"est : ");
+			/*System.out.println("Le chemin a l'envers du point 6 au sommet de départ "+ start.getId()+"est : ");
 			Long currentPoint = new Long(6);
 			do {
 				System.out.print(currentPoint+" - ");
@@ -195,7 +302,8 @@ public class Pcc {
 			}while(currentPoint != null);
 			System.out.println();
 			//On enregistre une HashMap predecessors par point de départ
-			savePredecessors.put(start.getId(), predecessors);
+			 */
+			//savePredecessors.put(start.getId(), predecessors);
 		}
 		
 		System.out.println(graph.toString());
@@ -204,29 +312,30 @@ public class Pcc {
 	
 	public List<Segment> getRoads(Intersection start, Intersection finish){
 		ArrayList<Segment> segmentsList =  new ArrayList<Segment>();
-		ArrayList<Segment> goodOrder =  new ArrayList<Segment>();
-		HashMap<Long, Long> predecessors = savePredecessors.get(start.getId());
+		HashMap<Long, Segment> predecessors = savePredecessors.get(start.getId());
 		Long currentPoint = finish.getId();
-		Long lastPoint = predecessors.get(currentPoint);
+		Segment path = predecessors.get(currentPoint);
+		
 		do {
-			Intersection interB = allVerticesPcc.get(lastPoint); 
+			segmentsList.add(0, path);
 			
-			//On parcourt les segments depuis lastPoint pour trouver le segment entre lastPoint et currentPoint 
-			for(Segment s : interB.getOutboundSegments()) {
-				if(s.getDestination().getId().equals(currentPoint) ) {
-					segmentsList.add(0,s); 					
-					break;
-				}
-			}
-			currentPoint = predecessors.get(currentPoint);
-			lastPoint = predecessors.get(lastPoint);
-		}while(lastPoint != null);
-				
-		System.out.print("On passe par les rues : ");
-		for(Segment s : segmentsList) {
-			System.out.println(s.getName()+" puis ");
-		}
-		System.out.println();
+			currentPoint = path.getOrigin().getId();
+			path = predecessors.get(currentPoint);
+		}while(path != null);
+		
+		
+		Intersection passage = segmentsList.get(0).getOrigin();
+
+		System.out.println("Affichage de trajet : ");
+		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
+		System.out.println(" de la rue " + segmentsList.get(0).getName());
+		System.out.println("->");
+
+		passage = segmentsList.get(segmentsList.size() - 1).getDestination();
+		
+		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
+		System.out.println(" de la rue " + segmentsList.get(segmentsList.size() - 1).getName());
+		
 		
 		return segmentsList;
 	}
@@ -235,8 +344,4 @@ public class Pcc {
 		return Math.sqrt( (a.getLatitude()-b.getLatitude())*(a.getLatitude()-b.getLatitude())
 			 + (a.getLongitude()-b.getLongitude())*(a.getLongitude()-b.getLongitude()) );
 	}
-	
-	
-
-	HashMap<Long, Long> colors;
 }

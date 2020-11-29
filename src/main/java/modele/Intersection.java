@@ -3,19 +3,20 @@ package modele;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Intersection {
-
+public class Intersection{
 
     private Long id;
     private double latitude;
     private double longitude;
     private ArrayList<Segment> outboundSegments;
+    private Point coordinates;
 
     public Intersection(Long Id, double latitude, double longitude, ArrayList<Segment> segments) {
 
         this.id = Id;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.coordinates = null;
         if(segments != null) {
         	this.outboundSegments = new ArrayList<Segment>(segments);
         }
@@ -23,10 +24,17 @@ public class Intersection {
         {
         	this.outboundSegments = new ArrayList<Segment>();
         }
-        
     }
-    
-    public List<Intersection> getNeighbors() {
+
+    public Point getCoordinates() {
+		return coordinates;
+	}
+
+	public void setCoordinates(Point coordinates) {
+		this.coordinates = coordinates;
+	}
+
+	public List<Intersection> getNeighbors() {
     	ArrayList<Intersection> neighbors = new ArrayList<Intersection>();
     	for(Segment seg : outboundSegments) {
     		neighbors.add(seg.getDestination());
@@ -46,8 +54,6 @@ public class Intersection {
 	public String toString() {
 		return "Intersection [Id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + "]";
 	}
-
-
 
 	public double getLatitude() {
 		return latitude;
@@ -71,9 +77,5 @@ public class Intersection {
 
 	public Long getId() {
 		return id;
-	}
-
-
-    
-    
+	}    
 }

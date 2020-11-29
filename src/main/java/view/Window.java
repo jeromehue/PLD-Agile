@@ -7,36 +7,47 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 
 import controller.Controller;
+import modele.Tour;
 
 public class Window extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	public GraphicalView graphicalView;
-	private TextualView textualView;
+	public TextualView textualView;
 	private JLabel messageFrame;
     private JToolBar toolBar;
     
     //Listeners 
     private ButtonListener buttonListener;
+    private MouseListener mouseListener;
     
     //Buttons titles
     protected final static String LOAD_MAP = "Charger une carte";
     protected final static String LOAD_REQUEST = "Charger des requêtes";
     protected final static String COMPUTE_TOUR = "Calculer la tournée";
     
-    public Window(Controller controller){
+    public Window(Controller controller, Tour tour){
         super("Hubert If");
+        
+        mouseListener = new MouseListener( controller,  this, graphicalView);
+		addMouseMotionListener(mouseListener);
         buttonListener = new ButtonListener(controller);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(1000,1000);
+        setSize(1450,1020);
         setLocationRelativeTo(null);
+        try { UIManager.setLookAndFeel(new NimbusLookAndFeel()); }
+        catch(Exception e){}
     
         JPanel contentPane = (JPanel)getContentPane();
         contentPane.setLayout( new BorderLayout());
@@ -47,10 +58,10 @@ public class Window extends JFrame{
         toolBar = createToolBar(controller);
         contentPane.add(toolBar,BorderLayout.NORTH);
         
-        textualView = new TextualView();
+        textualView = new TextualView(tour);
         contentPane.add(textualView,BorderLayout.WEST);
         
-        graphicalView = new GraphicalView(null);
+        graphicalView = new GraphicalView(tour);
         contentPane.add(graphicalView,BorderLayout.CENTER);
 
         setVisible(true);
@@ -71,6 +82,7 @@ public class Window extends JFrame{
         toolBar.add(loadRequestsButton);
 
         JButton calcuateTourButton = new JButton(COMPUTE_TOUR);
+        calcuateTourButton.addActionListener(buttonListener);
         toolBar.add(calcuateTourButton);
 
         return toolBar;
@@ -79,11 +91,17 @@ public class Window extends JFrame{
     JLabel createMessageFrame()
     {
         messageFrame = new JLabel();
+		messageFrame.setPreferredSize(new Dimension(50,150));
 		messageFrame.setBorder(BorderFactory.createTitledBorder("Messages"));
-        messageFrame.setPreferredSize(new Dimension(50,150));
+        messageFrame.setHorizontalAlignment(SwingConstants.CENTER);
+        messageFrame.setVerticalAlignment(SwingConstants.TOP);
         messageFrame.setText("Pour commencer, chargez une carte au format XML.");
         return messageFrame;
     } 
+    
+    public void setMessage (String message) {
+    	messageFrame.setText(message);
+    }
     
     public String createDialogBoxToGetFilePath() {
 		  final JFileChooser fc = new JFileChooser();
@@ -100,9 +118,7 @@ public class Window extends JFrame{
 		    } 
 		    return absPath;
 	}
-    public void setMessage (String message) {
-    	messageFrame.setText(message);
-    }
+    
 }
         
         

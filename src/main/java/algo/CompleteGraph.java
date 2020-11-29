@@ -29,10 +29,10 @@ public class CompleteGraph implements Graph {
 		}
 	}
 	
-	public void updateCompleteGraph(Long startId, HashMap<Long, IntersectionPcc> costs) {
+	public void updateCompleteGraph(Long startId, HashMap<Long, IntersectionPcc> costs, List<Intersection> start) {
 		Integer startIndex = index.get(startId);
-		for(HashMap.Entry<Long, IntersectionPcc> inter : costs.entrySet()) {
-			costsMatrix[startIndex][index.get(inter.getKey())] = inter.getValue().getCost();
+		for(Intersection startIntersection : start) {
+			costsMatrix[startIndex][index.get(startIntersection.getId())] = costs.get(startIntersection.getId()).getCost();
 		}
 	}
 
@@ -61,7 +61,7 @@ public class CompleteGraph implements Graph {
 		for(int i = 0 ; i < nbVertices ; ++i) {
 			ret += "Cout pour aller de " + i + " a :\n";
 			for(int j = 0 ; j < nbVertices ; ++j) {
-				if(costsMatrix[i][j] == Long.MAX_VALUE) {
+				if(costsMatrix[i][j] == Double.MAX_VALUE) {
 					ret += j + " = Unreachable\n";
 				} else {
 					ret += j + " = " + costsMatrix[i][j] + "\n";

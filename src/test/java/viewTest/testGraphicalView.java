@@ -1,56 +1,75 @@
 package viewTest;
 
-import java.awt.Color;
-import java.awt.List;
+
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JFrame;
-import java.util.Iterator;
 
+import algo.Pcc;
 import modele.CityMap;
 import modele.Intersection;
 import modele.Request;
 import modele.Segment;
 import modele.Tour;
 import view.GraphicalView;
+import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
 public class testGraphicalView {
 	public static void main(String[] args) {
+		
 		JFrame frame = new JFrame("test vue grapique");
 		
 		XMLCityMapParser p = new XMLCityMapParser("src/main/resources/largeMap.xml");
 		CityMap cityMap = p.parse();
 		
 		XMLRequestParser p2 = new XMLRequestParser("src/main/resources/requestsLarge7.xml", cityMap);
-		Request request = p2.parse();
+		Request request = new Request();
+		try {
+			request = p2.parse();
+		} catch (InvalidRequestException e) {
+			System.err.println("Error while parsing request");
+			e.printStackTrace();
+			System.exit(0);
+		}
 		
-		GraphicalView graphicalView = new GraphicalView(cityMap);
+		//create a Tour 
+		Tour tour = new Tour(request);
+		Pcc shortestPathComputer = new Pcc(cityMap, request);
+		shortestPathComputer.computePcc();
 		
-		graphicalView.setRequest(request);
-		
-		//Tour tour = new Tour(request);
-		
-		/*//initialisation of tour
-		long pickUpAdressTest = request.getStartingLocation();
-		long oldPickUpAdressTest;
-		//long deliveryAdressTest;
-		Segment newPath;
+		Intersection intersection = request.getStartingLocation();
+		Intersection oldIntersecction;
 		ArrayList<Segment> paths = new ArrayList<Segment>();
-		Iterator<Long> itPickUpTest = request.getPickUpLocationsIterator();
-		//Iterator<Long> itDeliveryTest = request.getDeliveryLocationsIterator();
+		Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
 		while(itPickUpTest.hasNext())
 		{
-			oldPickUpAdressTest = pickUpAdressTest;
-			pickUpAdressTest = itPickUpTest.next();
-			//deliveryAdressTest = itDeliveryTest.next();
-			newPath = new Segment(1.0 , " " ,cityMap.getIntersectionFromAddress(oldPickUpAdressTest),cityMap.getIntersectionFromAddress(pickUpAdressTest));
-			paths.add(newPath);
+			oldIntersecction = intersection;
+			intersection = itPickUpTest.next();
+			
+			List<Segment> localPaths = shortestPathComputer.getRoads(oldIntersecction,intersection);
+			paths.addAll(localPaths);
+			
 		}
-		tour.setPath(paths);*/
+		Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
+		while(itDeliveryTest.hasNext())
+		{
+			oldIntersecction = intersection;
+			intersection = itDeliveryTest.next();
+			
+			List<Segment> localPaths2 = shortestPathComputer.getRoads(oldIntersecction,intersection);
+			paths.addAll(localPaths2);
+			
+		}
+		tour.setPath(paths);
 		
-		//graphicalView.setTour(tour);
+		//set graphical view
+		GraphicalView graphicalView = new GraphicalView(tour);
+		graphicalView.setCityMap(cityMap);
+		graphicalView.setRequest(request);
 		
 		frame.getContentPane().add(graphicalView);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

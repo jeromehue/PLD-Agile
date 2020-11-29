@@ -21,7 +21,7 @@ public class XMLRequestParser extends XMLParser {
 		this.cityMap = cityMap;
 	}
 	
-	public Request parse() /* throws ... */ {
+	public Request parse() throws InvalidRequestException {
 		try {
 			ArrayList<Intersection> pickUpLocations   	= new ArrayList<>();
 			ArrayList<Intersection> deliveryLocations 	= new ArrayList<>();
@@ -52,7 +52,7 @@ public class XMLRequestParser extends XMLParser {
 		            startingTime = element.getAttribute("departureTime");
 
 		            if (startingLocation == null) {
-		            	System.out.println("Starting location could not be found on the map.");
+		            	throw new InvalidRequestException("The request contains unknown intersections");
 		            }
 		        }
 		    }
@@ -68,10 +68,16 @@ public class XMLRequestParser extends XMLParser {
 		        	Element element = (Element) node;
 		        	
 		        	Long pickUpLocationId = Long.parseLong(element.getAttribute("pickupAddress"));
-		            pickUpLocations.add(this.cityMap.getIntersectionFromAddress(pickUpLocationId));
+		        	Intersection pickUpLocation = this.cityMap.getIntersectionFromAddress(pickUpLocationId);
+		            pickUpLocations.add(pickUpLocation);
 		            
 		            Long deliveryLocationId = Long.parseLong(element.getAttribute("deliveryAddress"));
-		            deliveryLocations.add(this.cityMap.getIntersectionFromAddress(deliveryLocationId));
+		        	Intersection deliveryLocation = this.cityMap.getIntersectionFromAddress(deliveryLocationId);
+		            deliveryLocations.add(deliveryLocation);
+		            
+		            if (pickUpLocation == null && deliveryLocation == null) {
+		            	throw new InvalidRequestException("The request contains unknown intersections");
+		            }
 		            
 		            pickUpDurations.add(Integer.parseInt(element.getAttribute("pickupDuration")));
 		            deliveryDurations.add(Integer.parseInt(element.getAttribute("deliveryDuration")));
