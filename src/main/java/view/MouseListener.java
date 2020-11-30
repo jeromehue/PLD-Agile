@@ -7,10 +7,8 @@ import javax.swing.SwingUtilities;
 
 import controller.Controller;
 
-import modele.CityMap;
 import modele.Point;
 import modele.PointFactory;
-import modele.Intersection;
 import modele.Segment;
 import java.util.List;
 
