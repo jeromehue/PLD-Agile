@@ -9,6 +9,7 @@ public class CompleteGraph implements Graph {
 	private int nbVertices;
 	private double[][] costsMatrix;
 	private HashMap<Long, Integer> index; // Id d'intersection, index dans le tableau de couts
+	private HashMap<Integer, Long> reverseIndex; // index dans le tableau de couts, Id d'intersection
 	
 	/**
 	 * Create a complete directed graph such that each edge has a weight within [MIN_COST,MAX_COST]
@@ -17,11 +18,13 @@ public class CompleteGraph implements Graph {
 	public CompleteGraph(List<Intersection> startVertices){
 		this.nbVertices = startVertices.size();
 		index = new HashMap<Long, Integer>();
+		reverseIndex = new HashMap<Integer, Long>();
 		
 		this.costsMatrix = new double[nbVertices][nbVertices];
 		for(int i = 0 ; i < nbVertices ; ++i) {
 			Intersection inter = startVertices.get(i);
 			index.put(inter.getId(), i); // initialisation de index
+			reverseIndex.put(i, inter.getId()); //init de reverse index
 
 			for(int j = 0 ; j < nbVertices ; ++j) {
 				costsMatrix[i][j] = 0.0;
@@ -69,6 +72,14 @@ public class CompleteGraph implements Graph {
 			}
 		}
 		return ret;
+	}
+	
+	/**
+	 * Give the intersection id (Long) from the costsMatrix index
+	 * @param index
+	 */
+	public Long getIdfromIndex(Integer i) {
+		return reverseIndex.get(i);
 	}
 
 }
