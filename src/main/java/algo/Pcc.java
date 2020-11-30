@@ -180,9 +180,9 @@ public class Pcc {
 		startVertices.add(inter1);
 		startVertices.add(inter2);
 		startVertices.add(inter3);
-		startVertices.add(inter4);
+		/*startVertices.add(inter4);
 		startVertices.add(inter5);
-		startVertices.add(inter6);
+		startVertices.add(inter6);*/
 
 
 		List<Intersection> allVertices = new ArrayList<Intersection>();

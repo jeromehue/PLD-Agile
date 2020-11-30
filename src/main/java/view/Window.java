@@ -18,6 +18,7 @@ import javax.swing.BorderFactory;
 
 import controller.Controller;
 import modele.Tour;
+import modele.PointFactory;
 
 public class Window extends JFrame{
 
@@ -39,8 +40,7 @@ public class Window extends JFrame{
     public Window(Controller controller, Tour tour){
         super("Hubert If");
         
-        mouseListener = new MouseListener( controller,  this, graphicalView);
-		addMouseMotionListener(mouseListener);
+        
         buttonListener = new ButtonListener(controller);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1450,1020);
@@ -63,7 +63,15 @@ public class Window extends JFrame{
         graphicalView = new GraphicalView(tour);
         contentPane.add(graphicalView,BorderLayout.CENTER);
 
+        
+        
+        mouseListener = new MouseListener( controller,  this, graphicalView);
+		addMouseMotionListener(mouseListener);
+        
         setVisible(true);
+        
+        // To be place after the set visible.
+        PointFactory.initPointFactory(graphicalView, null);
 
     }
 
