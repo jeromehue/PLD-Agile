@@ -12,8 +12,6 @@ import modele.PointFactory;
 import modele.Intersection;
 import java.util.List;
 
-import java.lang.*;
-
 public class MouseListener extends MouseAdapter{
 
 	private Controller controller;

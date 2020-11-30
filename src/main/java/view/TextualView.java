@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Dimension;
-import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -10,7 +9,6 @@ import modele.Segment;
 import modele.Shape;
 import modele.Tour;
 import modele.Visitor;
-import modele.Way;
 import observer.Observable;
 import observer.Observer;
 

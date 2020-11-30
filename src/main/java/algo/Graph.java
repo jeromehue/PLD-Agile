@@ -19,5 +19,10 @@ public interface Graph {
 	 * @return true if <code>(i,j)</code> is an arc of <code>this</code>
 	 */
 	public abstract boolean isArc(int i, int j);
-
+	
+	/**
+	 * @param id
+	 * @return the index of the costs matrix corresponding to the <code>Intersection<code>
+	 */
+	public abstract Integer getIndex(Long id);
 }

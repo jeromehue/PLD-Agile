@@ -89,12 +89,4 @@ public class Request {
 				+ pickUpDurations + ", deliveryDurations=" + deliveryDurations + ", pickUpLocations=" + pickUpLocations
 				+ ", deliveryLocations=" + deliveryLocations + "]";
 	}
-
-
-	
-	
-
-	
-	
-	
 }

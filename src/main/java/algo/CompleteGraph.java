@@ -55,6 +55,10 @@ public class CompleteGraph implements Graph {
 		return i != j;
 	}
 	
+	public Integer getIndex(Long id) {
+		return index.get(id);
+	}
+	
 	@Override
 	public String toString() {
 		String ret = "";
