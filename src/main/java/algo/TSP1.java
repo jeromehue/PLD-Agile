@@ -10,7 +10,8 @@ public class TSP1 extends TemplateTSP {
 	private PriorityQueue<Double> vertexMinimum;
 	private Request request;
 	
-	public TSP1(Request request) {
+	public TSP1(Graph graph, Request request) {
+		this.g = graph;
 		this.request = request;
 	}
 	
@@ -45,7 +46,6 @@ public class TSP1 extends TemplateTSP {
 	@Override
 	protected Iterator<Integer> iterator(Integer currentVertex, Collection<Integer> unvisited, Graph g) {
 		return new SeqIter(unvisited, currentVertex, g, request);
-		//return null;
 	}
 
 }

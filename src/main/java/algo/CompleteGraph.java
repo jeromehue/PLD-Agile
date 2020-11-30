@@ -58,6 +58,10 @@ public class CompleteGraph implements Graph {
 		return i != j;
 	}
 	
+	public Integer getIndex(Long id) {
+		return index.get(id);
+	}
+	
 	@Override
 	public String toString() {
 		String ret = "";
@@ -74,11 +78,8 @@ public class CompleteGraph implements Graph {
 		return ret;
 	}
 	
-	/**
-	 * Give the intersection id (Long) from the costsMatrix index
-	 * @param index
-	 */
-	public Long getIdfromIndex(Integer i) {
+	@Override
+	public Long getIdFromIndex(Integer i) {
 		return reverseIndex.get(i);
 	}
 
