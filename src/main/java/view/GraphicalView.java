@@ -34,7 +34,6 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 		super();
 		this.setBorder(BorderFactory.createTitledBorder("Vue Graphique"));
 		this.setLayout(null);
-		PointFactory.initPointFactory(this, cityMap);
 		this.cityMap = null;
 		this.request = null;
 		this.tour = tour;

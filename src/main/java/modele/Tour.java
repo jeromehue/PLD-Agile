@@ -5,6 +5,7 @@ import java.util.List;
 import observer.Observable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 
@@ -37,6 +38,7 @@ public class Tour extends Observable{
 		notifyObservers();
 	}
 	
+
 	public void addNewWayInwaysList(List<Segment> s, Intersection start, Intersection arrival) {
 		Way way = new Way(s, start, arrival);
 		waysList.add(way);
@@ -45,11 +47,15 @@ public class Tour extends Observable{
 	
 	public void addWayInwaysList(Way s) {
 		waysList.add(s);
+	}
+	
+	public void addSegmentInPath(Way way) {
+		waysList.add(way);
 		notifyObservers();
 	}
 	
-	public void addAllWaysInwaysList(List<Way> listS) {
-		waysList.addAll(listS);
+	public void addAllSegmentsInPath(List<Way> listSeg) {
+		waysList.addAll(listSeg);
 		notifyObservers();
 	}
 	
@@ -64,13 +70,11 @@ public class Tour extends Observable{
 	public void setwaysList(List<Way> waysList) {
 		this.waysList = waysList;
 	}
-
-	/**
-	 * @return an iterator on all Ways in the tour
-	 */
-	public Iterator<Way> getwaysListIterrator(){
-		return waysList.iterator();
+	
+	public Iterator<Way> getwaysListIterrator() {
+		return this.waysList.iterator();
 	}
+
 
 	public Intersection getStartingIntersection() {
 		return startingIntersection;
