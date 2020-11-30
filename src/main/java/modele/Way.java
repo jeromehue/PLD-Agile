@@ -1,6 +1,8 @@
 package modele;
 
 import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 
 public class Way {
@@ -20,9 +22,20 @@ public class Way {
 		this.departure = departure;
 		this.arrival = arrival;
 	}
-
-
 	
+
+	public Way(List<Segment> segmentList, Intersection departure, Intersection arrival ) {
+		this.segmentList = segmentList;
+		this.startingTime = LocalTime.now();
+		this.departureTime = LocalTime.now();
+		this.arrivalTime = LocalTime.now();
+		this.departure = departure;
+		this.arrival = arrival;
+	}
+	
+	public Iterator<Segment> getSegmentListIterator(){
+		return segmentList.iterator();
+	}
 	
 	public List<Segment> getSegmentList() {
 		return segmentList;

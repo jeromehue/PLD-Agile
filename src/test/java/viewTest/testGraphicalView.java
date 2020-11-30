@@ -64,7 +64,7 @@ public class testGraphicalView {
 			paths.addAll(localPaths2);
 			
 		}
-		tour.setPath(paths);
+		//tour.setPath(paths);
 		
 		//set graphical view
 		GraphicalView graphicalView = new GraphicalView(tour);
