@@ -51,8 +51,12 @@ public class TextualView extends JLabel implements Observer, Visitor{
 				w = itwaysInTour.next();
 				count++;
 				text += count + ": " + w.getSegmentList().get(0).getName() + "<br />"; 
-				text += "Arrivée: " + w.getArrivalTime();
-				text += " ; Départ: " + w.getDepartureTime() + "<br />";
+				int hour=w.getArrivalTime().getHour();
+				int minute=w.getArrivalTime().getMinute();
+				int second=w.getArrivalTime().getSecond();
+				text += "Arrivée: "+hour+":"+minute+":"+second;
+				int time = w.getStayingDurationDeparture();
+				text += " ; Temps passé sur place: " +time + "secondes<br />";
 				text += "<br />";
 			}
 			text += "</ul></html>";
