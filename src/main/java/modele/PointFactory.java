@@ -14,6 +14,7 @@ public class PointFactory {
 	 * @param height the maximal value for y
 	 */
 	public static void initPointFactory(GraphicalView graphicalView, CityMap cityMap){
+		System.out.println(graphicalView.getWidth() + " : " +graphicalView.getHeight());
 		PointFactory.points = new Point[graphicalView.getWidth()+1][graphicalView.getHeight()+1];
 		PointFactory.graphicalView = graphicalView;
 		PointFactory.cityMap = cityMap;
@@ -25,6 +26,7 @@ public class PointFactory {
 	 * @return an instance p of Point such that p.x = x and p.y = y
 	 */
 	public static Point createPoint(int x, int y){
+		
 		if ((x > graphicalView.getWidth()) || (x < 0) || (y > graphicalView.getHeight()) || (y < 0))
 			return null;
 		if (points[x][y] == null)

@@ -7,6 +7,8 @@ import javax.swing.SwingUtilities;
 
 import controller.Controller;
 
+import modele.Point;
+import modele.PointFactory;
 
 
 public class MouseListener extends MouseAdapter{
@@ -33,7 +35,17 @@ public class MouseListener extends MouseAdapter{
 	public void mouseMoved(MouseEvent evt) {
 		// Methode appelee a chaque fois que la souris est bougee
 		// Envoie au controleur les coordonnees de la souris.
-		//System.out.println("Souris en train de bouger");
+		System.out.println("Souris en train de bouger - Récupération des coordonnées");
+		Point p = coordinates(evt);
+		System.out.println("(" +p.getX() + "," + p.getY() + ")");
+		
+	}
+	
+	private Point coordinates(MouseEvent evt){
+		MouseEvent e = SwingUtilities.convertMouseEvent(window, evt, graphicalView);
+		int x = Math.round((float)e.getX());
+		int y = Math.round((float)e.getY());
+		return PointFactory.createPoint(x, y);
 	}
 	
 }
