@@ -100,12 +100,40 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 	}
 	
 	private void drawTour(Graphics2D graphics) {
-		graphics.setColor(Color.red);
+		int red=  0;
+		int green= 0;
+		int blue= 255;
+		Color color=new Color(red,green,blue);
+		graphics.setColor(color);
 		graphics.setStroke(new BasicStroke(4));
 		Iterator<Way> itWay = tour.getwaysListIterrator();
+		int delta=0;
+		if (tour.getwaysList().size()!=0)
+		{
+			delta=(int)(765/(tour.getwaysList().size()));
+		}
 		while(itWay.hasNext())
 		{
-			drawWay(graphics,itWay.next());
+			if(blue-delta>=0) {
+				blue-=delta;
+			}
+			else {
+				blue=0;
+				if(red+delta<=255) {
+					
+					red+=delta;
+				}
+				else {
+					red=255;
+					green+=delta;
+					if (green>255) {
+						green=255;
+					}
+				}
+			}
+			color=new Color(red,green,blue);
+			graphics.setColor(color);
+			drawWay(graphics,itWay.next());		
 		}
 	}
 	
