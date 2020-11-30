@@ -105,7 +105,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			
 			if (this.highlightedSegment != null) {
 				graphics.setColor(Color.black);
-				graphics.setStroke(new BasicStroke(6));
+				graphics.setStroke(new BasicStroke(4));
 				drawSegment(graphics, this.highlightedSegment);
 			}
 		}
