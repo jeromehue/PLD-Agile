@@ -37,7 +37,9 @@ public class MouseListener extends MouseAdapter{
 		// Envoie au controleur les coordonnees de la souris.
 		System.out.println("Souris en train de bouger - Récupération des coordonnées");
 		Point p = coordinates(evt);
-		System.out.println("(" +p.getX() + "," + p.getY() + ")");
+		if (p != null) {
+			System.out.println("(" +p.getX() + "," + p.getY() + ")");
+		}
 		
 	}
 	
