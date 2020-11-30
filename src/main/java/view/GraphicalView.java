@@ -103,10 +103,18 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 	private void drawTour(Graphics2D graphics) {
 		graphics.setColor(Color.red);
 		graphics.setStroke(new BasicStroke(4));
-		Iterator<Way> itSegments = tour.getSegmentsIterator();
-		while(itSegments.hasNext())
+		Iterator<Way> itWay = tour.getwaysListIterrator();
+		while(itWay.hasNext())
 		{
-			drawSegment(graphics,itSegments.next());
+			drawWay(graphics,itWay.next());
+		}
+	}
+	
+	private void drawWay(Graphics2D graphics, Way way) {
+		Iterator<Segment> itSegment = way.getSegmentListIterator();
+		while(itSegment.hasNext())
+		{
+			drawSegment(graphics,itSegment.next());
 		}
 	}
 	

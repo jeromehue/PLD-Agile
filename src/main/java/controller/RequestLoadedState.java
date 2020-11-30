@@ -9,6 +9,7 @@ import modele.Intersection;
 import modele.Request;
 import modele.Segment;
 import modele.Tour;
+import modele.Way;
 import view.Window;
 import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
@@ -79,9 +80,9 @@ public class RequestLoadedState implements State {
 				intersection = itPickUpTest.next();
 				
 				List<Segment> localPaths = shortestPathComputer.getRoads(oldIntersecction,intersection);
-				t.addAllSegmentsInPath(localPaths);
-				
+				t.addNewWayInwaysList(localPaths, localPaths.get(0).getOrigin(), localPaths.get(localPaths.size()-1).getDestination());
 			}
+			
 			Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
 			while(itDeliveryTest.hasNext())
 			{
@@ -89,7 +90,8 @@ public class RequestLoadedState implements State {
 				intersection = itDeliveryTest.next();
 				
 				List<Segment> localPaths2 = shortestPathComputer.getRoads(oldIntersecction,intersection);
-				t.addAllSegmentsInPath(localPaths2);
+				t.addNewWayInwaysList(localPaths2, localPaths2.get(0).getOrigin(), localPaths2.get(localPaths2.size()-1).getDestination());
+				
 			}
 			w.setMessage("Votre tournée");
 		}

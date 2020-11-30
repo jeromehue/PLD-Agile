@@ -43,12 +43,12 @@ public class TextualView extends JLabel implements Observer, Visitor{
 		
 		if(this.tour != null)
 		{
-			Iterator<Way> itSegmentTour = tour.getSegmentsIterator();
+			/*Iterator<Way> itSegmentTour = tour.getSegmentsIterator();
 			text = "<html><ul>Trajet: <br />";
 			while (itSegmentTour.hasNext())
 				itSegmentTour.next().display(this);
 			text += "</ul></html>";
-			setText(text);
+			setText(text);*/
 		}
 	}
 	

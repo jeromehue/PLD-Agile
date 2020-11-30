@@ -35,10 +35,10 @@ public class MouseListener extends MouseAdapter{
 	public void mouseMoved(MouseEvent evt) {
 		// Methode appelee a chaque fois que la souris est bougee
 		// Envoie au controleur les coordonnees de la souris.
-		System.out.println("Souris en train de bouger - Récupération des coordonnées");
+		//System.out.println("Souris en train de bouger - Récupération des coordonnées");
 		Point p = coordinates(evt);
 		if (p != null) {
-			System.out.println("(" +p.getX() + "," + p.getY() + ")");
+			//System.out.println("(" +p.getX() + "," + p.getY() + ")");
 		}
 		
 	}

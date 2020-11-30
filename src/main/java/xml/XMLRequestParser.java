@@ -52,7 +52,7 @@ public class XMLRequestParser extends XMLParser {
 		            Long startingLocationId = Long.parseLong(element.getAttribute("address"));
 		            startingLocation = this.cityMap.getIntersectionFromAddress(startingLocationId);
 		            
-		            String[] departureTime = element.getAttribute("departureTime").split(":", 2);
+		            String[] departureTime = element.getAttribute("departureTime").split(":", 3);
 		            Integer hour = Integer.parseInt(departureTime[0]);
 		            Integer minute = Integer.parseInt(departureTime[1]);
 		            Integer second = Integer.parseInt(departureTime[2]);
