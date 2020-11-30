@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 
-import modele.Intersection;
 import modele.Request;
 
 public class SeqIter implements Iterator<Integer> {
@@ -24,16 +23,7 @@ public class SeqIter implements Iterator<Integer> {
 	 * @param g
 	 */
 	public SeqIter(Collection<Integer> unvisited, int currentVertex, Graph g, Request request){
-		this.candidates = new Integer[unvisited.size()];
-		// index of pickup, index of corresponding delivery 
-		HashMap<Integer, Integer> isPickUpLocation = new HashMap<Integer, Integer>();
-		
-		ArrayList<Intersection> pickUps = request.getPickUpLocations();
-		ArrayList<Intersection> deliveries = request.getDeliveryLocations();
-
-		for(int i = 0 ; i < pickUps.size(); ++i) {
-			isPickUpLocation.put(g.getIndex(pickUps.get(i).getId()), g.getIndex(deliveries.get(i).getId()));
-		}
+		this.candidates = new Integer[unvisited.size()];		
 		
 		Comparator<Integer> customComparator = new Comparator<Integer>() {
 			 @Override
@@ -49,13 +39,46 @@ public class SeqIter implements Iterator<Integer> {
 	                }
 	            }
 		};
-		PriorityQueue<Integer> orderedUnvisited = new PriorityQueue<Integer>(new Comparator<Integer>());
+		PriorityQueue<Integer> orderingUnvisited = new PriorityQueue<Integer>(customComparator);
+
+		// id of unvisited delivery, index in costs matrix
+		HashMap<Long, Integer> unvisitedDeliveries = new HashMap<Long, Integer>();
+
+		for(Integer index : unvisited) {
+			if(request.isPickUp(g.getIdFromIndex(index))) {
+				orderingUnvisited.add(index);
+			} else {
+				unvisitedDeliveries.put(g.getIdFromIndex(index), index);
+			}
+		}
+
+		ArrayList<Integer> orderedUnvisited = new ArrayList<>();
 		
 		
-		for (Integer s : unvisited){
+		while(!orderingUnvisited.isEmpty()) { // iterating through the ordered pickups
+			Integer head = orderingUnvisited.poll();
+			//System.out.println("test PQremovedHead (" + head + ")\n"+orderingUnvisited.toString());
+			orderedUnvisited.add(head);
+			Long deliveryId = request.getDeliveryFromPickUp(g.getIdFromIndex(head));
+			if(deliveryId != null) { // add a delivery only if its corresponding pickup
+				// was already removed from the queue
+				//System.out.println("adding to queue : "+g.getIndex(deliveryId));
+				Integer index = unvisitedDeliveries.get(deliveryId);
+				if(index != null)
+				{
+					orderingUnvisited.add(g.getIndex(deliveryId)); 
+				}
+			}
+		}
+		
+		//System.out.println("test ordered unvisited\n" + orderedUnvisited.toString()+"\n");
+		
+		for (Integer s : orderedUnvisited){
+			//System.out.print("cout : " + g.getCost(currentVertex, s) + " ; ");
 			if (g.isArc(currentVertex, s))
 				candidates[nbCandidates++] = s;
 		}
+		//System.out.println();
 	}
 	
 	@Override
