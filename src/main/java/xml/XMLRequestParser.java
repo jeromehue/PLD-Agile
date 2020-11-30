@@ -8,6 +8,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
+
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import modele.*;
@@ -26,7 +28,7 @@ public class XMLRequestParser extends XMLParser {
 			ArrayList<Intersection> pickUpLocations   	= new ArrayList<>();
 			ArrayList<Intersection> deliveryLocations 	= new ArrayList<>();
 		    Intersection			startingLocation	= null;
-		    String 					startingTime 		= new String();
+		    LocalTime 				startingTime 		= null;
 		    ArrayList<Integer> 		pickUpDurations   	= new ArrayList<>();
 		    ArrayList<Integer>		deliveryDurations 	= new ArrayList<>();
 		    
@@ -49,7 +51,12 @@ public class XMLRequestParser extends XMLParser {
 		            Element element = (Element) node;
 		            Long startingLocationId = Long.parseLong(element.getAttribute("address"));
 		            startingLocation = this.cityMap.getIntersectionFromAddress(startingLocationId);
-		            startingTime = element.getAttribute("departureTime");
+		            
+		            String[] departureTime = element.getAttribute("departureTime").split(":", 2);
+		            Integer hour = Integer.parseInt(departureTime[0]);
+		            Integer minute = Integer.parseInt(departureTime[1]);
+		            Integer second = Integer.parseInt(departureTime[2]);
+		            startingTime = LocalTime.of(hour, minute, second);
 
 		            if (startingLocation == null) {
 		            	throw new InvalidRequestException("The request contains unknown intersections");

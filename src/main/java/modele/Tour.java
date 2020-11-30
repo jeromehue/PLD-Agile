@@ -14,17 +14,12 @@ public class Tour extends Observable{
 	
 	private Intersection startingIntersection;
 	private Request request;
-	private List<Segment> path;
-	private HashMap<Long, Integer> arrivalTime;
-	private HashMap<Long, Integer> departureTime;
+	private List<Chemin> waysList;
 	
-	public Tour(Intersection start, Request request, List<Segment> path, 
-			HashMap<Long, Integer> arrivalTime, HashMap<Long, Integer> departureTime) {
+	public Tour(Intersection start, Request request, List<Segment> path) {
 		this.startingIntersection = start;
 		this.request = request;
 		this.path = path;
-		this.arrivalTime = arrivalTime;
-		this.departureTime = departureTime;
 	}
 	
 	public Tour(Request request) {
@@ -35,8 +30,6 @@ public class Tour extends Observable{
 	public Tour() {
 		this.startingIntersection = null;
 		this.path = new ArrayList<Segment>();
-		this.arrivalTime = null;
-		this.departureTime = null;
 		this.request = null;
 	}
 	
@@ -67,14 +60,6 @@ public class Tour extends Observable{
 		this.path = path;
 	}
 
-	public void setArrivalTime(HashMap<Long, Integer> arrivalTime) {
-		this.arrivalTime = arrivalTime;
-	}
-
-	public void setDepartureTime(HashMap<Long, Integer> departureTime) {
-		this.departureTime = departureTime;
-	}
-
 	/**
 	 * @return an iterator on all Segments in the tour
 	 */
@@ -94,11 +79,4 @@ public class Tour extends Observable{
 		return path;
 	}
 
-	public HashMap<Long, Integer> getArrivalTime() {
-		return arrivalTime;
-	}
-
-	public HashMap<Long, Integer> getDepartureTime() {
-		return departureTime;
-	}
 }

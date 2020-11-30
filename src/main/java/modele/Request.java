@@ -1,12 +1,13 @@
 package modele;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Request {
 	
 	private Intersection startingLocation; 
-	private String startingTime;
+	private LocalTime startingTime;
 	// List of pickup/delivery points with their duration
     private ArrayList<Integer> pickUpDurations;
     private ArrayList<Integer> deliveryDurations;
@@ -28,7 +29,7 @@ public class Request {
 	 * @param pickUpLocations
 	 * @param deliveryLocations
 	 */
-	public Request(Intersection startingLocation, String startingTime, ArrayList<Integer> pickUpDurations,
+	public Request(Intersection startingLocation, LocalTime startingTime, ArrayList<Integer> pickUpDurations,
 			ArrayList<Integer> deliveryDurations, ArrayList<Intersection> pickUpLocations, ArrayList<Intersection> deliveryLocations) {
 		this.startingLocation = startingLocation;
 		this.startingTime = startingTime;
@@ -44,7 +45,7 @@ public class Request {
 	}
 
 
-	public String getStartingTime() {
+	public LocalTime getStartingTime() {
 		return startingTime;
 	}
 
