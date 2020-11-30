@@ -59,8 +59,8 @@ public class MouseListener extends MouseAdapter{
 					 int iY = i.getCoordinates().getY();
 					 //System.out.println("ix, iy " + iX +"," + iY);
 					 if( iX > minX && iX < maxX && iY < maxY && iY > minY) {
-					 System.out.println("Coordonneés de l'intersection : " + i.getCoordinates().getX() +
-							 ":" + i.getCoordinates().getY() );
+						 System.out.println("Coordonneés de l'intersection : " + i.getCoordinates().getX() + ":" + i.getCoordinates().getY() );
+						 this.graphicalView.highlight(i.getOutboundSegments().get(0)); // à améliorer
 					 }
 				}
 			}
