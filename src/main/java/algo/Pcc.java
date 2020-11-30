@@ -135,7 +135,7 @@ public class Pcc {
 		return graph;
 	}
 	
-	public CompleteGraph initTest() {
+	/*public CompleteGraph initTest() {
 		ArrayList<Segment> l1 = new ArrayList<>();
 		Intersection inter1 = new Intersection(new Long(1), 1.0, 1.0, l1);
 		Intersection inter2 = new Intersection(new Long(2), 1.0, 2.0, l1);
@@ -180,9 +180,9 @@ public class Pcc {
 		startVertices.add(inter1);
 		startVertices.add(inter2);
 		startVertices.add(inter3);
-		/*startVertices.add(inter4);
-		startVertices.add(inter5);
-		startVertices.add(inter6);*/
+		//startVertices.add(inter4);
+		//startVertices.add(inter5);
+		//startVertices.add(inter6);
 
 
 		List<Intersection> allVertices = new ArrayList<Intersection>();
@@ -198,13 +198,13 @@ public class Pcc {
 	public CompleteGraph testComputePcc(List<Intersection> allVertices, List<Intersection> startVertices) {
 		//Pbm parce que request.get... renvoie un long (id de l'intersection)
 		// au lieu de l'intersection...
-		/* Commentaires pour tester l'algo
-		List<Intersection> startVertices = cityMap.getIntersectionsById(request.getDeliveryLocations());
-		startVertices.addAll(request.getPickUpLocations());
-		startVertices.addAll(request.getStartingLocation());
+		// Commentaires pour tester l'algo
+		//List<Intersection> startVertices = cityMap.getIntersectionsById(request.getDeliveryLocations());
+		//startVertices.addAll(request.getPickUpLocations());
+		//startVertices.addAll(request.getStartingLocation());
 
-		List<Intersection> allVertices = cityMap.getIntersections();
-		 */
+		//List<Intersection> allVertices = cityMap.getIntersections();
+		 
 		
 		//TESTS
 		CompleteGraph graph = new CompleteGraph(startVertices);
@@ -223,7 +223,7 @@ public class Pcc {
 		for (Intersection start  :  startVertices) {
 			//Les sommets gris sont initialisés à null
 
-			/*Début de l'algorithme classique de Dijkstra*/
+			//Début de l'algorithme classique de Dijkstra
 			
 			//Pour chaque objet Intesection on crée un objet IntersectionPcc qu'on initialise 
 			//avec un cout MAX et la couleur blanche
@@ -293,7 +293,7 @@ public class Pcc {
 			
 			//sauvegarder le résultat obtenu pour le point de départ
 			graph.updateCompleteGraph(startPcc.getId(), allVerticesPcc, startVertices);
-			
+			*/
 			/*System.out.println("Le chemin a l'envers du point 6 au sommet de départ "+ start.getId()+"est : ");
 			Long currentPoint = new Long(6);
 			do {
@@ -304,11 +304,12 @@ public class Pcc {
 			//On enregistre une HashMap predecessors par point de départ
 			 */
 			//savePredecessors.put(start.getId(), predecessors);
+	/*
 		}
 		
 		System.out.println(graph.toString());
 		return graph;
-	}
+	}*/
 	
 	public List<Segment> getRoads(Intersection start, Intersection finish){
 		ArrayList<Segment> segmentsList =  new ArrayList<Segment>();

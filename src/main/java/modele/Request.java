@@ -2,6 +2,7 @@ package modele;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 public class Request {
@@ -13,6 +14,8 @@ public class Request {
     private ArrayList<Integer> deliveryDurations;
     private ArrayList<Intersection> pickUpLocations;
 	private ArrayList<Intersection> deliveryLocations;
+	// id of pickup, id of corresponding delivery
+	private HashMap<Long, Long> deliveryFromPickUp; 
 
     
     /**
@@ -37,6 +40,11 @@ public class Request {
 		this.deliveryDurations = deliveryDurations;
 		this.pickUpLocations = pickUpLocations;
 		this.deliveryLocations = deliveryLocations;
+		this.deliveryFromPickUp = new HashMap<Long, Long>();
+		
+		for(int i = 0 ; i < pickUpLocations.size(); ++i) {
+			deliveryFromPickUp.put(pickUpLocations.get(i).getId(), deliveryLocations.get(i).getId());
+		}
 	}
 
 
@@ -82,6 +90,14 @@ public class Request {
 	public Iterator<Intersection> getDeliveryLocationsIterator(){
 		return deliveryLocations.iterator();
 	}
+	
+	public Long getDeliveryFromPickUp(Long id) {
+		return deliveryFromPickUp.get(id);
+	}
+	
+	public Boolean isPickUp(Long id) {
+		return(deliveryFromPickUp.get(id) != null);
+	}
 
 	@Override
 	public String toString() {
@@ -89,12 +105,4 @@ public class Request {
 				+ pickUpDurations + ", deliveryDurations=" + deliveryDurations + ", pickUpLocations=" + pickUpLocations
 				+ ", deliveryLocations=" + deliveryLocations + "]";
 	}
-
-
-	
-	
-
-	
-	
-	
 }

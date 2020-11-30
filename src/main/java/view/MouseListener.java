@@ -14,8 +14,6 @@ import modele.Intersection;
 import modele.Segment;
 import java.util.List;
 
-import java.lang.*;
-
 public class MouseListener extends MouseAdapter{
 
 	private Controller controller;

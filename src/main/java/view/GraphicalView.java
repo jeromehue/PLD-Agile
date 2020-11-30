@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 
 import modele.CityMap;
 import modele.Intersection;
-import modele.PointFactory;
 import modele.Request;
 import modele.Segment;
 import modele.Tour;
