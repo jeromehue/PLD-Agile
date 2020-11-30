@@ -39,8 +39,6 @@ public class Window extends JFrame{
     
     public Window(Controller controller, Tour tour){
         super("Hubert If");
-        
-        
         buttonListener = new ButtonListener(controller);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1450,1020);
@@ -63,8 +61,6 @@ public class Window extends JFrame{
         graphicalView = new GraphicalView(tour);
         contentPane.add(graphicalView,BorderLayout.CENTER);
 
-        
-        
         mouseListener = new MouseListener( controller,  this, graphicalView);
 		addMouseMotionListener(mouseListener);
         
