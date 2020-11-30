@@ -10,6 +10,7 @@ import modele.Segment;
 import modele.Shape;
 import modele.Tour;
 import modele.Visitor;
+import modele.Way;
 import observer.Observable;
 import observer.Observer;
 
@@ -42,7 +43,7 @@ public class TextualView extends JLabel implements Observer, Visitor{
 		
 		if(this.tour != null)
 		{
-			Iterator<Segment> itSegmentTour = tour.getSegementsIterator();
+			Iterator<Way> itSegmentTour = tour.getSegmentsIterator();
 			text = "<html><ul>Trajet: <br />";
 			while (itSegmentTour.hasNext())
 				itSegmentTour.next().display(this);

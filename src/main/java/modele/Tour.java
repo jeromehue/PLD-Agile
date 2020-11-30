@@ -5,7 +5,6 @@ import java.util.List;
 import observer.Observable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 
@@ -14,37 +13,37 @@ public class Tour extends Observable{
 	
 	private Intersection startingIntersection;
 	private Request request;
-	private List<Chemin> waysList;
+	private List<Way> waysList;
 	
-	public Tour(Intersection start, Request request, List<Segment> path) {
+	public Tour(Intersection start, Request request, List<Way> waysList) {
 		this.startingIntersection = start;
 		this.request = request;
-		this.path = path;
+		this.waysList = waysList;
 	}
 	
 	public Tour(Request request) {
 		this.request = request;
-		this.path = new ArrayList<Segment>();
+		this.waysList = new ArrayList<Way>();
 	}
 	
 	public Tour() {
 		this.startingIntersection = null;
-		this.path = new ArrayList<Segment>();
+		this.waysList = new ArrayList<Way>();
 		this.request = null;
 	}
 	
 	public void ClearTour() {
-		path.clear();
+		waysList.clear();
 		notifyObservers();
 	}
 	
-	public void addSegmentInPath(Segment s) {
-		path.add(s);
+	public void addWayInwaysList(Way s) {
+		waysList.add(s);
 		notifyObservers();
 	}
 	
-	public void addAllSegmentsInPath(List<Segment> listS) {
-		path.addAll(listS);
+	public void addAllWaysInwaysList(List<Way> listS) {
+		waysList.addAll(listS);
 		notifyObservers();
 	}
 	
@@ -56,15 +55,15 @@ public class Tour extends Observable{
 		this.request = request;
 	}
 
-	public void setPath(List<Segment> path) {
-		this.path = path;
+	public void setwaysList(List<Way> waysList) {
+		this.waysList = waysList;
 	}
 
 	/**
-	 * @return an iterator on all Segments in the tour
+	 * @return an iterator on all Ways in the tour
 	 */
-	public Iterator<Segment> getSegementsIterator(){
-		return path.iterator();
+	public Iterator<Way> getSegmentsIterator(){
+		return waysList.iterator();
 	}
 
 	public Intersection getStartingIntersection() {
@@ -75,8 +74,8 @@ public class Tour extends Observable{
 		return request;
 	}
 
-	public List<Segment> getPath() {
-		return path;
+	public List<Way> getwaysList() {
+		return waysList;
 	}
 
 }

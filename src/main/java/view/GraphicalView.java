@@ -16,6 +16,7 @@ import modele.Request;
 import modele.Segment;
 import modele.Tour;
 import modele.Visitor;
+import modele.Way;
 import observer.Observable;
 import observer.Observer;
 
@@ -33,9 +34,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 		super();
 		this.setBorder(BorderFactory.createTitledBorder("Vue Graphique"));
 		this.setLayout(null);
-		
-		// initialisation du tableau point
-		//PointFactory.initPointFactory(this, cityMap);
+		PointFactory.initPointFactory(this, cityMap);
 		this.cityMap = null;
 		this.request = null;
 		this.tour = tour;
@@ -51,8 +50,6 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 		this.cityMap = cityMap;
 		this.repaint();
 	}
-	
-	
 	
 	public CityMap getCityMap() {
 		return this.cityMap;
@@ -106,24 +103,24 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 	private void drawTour(Graphics2D graphics) {
 		graphics.setColor(Color.red);
 		graphics.setStroke(new BasicStroke(4));
-		Iterator<Segment> itSegements = tour.getSegementsIterator();
-		while(itSegements.hasNext())
+		Iterator<Way> itSegments = tour.getSegmentsIterator();
+		while(itSegments.hasNext())
 		{
-			drawSegement(graphics,itSegements.next());
+			drawSegment(graphics,itSegments.next());
 		}
 	}
 	
 	private void drawCityMap(Graphics2D graphics) {
 		graphics.setColor(Color.black);
 		graphics.setStroke(new BasicStroke(1));
-		Iterator<Segment> itSegements = cityMap.getSegementsIterator();
-		while(itSegements.hasNext())
+		Iterator<Segment> itSegments = cityMap.getSegmentsIterator();
+		while(itSegments.hasNext())
 		{
-			Segment segment = itSegements.next();
-			drawSegement(graphics,segment);
+			Segment segment = itSegments.next();
+			drawSegment(graphics,segment);
 		}	
 	}
-	private void drawSegement(Graphics graphics, Segment s) {
+	private void drawSegment(Graphics graphics, Segment s) {
 		graphics.drawLine(s.getOrigin().getCoordinates().getX(),
 						  s.getOrigin().getCoordinates().getY(),
 						  s.getDestination().getCoordinates().getX(),

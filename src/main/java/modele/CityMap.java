@@ -49,7 +49,7 @@ public class CityMap {
 	/**
 	 * @return an iterator on all Segments in the CityMap
 	 */
-	public Iterator<Segment> getSegementsIterator(){
+	public Iterator<Segment> getSegmentsIterator(){
 		return segments.iterator();
 	}
 	
