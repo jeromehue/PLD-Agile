@@ -103,9 +103,9 @@ public class MouseListener extends MouseAdapter{
 					int y2 = s.getDestination().getCoordinates().getY();
 					float distance = (float) 1.1;
 					if (inBox(px, py, x1, y1, x2, y2) ) {
-						System.out.println(px +"," +py+"," +x1+"," +y1+"," +x2+"," +y2);
+						//System.out.println(px +"," +py+"," +x1+"," +y1+"," +x2+"," +y2);
 						distance = distBetweenPointAndLine(px,py,x1,y1,x2,y2);
-						System.out.println(" | distance = " +distance);
+						//System.out.println(" | distance = " +distance);
 					}
 						
 					
@@ -118,9 +118,13 @@ public class MouseListener extends MouseAdapter{
 				}
 				if (sclosest != null) {
 				this.graphicalView.highlight(sclosest);
+				this.window.setMessage(sclosest.getName());
 				}
 				
 			}
+		} else {
+			this.window.setMessage("");
+			this.graphicalView.highlight(null);
 		}
 		
 	}
