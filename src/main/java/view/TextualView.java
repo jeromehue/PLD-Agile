@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.BorderFactory;
@@ -19,23 +20,23 @@ import observer.Observer;
 public class TextualView extends JPanel implements Observer, Visitor{
 
 	private static final long serialVersionUID = 1L;
-	//private String text;
+	
+	private ButtonListener buttonListener; 
 	private Tour tour;
+	private ArrayList<JButton> pointsJButtonList;
 
-	public TextualView(Tour tour){
+	public TextualView(Tour tour, ButtonListener buttonListener){
 		super();
 		setBorder(BorderFactory.createTitledBorder("Vue textuelle"));
-		//this.setVerticalTextPosition(TOP);
-		//this.setVerticalAlignment(TOP);
         this.setPreferredSize(new Dimension(500,30));
+        this.setBackground(Window.BACKGROUND_COLOR);
         this.tour = tour;
         this.tour.addObserver(this);
+        this.pointsJButtonList = new ArrayList<JButton>();
+        this.buttonListener = buttonListener;
+        
 	}
-
-	public Tour getTour(Tour tour) {
-		return this.tour;
-	}
-
+	
 	@Override
 	public void update(Observable observed, Object arg) {
 		if (arg != null){ // arg is a shape that has been added to the tour
@@ -45,13 +46,14 @@ public class TextualView extends JPanel implements Observer, Visitor{
 		
 		if(this.tour != null)
 		{
+			clearPointJButtonList();
 			Iterator<Way> itwaysInTour = tour.getwaysListIterrator();
 			Way w;
-			String text = "<html><ul>Trajet: <br />";
 			int count = 0;
 			while (itwaysInTour.hasNext()) {
 				w = itwaysInTour.next();
 				count++;
+				String text = "<html>";
 				text += count + ": " + w.getSegmentList().get(0).getName() + "<br />"; 
 				int hour=w.getArrivalTime().getHour();
 				int minute=w.getArrivalTime().getMinute();
@@ -59,18 +61,30 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				text += "Arrivée: "+hour+":"+minute+":"+second;
 				int time = w.getStayingDurationDeparture();
 				text += " ; Temps passé sur place: " +time + " secondes<br />";
-				text += "<br />";
+				//text += "<br />";
+				text += "</html>";
+				createClickabletextArea(text);
 			}
-			text += "</ul></html>";
-			//setText(text);
-			createClickabletextArea(text);
 		}
 	}
 	
-	public void createClickabletextArea(String text) {
-		JButton clickableText = new JButton(text);
-		//clickableText.setBorder(border);
-		this.add(clickableText);
+	private void createClickabletextArea(String text) { 
+		JButton clickableTextArea = new JButton();
+		pointsJButtonList.add(clickableTextArea);
+		this.add(clickableTextArea);
+		clickableTextArea.setVerticalAlignment(JLabel.TOP);
+		clickableTextArea.setText(text);
+		clickableTextArea.setContentAreaFilled(false);
+		clickableTextArea.setActionCommand(Window.DISPLAY_WAY);
+		clickableTextArea.addActionListener(buttonListener);
+	}
+	
+	private void clearPointJButtonList() {
+		for(JButton button : this.pointsJButtonList) {
+			button.setVisible(false);
+			this.remove(button);
+		}
+		this.pointsJButtonList.clear();
 	}
 	
 	public void display(Way w) {

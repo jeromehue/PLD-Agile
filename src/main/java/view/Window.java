@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
 
@@ -32,17 +33,20 @@ public class Window extends JFrame{
     private ButtonListener buttonListener;
     private MouseListener mouseListener;
     
+    protected final static Color BACKGROUND_COLOR = new Color(224,224,224);
+    
     //Buttons titles
     protected final static String LOAD_MAP = "Charger une carte";
     protected final static String LOAD_REQUEST = "Charger des requêtes";
     protected final static String COMPUTE_TOUR = "Calculer la tournée";
+    protected final static String DISPLAY_WAY = "Afficher le chemin";
     
     public Window(Controller controller, Tour tour){
         super("Hubert If");
-        buttonListener = new ButtonListener(controller);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(1450,1020);
-        setLocationRelativeTo(null);
+        this.buttonListener = new ButtonListener(controller);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setSize(1450,1020);
+        this.setLocationRelativeTo(null);
         try { UIManager.setLookAndFeel(new NimbusLookAndFeel()); }
         catch(Exception e){}
     
@@ -55,7 +59,7 @@ public class Window extends JFrame{
         toolBar = createToolBar(controller);
         contentPane.add(toolBar,BorderLayout.NORTH);
         
-        textualView = new TextualView(tour);
+        textualView = new TextualView(tour, this.buttonListener);
         contentPane.add(textualView,BorderLayout.WEST);
         
         graphicalView = new GraphicalView(tour);
@@ -64,7 +68,7 @@ public class Window extends JFrame{
         mouseListener = new MouseListener( controller,  this, graphicalView);
 		addMouseMotionListener(mouseListener);
         
-        setVisible(true);
+        this.setVisible(true);
         
         // To be place after the set visible.
         PointFactory.initPointFactory(graphicalView, null);
@@ -99,6 +103,7 @@ public class Window extends JFrame{
         messageFrame.setHorizontalAlignment(SwingConstants.CENTER);
         messageFrame.setVerticalAlignment(SwingConstants.TOP);
         messageFrame.setText("Pour commencer, chargez une carte au format XML.");
+        messageFrame.setBackground(BACKGROUND_COLOR);
         return messageFrame;
     } 
     

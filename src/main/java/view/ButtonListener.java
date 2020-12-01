@@ -23,7 +23,9 @@ public class ButtonListener  implements ActionListener  {
 		controller.loadMap(); break;
 		case Window.COMPUTE_TOUR: System.out.println("Click on COMPUTE_TOUR button");
 		controller.computeTour(); break;
-		default:  break;
+		case Window.DISPLAY_WAY: System.out.println("Click on DISPLAY_WAY button");
+		break;
+		default: System.out.println("Click DEFAULT_CASE button"); break;
 		}
 	}
 }
