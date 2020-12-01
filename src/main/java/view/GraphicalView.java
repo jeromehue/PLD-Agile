@@ -208,11 +208,11 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			pickUpAdresseToDraw = itPickUpTest.next();
 			deliveryAdressToDraw = itDeliveryTest.next();
 			
-			System.out.println(pickUpAdresseToDraw);
+			//System.out.println(pickUpAdresseToDraw);
 			if(pickUpAdresseToDraw != null ) 
 			{ drawIntersectionSquare(graphics, pickUpAdresseToDraw); }
 			
-			System.out.println(deliveryAdressToDraw);
+			//System.out.println(deliveryAdressToDraw);
 			if(deliveryAdressToDraw != null ) 
 			{ drawIntersection(graphics, deliveryAdressToDraw); }	
 		}

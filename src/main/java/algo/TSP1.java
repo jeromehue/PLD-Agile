@@ -33,13 +33,39 @@ public class TSP1 extends TemplateTSP {
 	}
 	
 	@Override
-	protected int bound(Integer currentVertex, Collection<Integer> unvisited) {
+	protected double bound(Integer currentVertex, Collection<Integer> unvisited) {
 		/*PriorityQueue<Double> minimumQueue = new PriorityQueue<>();
 		for(Integer index : unvisited) {
 			minimumQueue.add( g.getCost(currentVertex, index));
-		}*/
+		}
+		*/
 		
-		return (int)((unvisited.size()+1) * vertexMinimum.peek());
+		if(this.bestSolCost == Integer.MAX_VALUE) {
+			return 0;
+		}
+		
+		double min = 0;
+		double localMin;
+		double currentVertexMin = Double.MAX_VALUE;
+		
+		for(Integer startVertex : unvisited) {
+			localMin = g.getCost(startVertex, 0);
+			for(Integer targetVertex : unvisited) {
+				if(startVertex != targetVertex && g.getCost(startVertex, targetVertex) < localMin) {
+					localMin = g.getCost(startVertex, targetVertex);
+				}
+			}
+			min += localMin;
+			if(g.getCost(currentVertex, startVertex) < currentVertexMin) {
+				currentVertexMin = g.getCost(currentVertex, startVertex);
+ 			}
+		}
+		
+		min += currentVertexMin;
+		
+		return min;
+		
+		//return (int)((unvisited.size()+1) * vertexMinimum.peek());
 		//return 0;
 	}
 

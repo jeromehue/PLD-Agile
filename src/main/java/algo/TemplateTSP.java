@@ -7,7 +7,7 @@ import java.util.Iterator;
 public abstract class TemplateTSP implements TSP {
 	private Integer[] bestSol;
 	protected Graph g;
-	private double bestSolCost;
+	protected double bestSolCost;
 	private int timeLimit;
 	private long startTime;
 	
@@ -49,7 +49,7 @@ public abstract class TemplateTSP implements TSP {
 	 * @return a lower bound of the cost of paths in <code>g</code> starting from <code>currentVertex</code>, visiting 
 	 * every vertex in <code>unvisited</code> exactly once, and returning back to vertex <code>0</code>.
 	 */
-	protected abstract int bound(Integer currentVertex, Collection<Integer> unvisited);
+	protected abstract double bound(Integer currentVertex, Collection<Integer> unvisited);
 	
 	/**
 	 * Method that must be defined in TemplateTSP subclasses

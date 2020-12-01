@@ -32,10 +32,7 @@ public class MouseListener extends MouseAdapter{
 	}
 
 
-	private int  absoluteX (int X, int mX) {
-		
-		return Math.abs(mX -  X);
-	}
+	
 	
 	public void mouseMoved(MouseEvent evt) {
 		// Methode appelee a chaque fois que la souris est bougee
@@ -112,7 +109,7 @@ public class MouseListener extends MouseAdapter{
 					
 					if(distance < mindist ) {
 						mindist = distance;
-						System.out.println("distance : " +distance);
+						//System.out.println("distance : " +distance);
 						sclosest = s;
 					}
 				}
