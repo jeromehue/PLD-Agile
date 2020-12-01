@@ -5,12 +5,15 @@ import modele.CityMap;
 import modele.Intersection;
 import modele.Request;
 import modele.Segment;
+import modele.Tour;
+import modele.Way;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.HashMap;
 import java.lang.Math;
+import java.time.LocalTime;
 
 public class Pcc {
 	private List<Intersection> allVertices;
@@ -20,6 +23,9 @@ public class Pcc {
 	//private List<Segment> edges;
 	private HashMap<Long, HashMap<Long, Segment>> savePredecessors;
 	HashMap<Long, IntersectionPcc> allVerticesPcc;
+	Request request;
+	private double bikeVelocity = 36;//en m.s-1
+	private double lengthAB;//Length from point A to B, computed in getRoads
 	
 	public Pcc() {};
 	
@@ -30,6 +36,7 @@ public class Pcc {
 		start = request.getStartingLocation();
 		savePredecessors = new HashMap<Long, HashMap<Long, Segment>>();//< idStartVertex, <idCurrentVertex, idLastVertex> >
 		//edges = city.getSegments();
+		this.request=request;
 	}
 	
 	public CompleteGraph computePcc() {
@@ -43,7 +50,7 @@ public class Pcc {
 		
 		final int END_TEST_CYCLE = 1;
 		boolean allBlackStartVertices=false;	
-		HashMap<Long, IntersectionPcc> allVerticesPcc = new HashMap<Long, IntersectionPcc>();
+		allVerticesPcc = new HashMap<Long, IntersectionPcc>();
 		//HashMaps pour retrouver les voisins
 		PriorityQueue<IntersectionPcc> greyVertices; // tas binaire
 		// < Intersection id, segment qui relie le prédecesseur à l'intersection  >
@@ -135,6 +142,114 @@ public class Pcc {
 		return graph;
 	}
 	
+	public List<Segment> getRoads(Intersection start, Intersection finish){
+		ArrayList<Segment> segmentsList =  new ArrayList<Segment>();
+		HashMap<Long, Segment> predecessors = savePredecessors.get(start.getId());
+		Long currentPoint = finish.getId();
+		Segment path = predecessors.get(currentPoint);
+		lengthAB=0.0;
+		
+		do {
+			segmentsList.add(0, path);
+			lengthAB += path.getLength();
+			
+			currentPoint = path.getOrigin().getId();
+			path = predecessors.get(currentPoint);
+		}while(path != null);
+		
+		
+		Intersection passage = segmentsList.get(0).getOrigin();
+
+		System.out.println("Affichage de trajet : ");
+		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
+		System.out.print(" de la rue " + segmentsList.get(0).getName());
+		System.out.print(" -> ");
+
+		passage = segmentsList.get(segmentsList.size() - 1).getDestination();
+		
+		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
+		System.out.println(" à la rue " + segmentsList.get(segmentsList.size() - 1).getName());
+		System.out.print("Longueur totale :");
+		System.out.println(lengthAB);
+		
+		return segmentsList;
+	}
+	
+	public Integer getDuration() {
+		return (int) (lengthAB/bikeVelocity) ;
+	}
+	
+	public Tour computeTour(){
+		CompleteGraph graph = computePcc();
+		System.out.println("[PCC.computeTour] taille graphe : "+graph.getNbVertices());
+		TSP1 tsp = new TSP1(request);
+		tsp.addGraph(graph);
+		tsp.init();
+		
+		
+		List<Way> wayList = new ArrayList<>();
+		LocalTime tourStartingTime = request.getStartingTime();
+		Integer totalWayDuration = 0;
+		
+		Integer stayingStartDuration; //différence entre startArrival et startDeparture
+		LocalTime arrivalAtStart; //Arrivée au start
+		LocalTime departureFromStart; // départ du start
+		LocalTime arrivalAtFinish; // arrivée à finish
+		Integer wayDuration;
+
+		Intersection start;
+		Intersection finish;
+		Way way;
+		
+		for (int i=0; i<graph.getNbVertices(); i++) {
+			
+			//On récupère les id puis les intersections entre deux points
+			Long idStart = graph.getIdfromIndex(i);
+			Long idFinish;
+			//Last point comes  back to start point.
+			if( (i+1) < graph.getNbVertices()) {
+				idFinish = graph.getIdfromIndex(i+1);
+			}
+			else {
+				idFinish = graph.getIdfromIndex(0);
+			}
+			start = allVerticesPcc.get(idStart);
+			finish = allVerticesPcc.get(idFinish);
+			
+			List<Segment> list = getRoads(start, finish);
+			wayDuration = getDuration();
+			totalWayDuration += wayDuration;
+
+			if(i==0) {
+				arrivalAtStart = tourStartingTime;
+				departureFromStart = tourStartingTime;
+				
+			} else {
+				stayingStartDuration = request.getDurationPickUpDelivery(start.getId());
+				arrivalAtStart = tourStartingTime.plusSeconds(totalWayDuration);
+				departureFromStart = arrivalAtStart.plusSeconds(stayingStartDuration);
+			}
+					
+			arrivalAtFinish = departureFromStart.plusSeconds(wayDuration);
+			way = new Way(list, arrivalAtStart, departureFromStart, arrivalAtFinish, start, finish );
+			wayList.add(way);
+		}
+		
+		Tour tour = new Tour(request.getStartingLocation(), request, wayList);
+		
+		
+		return tour;
+	}
+	
+	
+	public Double getBikeVelocity() {
+		return bikeVelocity;
+	}
+	public void setBikeVelocity(double velocity) {
+		bikeVelocity = velocity;
+	}
+	
+	//-------------------------------------------------------
 	public CompleteGraph initTest() {
 		ArrayList<Segment> l1 = new ArrayList<>();
 		Intersection inter1 = new Intersection(new Long(1), 1.0, 1.0, l1);
@@ -310,35 +425,8 @@ public class Pcc {
 		return graph;
 	}
 	
-	public List<Segment> getRoads(Intersection start, Intersection finish){
-		ArrayList<Segment> segmentsList =  new ArrayList<Segment>();
-		HashMap<Long, Segment> predecessors = savePredecessors.get(start.getId());
-		Long currentPoint = finish.getId();
-		Segment path = predecessors.get(currentPoint);
-		
-		do {
-			segmentsList.add(0, path);
-			
-			currentPoint = path.getOrigin().getId();
-			path = predecessors.get(currentPoint);
-		}while(path != null);
-		
-		
-		Intersection passage = segmentsList.get(0).getOrigin();
-
-		System.out.println("Affichage de trajet : ");
-		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
-		System.out.println(" de la rue " + segmentsList.get(0).getName());
-		System.out.println("->");
-
-		passage = segmentsList.get(segmentsList.size() - 1).getDestination();
-		
-		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
-		System.out.println(" de la rue " + segmentsList.get(segmentsList.size() - 1).getName());
-		
-		
-		return segmentsList;
-	}
+	
+	
 	
 	public static Double distance (IntersectionPcc a, IntersectionPcc b) {
 		return Math.sqrt( (a.getLatitude()-b.getLatitude())*(a.getLatitude()-b.getLatitude())

@@ -27,7 +27,7 @@ public class TSP1 extends TemplateTSP {
 			}
 		}
 		//for (i=0; i< g.getNbVertices(); i++) { 
-		System.out.println("le cout minimum est "+vertexMinimum.peek());
+		System.out.println("[TSP1.init]le cout minimum est "+vertexMinimum.peek());
 		//}
 	}
 	

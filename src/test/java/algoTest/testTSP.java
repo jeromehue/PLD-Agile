@@ -40,7 +40,7 @@ public class testTSP {
 		Pcc pcc = new Pcc(city, request);
 		
 		CompleteGraph graph = pcc.computePcc();
-		TSP1 tsp = new TSP1();
+		TSP1 tsp = new TSP1(request);
 
 		tsp.addGraph(graph);
 		tsp.init();
