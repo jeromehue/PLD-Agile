@@ -27,13 +27,12 @@ public class TextualView extends JPanel implements Observer, Visitor{
 	public TextualView(Tour tour, ButtonListener buttonListener){
 		super();
 		setBorder(BorderFactory.createTitledBorder("Trajet"));
-        this.setPreferredSize(new Dimension(500,30));
+        this.setPreferredSize(new Dimension(500,2000));
         this.setBackground(Window.BACKGROUND_COLOR);
         this.tour = tour;
         this.tour.addObserver(this);
         this.pointsJButtonList = new ArrayList<JButton>();
         this.buttonListener = buttonListener;
-        
 	}
 	
 	@Override
@@ -65,6 +64,10 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				this.add(b);
 				pointsJButtonList.add(b);
 			}
+			/*for( JButton b : pointsJButtonList) {
+				scrollPane.add(b);
+				
+			}*/
 		}
 	}
 	

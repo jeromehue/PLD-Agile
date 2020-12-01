@@ -98,7 +98,6 @@ public class RequestLoadedState implements State {
 		
 		@Override
 		public void highlightWay(Window w, Way wa){
-			System.out.println("Call service highlightWay: " + wa.getSegmentList().get(0).getName());
 			w.graphicalView.setHighlightedWay(wa);
 		}
 }

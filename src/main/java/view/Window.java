@@ -14,6 +14,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 
@@ -60,7 +61,8 @@ public class Window extends JFrame{
         contentPane.add(toolBar,BorderLayout.NORTH);
         
         textualView = new TextualView(tour, this.buttonListener);
-        contentPane.add(textualView,BorderLayout.WEST);
+        JScrollPane scrollPane = new JScrollPane( textualView ,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        contentPane.add(scrollPane,BorderLayout.WEST);
         
         graphicalView = new GraphicalView(tour);
         contentPane.add(graphicalView,BorderLayout.CENTER);
