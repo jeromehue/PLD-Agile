@@ -28,14 +28,16 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 	private CityMap cityMap;
 	private Request request;
 	private Segment highlightedSegment;
+	private Way highlightedWay;
 	private Tour tour; // tour is unique -> modified in the controller and observed to display changes here
 
 	public GraphicalView(Tour tour)  {
 		super();
-		this.setBorder(BorderFactory.createTitledBorder("Vue Graphique"));
+		this.setBorder(BorderFactory.createTitledBorder("Carte"));
 		this.setLayout(null);
 		this.cityMap = null;
 		this.request = null;
+		this.highlightedWay = null;
 		this.tour = tour;
 		this.tour.addObserver(this); // observes tour changes
 	}
@@ -52,6 +54,11 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 	
 	public void highlight(Segment segment) {
 		this.highlightedSegment = segment;
+		this.repaint();
+	}
+	
+	public void setHighlightedWay(Way way) {
+		this.highlightedWay = way;
 		this.repaint();
 	}
 	
@@ -145,6 +152,12 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			color=new Color(red,green,blue);
 			graphics.setColor(color);
 			drawWay(graphics,itWay.next());		
+		}
+		
+		if(this.highlightedWay != null) {
+			graphics.setColor(Color.black);
+			graphics.setStroke(new BasicStroke(6));
+			drawWay(graphics, this.highlightedWay);
 		}
 	}
 	

@@ -6,7 +6,6 @@ import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import modele.Segment;
@@ -27,7 +26,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 
 	public TextualView(Tour tour, ButtonListener buttonListener){
 		super();
-		setBorder(BorderFactory.createTitledBorder("Vue textuelle"));
+		setBorder(BorderFactory.createTitledBorder("Trajet"));
         this.setPreferredSize(new Dimension(500,30));
         this.setBackground(Window.BACKGROUND_COLOR);
         this.tour = tour;
@@ -61,22 +60,12 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				text += "Arrivée: "+hour+":"+minute+":"+second;
 				int time = w.getStayingDurationDeparture();
 				text += " ; Temps passé sur place: " +time + " secondes<br />";
-				//text += "<br />";
 				text += "</html>";
-				createClickabletextArea(text);
+				ButtonWay b = new ButtonWay(w, buttonListener, text);
+				this.add(b);
+				pointsJButtonList.add(b);
 			}
 		}
-	}
-	
-	private void createClickabletextArea(String text) { 
-		JButton clickableTextArea = new JButton();
-		pointsJButtonList.add(clickableTextArea);
-		this.add(clickableTextArea);
-		clickableTextArea.setVerticalAlignment(JLabel.TOP);
-		clickableTextArea.setText(text);
-		clickableTextArea.setContentAreaFilled(false);
-		clickableTextArea.setActionCommand(Window.DISPLAY_WAY);
-		clickableTextArea.addActionListener(buttonListener);
 	}
 	
 	private void clearPointJButtonList() {

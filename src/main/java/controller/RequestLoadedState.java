@@ -9,6 +9,7 @@ import modele.Intersection;
 import modele.Request;
 import modele.Segment;
 import modele.Tour;
+import modele.Way;
 import view.Window;
 import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
@@ -93,5 +94,11 @@ public class RequestLoadedState implements State {
 				
 			}
 			w.setMessage("Votre tournée");
+		}
+		
+		@Override
+		public void highlightWay(Window w, Way wa){
+			System.out.println("Call service highlightWay: " + wa.getSegmentList().get(0).getName());
+			w.graphicalView.setHighlightedWay(wa);
 		}
 }

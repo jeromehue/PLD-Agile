@@ -1,6 +1,7 @@
 package controller;
 
 import modele.Tour;
+import modele.Way;
 import view.Window;
 
 public interface State {
@@ -13,4 +14,6 @@ public interface State {
 	public default void loadRequest(Controller c, Window w, Tour t) {}
 	
 	public default void computeTour(Controller c, Window w, Tour t) {}
+
+	public default void highlightWay( Window w, Way wa) {}
 }
