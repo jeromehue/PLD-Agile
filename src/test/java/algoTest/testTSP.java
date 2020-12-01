@@ -20,14 +20,14 @@ public class testTSP {
 	void test() {
 		
 		System.out.println("TEST\n-----------------" + "testTSP.java : test");
-		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/mediumMap.xml");
+		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/largeMap.xml");
 		CityMap city = cmpp.parse();
 		
 		assertTrue(city.getIntersections() != null);
 		assertTrue(city.getIntersections().size() > 7);
 
 		
-		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsMedium3.xml", city);
+		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsLarge7.xml", city);
 		Request request = new Request();
 		try {
 			request = rp.parse();
@@ -45,7 +45,7 @@ public class testTSP {
 		tsp.init();
 		
 		long startTime = System.currentTimeMillis();
-		tsp.searchSolution(20000);
+		tsp.searchSolution(40000);
 		System.out.print("Solution of cost "+tsp.getSolutionCost()+" found in "
 				+(System.currentTimeMillis() - startTime)+"ms : ");
 		for (int i=0; i<graph.getNbVertices(); i++)
