@@ -13,6 +13,9 @@ public class Request {
     private ArrayList<Intersection> pickUpLocations;
 	private ArrayList<Intersection> deliveryLocations;
 	private HashMap<Long, Integer> durations;
+	// id of pickup, id of corresponding delivery
+	private HashMap<Long, Long> deliveryFromPickUp; 
+
 
     
     /**
@@ -35,6 +38,7 @@ public class Request {
 		this.startingTime = startingTime;
 		this.pickUpLocations = pickUpLocations;
 		this.deliveryLocations = deliveryLocations;
+
 		ArrayList<Integer> allDurations = new ArrayList<Integer>();
 		allDurations.addAll(pickUpDurations);
 		allDurations.addAll(deliveryDurations);
@@ -44,6 +48,11 @@ public class Request {
 		durations = new HashMap<Long, Integer>();
 		for(int i =0; i< allDurations.size(); i++ ) {
 			durations.put(allLocations.get(i).getId(), allDurations.get(i));
+		}
+		this.deliveryFromPickUp = new HashMap<Long, Long>();
+		
+		for(int i = 0 ; i < pickUpLocations.size(); ++i) {
+			deliveryFromPickUp.put(pickUpLocations.get(i).getId(), deliveryLocations.get(i).getId());
 		}
 	}
 
@@ -80,6 +89,14 @@ public class Request {
 	public Iterator<Intersection> getDeliveryLocationsIterator(){
 		return deliveryLocations.iterator();
 	}
+	
+	public Long getDeliveryFromPickUp(Long id) {
+		return deliveryFromPickUp.get(id);
+	}
+	
+	public Boolean isPickUp(Long id) {
+		return(deliveryFromPickUp.get(id) != null);
+	}
 
 	@Override
 	public String toString() {
@@ -91,11 +108,4 @@ public class Request {
 		return durations.get(id);
 	}
 
-
-	
-	
-
-	
-	
-	
 }

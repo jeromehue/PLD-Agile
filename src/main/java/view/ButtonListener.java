@@ -13,17 +13,28 @@ public class ButtonListener  implements ActionListener  {
 		this.controller = controller;
 	}
 	
-	public void actionPerformed(ActionEvent e) { 
-		// Méthode appelée par l'ecouteur de boutons a chaque fois qu'un bouton est clique
-		// Envoi au controleur du message correspondant au bouton clique
-		switch (e.getActionCommand()) {
-		case Window.LOAD_REQUEST: System.out.println("Click on LOAD_REQUEST button");
-		controller.loadRequest(); break;
-		case Window.LOAD_MAP: System.out.println("Click on LOAD_MAP button");
-		controller.loadMap(); break;
-		case Window.COMPUTE_TOUR: System.out.println("Click on COMPUTE_TOUR button");
-		controller.computeTour(); break;
-		default:  break;
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() instanceof ButtonWay) {
+			switch (e.getActionCommand()) {
+			case Window.DISPLAY_WAY: System.out.println("Click on DISPLAY_WAY button");
+			controller.highlightWay(((ButtonWay) e.getSource()).getWay()); break;
+			default: System.out.println("Click button: DEFAULT_CASE_1"); break;
+			}
+		}
+		else {
+			// Méthode appelée par l'ecouteur de boutons a chaque fois qu'un bouton est clique
+			// Envoi au controleur du message correspondant au bouton clique
+			switch (e.getActionCommand()) {
+			case Window.LOAD_REQUEST: System.out.println("Click on LOAD_REQUEST button");
+			controller.loadRequest(); break;
+			case Window.LOAD_MAP: System.out.println("Click on LOAD_MAP button");
+			controller.loadMap(); break;
+			case Window.COMPUTE_TOUR: System.out.println("Click on COMPUTE_TOUR button");
+			controller.computeTour(); break;
+			case Window.DISPLAY_WAY: System.out.println("Click on DISPLAY_WAY button");
+			break;
+			default: System.out.println("Click button: DEFAULT_CASE_2"); break;
+			}
 		}
 	}
 }

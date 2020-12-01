@@ -1,6 +1,7 @@
 package controller;
 
 import modele.Tour;
+import modele.Way;
 import view.Window;
 
 
@@ -37,6 +38,10 @@ public class Controller {
 	
 	public void computeTour() {
 		currentState.computeTour(this, this.window, this.tour);
+	}
+	
+	public void highlightWay(Way w) {
+		currentState.highlightWay(this.window, w);
 	}
 
 }

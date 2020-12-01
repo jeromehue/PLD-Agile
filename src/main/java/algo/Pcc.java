@@ -142,6 +142,7 @@ public class Pcc {
 		return graph;
 	}
 	
+
 	public List<Segment> getRoads(Intersection start, Intersection finish){
 		ArrayList<Segment> segmentsList =  new ArrayList<Segment>();
 		HashMap<Long, Segment> predecessors = savePredecessors.get(start.getId());
@@ -182,8 +183,8 @@ public class Pcc {
 	public Tour computeTour(){
 		CompleteGraph graph = computePcc();
 		System.out.println("[PCC.computeTour] taille graphe : "+graph.getNbVertices());
-		TSP1 tsp = new TSP1(request);
-		tsp.addGraph(graph);
+		TSP1 tsp = new TSP1(graph, request);
+		//tsp.addGraph(graph);
 		tsp.init();
 		
 		
@@ -204,14 +205,14 @@ public class Pcc {
 		for (int i=0; i<graph.getNbVertices(); i++) {
 			
 			//On récupère les id puis les intersections entre deux points
-			Long idStart = graph.getIdfromIndex(i);
+			Long idStart = graph.getIdFromIndex(i);
 			Long idFinish;
 			//Last point comes  back to start point.
 			if( (i+1) < graph.getNbVertices()) {
-				idFinish = graph.getIdfromIndex(i+1);
+				idFinish = graph.getIdFromIndex(i+1);
 			}
 			else {
-				idFinish = graph.getIdfromIndex(0);
+				idFinish = graph.getIdFromIndex(0);
 			}
 			start = allVerticesPcc.get(idStart);
 			finish = allVerticesPcc.get(idFinish);
@@ -249,8 +250,9 @@ public class Pcc {
 		bikeVelocity = velocity;
 	}
 	
-	//-------------------------------------------------------
-	public CompleteGraph initTest() {
+	//------------------------------------------------------
+
+/*	public CompleteGraph initTest() {
 		ArrayList<Segment> l1 = new ArrayList<>();
 		Intersection inter1 = new Intersection(new Long(1), 1.0, 1.0, l1);
 		Intersection inter2 = new Intersection(new Long(2), 1.0, 2.0, l1);
@@ -295,9 +297,9 @@ public class Pcc {
 		startVertices.add(inter1);
 		startVertices.add(inter2);
 		startVertices.add(inter3);
-		/*startVertices.add(inter4);
-		startVertices.add(inter5);
-		startVertices.add(inter6);*/
+		//startVertices.add(inter4);
+		//startVertices.add(inter5);
+		//startVertices.add(inter6);
 
 
 		List<Intersection> allVertices = new ArrayList<Intersection>();
@@ -308,18 +310,18 @@ public class Pcc {
 		allVertices.add(inter5);
 		allVertices.add(inter6);
 		return testComputePcc(allVertices, startVertices);
-	}
+	}*/
 	
-	public CompleteGraph testComputePcc(List<Intersection> allVertices, List<Intersection> startVertices) {
+	/*public CompleteGraph testComputePcc(List<Intersection> allVertices, List<Intersection> startVertices) {
 		//Pbm parce que request.get... renvoie un long (id de l'intersection)
 		// au lieu de l'intersection...
-		/* Commentaires pour tester l'algo
-		List<Intersection> startVertices = cityMap.getIntersectionsById(request.getDeliveryLocations());
-		startVertices.addAll(request.getPickUpLocations());
-		startVertices.addAll(request.getStartingLocation());
+		// Commentaires pour tester l'algo
+		//List<Intersection> startVertices = cityMap.getIntersectionsById(request.getDeliveryLocations());
+		//startVertices.addAll(request.getPickUpLocations());
+		//startVertices.addAll(request.getStartingLocation());
 
-		List<Intersection> allVertices = cityMap.getIntersections();
-		 */
+		//List<Intersection> allVertices = cityMap.getIntersections();
+		 
 		
 		//TESTS
 		CompleteGraph graph = new CompleteGraph(startVertices);
@@ -338,7 +340,7 @@ public class Pcc {
 		for (Intersection start  :  startVertices) {
 			//Les sommets gris sont initialisés à null
 
-			/*Début de l'algorithme classique de Dijkstra*/
+			//Début de l'algorithme classique de Dijkstra
 			
 			//Pour chaque objet Intesection on crée un objet IntersectionPcc qu'on initialise 
 			//avec un cout MAX et la couleur blanche
@@ -408,7 +410,7 @@ public class Pcc {
 			
 			//sauvegarder le résultat obtenu pour le point de départ
 			graph.updateCompleteGraph(startPcc.getId(), allVerticesPcc, startVertices);
-			
+		
 			/*System.out.println("Le chemin a l'envers du point 6 au sommet de départ "+ start.getId()+"est : ");
 			Long currentPoint = new Long(6);
 			do {
@@ -419,11 +421,12 @@ public class Pcc {
 			//On enregistre une HashMap predecessors par point de départ
 			 */
 			//savePredecessors.put(start.getId(), predecessors);
+	/*
 		}
 		
 		System.out.println(graph.toString());
 		return graph;
-	}
+	}*/
 	
 	
 	
