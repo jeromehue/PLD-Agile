@@ -28,7 +28,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 	public TextualView(Tour tour, ButtonListener buttonListener){
 		super();
 		setBorder(BorderFactory.createTitledBorder("Trajet"));
-        this.setPreferredSize(new Dimension(500,2000));
+        this.setPreferredSize(new Dimension(600,2000));
         setLayout(new FlowLayout(FlowLayout.LEFT));
         this.setBackground(Window.BACKGROUND_COLOR);
         this.tour = tour;

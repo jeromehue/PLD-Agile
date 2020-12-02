@@ -46,7 +46,7 @@ public class Window extends JFrame{
         super("Hubert If");
         this.buttonListener = new ButtonListener(controller);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(1450,1020);
+        this.setSize(1800,1020);
         this.setLocationRelativeTo(null);
         try { UIManager.setLookAndFeel(new NimbusLookAndFeel()); }
         catch(Exception e){}
