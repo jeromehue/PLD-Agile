@@ -16,22 +16,22 @@ public class InitState implements State {
 			CityMap cityMap = p.parse();
 			w.graphicalView.setCityMap(cityMap);
 			c.setCurrentstate(c.mapLoadedState);
-			w.setMessage ("La carte a été chargée avec succès. Vous pouvez charger une requête.");
+			w.setMessage ("The map was successfully loaded. You may now load requests.");
 		}
 		else 
 		{
-			w.setMessage("Veuillez charger une carte au format XML.");
+			w.setMessage("Please load a XML file.");
 		}
 	}
 	
 	@Override
 	public void loadRequest(Controller c,Window w, Tour t) {
-		w.setMessage("Avant de charger une requête, chargez une carte");
+		w.setMessage("Before trying to load a requests file, please load a map.");
 	}
 	
 	@Override
 	public void computeTour(Controller c,Window w, Tour t) {
-		w.setMessage("Avant de calculer la tournée, chargez une carte puis une requête");
+		w.setMessage("Before trying to compute a tour, please load a map and a requests file.");
 	}
 	
 }

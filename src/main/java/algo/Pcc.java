@@ -12,10 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
-import javax.swing.text.html.ListView;
-
 import java.util.HashMap;
-import java.lang.Math;
 import java.time.LocalTime;
 
 public class Pcc {
@@ -229,8 +226,10 @@ public class Pcc {
 			} else {
 				finish = interList.get(0);
 			}
+			
 			list = getRoads(start, finish);
 			wayDuration = getDuration();
+
 			totalWayDuration += wayDuration;
 
 			if(i==0) {
@@ -275,67 +274,7 @@ public class Pcc {
 		return computeTour(list);
 	}
 
-	public void setComputeTour(Tour t){
-		CompleteGraph graph = computePcc();
-		System.out.println("[PCC.computeTour] taille graphe : "+graph.getNbVertices());
-		TSP1 tsp = new TSP1(graph, request);
-		//tsp.addGraph(graph);
-		tsp.init();
-		
-		
-		List<Way> wayList = new ArrayList<>();
-		LocalTime tourStartingTime = request.getStartingTime();
-		Integer totalWayDuration = 0;
-		
-		Integer stayingStartDuration; //différence entre startArrival et startDeparture
-		LocalTime arrivalAtStart; //Arrivée au start
-		LocalTime departureFromStart; // départ du start
-		LocalTime arrivalAtFinish; // arrivée à finish
-		Integer wayDuration;
 
-		Intersection start;
-		Intersection finish;
-		Way way;
-		
-		for (int i=0; i<graph.getNbVertices(); i++) {
-			
-			//On récupère les id puis les intersections entre deux points
-			Long idStart = graph.getIdFromIndex(i);
-			Long idFinish;
-			//Last point comes  back to start point.
-			if( (i+1) < graph.getNbVertices()) {
-				idFinish = graph.getIdFromIndex(i+1);
-			}
-			else {
-				idFinish = graph.getIdFromIndex(0);
-			}
-			start = allVerticesPcc.get(idStart);
-			finish = allVerticesPcc.get(idFinish);
-			
-			List<Segment> list = getRoads(start, finish);
-			wayDuration = getDuration();
-			totalWayDuration += wayDuration;
-
-			if(i==0) {
-				arrivalAtStart = tourStartingTime;
-				departureFromStart = tourStartingTime;
-				
-			} else {
-				stayingStartDuration = request.getDurationPickUpDelivery(start.getId());
-				arrivalAtStart = tourStartingTime.plusSeconds(totalWayDuration-wayDuration);
-				departureFromStart = arrivalAtStart.plusSeconds(stayingStartDuration);
-				totalWayDuration += stayingStartDuration;
-			}
-	
-			arrivalAtFinish = departureFromStart.plusSeconds(wayDuration);
-			way = new Way(list, arrivalAtStart, departureFromStart, arrivalAtFinish, start, finish );
-			wayList.add(way);
-		}
-		
-		
-		t.setTour(request.getStartingLocation(), request, wayList);
-		
-	}
 	
 
 	
@@ -527,8 +466,8 @@ public class Pcc {
 	
 	
 	
-	public static Double distance (IntersectionPcc a, IntersectionPcc b) {
+	/*public static Double distance (IntersectionPcc a, IntersectionPcc b) {
 		return Math.sqrt( (a.getLatitude()-b.getLatitude())*(a.getLatitude()-b.getLatitude())
 			 + (a.getLongitude()-b.getLongitude())*(a.getLongitude()-b.getLongitude()) );
-	}
+	}*/
 }
