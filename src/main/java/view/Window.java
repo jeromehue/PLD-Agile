@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 
 import controller.Controller;
 import modele.Tour;
@@ -86,7 +87,9 @@ public class Window extends JFrame{
         mouseListener = new MouseListener( controller,  this, graphicalView);
 		addMouseMotionListener(mouseListener);
         
+		
         this.setVisible(true);
+        
         
         // To be place after the set visible.
         PointFactory.initPointFactory(graphicalView, null);
@@ -186,6 +189,21 @@ public class Window extends JFrame{
 		    } 
 		    return absPath;
 	}
+    
+    
+    public int displaySelectOrderDialog() {
+    	
+    	int i = -1;
+    	while (i == -1) {
+    		String str = JOptionPane.showInputDialog(this, "Entrez la nouvelle place de cette étape");
+    		try {
+    			i = Integer.parseInt(str);
+    		} catch(Exception e) {
+    			System.out.println("Erreur :  la saisie n'est pas un entier valide ");
+    		}
+    	}
+    	return i;
+    }
     
 }
         
