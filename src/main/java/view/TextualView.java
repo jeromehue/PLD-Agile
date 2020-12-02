@@ -87,7 +87,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				
 				currentWay = itwaysInTour.next();
 				
-				text += "Time spent on the spot : "+ currentWay.getStayingDurationDeparture() + " seconds. <br />";
+				text += "Time spent on the spot : "+ currentWay.getStayingDurationForDeparturePoint() + " seconds. <br />";
 				text += "Leave at " + currentWay.getDepartureTime().getHour() + ":" + currentWay.getDepartureTime().getMinute();
 				text += " following <strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
 				text += ". <br /> </html>";
