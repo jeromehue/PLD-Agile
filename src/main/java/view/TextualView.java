@@ -1,12 +1,12 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import modele.Segment;
@@ -27,14 +27,14 @@ public class TextualView extends JPanel implements Observer, Visitor{
 
 	public TextualView(Tour tour, ButtonListener buttonListener){
 		super();
-		setBorder(BorderFactory.createTitledBorder("Vue textuelle"));
-        this.setPreferredSize(new Dimension(500,30));
+		setBorder(BorderFactory.createTitledBorder("Trajet"));
+        this.setPreferredSize(new Dimension(600,2000));
+        setLayout(new FlowLayout(FlowLayout.LEFT));
         this.setBackground(Window.BACKGROUND_COLOR);
         this.tour = tour;
         this.tour.addObserver(this);
         this.pointsJButtonList = new ArrayList<JButton>();
         this.buttonListener = buttonListener;
-        
 	}
 	
 	@Override
@@ -48,35 +48,33 @@ public class TextualView extends JPanel implements Observer, Visitor{
 		{
 			clearPointJButtonList();
 			Iterator<Way> itwaysInTour = tour.getwaysListIterrator();
-			Way w;
-			int count = 0;
+			Way currentWay;
+			int currentCount = 0;
+			Segment currentArrival;
 			while (itwaysInTour.hasNext()) {
-				w = itwaysInTour.next();
-				count++;
-				String text = "<html>";
-				text += count + ": " + w.getSegmentList().get(0).getName() + "<br />"; 
-				int hour=w.getArrivalTime().getHour();
-				int minute=w.getArrivalTime().getMinute();
-				int second=w.getArrivalTime().getSecond();
-				text += "Arrivée: "+hour+":"+minute+":"+second;
-				int time = w.getStayingDurationDeparture();
-				text += " ; Temps passé sur place: " +time + " secondes<br />";
-				//text += "<br />";
+				currentWay = itwaysInTour.next();
+				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
+				++currentCount;
+				String text = "<html><u><strong> Etape n°" + currentCount + ":</strong></u> <br />";
+				text += "(" + currentWay.getStayingDurationDeparture() + " secondes sur place)";
+				text += ". <br />";
+				text += "Départ par "; 
+				text += "<strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
+				text += " à "; 
+				text += currentWay.getDepartureTime().getHour() + "h"+ currentWay.getDepartureTime().getMinute();
+				text += " de l'adresse ";
+				text += currentWay.getSegmentList().get(0).getOrigin().getId() +  ".";
+				text += ". <br />";
+				text += "Arrivée à l'adresse  "; 
+				text += currentArrival.getDestination().getId();
+				text += " à " + currentWay.getArrivalTime().getHour() + "h"+ currentWay.getArrivalTime().getMinute();
+				text += " par <strong>" + currentArrival.getName() + "</strong>.<br />";
 				text += "</html>";
-				createClickabletextArea(text);
+				ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
+				this.add(b);
+				pointsJButtonList.add(b);
 			}
 		}
-	}
-	
-	private void createClickabletextArea(String text) { 
-		JButton clickableTextArea = new JButton();
-		pointsJButtonList.add(clickableTextArea);
-		this.add(clickableTextArea);
-		clickableTextArea.setVerticalAlignment(JLabel.TOP);
-		clickableTextArea.setText(text);
-		clickableTextArea.setContentAreaFilled(false);
-		clickableTextArea.setActionCommand(Window.DISPLAY_WAY);
-		clickableTextArea.addActionListener(buttonListener);
 	}
 	
 	private void clearPointJButtonList() {

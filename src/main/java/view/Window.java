@@ -14,6 +14,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 
@@ -39,13 +40,13 @@ public class Window extends JFrame{
     protected final static String LOAD_MAP = "Charger une carte";
     protected final static String LOAD_REQUEST = "Charger des requêtes";
     protected final static String COMPUTE_TOUR = "Calculer la tournée";
-    protected final static String DISPLAY_WAY = "Afficher le chemin";
+    protected final static String HIGHLIGHT_WAY = "Afficher le chemin";
     
     public Window(Controller controller, Tour tour){
         super("Hubert If");
         this.buttonListener = new ButtonListener(controller);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(1450,1020);
+        this.setSize(1800,1020);
         this.setLocationRelativeTo(null);
         try { UIManager.setLookAndFeel(new NimbusLookAndFeel()); }
         catch(Exception e){}
@@ -60,7 +61,8 @@ public class Window extends JFrame{
         contentPane.add(toolBar,BorderLayout.NORTH);
         
         textualView = new TextualView(tour, this.buttonListener);
-        contentPane.add(textualView,BorderLayout.WEST);
+        JScrollPane scrollPane = new JScrollPane( textualView ,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        contentPane.add(scrollPane,BorderLayout.WEST);
         
         graphicalView = new GraphicalView(tour);
         contentPane.add(graphicalView,BorderLayout.CENTER);

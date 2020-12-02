@@ -9,6 +9,7 @@ import modele.Intersection;
 import modele.Request;
 import modele.Segment;
 import modele.Tour;
+import modele.Way;
 import view.Window;
 import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
@@ -21,6 +22,7 @@ public class RequestLoadedState implements State {
 		public void loadMap(Controller c, Window w, Tour t) {
 			
 			String path = w.createDialogBoxToGetFilePath();
+			w.graphicalView.setHighlightedWay(null);
 			if(path != null) 
 			{
 				System.out.println("Affichage de la carte normalement");
@@ -40,6 +42,7 @@ public class RequestLoadedState implements State {
 		@Override
 		public void loadRequest(Controller c, Window w, Tour t) {
 			String path = w.createDialogBoxToGetFilePath();
+			w.graphicalView.setHighlightedWay(null);
 			if(path != null) 
 			{
 				try {
@@ -92,6 +95,12 @@ public class RequestLoadedState implements State {
 				t.addNewWayInwaysList(localPaths2, localPaths2.get(0).getOrigin(), localPaths2.get(localPaths2.size()-1).getDestination());
 				
 			}
+			w.graphicalView.setHighlightedWay(null);
 			w.setMessage("Votre tournée");
+		}
+		
+		@Override
+		public void highlightWay(Window w, Way wa){
+			w.graphicalView.setHighlightedWay(wa);
 		}
 }

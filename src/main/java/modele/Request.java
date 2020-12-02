@@ -10,12 +10,12 @@ public class Request {
 	private Intersection startingLocation; 
 	private LocalTime startingTime;
 	// List of pickup/delivery points with their duration
-    private ArrayList<Integer> pickUpDurations;
-    private ArrayList<Integer> deliveryDurations;
     private ArrayList<Intersection> pickUpLocations;
 	private ArrayList<Intersection> deliveryLocations;
+	private HashMap<Long, Integer> durations;
 	// id of pickup, id of corresponding delivery
 	private HashMap<Long, Long> deliveryFromPickUp; 
+
 
     
     /**
@@ -36,10 +36,19 @@ public class Request {
 			ArrayList<Integer> deliveryDurations, ArrayList<Intersection> pickUpLocations, ArrayList<Intersection> deliveryLocations) {
 		this.startingLocation = startingLocation;
 		this.startingTime = startingTime;
-		this.pickUpDurations = pickUpDurations;
-		this.deliveryDurations = deliveryDurations;
 		this.pickUpLocations = pickUpLocations;
 		this.deliveryLocations = deliveryLocations;
+
+		ArrayList<Integer> allDurations = new ArrayList<Integer>();
+		allDurations.addAll(pickUpDurations);
+		allDurations.addAll(deliveryDurations);
+		ArrayList<Intersection> allLocations = new ArrayList<Intersection>();
+		allLocations.addAll(0,pickUpLocations);
+		allLocations.addAll(0,deliveryLocations);
+		durations = new HashMap<Long, Integer>();
+		for(int i =0; i< allDurations.size(); i++ ) {
+			durations.put(allLocations.get(i).getId(), allDurations.get(i));
+		}
 		this.deliveryFromPickUp = new HashMap<Long, Long>();
 		
 		for(int i = 0 ; i < pickUpLocations.size(); ++i) {
@@ -56,17 +65,7 @@ public class Request {
 	public LocalTime getStartingTime() {
 		return startingTime;
 	}
-
-
-	public ArrayList<Integer> getPickUpDurations() {
-		return pickUpDurations;
-	}
-
-
-	public ArrayList<Integer> getDeliveryDurations() {
-		return deliveryDurations;
-	}
-
+	
 
 	public ArrayList<Intersection> getPickUpLocations() {
 		return pickUpLocations;
@@ -101,8 +100,12 @@ public class Request {
 
 	@Override
 	public String toString() {
-		return "Request [startingLocation=" + startingLocation + ", startingTime=" + startingTime + ", pickUpDurations="
-				+ pickUpDurations + ", deliveryDurations=" + deliveryDurations + ", pickUpLocations=" + pickUpLocations
+		return "Request [startingLocation=" + startingLocation + ", startingTime=" + startingTime + ", Durations=" + durations + ", pickUpLocations=" + pickUpLocations
 				+ ", deliveryLocations=" + deliveryLocations + "]";
 	}
+	
+	public Integer getDurationPickUpDelivery(Long id) {
+		return durations.get(id);
+	}
+
 }
