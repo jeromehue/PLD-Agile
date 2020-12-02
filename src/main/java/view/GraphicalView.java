@@ -7,7 +7,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.Iterator;
-import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -21,8 +20,6 @@ import modele.Visitor;
 import modele.Way;
 import observer.Observable;
 import observer.Observer;
-
-import java.lang.Math;
 
 public class GraphicalView extends JPanel implements Observer, Visitor{
 
