@@ -27,7 +27,7 @@ public class CompleteGraph implements Graph {
 			reverseIndex.put(i, inter.getId()); //init de reverse index
 
 			for(int j = 0 ; j < nbVertices ; ++j) {
-				costsMatrix[i][j] = 0.0;
+				costsMatrix[i][j] = Double.MAX_VALUE;
 			}
 		}
 	}
@@ -82,5 +82,6 @@ public class CompleteGraph implements Graph {
 	public Long getIdFromIndex(Integer i) {
 		return reverseIndex.get(i);
 	}
+
 
 }
