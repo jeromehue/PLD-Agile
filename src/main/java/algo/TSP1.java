@@ -27,18 +27,10 @@ public class TSP1 extends TemplateTSP {
 				}
 			}
 		}
-		//for (i=0; i< g.getNbVertices(); i++) { 
-		System.out.println("[TSP1.init]le cout minimum est "+vertexMinimum.peek());
-		//}
 	}
 	
 	@Override
 	protected double bound(Integer currentVertex, Collection<Integer> unvisited) {
-		/*PriorityQueue<Double> minimumQueue = new PriorityQueue<>();
-		for(Integer index : unvisited) {
-			minimumQueue.add( g.getCost(currentVertex, index));
-		}
-		*/
 		
 		if(this.bestSolCost == Integer.MAX_VALUE) {
 			return 0;
@@ -64,9 +56,6 @@ public class TSP1 extends TemplateTSP {
 		min += currentVertexMin;
 		
 		return min;
-		
-		//return (int)((unvisited.size()+1) * vertexMinimum.peek());
-		//return 0;
 	}
 
 	@Override

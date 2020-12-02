@@ -1,7 +1,7 @@
 package algo;
 import modele.Intersection;
 
-public class IntersectionPcc extends Intersection implements Comparable<IntersectionPcc>{
+public class IntersectionPcc extends Intersection implements Comparable<IntersectionPcc> {
 	private Integer color;
 	private Double cost;
 	

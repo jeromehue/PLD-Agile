@@ -63,15 +63,11 @@ public class SeqIter implements Iterator<Integer> {
 		}
 		
 		Collections.sort(toBeVisited, customComparator);
-		
-		//System.out.println("test ordered unvisited\n" + orderedUnvisited.toString()+"\n");
-		
+				
 		for (Integer s : toBeVisited){
-			//System.out.print("cout : " + g.getCost(currentVertex, s) + " ; ");
 			if (g.isArc(currentVertex, s))
 				candidates[nbCandidates++] = s;
 		}
-		//System.out.println();
 	}
 	
 	@Override
@@ -87,5 +83,4 @@ public class SeqIter implements Iterator<Integer> {
 
 	@Override
 	public void remove() {}
-
 }

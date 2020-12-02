@@ -59,7 +59,12 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
 				text = "<html><u><strong> Start: </strong></u> <br />";
 				text += "Leave the starting point (address n°"+currentWay.getSegmentList().get(0).getOrigin().getId();
-				text += ") at "+ currentWay.getDepartureTime().getHour() + ":"+ currentWay.getDepartureTime().getMinute();
+				text += ") at "+ currentWay.getDepartureTime().getHour() + ":";
+				if (currentWay.getDepartureTime().getMinute()<10)
+				{
+					text+="0";
+				}
+				text +=currentWay.getDepartureTime().getMinute();
 				text += " following "+ "<strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
 				text += ". <br /></html>";
 				ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
@@ -82,13 +87,23 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				}
 				
 				
-				text += " at " + currentWay.getArrivalTime().getHour() + ":"+ currentWay.getArrivalTime().getMinute();
+				text += " at " + currentWay.getArrivalTime().getHour() + ":";
+				if (currentWay.getArrivalTime().getMinute()<10)
+				{
+					text+="0";
+				}
+				text +=currentWay.getArrivalTime().getMinute();
 				text += " from <strong>"+ currentArrival.getName() + "</strong>. <br />";
 				
 				currentWay = itwaysInTour.next();
 				
 				text += "Time spent on the spot : "+ currentWay.getStayingDurationForDeparturePoint() + " seconds. <br />";
-				text += "Leave at " + currentWay.getDepartureTime().getHour() + ":" + currentWay.getDepartureTime().getMinute();
+				text += "Leave at " + currentWay.getDepartureTime().getHour() + ":";
+				if (currentWay.getDepartureTime().getMinute()<10)
+				{
+					text+="0";
+				}
+				text +=currentWay.getDepartureTime().getMinute();
 				text += " following <strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
 				text += ". <br /> </html>";
 				ButtonWay newStepButton = new ButtonWay(currentWay, buttonListener, text);

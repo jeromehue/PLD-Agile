@@ -3,8 +3,6 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -61,6 +59,7 @@ public class Window extends JFrame{
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(1800,1020);
         this.setLocationRelativeTo(null);
+        this.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         
         this.optionalsButtonsVisible = false;
         optionalsButtons = new ArrayList<JButton>();
