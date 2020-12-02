@@ -10,7 +10,5 @@ public class TourModificationState  implements State {
 		System.out.println("[Tour Modification State] not implemented yet");
 	}
 	
-	public void modifyOrder() {
-		System.out.println("[Tour Modification State] Modify order of tour in controller");
-	}
+	
 }
