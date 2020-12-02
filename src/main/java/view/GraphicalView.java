@@ -94,7 +94,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 		super.paintComponent(graphics);
 
 		// Smooth lines (anti-aliasing)
-		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		//graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		//draw white background
 		graphics.setColor(new Color(248, 255, 242));
