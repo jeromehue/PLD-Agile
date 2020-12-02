@@ -138,7 +138,8 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 		Iterator<Way> itWay = tour.getwaysListIterrator();
 		
 		int i = 0;
-		int red, green, blue;
+		int red, green, blue, currentCount = 0;
+		Way currrentWay;
 		while(itWay.hasNext())
 		{
 			progress = (double) ++i / tour.getwaysList().size();
@@ -146,7 +147,16 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			green = (int)(to.getGreen() * progress + from.getGreen() * (1-progress));
 			blue = (int)(to.getBlue() * progress + from.getBlue() * (1-progress));
 			graphics.setColor(new Color(red, green, blue));
-			drawWay(graphics, itWay.next());
+			currrentWay = itWay.next();
+			drawWay(graphics, currrentWay);
+			if(currentCount != 0) {
+				graphics.setColor(Color.black);
+				graphics.setFont(graphics.getFont().deriveFont(Font.BOLD, 14f));
+				graphics.drawString("Step" + currentCount, 
+						currrentWay.getSegmentList().get(0).getOrigin().getCoordinates().getX() - 65, 
+						currrentWay.getSegmentList().get(0).getOrigin().getCoordinates().getY() - 10);
+			}
+			++currentCount;
 		}
 		
 		if(this.highlightedWay != null) {
