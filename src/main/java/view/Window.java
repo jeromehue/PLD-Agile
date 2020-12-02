@@ -3,6 +3,8 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -46,14 +48,12 @@ public class Window extends JFrame{
     protected final static String LOAD_MAP 			= "Load a map";
     protected final static String LOAD_REQUEST 		= "Load requests";
     protected final static String COMPUTE_TOUR 		= "Compute tour";
-    protected final static String HIGHLIGHT_WAY 	= "Display tour";
+    protected final static String CLICK_STEP		= "Display tour";
     protected final static String MODIFY_TOUR 		= "Change the tour";
     protected final static String MODIFY_ORDER 		= "Change the tour's order";
     protected final static String MODIFY_REQUEST	= "Change a request";
     protected final static String ADD_REQUEST 		= "Add a request";
     protected final static String REMOVE_REQUEST	= "Delete a request";
-    
-        		
     
     public Window(Controller controller, Tour tour){
         super("Deliver'IF");
@@ -78,6 +78,7 @@ public class Window extends JFrame{
         
         textualView = new TextualView(tour, this.buttonListener);
         JScrollPane scrollPane = new JScrollPane( textualView ,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         contentPane.add(scrollPane,BorderLayout.WEST);
         
         graphicalView = new GraphicalView(tour);

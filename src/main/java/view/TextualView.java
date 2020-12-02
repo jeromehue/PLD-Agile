@@ -27,7 +27,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 
 	public TextualView(Tour tour, ButtonListener buttonListener){
 		super();
-		setBorder(BorderFactory.createTitledBorder("Trajet"));
+		setBorder(BorderFactory.createTitledBorder("Itinerary"));
         this.setPreferredSize(new Dimension(600,2000));
         setLayout(new FlowLayout(FlowLayout.LEFT));
         this.setBackground(Window.BACKGROUND_COLOR);
@@ -87,7 +87,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				
 				currentWay = itwaysInTour.next();
 				
-				text += "Time spent on the spot : "+ currentWay.getStayingDurationDeparture() + " seconds. <br />";
+				text += "Time spent on the spot : "+ currentWay.getStayingDurationForDeparturePoint() + " seconds. <br />";
 				text += "Leave at " + currentWay.getDepartureTime().getHour() + ":" + currentWay.getDepartureTime().getMinute();
 				text += " following <strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
 				text += ". <br /> </html>";
@@ -96,6 +96,16 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				this.add(newStepButton);
 				pointsJButtonList.add(newStepButton);
 			}
+			//Displaying last point
+				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
+				text = "<html><u><strong> End : </strong></u> <br />";
+				text += "Return to the starting point (address n°"+currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1).getDestination().getId();
+				text += ") at "+ currentWay.getArrivalTime().getHour() + ":"+ currentWay.getArrivalTime().getMinute();
+				text += " from <strong>"+ currentArrival.getName() + "</strong>";
+				text += ". <br /></html>";
+				ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
+				this.add(b);
+				pointsJButtonList.add(b);
 		}
 	}
 	
