@@ -99,7 +99,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 			//Displaying last point
 				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
 				text = "<html><u><strong> End : </strong></u> <br />";
-				text += "Return to the starting point (address n°"+currentWay.getSegmentList().get(0).getOrigin().getId();
+				text += "Return to the starting point (address n°"+currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1).getDestination().getId();
 				text += ") at "+ currentWay.getArrivalTime().getHour() + ":"+ currentWay.getArrivalTime().getMinute();
 				text += " from <strong>"+ currentArrival.getName() + "</strong>";
 				text += ". <br /></html>";
