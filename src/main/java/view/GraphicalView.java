@@ -118,6 +118,14 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 				}
 				
 				drawRequest(graphics);
+				
+				if(tour != null && this.highlightedWay != null) {
+					graphics.setStroke(new BasicStroke(4));
+					graphics.setColor(Color.red);
+					graphics.fillOval(
+							this.highlightedWay.getSegmentList().get(0).getOrigin().getCoordinates().getX()-10, 
+							this.highlightedWay.getSegmentList().get(0).getOrigin().getCoordinates().getY()-10, 20, 20);
+				}
 			}
 			
 			if (this.highlightedSegment != null) {
@@ -125,6 +133,12 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 				graphics.setStroke(new BasicStroke(3));
 				drawSegment(graphics, this.highlightedSegment);
 			}
+		}
+		
+		//draw white rectangle in Top-Left corner
+		if(cityMap != null) {
+			graphics.setColor(Color.white);
+			graphics.fillRect(0, 0, 52, 18);
 		}
 	}
 	
@@ -152,7 +166,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			if(currentCount != 0) {
 				graphics.setColor(Color.black);
 				graphics.setFont(graphics.getFont().deriveFont(Font.BOLD, 14f));
-				graphics.drawString("Step" + currentCount, 
+				graphics.drawString("Step " + currentCount, 
 						currrentWay.getSegmentList().get(0).getOrigin().getCoordinates().getX() - 65, 
 						currrentWay.getSegmentList().get(0).getOrigin().getCoordinates().getY() - 10);
 			}
@@ -163,6 +177,11 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			graphics.setColor(Color.black);
 			graphics.setStroke(new BasicStroke(4));
 			drawWay(graphics, this.highlightedWay);
+			graphics.setColor(Color.red);
+			graphics.fillOval(
+					this.highlightedWay.getSegmentList().get(0).getOrigin().getCoordinates().getX()-10, 
+					this.highlightedWay.getSegmentList().get(0).getOrigin().getCoordinates().getY()-10, 20, 20);
+			
 		}
 	}
 	
@@ -184,6 +203,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			drawSegment(graphics,segment);
 		}	
 	}
+	
 	private void drawSegment(Graphics graphics, Segment s) {
 		graphics.drawLine(s.getOrigin().getCoordinates().getX(),
 						  s.getOrigin().getCoordinates().getY(),
