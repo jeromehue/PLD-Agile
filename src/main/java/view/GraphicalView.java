@@ -220,7 +220,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 	
 	private void drawIntersection(Graphics graphics, Intersection intersection){
 		if(intersection.getId() != null) {
-		graphics.drawString("(" + intersection.getId() + ")", 
+		graphics.drawString("Dépot", 
 				intersection.getCoordinates().getX() + 5, 
 				intersection.getCoordinates().getY() - 10 );
 		graphics.fillOval(
@@ -231,7 +231,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 	
 	private void drawIntersectionSquare(Graphics graphics, Intersection intersection){
 		
-		graphics.drawString("(" + intersection.getId() + ")", 
+		graphics.drawString("Retrait", 
 				intersection.getCoordinates().getX() + 5, 
 				intersection.getCoordinates().getY() - 10 );
 		graphics.fillRect(
@@ -245,7 +245,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 	
 	private void drawStartIntersection(Graphics graphics, Intersection intersection){
 		graphics.setColor(Color.red);
-		graphics.drawString("Start point (" + intersection.getId() + ")", 
+		graphics.drawString("Départ", 
 				intersection.getCoordinates().getX() + 5, 
 				intersection.getCoordinates().getY() - 10 );
 		graphics.fillRect(
