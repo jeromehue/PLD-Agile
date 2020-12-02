@@ -21,7 +21,8 @@ public class TestComputeTour {
 	@Test
 	void test() {
 		
-		System.out.println("TEST\n-----------------" + "testTSP.java : test");
+
+		System.out.println("TEST\n-----------------" + "TestComputeTour.java : test");
 		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/mediumMap.xml");
 		CityMap city = cmpp.parse();
 		
@@ -29,7 +30,7 @@ public class TestComputeTour {
 		assertTrue(city.getIntersections().size() > 7);
 
 		
-		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsMedium3.xml", city);
+		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsMedium5.xml", city);
 		Request request = new Request();
 		try {
 			request = rp.parse();
@@ -51,6 +52,8 @@ public class TestComputeTour {
 		}
 		
 		assertTrue(tour != null);
-	
+		assertTrue(wayList != null);
+
+		
 	}
 }

@@ -51,26 +51,37 @@ public class TextualView extends JPanel implements Observer, Visitor{
 			Way currentWay;
 			int currentCount = 0;
 			Segment currentArrival;
+			String text;
+			
+			//start point
+			currentWay = itwaysInTour.next();
+			currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
+			text = "<html><u><strong>Départ: </strong></u> <br />";
+			text += "Départ de l'entrepôt (adresse n°"+currentWay.getSegmentList().get(0).getOrigin().getId();
+			text += ") à "+ currentWay.getDepartureTime().getHour() + "h"+ currentWay.getDepartureTime().getMinute();
+			text += " par "+ "<strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
+			text += ". <br /></html>";
+			ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
+			this.add(b);
+			pointsJButtonList.add(b);
+			
 			while (itwaysInTour.hasNext()) {
-				currentWay = itwaysInTour.next();
 				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
+				
 				++currentCount;
-				String text = "<html><u><strong> Etape n°" + currentCount + ":</strong></u> <br />";
-				text += "(" + currentWay.getStayingDurationDeparture() + " secondes sur place)";
-				text += ". <br />";
-				text += "Départ par "; 
-				text += "<strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
-				text += " à "; 
-				text += currentWay.getDepartureTime().getHour() + "h"+ currentWay.getDepartureTime().getMinute();
-				text += " de l'adresse ";
-				text += currentWay.getSegmentList().get(0).getOrigin().getId() +  ".";
-				text += ". <br />";
-				text += "Arrivée à l'adresse  "; 
-				text += currentArrival.getDestination().getId();
+				text = "<html><u><strong> Etape n°" + currentCount + ":</strong></u> <br />";
+				text += "Arrivée à l'adresse "+ currentArrival.getDestination().getId();
 				text += " à " + currentWay.getArrivalTime().getHour() + "h"+ currentWay.getArrivalTime().getMinute();
-				text += " par <strong>" + currentArrival.getName() + "</strong>.<br />";
-				text += "</html>";
-				ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
+				text += " par <strong>"+ currentArrival.getName() + "</strong>. <br />";
+				
+				currentWay = itwaysInTour.next();
+				
+				text += "Temps sur place : "+ currentWay.getStayingDurationDeparture() + " secondes. <br />";
+				text += "Départ à " + currentWay.getDepartureTime().getHour() + "h" + currentWay.getDepartureTime().getMinute();
+				text += " par <strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
+				text += ". <br /> </html>";
+				b = new ButtonWay(currentWay, buttonListener, text);
+				
 				this.add(b);
 				pointsJButtonList.add(b);
 			}
