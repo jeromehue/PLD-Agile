@@ -162,7 +162,7 @@ public class Pcc {
 		Intersection passage = segmentsList.get(0).getOrigin();
 
 		System.out.println("Affichage de trajet : ");
-		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
+		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")" + "yohan : " + passage.getId());
 		System.out.print(" de la rue " + segmentsList.get(0).getName());
 		System.out.print(" -> ");
 
