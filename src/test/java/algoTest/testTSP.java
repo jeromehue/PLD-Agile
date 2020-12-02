@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import algo.TSP1;
 import modele.CityMap;
+import modele.Intersection;
 import modele.Request;
 import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
@@ -20,14 +21,14 @@ public class testTSP {
 	void test() {
 		
 		System.out.println("TEST\n-----------------" + "testTSP.java : test");
-		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/largeMap.xml");
+		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/smallMap.xml");
 		CityMap city = cmpp.parse();
 		
 		assertTrue(city.getIntersections() != null);
 		assertTrue(city.getIntersections().size() > 7);
 
 		
-		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsLarge7.xml", city);
+		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsSmall2.xml", city);
 		Request request = new Request();
 		try {
 			request = rp.parse();
@@ -36,6 +37,12 @@ public class testTSP {
 			fail();
 		}
 		
+		/*for(Intersection inter : request.getPickUpLocations()) {
+			System.out.println("temps : " + request.getDurationPickUpDelivery(inter.getId()));
+		}
+		
+		try{Thread.sleep(20000);}catch(Exception e) {}
+		*/
 		
 		Pcc pcc = new Pcc(city, request);
 		
@@ -49,9 +56,10 @@ public class testTSP {
 		tsp.searchSolution(40000);
 		System.out.print("Solution of cost "+(int)tsp.getSolutionCost()+"m found in "
 				+(System.currentTimeMillis() - startTime)+"ms : ");
+		System.out.println("0 " + graph.getIdFromIndex(tsp.getSolution(0)));
 		for (int i=0; i<graph.getNbVertices(); i++)
-			System.out.print(tsp.getSolution(i)+" ");
-		System.out.println("0");
+			System.out.println(tsp.getSolution(i)+" "+graph.getIdFromIndex(tsp.getSolution(i)));
+		System.out.println("0 " + graph.getIdFromIndex(tsp.getSolution(0)));
 		
 		assertTrue(tsp != null);
 	}

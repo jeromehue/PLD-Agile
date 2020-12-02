@@ -12,10 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
-import javax.swing.text.html.ListView;
-
 import java.util.HashMap;
-import java.lang.Math;
 import java.time.LocalTime;
 
 public class Pcc {
@@ -229,8 +226,10 @@ public class Pcc {
 			} else {
 				finish = interList.get(0);
 			}
+			
 			list = getRoads(start, finish);
 			wayDuration = getDuration();
+
 			totalWayDuration += wayDuration;
 
 			if(i==0) {
@@ -467,8 +466,8 @@ public class Pcc {
 	
 	
 	
-	public static Double distance (IntersectionPcc a, IntersectionPcc b) {
+	/*public static Double distance (IntersectionPcc a, IntersectionPcc b) {
 		return Math.sqrt( (a.getLatitude()-b.getLatitude())*(a.getLatitude()-b.getLatitude())
 			 + (a.getLongitude()-b.getLongitude())*(a.getLongitude()-b.getLongitude()) );
-	}
+	}*/
 }
