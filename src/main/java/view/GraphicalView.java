@@ -101,7 +101,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 		graphics.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 
 		//draw white background
-		graphics.setColor(new Color(237, 247, 228));
+		graphics.setColor(new Color(248, 255, 242));
 		graphics.setStroke(new BasicStroke(1));
 		graphics.fillRect(0, 0, getWidth(), getHeight());
 		
@@ -125,52 +125,36 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			
 			if (this.highlightedSegment != null) {
 				graphics.setColor(Color.black);
-				graphics.setStroke(new BasicStroke(4));
+				graphics.setStroke(new BasicStroke(3));
 				drawSegment(graphics, this.highlightedSegment);
 			}
 		}
 	}
 	
 	private void drawTour(Graphics2D graphics) {
-		int red=  0;
-		int green= 0;
-		int blue= 255;
-		Color color=new Color(red,green,blue);
-		graphics.setColor(color);
+
+		Color from = new Color(3, 115, 252); // Blue
+		Color to = new Color(227, 36, 30); // Red
+		double progress = 0.0;
+		
 		graphics.setStroke(new BasicStroke(4));
 		Iterator<Way> itWay = tour.getwaysListIterrator();
-		int delta=0;
-		if (tour.getwaysList().size()!=0)
-		{
-			delta=(int)(765/(tour.getwaysList().size()));
-		}
+		
+		int i = 0;
+		int red, green, blue;
 		while(itWay.hasNext())
 		{
-			if(blue-delta>=0) {
-				blue-=delta;
-			}
-			else {
-				blue=0;
-				if(red+delta<=255) {
-					
-					red+=delta;
-				}
-				else {
-					red=255;
-					green+=delta;
-					if (green>255) {
-						green=255;
-					}
-				}
-			}
-			color=new Color(red,green,blue);
-			graphics.setColor(color);
-			drawWay(graphics,itWay.next());		
+			progress = (double) ++i / tour.getwaysList().size();
+			red = (int)(to.getRed() * progress + from.getRed() * (1-progress));
+			green = (int)(to.getGreen() * progress + from.getGreen() * (1-progress));
+			blue = (int)(to.getBlue() * progress + from.getBlue() * (1-progress));
+			graphics.setColor(new Color(red, green, blue));
+			drawWay(graphics, itWay.next());
 		}
 		
 		if(this.highlightedWay != null) {
 			graphics.setColor(Color.black);
-			graphics.setStroke(new BasicStroke(6));
+			graphics.setStroke(new BasicStroke(4));
 			drawWay(graphics, this.highlightedWay);
 		}
 	}
@@ -184,7 +168,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 	}
 	
 	private void drawCityMap(Graphics2D graphics) {
-		graphics.setColor(Color.black);
+		graphics.setColor(Color.darkGray);
 		graphics.setStroke(new BasicStroke(1));
 		Iterator<Segment> itSegments = cityMap.getSegmentsIterator();
 		while(itSegments.hasNext())
@@ -217,7 +201,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			pickUpAdresseToDraw = itPickUpTest.next();
 			deliveryAdressToDraw = itDeliveryTest.next();
 
-			Color color = new Color(pickUpAdresseToDraw.hashCode());
+			Color color = new Color(pickUpAdresseToDraw.hashCode()).darker();
 			graphics.setColor(color);
 			
 			// System.out.println(pickUpAdresseToDraw);
