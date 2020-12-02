@@ -48,24 +48,26 @@ public class TextualView extends JPanel implements Observer, Visitor{
 		{
 			clearPointJButtonList();
 			Iterator<Way> itwaysInTour = tour.getwaysListIterrator();
-			Way currentWay;
+			Way currentWay = null;
 			int currentCount = 0;
 			Segment currentArrival;
 			String text;
 			
 			//start point
-			currentWay = itwaysInTour.next();
-			currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
-			text = "<html><u><strong>Départ: </strong></u> <br />";
-			text += "Départ de l'entrepôt (adresse n°"+currentWay.getSegmentList().get(0).getOrigin().getId();
-			text += ") à "+ currentWay.getDepartureTime().getHour() + "h"+ currentWay.getDepartureTime().getMinute();
-			text += " par "+ "<strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
-			text += ". <br /></html>";
-			ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
-			this.add(b);
-			pointsJButtonList.add(b);
+			if(itwaysInTour.hasNext()) {
+				currentWay = itwaysInTour.next();
+				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
+				text = "<html><u><strong>Départ: </strong></u> <br />";
+				text += "Départ de l'entrepôt (adresse n°"+currentWay.getSegmentList().get(0).getOrigin().getId();
+				text += ") à "+ currentWay.getDepartureTime().getHour() + "h"+ currentWay.getDepartureTime().getMinute();
+				text += " par "+ "<strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
+				text += ". <br /></html>";
+				ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
+				this.add(b);
+				pointsJButtonList.add(b);
+			}
 			
-			while (itwaysInTour.hasNext()) {
+			while (itwaysInTour.hasNext() && currentWay!= null) {
 				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
 				
 				++currentCount;
@@ -80,10 +82,10 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				text += "Départ à " + currentWay.getDepartureTime().getHour() + "h" + currentWay.getDepartureTime().getMinute();
 				text += " par <strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
 				text += ". <br /> </html>";
-				b = new ButtonWay(currentWay, buttonListener, text);
+				ButtonWay newStepButton = new ButtonWay(currentWay, buttonListener, text);
 				
-				this.add(b);
-				pointsJButtonList.add(b);
+				this.add(newStepButton);
+				pointsJButtonList.add(newStepButton);
 			}
 		}
 	}
