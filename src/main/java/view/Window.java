@@ -61,6 +61,7 @@ public class Window extends JFrame{
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(1800,1020);
         this.setLocationRelativeTo(null);
+        this.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         
         this.optionalsButtonsVisible = false;
         optionalsButtons = new ArrayList<JButton>();
