@@ -2,10 +2,10 @@ package algo;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.PriorityQueue;
 
 import modele.Request;
 
@@ -39,41 +39,34 @@ public class SeqIter implements Iterator<Integer> {
 	                }
 	            }
 		};
-		PriorityQueue<Integer> orderingUnvisited = new PriorityQueue<Integer>(customComparator);
-
-		// id of unvisited delivery, index in costs matrix
-		HashMap<Long, Integer> unvisitedDeliveries = new HashMap<Long, Integer>();
-
-		for(Integer index : unvisited) {
-			if(request.isPickUp(g.getIdFromIndex(index))) {
-				orderingUnvisited.add(index);
-			} else {
-				unvisitedDeliveries.put(g.getIdFromIndex(index), index);
+		
+		ArrayList<Integer> toBeVisited = new ArrayList<Integer>(unvisited);
+		
+		HashSet<Integer> deliveriesToRemove = new HashSet<>();
+		Long verticeId;
+		
+		for(Integer vertice : toBeVisited) {
+			verticeId = g.getIdFromIndex(vertice);
+			if(request.isPickUp(verticeId)) {
+				// store all deliveries that shouldn't be visited
+				deliveriesToRemove.add(g.getIndex(request.getDeliveryFromPickUp(verticeId)));
 			}
 		}
 
-		ArrayList<Integer> orderedUnvisited = new ArrayList<>();
-		
-		
-		while(!orderingUnvisited.isEmpty()) { // iterating through the ordered pickups
-			Integer head = orderingUnvisited.poll();
-			//System.out.println("test PQremovedHead (" + head + ")\n"+orderingUnvisited.toString());
-			orderedUnvisited.add(head);
-			Long deliveryId = request.getDeliveryFromPickUp(g.getIdFromIndex(head));
-			if(deliveryId != null) { // add a delivery only if its corresponding pickup
-				// was already removed from the queue
-				//System.out.println("adding to queue : "+g.getIndex(deliveryId));
-				Integer index = unvisitedDeliveries.get(deliveryId);
-				if(index != null)
-				{
-					orderingUnvisited.add(g.getIndex(deliveryId)); 
-				}
+		Iterator<Integer> it = toBeVisited.iterator();
+		while(it.hasNext()) {
+
+			if(deliveriesToRemove.contains(it.next())) {
+				// remove deliveries that shouldn't be visited
+				it.remove();
 			}
 		}
+		
+		Collections.sort(toBeVisited, customComparator);
 		
 		//System.out.println("test ordered unvisited\n" + orderedUnvisited.toString()+"\n");
 		
-		for (Integer s : orderedUnvisited){
+		for (Integer s : toBeVisited){
 			//System.out.print("cout : " + g.getCost(currentVertex, s) + " ; ");
 			if (g.isArc(currentVertex, s))
 				candidates[nbCandidates++] = s;

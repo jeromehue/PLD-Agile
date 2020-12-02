@@ -57,12 +57,9 @@ public class TextualView extends JPanel implements Observer, Visitor{
 			currentWay = itwaysInTour.next();
 			currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
 			text = "<html><u><strong>Départ: </strong></u> <br />";
-			text += "Départ de l'entrepôt (adresse n°";
-			text += currentWay.getSegmentList().get(0).getOrigin().getId() +  ".";
-			text += " à "; 
-			text += currentWay.getDepartureTime().getHour() + "h"+ currentWay.getDepartureTime().getMinute();
-			text += ") par ";
-			text += "<strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
+			text += "Départ de l'entrepôt (adresse n°"+currentWay.getSegmentList().get(0).getOrigin().getId();
+			text += ") à "+ currentWay.getDepartureTime().getHour() + "h"+ currentWay.getDepartureTime().getMinute();
+			text += " par "+ "<strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
 			text += ". <br /></html>";
 			ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
 			this.add(b);
@@ -73,25 +70,16 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				
 				++currentCount;
 				text = "<html><u><strong> Etape n°" + currentCount + ":</strong></u> <br />";
-				text += "Arrivée à l'adresse ";
-				text += currentArrival.getDestination().getId();
+				text += "Arrivée à l'adresse "+ currentArrival.getDestination().getId();
 				text += " à " + currentWay.getArrivalTime().getHour() + "h"+ currentWay.getArrivalTime().getMinute();
-				text += " par <strong>";
-				text += currentArrival.getName() + "</strong>. ";
-				text += "<br />";
+				text += " par <strong>"+ currentArrival.getName() + "</strong>. <br />";
 				
 				currentWay = itwaysInTour.next();
 				
-				text += "Temps sur place: ";
-				text += currentWay.getStayingDurationDeparture() + " secondes";
-				text += " <br />";
-				text += "Départ"; 
-				text += " à "; 
-				text += currentWay.getDepartureTime().getHour() + "h" + currentWay.getDepartureTime().getMinute();
-				text += " par ";
-				text += "<strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
-				text += ". <br />";
-				text += "</html>";
+				text += "Temps sur place : "+ currentWay.getStayingDurationDeparture() + " secondes. <br />";
+				text += "Départ à " + currentWay.getDepartureTime().getHour() + "h" + currentWay.getDepartureTime().getMinute();
+				text += " par <strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
+				text += ". <br /> </html>";
 				b = new ButtonWay(currentWay, buttonListener, text);
 				
 				this.add(b);
