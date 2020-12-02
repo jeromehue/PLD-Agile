@@ -46,7 +46,8 @@ public class TestComputeTour {
 		List<Way> wayList = tour.getwaysList();
 		
 		for(Way w : wayList) {
-			System.out.println(w.getDeparture() +"->"+w.getArrival() );
+			System.out.println("start at "+w.getStartingTime()+", goes from "+w.getDeparture() +"at "+w.getDepartureTime()+
+					" -> arrives at "+w.getArrival() +" at "+w.getArrivalTime());
 		}
 		
 		assertTrue(tour != null);

@@ -24,7 +24,7 @@ public class Pcc {
 	private HashMap<Long, HashMap<Long, Segment>> savePredecessors;
 	HashMap<Long, IntersectionPcc> allVerticesPcc;
 	Request request;
-	private double bikeVelocity = 36;//en m.s-1
+	private double bikeVelocity = 4;//en m.s-1 (=14,4 km/h)
 	private double lengthAB;//Length from point A to B, computed in getRoads
 	
 	public Pcc() {};
@@ -227,10 +227,11 @@ public class Pcc {
 				
 			} else {
 				stayingStartDuration = request.getDurationPickUpDelivery(start.getId());
-				arrivalAtStart = tourStartingTime.plusSeconds(totalWayDuration);
+				arrivalAtStart = tourStartingTime.plusSeconds(totalWayDuration-wayDuration);
 				departureFromStart = arrivalAtStart.plusSeconds(stayingStartDuration);
+				totalWayDuration += stayingStartDuration;
 			}
-					
+	
 			arrivalAtFinish = departureFromStart.plusSeconds(wayDuration);
 			way = new Way(list, arrivalAtStart, departureFromStart, arrivalAtFinish, start, finish );
 			wayList.add(way);
