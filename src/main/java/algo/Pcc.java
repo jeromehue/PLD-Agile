@@ -204,6 +204,7 @@ public class Pcc {
 		}
 		
 		return computeTour(goodInterList);
+		
 	}
 	
 	public Tour computeTour(List<Intersection> interList) {
@@ -250,6 +251,7 @@ public class Pcc {
 		
 		Tour tour = new Tour(request.getStartingLocation(), request, wayList);
 		
+		tour.setTour(request.getStartingLocation(), request, wayList);
 		return tour;
 	}
 	
@@ -272,7 +274,7 @@ public class Pcc {
 		}
 		return computeTour(list);
 	}
-/*=======
+
 	public void setComputeTour(Tour t){
 		CompleteGraph graph = computePcc();
 		System.out.println("[PCC.computeTour] taille graphe : "+graph.getNbVertices());
@@ -335,7 +337,7 @@ public class Pcc {
 		
 	}
 	
->>>>>>> 42716bffd4b058d1579c3e274cc8a1b5444e5bef*/
+
 	
 	public Double getBikeVelocity() {
 		return bikeVelocity;
