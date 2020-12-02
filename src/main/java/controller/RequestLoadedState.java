@@ -77,7 +77,7 @@ public class RequestLoadedState implements State {
 			t.notifyObservers();
 			//t = shortestPathComputer.computeTour();
 			//w.graphicalView.setTour(t);
-			//t.notifyObservers();
+			
 			
 			/*
 			Intersection intersection = request.getStartingLocation();

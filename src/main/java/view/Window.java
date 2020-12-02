@@ -37,10 +37,17 @@ public class Window extends JFrame{
     protected final static Color BACKGROUND_COLOR = new Color(224,224,224);
     
     //Buttons titles
-    protected final static String LOAD_MAP = "Charger une carte";
-    protected final static String LOAD_REQUEST = "Charger des requêtes";
-    protected final static String COMPUTE_TOUR = "Calculer la tournée";
-    protected final static String HIGHLIGHT_WAY = "Afficher le chemin";
+    protected final static String LOAD_MAP 			= "Charger une carte";
+    protected final static String LOAD_REQUEST 		= "Charger des requêtes";
+    protected final static String COMPUTE_TOUR 		= "Calculer la tournée";
+    protected final static String HIGHLIGHT_WAY 	= "Afficher le chemin";
+    protected final static String MODIFY_TOUR 		= "Modifier la tournée";
+    protected final static String MODIFY_ORDER 		= "Modifier l'ordre de la tournée";
+    protected final static String MODIFY_REQUEST	= "Modifier une requête";
+    protected final static String ADD_REQUEST 		= "Ajouter une requête";
+    protected final static String REMOVE_REQUEST	= "Supprimer une requête";
+    
+        		
     
     public Window(Controller controller, Tour tour){
         super("Hubert If");
@@ -93,6 +100,30 @@ public class Window extends JFrame{
         JButton calcuateTourButton = new JButton(COMPUTE_TOUR);
         calcuateTourButton.addActionListener(buttonListener);
         toolBar.add(calcuateTourButton);
+        
+        JButton modifyTourButton = new JButton(MODIFY_TOUR);
+        modifyTourButton.addActionListener(buttonListener);
+        toolBar.add(modifyTourButton);
+        
+        JButton modifyOrderButton = new JButton(MODIFY_ORDER);
+        modifyOrderButton.addActionListener(buttonListener);
+        toolBar.add(modifyOrderButton);
+
+        JButton addRequestButton = new JButton(ADD_REQUEST);
+        addRequestButton.addActionListener(buttonListener);
+        addRequestButton.setVisible(false);
+        toolBar.add(addRequestButton);
+
+        JButton removeRequestButton = new JButton(REMOVE_REQUEST);
+        removeRequestButton.addActionListener(buttonListener);
+        removeRequestButton.setVisible(false);
+        toolBar.add(removeRequestButton);
+        
+        JButton modifyRequestButton = new JButton(MODIFY_REQUEST);
+        modifyRequestButton.addActionListener(buttonListener);
+        modifyRequestButton.setVisible(false);
+        toolBar.add(modifyRequestButton);
+
 
         return toolBar;
     }
@@ -112,6 +143,8 @@ public class Window extends JFrame{
     public void setMessage (String message) {
     	messageFrame.setText(message);
     }
+    
+    
     
     public String createDialogBoxToGetFilePath() {
 		  final JFileChooser fc = new JFileChooser();
