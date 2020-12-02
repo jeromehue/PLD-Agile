@@ -15,5 +15,5 @@ public interface State {
 	
 	public default void computeTour(Controller c, Window w, Tour t) {}
 
-	public default void highlightWay( Window w, Way wa) {}
+	public default void clickOnStep( Window w, Way wa) {}
 }

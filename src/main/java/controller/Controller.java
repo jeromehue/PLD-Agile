@@ -41,9 +41,11 @@ public class Controller {
 		currentState.computeTour(this, this.window, this.tour);
 	}
 	
-	public void highlightWay(Way w) {
-		currentState.highlightWay(this.window, w);
+	public void clickOnStep(Way w) {
+		currentState.clickOnStep(this.window, w);
 	}
+	
+
 	
 	public void changeOptionalsButtonsVisibility() {
 		this.window.changeOptionalsButtonsVisibility();
@@ -53,5 +55,7 @@ public class Controller {
 			setCurrentstate(requestLoadedState);
 		}
 	}
+	
+	
 
 }

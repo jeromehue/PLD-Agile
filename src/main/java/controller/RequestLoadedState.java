@@ -108,7 +108,7 @@ public class RequestLoadedState implements State {
 		}
 		
 		@Override
-		public void highlightWay(Window w, Way wa){
+		public void clickOnStep(Window w, Way wa){
 			w.graphicalView.setHighlightedWay(wa);
 		}
 }
