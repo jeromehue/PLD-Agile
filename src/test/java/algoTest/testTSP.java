@@ -36,13 +36,6 @@ public class testTSP {
 			fail();
 		}
 		
-		/*for(Intersection inter : request.getPickUpLocations()) {
-			System.out.println("temps : " + request.getDurationPickUpDelivery(inter.getId()));
-		}
-		
-		try{Thread.sleep(20000);}catch(Exception e) {}
-		*/
-		
 		Pcc pcc = new Pcc(city, request);
 		
 		CompleteGraph graph = pcc.computePcc();
@@ -51,13 +44,16 @@ public class testTSP {
 
 		tsp.init();
 		
-		long startTime = System.currentTimeMillis();
+		Long startTime = System.currentTimeMillis();
 		tsp.searchSolution(40000);
-		System.out.print("Solution of cost "+(int)tsp.getSolutionCost()+"m found in "
+		
+		System.out.print("Solution of cost "+(int)Math.round(tsp.getSolutionCost())+"m found in "
 				+(System.currentTimeMillis() - startTime)+"ms : ");
 		System.out.println("0 " + graph.getIdFromIndex(tsp.getSolution(0)));
-		for (int i=0; i<graph.getNbVertices(); i++)
+		
+		for (Integer i=0; i<graph.getNbVertices(); i++) {
 			System.out.println(tsp.getSolution(i)+" "+graph.getIdFromIndex(tsp.getSolution(i)));
+		}
 		System.out.println("0 " + graph.getIdFromIndex(tsp.getSolution(0)));
 		
 		assertTrue(tsp != null);
