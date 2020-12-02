@@ -44,11 +44,11 @@ public class Tour extends Observable{
 	}
 	
 
-	public void addNewWayInwaysList(List<Segment> s, Intersection start, Intersection arrival) {
+	/*public void addNewWayInwaysList(List<Segment> s, Intersection start, Intersection arrival) {
 		Way way = new Way(s, start, arrival);
 		waysList.add(way);
 		notifyObservers();
-	}
+	}*/
 	
 	public void addWayInwaysList(Way s) {
 		waysList.add(s);
