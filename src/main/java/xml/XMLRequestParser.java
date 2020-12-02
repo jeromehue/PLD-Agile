@@ -3,13 +3,16 @@ package xml;
 // From https://mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/ 
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -101,8 +104,21 @@ public class XMLRequestParser extends XMLParser {
 		    Request r = new Request(startingLocation, startingTime, pickUpDurations, deliveryDurations,  pickUpLocations,  deliveryLocations);
 		    return (r);
 		    
-		} catch (Exception e) {
+		} catch (InvalidRequestException e) {
 			System.out.println("Erreur lors de la récupération du fichier XML de requête : ");
+			e.printStackTrace();
+			throw e;
+			//return (null);
+		} catch (ParserConfigurationException e) {
+			
+			e.printStackTrace();
+			return (null);
+		} catch (SAXException e) {
+			
+			e.printStackTrace();
+			return (null);
+		} catch (IOException e) {
+			
 			e.printStackTrace();
 			return (null);
 		}		

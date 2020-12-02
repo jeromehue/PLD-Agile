@@ -44,7 +44,6 @@ public class XMLCityMapParser extends XMLParser {
 		    // Read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
 		    doc.getDocumentElement().normalize();
 		
-		    //System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 		    NodeList nodes = doc.getElementsByTagName("intersection");
 		
 		    for (int i = 0; i < nodes.getLength(); ++i) {
