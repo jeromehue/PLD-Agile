@@ -11,6 +11,9 @@ import modele.Way;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
+
+import javax.swing.text.html.ListView;
+
 import java.util.HashMap;
 import java.lang.Math;
 import java.time.LocalTime;
@@ -180,14 +183,30 @@ public class Pcc {
 		return (int) (lengthAB/bikeVelocity) ;
 	}
 	
-	public Tour computeTour(){
+	public Tour computeGooodTSPTour(){
 		CompleteGraph graph = computePcc();
 		System.out.println("[PCC.computeTour] taille graphe : "+graph.getNbVertices());
 		TSP1 tsp = new TSP1(graph, request);
-		//tsp.addGraph(graph);
 		tsp.init();
+		long startTime = System.currentTimeMillis();
+		tsp.searchSolution(40000);
+		System.out.print("Solution of cost "+tsp.getSolutionCost()+" found in "
+				+(System.currentTimeMillis() - startTime)+"ms : ");
 		
+		Intersection inter;
+		Long idInter;
+		List<Intersection> goodInterList = new ArrayList<Intersection>();
 		
+		for (int i=0; i<graph.getNbVertices(); i++) {
+			idInter = graph.getIdFromIndex(tsp.getSolution(i));
+			inter = allVerticesPcc.get(idInter);
+			goodInterList.add(inter);
+		}
+		
+		return computeTour(goodInterList);
+	}
+	
+	public Tour computeTour(List<Intersection> interList) {
 		List<Way> wayList = new ArrayList<>();
 		LocalTime tourStartingTime = request.getStartingTime();
 		Integer totalWayDuration = 0;
@@ -197,27 +216,19 @@ public class Pcc {
 		LocalTime departureFromStart; // départ du start
 		LocalTime arrivalAtFinish; // arrivée à finish
 		Integer wayDuration;
-
-		Intersection start;
-		Intersection finish;
 		Way way;
 		
-		for (int i=0; i<graph.getNbVertices(); i++) {
-			
-			//On récupère les id puis les intersections entre deux points
-			Long idStart = graph.getIdFromIndex(i);
-			Long idFinish;
-			//Last point comes  back to start point.
-			if( (i+1) < graph.getNbVertices()) {
-				idFinish = graph.getIdFromIndex(i+1);
+		for(int i=0; i<interList.size(); i++) {
+			List<Segment> list = new ArrayList<>();
+			Intersection start;
+			Intersection finish;
+			start = interList.get(i);
+			if( (i+1)<interList.size() ) {
+				finish = interList.get(i+1);
+			} else {
+				finish = interList.get(0);
 			}
-			else {
-				idFinish = graph.getIdFromIndex(0);
-			}
-			start = allVerticesPcc.get(idStart);
-			finish = allVerticesPcc.get(idFinish);
-			
-			List<Segment> list = getRoads(start, finish);
+			list = getRoads(start, finish);
 			wayDuration = getDuration();
 			totalWayDuration += wayDuration;
 
@@ -239,10 +250,27 @@ public class Pcc {
 		
 		Tour tour = new Tour(request.getStartingLocation(), request, wayList);
 		
-		
 		return tour;
 	}
 	
+	public Tour changeOrder (Tour tour, Intersection intersection, int newIndex){
+		
+		return null;
+	}
+	
+	public Tour addRequest (Tour tour, Intersection pickup, Intersection delivery) {
+		return null;
+	}
+	
+	public Tour deleteIntersection (Tour tour, Intersection intersection) {
+		List<Intersection> list = new ArrayList<Intersection> ();
+		for (Way w : tour.getwaysList()) {
+			if(w.getDeparture().getId() != intersection.getId()) {
+				list.add(w.getDeparture());
+			}
+		}
+		return computeTour(list);
+	}
 	
 	public Double getBikeVelocity() {
 		return bikeVelocity;

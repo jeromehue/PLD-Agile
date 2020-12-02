@@ -22,14 +22,14 @@ public class TestComputeTour {
 	void test() {
 		
 		System.out.println("TEST\n-----------------" + "testTSP.java : test");
-		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/smallMap.xml");
+		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/mediumMap.xml");
 		CityMap city = cmpp.parse();
 		
 		assertTrue(city.getIntersections() != null);
 		assertTrue(city.getIntersections().size() > 7);
 
 		
-		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsSmall1.xml", city);
+		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsMedium3.xml", city);
 		Request request = new Request();
 		try {
 			request = rp.parse();
@@ -41,13 +41,13 @@ public class TestComputeTour {
 		
 		Pcc pcc = new Pcc(city, request);
 		
-		Tour tour = pcc.computeTour();
+		Tour tour = pcc.computeGooodTSPTour();
 		
 		List<Way> wayList = tour.getwaysList();
 		
 		for(Way w : wayList) {
-			System.out.println("start at "+w.getStartingTime()+", goes from "+w.getDeparture() +"at "+w.getDepartureTime()+
-					" -> arrives at "+w.getArrival() +" at "+w.getArrivalTime());
+			System.out.println("start at "+w.getStartingTime()+", goes from "+w.getDeparture().getId() +" at "+w.getDepartureTime()+
+					" -> arrives at "+w.getArrival().getId() +" at "+w.getArrivalTime());
 		}
 		
 		assertTrue(tour != null);
