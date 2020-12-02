@@ -72,7 +72,16 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				
 				++currentCount;
 				text = "<html><u><strong> Etape n°" + currentCount + ":</strong></u> <br />";
-				text += "Arrivée à l'adresse "+ currentArrival.getDestination().getId();
+				if (tour.getRequest().isPickUp (currentArrival.getDestination().getId()))
+				{
+					text += "Arrivée au point de retrait "+ currentArrival.getDestination().getId();
+				}
+				else
+				{
+					text += "Arrivée au point de dépôt "+ currentArrival.getDestination().getId();
+				}
+				
+				
 				text += " à " + currentWay.getArrivalTime().getHour() + "h"+ currentWay.getArrivalTime().getMinute();
 				text += " par <strong>"+ currentArrival.getName() + "</strong>. <br />";
 				
