@@ -2,9 +2,12 @@ package view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.Iterator;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -86,9 +89,13 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 	protected void paintComponent(Graphics _graphics) {
 		Graphics2D graphics = (Graphics2D)_graphics;
 		super.paintComponent(graphics);
-		
+
+		// Smooth lines (anti-aliasing)
+		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		graphics.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+
 		//draw white background
-		graphics.setColor(Color.white);
+		graphics.setColor(new Color(237, 247, 228));
 		graphics.setStroke(new BasicStroke(1));
 		graphics.fillRect(0, 0, getWidth(), getHeight());
 		
@@ -200,19 +207,17 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 		Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
 		while(itPickUpTest.hasNext())
 		{
-			int red=  (int) (Math.random()*256);
-			int green= (int) (Math.random()*256);
-			int blue= (int) (Math.random()*256);
-			Color color=new Color(red,green,blue);
-			graphics.setColor(color);
 			pickUpAdresseToDraw = itPickUpTest.next();
 			deliveryAdressToDraw = itDeliveryTest.next();
+
+			Color color = new Color(pickUpAdresseToDraw.hashCode());
+			graphics.setColor(color);
 			
-			//System.out.println(pickUpAdresseToDraw);
+			// System.out.println(pickUpAdresseToDraw);
 			if(pickUpAdresseToDraw != null ) 
 			{ drawIntersectionSquare(graphics, pickUpAdresseToDraw); }
 			
-			//System.out.println(deliveryAdressToDraw);
+			// System.out.println(deliveryAdressToDraw);
 			if(deliveryAdressToDraw != null ) 
 			{ drawIntersection(graphics, deliveryAdressToDraw); }	
 		}
@@ -220,34 +225,35 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 	
 	private void drawIntersection(Graphics graphics, Intersection intersection){
 		if(intersection.getId() != null) {
-		graphics.drawString("Dépot", 
-				intersection.getCoordinates().getX() + 5, 
-				intersection.getCoordinates().getY() - 10 );
-		graphics.fillOval(
-				intersection.getCoordinates().getX()-5, 
-				intersection.getCoordinates().getY()-5, 10, 10);
+			graphics.setFont(graphics.getFont().deriveFont(Font.BOLD, 14f));
+			graphics.drawString("Delivery", 
+					intersection.getCoordinates().getX() + 5, 
+					intersection.getCoordinates().getY() - 10 );
+			graphics.fillOval(
+					intersection.getCoordinates().getX()-5, 
+					intersection.getCoordinates().getY()-5, 10, 10);
 		}
 	}
 	
 	private void drawIntersectionSquare(Graphics graphics, Intersection intersection){
-		
-		graphics.drawString("Retrait", 
+		graphics.setFont(graphics.getFont().deriveFont(Font.BOLD, 14f));
+		graphics.drawString("Pick-up", 
 				intersection.getCoordinates().getX() + 5, 
-				intersection.getCoordinates().getY() - 10 );
+				intersection.getCoordinates().getY() - 10);
 		graphics.fillRect(
 				intersection.getCoordinates().getX()-5, 
 				intersection.getCoordinates().getY()-5, 
 				10, 
-				10
-		); 
+				10); 
 	}
 	
 	
 	private void drawStartIntersection(Graphics graphics, Intersection intersection){
 		graphics.setColor(Color.red);
-		graphics.drawString("Départ", 
+		graphics.setFont(graphics.getFont().deriveFont(Font.BOLD, 14f));
+		graphics.drawString("Start", 
 				intersection.getCoordinates().getX() + 5, 
-				intersection.getCoordinates().getY() - 10 );
+				intersection.getCoordinates().getY() - 10);
 		graphics.fillRect(
 				intersection.getCoordinates().getX() - 5, 
 				intersection.getCoordinates().getY() - 5,
