@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -19,7 +18,7 @@ public class ButtonWay extends JButton{
 		this.setVerticalAlignment(JLabel.TOP);
 		this.setText(text);
 		this.setContentAreaFilled(false);
-		this.setActionCommand(Window.DISPLAY_WAY);
+		this.setActionCommand(Window.HIGHLIGHT_WAY);
 		this.addActionListener(buttonListener);
 	}
 	public Way getWay() {
