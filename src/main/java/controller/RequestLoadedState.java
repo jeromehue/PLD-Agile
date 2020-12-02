@@ -73,7 +73,8 @@ public class RequestLoadedState implements State {
 			Pcc shortestPathComputer = new Pcc(cityMap , request);
 			shortestPathComputer.computePcc();
 			
-			shortestPathComputer.setComputeTour(t);
+			t= shortestPathComputer.computeGooodTSPTour();
+			
 			t.notifyObservers();
 			//t = shortestPathComputer.computeTour();
 			//w.graphicalView.setTour(t);
