@@ -73,6 +73,13 @@ public class RequestLoadedState implements State {
 			Pcc shortestPathComputer = new Pcc(cityMap , request);
 			shortestPathComputer.computePcc();
 			
+			shortestPathComputer.setComputeTour(t);
+			t.notifyObservers();
+			//t = shortestPathComputer.computeTour();
+			//w.graphicalView.setTour(t);
+			//t.notifyObservers();
+			
+			/*
 			Intersection intersection = request.getStartingLocation();
 			Intersection oldIntersecction;
 			Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
@@ -94,7 +101,7 @@ public class RequestLoadedState implements State {
 				List<Segment> localPaths2 = shortestPathComputer.getRoads(oldIntersecction,intersection);
 				t.addNewWayInwaysList(localPaths2, localPaths2.get(0).getOrigin(), localPaths2.get(localPaths2.size()-1).getDestination());
 				
-			}
+			}*/
 			w.graphicalView.setHighlightedWay(null);
 			w.setMessage("Votre tournée");
 		}

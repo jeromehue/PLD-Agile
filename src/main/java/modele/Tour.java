@@ -32,6 +32,12 @@ public class Tour extends Observable{
 		this.request = null;
 	}
 	
+	public void setTour(Intersection start, Request request, List<Way> waysList) {
+		this.startingIntersection = start;
+		this.request = request;
+		this.waysList = waysList;
+	}
+	
 	public void ClearTour() {
 		waysList.clear();
 		notifyObservers();
