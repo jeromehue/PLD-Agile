@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -30,6 +31,11 @@ public class Window extends JFrame{
 	private JLabel messageFrame;
     private JToolBar toolBar;
     
+    
+    private ArrayList<JButton> optionalsButtons;
+    private boolean optionalsButtonsVisible;
+    
+    
     //Listeners 
     private ButtonListener buttonListener;
     private MouseListener mouseListener;
@@ -55,6 +61,9 @@ public class Window extends JFrame{
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(1800,1020);
         this.setLocationRelativeTo(null);
+        
+        this.optionalsButtonsVisible = false;
+        optionalsButtons = new ArrayList<JButton>();
         try { UIManager.setLookAndFeel(new NimbusLookAndFeel()); }
         catch(Exception e){}
     
@@ -107,21 +116,26 @@ public class Window extends JFrame{
         
         JButton modifyOrderButton = new JButton(MODIFY_ORDER);
         modifyOrderButton.addActionListener(buttonListener);
+        modifyOrderButton.setVisible(false);
+        optionalsButtons.add(modifyOrderButton);
         toolBar.add(modifyOrderButton);
 
         JButton addRequestButton = new JButton(ADD_REQUEST);
         addRequestButton.addActionListener(buttonListener);
         addRequestButton.setVisible(false);
+        optionalsButtons.add(addRequestButton);
         toolBar.add(addRequestButton);
 
         JButton removeRequestButton = new JButton(REMOVE_REQUEST);
         removeRequestButton.addActionListener(buttonListener);
         removeRequestButton.setVisible(false);
+        optionalsButtons.add(removeRequestButton);
         toolBar.add(removeRequestButton);
         
         JButton modifyRequestButton = new JButton(MODIFY_REQUEST);
         modifyRequestButton.addActionListener(buttonListener);
         modifyRequestButton.setVisible(false);
+        optionalsButtons.add(modifyRequestButton);
         toolBar.add(modifyRequestButton);
 
 
@@ -144,6 +158,11 @@ public class Window extends JFrame{
     	messageFrame.setText(message);
     }
     
+    public void changeOptionalsButtonsVisibility() {
+    	this.optionalsButtonsVisible = !this.optionalsButtonsVisible;
+    	for(JButton b : optionalsButtons)
+    		b.setVisible(optionalsButtonsVisible);
+    }
     
     
     public String createDialogBoxToGetFilePath() {
