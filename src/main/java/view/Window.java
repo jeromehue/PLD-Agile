@@ -43,20 +43,20 @@ public class Window extends JFrame{
     protected final static Color BACKGROUND_COLOR = new Color(224,224,224);
     
     //Buttons titles
-    protected final static String LOAD_MAP 			= "Charger une carte";
-    protected final static String LOAD_REQUEST 		= "Charger des requêtes";
-    protected final static String COMPUTE_TOUR 		= "Calculer la tournée";
-    protected final static String HIGHLIGHT_WAY 	= "Afficher le chemin";
-    protected final static String MODIFY_TOUR 		= "Modifier la tournée";
-    protected final static String MODIFY_ORDER 		= "Modifier l'ordre de la tournée";
-    protected final static String MODIFY_REQUEST	= "Modifier une requête";
-    protected final static String ADD_REQUEST 		= "Ajouter une requête";
-    protected final static String REMOVE_REQUEST	= "Supprimer une requête";
+    protected final static String LOAD_MAP 			= "Load a map";
+    protected final static String LOAD_REQUEST 		= "Load requests";
+    protected final static String COMPUTE_TOUR 		= "Compute tour";
+    protected final static String HIGHLIGHT_WAY 	= "Display tour";
+    protected final static String MODIFY_TOUR 		= "Change the tour";
+    protected final static String MODIFY_ORDER 		= "Change the tour's order";
+    protected final static String MODIFY_REQUEST	= "Change a request";
+    protected final static String ADD_REQUEST 		= "Add a request";
+    protected final static String REMOVE_REQUEST	= "Delete a request";
     
         		
     
     public Window(Controller controller, Tour tour){
-        super("Hubert If");
+        super("Deliver'IF");
         this.buttonListener = new ButtonListener(controller);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(1800,1020);
@@ -149,7 +149,7 @@ public class Window extends JFrame{
 		messageFrame.setBorder(BorderFactory.createTitledBorder("Messages"));
         messageFrame.setHorizontalAlignment(SwingConstants.CENTER);
         messageFrame.setVerticalAlignment(SwingConstants.TOP);
-        messageFrame.setText("Pour commencer, chargez une carte au format XML.");
+        messageFrame.setText("To begin, please load a map (XML file).");
         messageFrame.setBackground(BACKGROUND_COLOR);
         return messageFrame;
     } 

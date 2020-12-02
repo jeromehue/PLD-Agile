@@ -25,7 +25,6 @@ public class RequestLoadedState implements State {
 			w.graphicalView.setHighlightedWay(null);
 			if(path != null) 
 			{
-				System.out.println("Affichage de la carte normalement");
 				XMLCityMapParser p = new XMLCityMapParser(path);
 				CityMap cityMap = p.parse();
 				w.graphicalView.setCityMap(cityMap);
@@ -35,7 +34,7 @@ public class RequestLoadedState implements State {
 			}
 			else 
 			{
-				w.setMessage("Vous pouvez charger une carte, charger une requête ou calculer la tournée.");
+				w.setMessage("You can load a new map, load a requests file or compute the tour.");
 			}
 		}
 	
@@ -50,7 +49,7 @@ public class RequestLoadedState implements State {
 					Request request = p.parse();
 					w.graphicalView.setRequest(request);
 					c.setCurrentstate(c.requestLoadedState);
-					w.setMessage("Requête chargée, vous pouvez charger une autre requête, charger une carte ou calculer la tournée.");
+					w.setMessage("The requests were successfully loaded. You may now compute the tour.");
 					t.ClearTour();
 				} catch (InvalidRequestException e) {
 					System.out.println(e.getMessage());
@@ -58,7 +57,7 @@ public class RequestLoadedState implements State {
 			}
 			else 
 			{
-				w.setMessage("Vous pouvez charger une carte, charger une requête ou calculer la tournée.");
+				w.setMessage("Please load a XML file.");
 			}
 			
 		}
@@ -105,7 +104,7 @@ public class RequestLoadedState implements State {
 				
 			}*/
 			w.graphicalView.setHighlightedWay(null);
-			w.setMessage("Votre tournée");
+			w.setMessage("Your tour");
 		}
 		
 		@Override
