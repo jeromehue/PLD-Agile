@@ -16,6 +16,7 @@ public class Controller {
 	protected final MapLoadedState mapLoadedState = new MapLoadedState();
 	protected final RequestLoadedState requestLoadedState = new RequestLoadedState();
 	protected final TourModificationState tourModificationState = new TourModificationState();
+	protected final OrderModificationState orderModificationState = new OrderModificationState();
 	
 	public Controller() {
 		this.tour = new Tour();
@@ -45,6 +46,9 @@ public class Controller {
 		currentState.clickOnStep(this.window, w);
 	}
 	
+	public void modifyOrder() {
+		setCurrentstate(orderModificationState);
+	}
 
 	
 	public void changeOptionalsButtonsVisibility() {

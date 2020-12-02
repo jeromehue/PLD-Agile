@@ -1,13 +1,8 @@
 package controller;
 
-import java.util.Iterator;
-import java.util.List;
-
 import algo.Pcc;
 import modele.CityMap;
-import modele.Intersection;
 import modele.Request;
-import modele.Segment;
 import modele.Tour;
 import modele.Way;
 import view.Window;

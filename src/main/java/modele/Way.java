@@ -9,8 +9,8 @@ public class Way {
 	private LocalTime startingTime;
 	private LocalTime departureTime;
 	private LocalTime arrivalTime;
-	private Intersection departure;
-	private Intersection arrival;
+	private Intersection departurePoint;
+	private Intersection arrivalPoint;
 	
 	
 	public Way(List<Segment> segmentList, LocalTime startingTime, LocalTime departureTime, LocalTime arrivalTime, Intersection departure, Intersection arrival ) {
@@ -18,19 +18,19 @@ public class Way {
 		this.startingTime = startingTime;
 		this.departureTime = departureTime;
 		this.arrivalTime = arrivalTime;
-		this.departure = departure;
-		this.arrival = arrival;
+		this.departurePoint = departure;
+		this.arrivalPoint = arrival;
 	}
 	
 
-	public Way(List<Segment> segmentList, Intersection departure, Intersection arrival ) {
+	/*public Way(List<Segment> segmentList, Intersection departure, Intersection arrival ) {
 		this.segmentList = segmentList;
 		this.startingTime = LocalTime.now();
 		this.departureTime = LocalTime.now();
 		this.arrivalTime = LocalTime.now();
 		this.departure = departure;
 		this.arrival = arrival;
-	}
+	}*/
 	
 	public Iterator<Segment> getSegmentListIterator(){
 		return segmentList.iterator();
@@ -65,27 +65,29 @@ public class Way {
 
 
 	public Intersection getDeparture() {
-		return departure;
+		return departurePoint;
 	}
 
 
 
 
 	public Intersection getArrival() {
-		return arrival;
+		return arrivalPoint;
 	}
 
 
 
 
 	public Integer getWayDuration() {
-		return arrivalTime.getHour()*3600 + arrivalTime.getMinute()*60 + arrivalTime.getSecond() 
-			- (departureTime.getHour()*3600 + departureTime.getMinute()*60 + departureTime.getSecond());
+		return ((arrivalTime.getHour() - departureTime.getHour()) * 3600
+				+ (arrivalTime.getMinute() - departureTime.getMinute())*60
+				+ arrivalTime.getSecond() - departureTime.getSecond());
 	}
 	
-	public Integer getStayingDurationDeparture() {
-		return (departureTime.getHour()*3600 + departureTime.getMinute()*60 + departureTime.getSecond())
-			- startingTime.getHour()*3600 + startingTime.getMinute()*60 + startingTime.getSecond() ;
+	public Integer getStayingDurationForDeparturePoint() {
+		return ((departureTime.getHour() - startingTime.getHour()) * 3600
+				+ (departureTime.getMinute() - startingTime.getMinute())*60
+				+ departureTime.getSecond() - startingTime.getSecond());
 	}
 	
 	
