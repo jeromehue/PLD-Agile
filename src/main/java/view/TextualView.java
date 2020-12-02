@@ -57,10 +57,10 @@ public class TextualView extends JPanel implements Observer, Visitor{
 			if(itwaysInTour.hasNext()) {
 				currentWay = itwaysInTour.next();
 				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
-				text = "<html><u><strong>Départ: </strong></u> <br />";
-				text += "Départ de l'entrepôt (adresse n°"+currentWay.getSegmentList().get(0).getOrigin().getId();
-				text += ") à "+ currentWay.getDepartureTime().getHour() + "h"+ currentWay.getDepartureTime().getMinute();
-				text += " par "+ "<strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
+				text = "<html><u><strong> Start: </strong></u> <br />";
+				text += "Leave the starting point (address n°"+currentWay.getSegmentList().get(0).getOrigin().getId();
+				text += ") at "+ currentWay.getDepartureTime().getHour() + ":"+ currentWay.getDepartureTime().getMinute();
+				text += " following "+ "<strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
 				text += ". <br /></html>";
 				ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
 				this.add(b);
@@ -71,25 +71,25 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
 				
 				++currentCount;
-				text = "<html><u><strong> Etape n°" + currentCount + ":</strong></u> <br />";
+				text = "<html><u><strong> Step n°" + currentCount + ":</strong></u> <br />";
 				if (tour.getRequest().isPickUp (currentArrival.getDestination().getId()))
 				{
-					text += "Arrivée au point de retrait "+ currentArrival.getDestination().getId();
+					text += "Arrival to pick-up point n°"+ currentArrival.getDestination().getId();
 				}
 				else
 				{
-					text += "Arrivée au point de dépôt "+ currentArrival.getDestination().getId();
+					text += "Arrival to delivery point n°"+ currentArrival.getDestination().getId();
 				}
 				
 				
-				text += " à " + currentWay.getArrivalTime().getHour() + "h"+ currentWay.getArrivalTime().getMinute();
-				text += " par <strong>"+ currentArrival.getName() + "</strong>. <br />";
+				text += " at " + currentWay.getArrivalTime().getHour() + ":"+ currentWay.getArrivalTime().getMinute();
+				text += " from <strong>"+ currentArrival.getName() + "</strong>. <br />";
 				
 				currentWay = itwaysInTour.next();
 				
-				text += "Temps sur place : "+ currentWay.getStayingDurationDeparture() + " secondes. <br />";
-				text += "Départ à " + currentWay.getDepartureTime().getHour() + "h" + currentWay.getDepartureTime().getMinute();
-				text += " par <strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
+				text += "Time spent on the spot : "+ currentWay.getStayingDurationDeparture() + " seconds. <br />";
+				text += "Leave at " + currentWay.getDepartureTime().getHour() + ":" + currentWay.getDepartureTime().getMinute();
+				text += " following <strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
 				text += ". <br /> </html>";
 				ButtonWay newStepButton = new ButtonWay(currentWay, buttonListener, text);
 				

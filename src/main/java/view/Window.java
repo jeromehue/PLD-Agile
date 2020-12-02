@@ -158,7 +158,13 @@ public class Window extends JFrame{
     	messageFrame.setText(message);
     }
     
-    public void changeOptionalsButtonsVisibility() {
+    
+    
+    public boolean isOptionalsButtonsVisible() {
+		return optionalsButtonsVisible;
+	}
+
+	public void changeOptionalsButtonsVisibility() {
     	this.optionalsButtonsVisible = !this.optionalsButtonsVisible;
     	for(JButton b : optionalsButtons)
     		b.setVisible(optionalsButtonsVisible);

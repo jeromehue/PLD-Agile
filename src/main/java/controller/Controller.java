@@ -15,6 +15,7 @@ public class Controller {
 	protected final InitState initState = new InitState();
 	protected final MapLoadedState mapLoadedState = new MapLoadedState();
 	protected final RequestLoadedState requestLoadedState = new RequestLoadedState();
+	protected final TourModificationState tourModificationState = new TourModificationState();
 	
 	public Controller() {
 		this.tour = new Tour();
@@ -46,6 +47,11 @@ public class Controller {
 	
 	public void changeOptionalsButtonsVisibility() {
 		this.window.changeOptionalsButtonsVisibility();
+		if (window.isOptionalsButtonsVisible()) {
+			setCurrentstate(tourModificationState);
+		} else {
+			setCurrentstate(requestLoadedState);
+		}
 	}
 
 }
