@@ -10,9 +10,10 @@ public class TSP1 extends TemplateTSP {
 	private PriorityQueue<Double> vertexMinimum;
 	private Request request;
 	
-	public TSP1(Graph graph, Request request) {
+	public TSP1(Graph graph, Request request, Integer dMax) {
 		this.g = graph;
 		this.request = request;
+		this.maxDiscrepancy = dMax;
 	}
 	
 	@Override

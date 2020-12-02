@@ -133,7 +133,7 @@ public class Pcc {
 			savePredecessors.put(start.getId(), predecessors);
 		}
 		
-		System.out.println(graph.toString());
+		//System.out.println(graph.toString());
 		return graph;
 	}
 	
@@ -178,7 +178,8 @@ public class Pcc {
 	public Tour computeGooodTSPTour(){
 		CompleteGraph graph = computePcc();
 		System.out.println("[PCC.computeTour] taille graphe : "+graph.getNbVertices());
-		TSP1 tsp = new TSP1(graph, request);
+		// TODO: remove 1000 and set a real max discrepancy
+		TSP1 tsp = new TSP1(graph, request, 1000);
 		tsp.init();
 		long startTime = System.currentTimeMillis();
 		tsp.searchSolution(40000);

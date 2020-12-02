@@ -10,7 +10,8 @@ public abstract class TemplateTSP implements TSP {
 	protected Double bestSolCost;
 	private Integer timeLimit;
 	private Long startTime;
-	private final Integer MAX_DISCREPANCY = 50;
+	// max discrepancy should be defined experimentally
+	protected Integer maxDiscrepancy;
 	
 	
 	public void searchSolution(Integer timeLimit) {
@@ -85,7 +86,7 @@ public abstract class TemplateTSP implements TSP {
 	    			bestSolCost = currentCost+g.getCost(currentVertex,0);
 	    		}
 	    	}
-	    } else if (currentCost + bound(currentVertex,unvisited) < bestSolCost && discrepancy < MAX_DISCREPANCY){
+	    } else if (currentCost + bound(currentVertex,unvisited) < bestSolCost && discrepancy < maxDiscrepancy){
 	    	Integer i = 0;
 	        Iterator<Integer> it = iterator(currentVertex, unvisited, g);
 	        while (it.hasNext()){
@@ -93,7 +94,7 @@ public abstract class TemplateTSP implements TSP {
 	        	visited.add(nextVertex);
 	            unvisited.remove(nextVertex);
 	            branchAndBound(nextVertex, unvisited, visited, 
-	            		currentCost+g.getCost(currentVertex, nextVertex), discrepancy + i);
+	            		currentCost+g.getCost(currentVertex, nextVertex), discrepancy + 2*i);
 	            visited.remove(nextVertex);
 	            unvisited.add(nextVertex);
 	            ++i;

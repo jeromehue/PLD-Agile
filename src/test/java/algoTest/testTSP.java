@@ -20,14 +20,14 @@ public class testTSP {
 	void test() {
 		
 		System.out.println("TEST\n-----------------" + "testTSP.java : test");
-		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/smallMap.xml");
+		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/largeMap.xml");
 		CityMap city = cmpp.parse();
 		
 		assertTrue(city.getIntersections() != null);
 		assertTrue(city.getIntersections().size() > 7);
 
 		
-		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsSmall2.xml", city);
+		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsLarge7.xml", city);
 		Request request = new Request();
 		try {
 			request = rp.parse();
@@ -39,23 +39,29 @@ public class testTSP {
 		Pcc pcc = new Pcc(city, request);
 		
 		CompleteGraph graph = pcc.computePcc();
+		TSP1 tsp;
+		
+		Integer offset = 20; // paramètre à faire varier pour tester, à partir de dmax = 85 ça trouve le chemin optimal
+		
+		for(Integer i = 0 ; i < 50 ; ++i) {
+			
+			tsp = new TSP1(graph, request, offset + i);
 
-		TSP1 tsp = new TSP1(graph, request);
-
-		tsp.init();
+			tsp.init();
+			
+			Long startTime = System.currentTimeMillis();
+			tsp.searchSolution(40000);
+			
+			System.out.println("dmax : " + (offset + i) + " - Solution of cost "+(int)Math.round(tsp.getSolutionCost())+"m found in "
+					+(System.currentTimeMillis() - startTime)+"ms : ");
+			assertTrue(tsp != null);
+		}
 		
-		Long startTime = System.currentTimeMillis();
-		tsp.searchSolution(40000);
 		
-		System.out.print("Solution of cost "+(int)Math.round(tsp.getSolutionCost())+"m found in "
-				+(System.currentTimeMillis() - startTime)+"ms : ");
-		System.out.println("0 " + graph.getIdFromIndex(tsp.getSolution(0)));
-		
-		for (Integer i=0; i<graph.getNbVertices(); i++) {
+		/*for (Integer i=0; i<graph.getNbVertices(); i++) {
 			System.out.println(tsp.getSolution(i)+" "+graph.getIdFromIndex(tsp.getSolution(i)));
 		}
 		System.out.println("0 " + graph.getIdFromIndex(tsp.getSolution(0)));
-		
-		assertTrue(tsp != null);
+		*/
 	}
 }
