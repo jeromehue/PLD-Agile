@@ -192,10 +192,10 @@ public class Window extends JFrame{
     
     
     public int displaySelectOrderDialog() {
-    	
     	int i = -1;
     	while (i == -1) {
     		String str = JOptionPane.showInputDialog(this, "Entrez la nouvelle place de cette étape");
+    		if (str == null) {return -1;}
     		try {
     			i = Integer.parseInt(str);
     		} catch(Exception e) {

@@ -3,6 +3,7 @@ package xml;
 // From https://mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/ 
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -33,6 +34,12 @@ public class XMLRequestParser extends XMLParser {
 		    ArrayList<Integer>		deliveryDurations 	= new ArrayList<>();
 		    
 		    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		    
+		    // XML specification allows the use of entities that can be internal or external (file system / network access ...).
+		    // Allowing access to external entities in XML parsing could lead to vulnerabilities like confidential file disclosures or SSRFs.
+		    dbFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // Compliant
+		    dbFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // compliant
+		    
 		    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		    Document doc = dBuilder.parse(this.file);
 		            

@@ -156,8 +156,8 @@ public class MouseListener extends MouseAdapter{
 	}
 
 	private static float distBetween(int x, int y, int x1, int y1) {
-	    float xx = x1 - x;
-	    float yy = y1 - y;
+	    float xx = (float) x1 - x;
+	    float yy = (float) y1 - y;
 
 	    return (float) Math.sqrt(xx * xx + yy * yy);
 	}

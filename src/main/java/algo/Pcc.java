@@ -263,7 +263,7 @@ public class Pcc {
 	public Tour deleteIntersection (Tour tour, Intersection intersection) {
 		List<Intersection> list = new ArrayList<Intersection> ();
 		for (Way w : tour.getWaysList()) {
-			if(w.getDeparture().getId() != intersection.getId()) {
+			if (!w.getDeparture().getId().equals( intersection.getId() ) ) {
 				list.add(w.getDeparture());
 			}
 		}
