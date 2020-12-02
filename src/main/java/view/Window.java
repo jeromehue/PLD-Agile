@@ -46,7 +46,7 @@ public class Window extends JFrame{
     protected final static String LOAD_MAP 			= "Load a map";
     protected final static String LOAD_REQUEST 		= "Load requests";
     protected final static String COMPUTE_TOUR 		= "Compute tour";
-    protected final static String HIGHLIGHT_WAY 	= "Display tour";
+    protected final static String CLICK_STEP		= "Display tour";
     protected final static String MODIFY_TOUR 		= "Change the tour";
     protected final static String MODIFY_ORDER 		= "Change the tour's order";
     protected final static String MODIFY_REQUEST	= "Change a request";

@@ -18,7 +18,7 @@ public class ButtonWay extends JButton{
 		this.setVerticalAlignment(JLabel.TOP);
 		this.setText(text);
 		this.setContentAreaFilled(false);
-		this.setActionCommand(Window.HIGHLIGHT_WAY);
+		this.setActionCommand(Window.CLICK_STEP);
 		this.addActionListener(buttonListener);
 	}
 	public Way getWay() {
