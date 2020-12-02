@@ -148,14 +148,14 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 		double progress = 0.0;
 		
 		graphics.setStroke(new BasicStroke(4));
-		Iterator<Way> itWay = tour.getwaysListIterrator();
+		Iterator<Way> itWay = tour.getWaysListIterator();
 		
 		int i = 0;
 		int red, green, blue, currentCount = 0;
 		Way currrentWay;
 		while(itWay.hasNext())
 		{
-			progress = (double) ++i / tour.getwaysList().size();
+			progress = (double) ++i / tour.getWaysList().size();
 			red = (int)(to.getRed() * progress + from.getRed() * (1-progress));
 			green = (int)(to.getGreen() * progress + from.getGreen() * (1-progress));
 			blue = (int)(to.getBlue() * progress + from.getBlue() * (1-progress));

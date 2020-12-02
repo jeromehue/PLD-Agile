@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import algo.TSP1;
 import modele.CityMap;
-import modele.Intersection;
 import modele.Request;
 import xml.InvalidRequestException;
 import xml.XMLCityMapParser;

@@ -47,7 +47,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 		if(this.tour != null)
 		{
 			clearPointJButtonList();
-			Iterator<Way> itwaysInTour = tour.getwaysListIterrator();
+			Iterator<Way> itwaysInTour = tour.getWaysListIterator();
 			Way currentWay = null;
 			int currentCount = 0;
 			Segment currentArrival;
