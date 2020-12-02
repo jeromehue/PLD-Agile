@@ -79,8 +79,8 @@ public class Way {
 
 
 	public Integer getWayDuration() {
-		return (arrivalTime.getHour()*3600 + arrivalTime.getMinute()*60 + arrivalTime.getSecond() 
-			- (departureTime.getHour()*3600 + departureTime.getMinute()*60 + departureTime.getSecond()))*-1;
+		return arrivalTime.getHour()*3600 + arrivalTime.getMinute()*60 + arrivalTime.getSecond() 
+			- (departureTime.getHour()*3600 + departureTime.getMinute()*60 + departureTime.getSecond());
 	}
 	
 	public Integer getStayingDurationDeparture() {
