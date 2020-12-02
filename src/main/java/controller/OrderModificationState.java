@@ -1,8 +1,11 @@
 package controller;
 
 import modele.Way;
+import algo.Pcc;
 import modele.Intersection;
 import modele.Tour;
+import modele.CityMap;
+import modele.Request;
 import view.Window;
 
 public class OrderModificationState implements State {
@@ -16,7 +19,10 @@ public class OrderModificationState implements State {
 		int newIndex = 1;
 		Intersection intersection = wa.getDeparture();
 		Tour t = w.graphicalView.getTour();
-		//changeOrder (Tour tour, Intersection intersection, int newIndex)
+		CityMap cityMap = w.graphicalView.getCityMap();
+		Request request = w.graphicalView.getRequest();
+		Pcc shortestPathComputer = new Pcc(cityMap , request);
+		Tour newTour = shortestPathComputer.changeOrder( t,  intersection,  newIndex);
 		
 	}
 }
