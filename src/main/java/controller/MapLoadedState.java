@@ -17,16 +17,15 @@ public class MapLoadedState implements State {
 			String path = w.createDialogBoxToGetFilePath();
 			if(path != null) 
 			{
-				System.out.println("Affichage de la carte");
 				XMLCityMapParser p = new XMLCityMapParser(path);
 				CityMap cityMap = p.parse();
 				w.graphicalView.setCityMap(cityMap);
 				c.setCurrentstate(c.mapLoadedState);
-				w.setMessage ("La carte a été chargée avec succès. Veuillez charger des requêtes.");
+				w.setMessage ("The map was successfully loaded. You may now load requests.");
 			}
 			else 
 			{
-				w.setMessage("Veuillez charger une carte ou une requête au format XML.");
+				w.setMessage("Please load a XML file.");
 			}
 		}
 	
@@ -40,21 +39,20 @@ public class MapLoadedState implements State {
 					Request request = p.parse();
 					w.graphicalView.setRequest(request);
 					c.setCurrentstate(c.requestLoadedState);
-					w.setMessage("Requête chargée, vous pouvez calculer la tournée");
+					w.setMessage("The requests were successfully loaded. You may now compute the tour.");
 				} catch (InvalidRequestException e) {
 					w.setMessage(e.getMessage());
 				}
 			}
 			else 
 			{
-				System.out.println("Echec de l'obtention du chemin avec la boite de dialogue");
-				w.setMessage("Veuillez charger une requête au format XML.");
+				w.setMessage("Please load a XML file.");
 			}
 			
 		}
 		
 		@Override
 		public void computeTour(Controller c,Window w, Tour t) {
-			w.setMessage("Avant de calculer la tournée, chargez une requête");
+			w.setMessage("Before trying to compute a tour, please load a requests file.");
 		}
 }
