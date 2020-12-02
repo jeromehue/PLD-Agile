@@ -1,5 +1,7 @@
 package controller;
 
+import javax.swing.JButton;
+
 import algo.Pcc;
 import modele.CityMap;
 import modele.Request;
@@ -103,7 +105,9 @@ public class RequestLoadedState implements State {
 		}
 		
 		@Override
-		public void clickOnStep(Window w, Way wa){
+		public void clickOnStep(Window w, Way wa, JButton button){
+			w.textualView.clearAllTextArea();
+			button.setContentAreaFilled(true);
 			w.graphicalView.setHighlightedWay(wa);
 		}
 }

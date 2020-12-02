@@ -1,6 +1,9 @@
 package controller;
 
 import modele.Way;
+
+import javax.swing.JButton;
+
 import algo.Pcc;
 import modele.Intersection;
 import modele.Tour;
@@ -11,7 +14,7 @@ import view.Window;
 public class OrderModificationState implements State {
 
 	
-	public void clickOnStep(Window w, Way wa) {
+	public void clickOnStep(Window w, Way wa, JButton button) {
 		System.out.println("[Order Modification State] Modify order of tour in controller");
 		System.out.println("[Order Modification State] Intersection to be modify" + wa.getDeparture());
 		

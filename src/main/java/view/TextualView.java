@@ -132,6 +132,13 @@ public class TextualView extends JPanel implements Observer, Visitor{
 		this.pointsJButtonList.clear();
 	}
 	
+	
+	public void clearAllTextArea() {
+		for(JButton b : pointsJButtonList) {
+			b.setContentAreaFilled(false);
+		}
+	}
+	
 	public void display(Way w) {
 		
 	}

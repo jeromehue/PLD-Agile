@@ -1,5 +1,7 @@
 package controller;
 
+import javax.swing.JButton;
+
 import modele.Tour;
 import modele.Way;
 import view.Window;
@@ -42,8 +44,8 @@ public class Controller {
 		currentState.computeTour(this, this.window, this.tour);
 	}
 	
-	public void clickOnStep(Way w) {
-		currentState.clickOnStep(this.window, w);
+	public void clickOnStep(Way w, JButton button) {
+		currentState.clickOnStep(this.window, w, button);
 	}
 	
 	public void modifyOrder() {

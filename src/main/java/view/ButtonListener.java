@@ -3,6 +3,8 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
+
 import controller.Controller;
 
 public class ButtonListener  implements ActionListener  {
@@ -17,7 +19,7 @@ public class ButtonListener  implements ActionListener  {
 		if(e.getSource() instanceof ButtonWay) {
 			switch (e.getActionCommand()) {
 			case Window.CLICK_STEP: System.out.println("Click on a Step label button");
-			controller.clickOnStep(((ButtonWay) e.getSource()).getWay()); break;
+			controller.clickOnStep(((ButtonWay) e.getSource()).getWay(), ((ButtonWay) e.getSource())); break;
 			default: System.out.println("Click button: DEFAULT_CASE_1"); break;
 			}
 		}

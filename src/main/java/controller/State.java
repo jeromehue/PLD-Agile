@@ -1,5 +1,7 @@
 package controller;
 
+import javax.swing.JButton;
+
 import modele.Tour;
 import modele.Way;
 import view.Window;
@@ -15,5 +17,5 @@ public interface State {
 	
 	public default void computeTour(Controller c, Window w, Tour t) {}
 
-	public default void clickOnStep( Window w, Way wa) {}
+	public default void clickOnStep( Window w, Way wa, JButton button) {}
 }
