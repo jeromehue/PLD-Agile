@@ -22,6 +22,7 @@ public class RequestLoadedState implements State {
 		public void loadMap(Controller c, Window w, Tour t) {
 			
 			String path = w.createDialogBoxToGetFilePath();
+			w.graphicalView.setHighlightedWay(null);
 			if(path != null) 
 			{
 				System.out.println("Affichage de la carte normalement");
@@ -41,6 +42,7 @@ public class RequestLoadedState implements State {
 		@Override
 		public void loadRequest(Controller c, Window w, Tour t) {
 			String path = w.createDialogBoxToGetFilePath();
+			w.graphicalView.setHighlightedWay(null);
 			if(path != null) 
 			{
 				try {
@@ -93,6 +95,7 @@ public class RequestLoadedState implements State {
 				t.addNewWayInwaysList(localPaths2, localPaths2.get(0).getOrigin(), localPaths2.get(localPaths2.size()-1).getDestination());
 				
 			}
+			w.graphicalView.setHighlightedWay(null);
 			w.setMessage("Votre tournée");
 		}
 		

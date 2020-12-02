@@ -40,7 +40,7 @@ public class Window extends JFrame{
     protected final static String LOAD_MAP = "Charger une carte";
     protected final static String LOAD_REQUEST = "Charger des requêtes";
     protected final static String COMPUTE_TOUR = "Calculer la tournée";
-    protected final static String DISPLAY_WAY = "Afficher le chemin";
+    protected final static String HIGHLIGHT_WAY = "Afficher le chemin";
     
     public Window(Controller controller, Tour tour){
         super("Hubert If");
