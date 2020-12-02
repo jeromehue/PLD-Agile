@@ -74,6 +74,12 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 		return this.tour;
 	}
 	
+	
+	
+	public void setTour(Tour tour) {
+		this.tour = tour;
+	}
+
 	@Override
 	public void update(Observable observed, Object arg) {
 		this.repaint();
@@ -103,6 +109,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 				//draw the tour
 				if(tour != null)
 				{
+					
 					drawTour(graphics);
 				}
 				
