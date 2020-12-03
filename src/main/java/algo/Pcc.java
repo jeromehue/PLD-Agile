@@ -164,6 +164,7 @@ public class Pcc {
 		
 		Intersection passage = segmentsList.get(0).getOrigin();
 
+		/*
 		System.out.println("Affichage de trajet : ");
 		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
 		System.out.print(" de la rue " + segmentsList.get(0).getName());
@@ -174,7 +175,7 @@ public class Pcc {
 		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
 		System.out.println(" à la rue " + segmentsList.get(segmentsList.size() - 1).getName());
 		System.out.print("Longueur totale :");
-		System.out.println(lengthAB);
+		System.out.println(lengthAB);*/
 		
 		return segmentsList;
 	}
@@ -239,6 +240,7 @@ public class Pcc {
 				
 			} else {
 				stayingStartDuration = request.getDurationPickUpDelivery(start.getId());
+				System.out.println("staying duration of "+start.getId());
 				arrivalAtStart = tourStartingTime.plusSeconds(totalWayDuration-wayDuration);
 				departureFromStart = arrivalAtStart.plusSeconds(stayingStartDuration);
 				totalWayDuration += stayingStartDuration;
@@ -251,14 +253,32 @@ public class Pcc {
 		
 		Tour tour = new Tour(request.getStartingLocation(), request, wayList);
 		
-		tour.setTour(request.getStartingLocation(), request, wayList);
 		return tour;
 	}
 	
 
-	public Tour changeOrder (Tour tour, Intersection intersection, int newIndex){
-		
-		return null;
+	public Tour changeOrder (Tour tour, Intersection intersection, int shift){
+		List<Intersection> list = new ArrayList<Intersection> ();
+		int oldIndex=0;
+		int i=0;
+		for (Way w : tour.getwaysList()) {
+			System.out.print(w.getDeparture().getId()+" - ");
+			if(!w.getDeparture().getId().equals(intersection.getId())) {
+				list.add(w.getDeparture());
+			}
+			else {
+				intersection = w.getDeparture();
+				oldIndex=i;
+			}
+			i++;
+		}
+		System.out.println();
+		list.add(oldIndex+shift, intersection);
+		for (Intersection inter : list) {
+			System.out.print(inter.getId()+" - ");
+		}
+		System.out.println();
+		return computeTour(list);
 	}
 	
 	public Tour addRequest (Tour tour, Intersection pickup, Intersection delivery) {
@@ -268,73 +288,14 @@ public class Pcc {
 	public Tour deleteIntersection (Tour tour, Intersection intersection) {
 		List<Intersection> list = new ArrayList<Intersection> ();
 		for (Way w : tour.getwaysList()) {
-			if(w.getDeparture().getId() != intersection.getId()) {
+			if(!w.getDeparture().getId().equals(intersection.getId())) {
 				list.add(w.getDeparture());
+				System.out.println("[Pcc.deleteIntersection] Add inter"+w.getDeparture().getId());
+			} else {
+				System.out.println("Suppression of inter"+w.getDeparture().getId());
 			}
 		}
 		return computeTour(list);
-	}
-
-	public void setComputeTour(Tour t){
-		CompleteGraph graph = computePcc();
-		System.out.println("[PCC.computeTour] taille graphe : "+graph.getNbVertices());
-		TSP1 tsp = new TSP1(graph, request);
-		//tsp.addGraph(graph);
-		tsp.init();
-		
-		
-		List<Way> wayList = new ArrayList<>();
-		LocalTime tourStartingTime = request.getStartingTime();
-		Integer totalWayDuration = 0;
-		
-		Integer stayingStartDuration; //différence entre startArrival et startDeparture
-		LocalTime arrivalAtStart; //Arrivée au start
-		LocalTime departureFromStart; // départ du start
-		LocalTime arrivalAtFinish; // arrivée à finish
-		Integer wayDuration;
-
-		Intersection start;
-		Intersection finish;
-		Way way;
-		
-		for (int i=0; i<graph.getNbVertices(); i++) {
-			
-			//On récupère les id puis les intersections entre deux points
-			Long idStart = graph.getIdFromIndex(i);
-			Long idFinish;
-			//Last point comes  back to start point.
-			if( (i+1) < graph.getNbVertices()) {
-				idFinish = graph.getIdFromIndex(i+1);
-			}
-			else {
-				idFinish = graph.getIdFromIndex(0);
-			}
-			start = allVerticesPcc.get(idStart);
-			finish = allVerticesPcc.get(idFinish);
-			
-			List<Segment> list = getRoads(start, finish);
-			wayDuration = getDuration();
-			totalWayDuration += wayDuration;
-
-			if(i==0) {
-				arrivalAtStart = tourStartingTime;
-				departureFromStart = tourStartingTime;
-				
-			} else {
-				stayingStartDuration = request.getDurationPickUpDelivery(start.getId());
-				arrivalAtStart = tourStartingTime.plusSeconds(totalWayDuration-wayDuration);
-				departureFromStart = arrivalAtStart.plusSeconds(stayingStartDuration);
-				totalWayDuration += stayingStartDuration;
-			}
-	
-			arrivalAtFinish = departureFromStart.plusSeconds(wayDuration);
-			way = new Way(list, arrivalAtStart, departureFromStart, arrivalAtFinish, start, finish );
-			wayList.add(way);
-		}
-		
-		
-		t.setTour(request.getStartingLocation(), request, wayList);
-		
 	}
 	
 

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import algo.Pcc;
 import modele.CityMap;
+import modele.Intersection;
 import modele.Request;
 import modele.Tour;
 import modele.Way;
@@ -43,6 +44,11 @@ public class TestComputeTour {
 		Pcc pcc = new Pcc(city, request);
 		
 		Tour tour = pcc.computeGooodTSPTour();
+		
+		Long id = new Long(60755991);
+		Intersection inter = new Intersection(id, 0.0, 0.0, null);
+		
+		tour = pcc.changeOrder(tour, inter, -3);
 		
 		List<Way> wayList = tour.getwaysList();
 		
