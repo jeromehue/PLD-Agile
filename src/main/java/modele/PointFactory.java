@@ -29,6 +29,11 @@ public class PointFactory {
 		
 		if ((x > graphicalView.getWidth()) || (x < 0) || (y > graphicalView.getHeight()) || (y < 0))
 			return null;
+		// Happens at loading
+		if(x > points.length || y > points[0].length) {
+			return null;
+		}
+		//System.out.println(points.length + "+" + points[0].length + " : " + x + "," + y);
 		if (points[x][y] == null)
 			points[x][y] = new Point(x,y);
 		return points[x][y];

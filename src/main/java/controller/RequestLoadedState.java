@@ -1,13 +1,10 @@
 package controller;
 
-import java.util.Iterator;
-import java.util.List;
+import javax.swing.JButton;
 
 import algo.Pcc;
 import modele.CityMap;
-import modele.Intersection;
 import modele.Request;
-import modele.Segment;
 import modele.Tour;
 import modele.Way;
 import view.Window;
@@ -25,7 +22,6 @@ public class RequestLoadedState implements State {
 			w.graphicalView.setHighlightedWay(null);
 			if(path != null) 
 			{
-				System.out.println("Affichage de la carte normalement");
 				XMLCityMapParser p = new XMLCityMapParser(path);
 				CityMap cityMap = p.parse();
 				w.graphicalView.setCityMap(cityMap);
@@ -35,7 +31,7 @@ public class RequestLoadedState implements State {
 			}
 			else 
 			{
-				w.setMessage("Vous pouvez charger une carte, charger une requête ou calculer la tournée.");
+				w.setMessage("You can load a new map, load a requests file or compute the tour.");
 			}
 		}
 	
@@ -50,7 +46,7 @@ public class RequestLoadedState implements State {
 					Request request = p.parse();
 					w.graphicalView.setRequest(request);
 					c.setCurrentstate(c.requestLoadedState);
-					w.setMessage("Requête chargée, vous pouvez charger une autre requête, charger une carte ou calculer la tournée.");
+					w.setMessage("The requests were successfully loaded. You may now compute the tour.");
 					t.ClearTour();
 				} catch (InvalidRequestException e) {
 					System.out.println(e.getMessage());
@@ -58,7 +54,7 @@ public class RequestLoadedState implements State {
 			}
 			else 
 			{
-				w.setMessage("Vous pouvez charger une carte, charger une requête ou calculer la tournée.");
+				w.setMessage("Please load a XML file.");
 			}
 			
 		}
@@ -74,7 +70,7 @@ public class RequestLoadedState implements State {
 			shortestPathComputer.computePcc();
 			
 			Tour t2 = shortestPathComputer.computeGooodTSPTour();
-			t.setTour(t2.getStartingIntersection(), t2.getRequest(), t2.getwaysList());
+			t.setTour(t2.getStartingIntersection(), t2.getRequest(), t2.getWaysList());
 			t.notifyObservers();
 			
 			//t = shortestPathComputer.computeTour();
@@ -105,11 +101,13 @@ public class RequestLoadedState implements State {
 				
 			}*/
 			w.graphicalView.setHighlightedWay(null);
-			w.setMessage("Votre tournée");
+			w.setMessage("Your tour");
 		}
 		
 		@Override
-		public void highlightWay(Window w, Way wa){
+		public void clickOnStep(Window w, Way wa, JButton button){	
+			w.textualView.clearAllTextArea();
+			button.setContentAreaFilled(true);
 			w.graphicalView.setHighlightedWay(wa);
 		}
 }

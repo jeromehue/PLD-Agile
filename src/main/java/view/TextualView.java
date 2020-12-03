@@ -27,7 +27,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 
 	public TextualView(Tour tour, ButtonListener buttonListener){
 		super();
-		setBorder(BorderFactory.createTitledBorder("Trajet"));
+		setBorder(BorderFactory.createTitledBorder("Itinerary"));
         this.setPreferredSize(new Dimension(600,2000));
         setLayout(new FlowLayout(FlowLayout.LEFT));
         this.setBackground(Window.BACKGROUND_COLOR);
@@ -47,7 +47,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 		if(this.tour != null)
 		{
 			clearPointJButtonList();
-			Iterator<Way> itwaysInTour = tour.getwaysListIterrator();
+			Iterator<Way> itwaysInTour = tour.getWaysListIterator();
 			Way currentWay = null;
 			int currentCount = 0;
 			Segment currentArrival;
@@ -59,7 +59,12 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
 				text = "<html><u><strong> Start: </strong></u> <br />";
 				text += "Leave the starting point (address n°"+currentWay.getSegmentList().get(0).getOrigin().getId();
-				text += ") at "+ currentWay.getDepartureTime().getHour() + ":"+ currentWay.getDepartureTime().getMinute();
+				text += ") at "+ currentWay.getDepartureTime().getHour() + ":";
+				if (currentWay.getDepartureTime().getMinute()<10)
+				{
+					text+="0";
+				}
+				text +=currentWay.getDepartureTime().getMinute();
 				text += " following "+ "<strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
 				text += ". <br /></html>";
 				ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
@@ -82,13 +87,23 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				}
 				
 				
-				text += " at " + currentWay.getArrivalTime().getHour() + ":"+ currentWay.getArrivalTime().getMinute();
+				text += " at " + currentWay.getArrivalTime().getHour() + ":";
+				if (currentWay.getArrivalTime().getMinute()<10)
+				{
+					text+="0";
+				}
+				text +=currentWay.getArrivalTime().getMinute();
 				text += " from <strong>"+ currentArrival.getName() + "</strong>. <br />";
 				
 				currentWay = itwaysInTour.next();
 				
-				text += "Time spent on the spot : "+ currentWay.getStayingDurationDeparture() + " seconds. <br />";
-				text += "Leave at " + currentWay.getDepartureTime().getHour() + ":" + currentWay.getDepartureTime().getMinute();
+				text += "Time spent on the spot : "+ currentWay.getStayingDurationForDeparturePoint() + " seconds. <br />";
+				text += "Leave at " + currentWay.getDepartureTime().getHour() + ":";
+				if (currentWay.getDepartureTime().getMinute()<10)
+				{
+					text+="0";
+				}
+				text +=currentWay.getDepartureTime().getMinute();
 				text += " following <strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
 				text += ". <br /> </html>";
 				ButtonWay newStepButton = new ButtonWay(currentWay, buttonListener, text);
@@ -96,6 +111,16 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				this.add(newStepButton);
 				pointsJButtonList.add(newStepButton);
 			}
+			//Displaying last point
+				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
+				text = "<html><u><strong> End : </strong></u> <br />";
+				text += "Return to the starting point (address n°"+currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1).getDestination().getId();
+				text += ") at "+ currentWay.getArrivalTime().getHour() + ":"+ currentWay.getArrivalTime().getMinute();
+				text += " from <strong>"+ currentArrival.getName() + "</strong>";
+				text += ". <br /></html>";
+				ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
+				this.add(b);
+				pointsJButtonList.add(b);
 		}
 	}
 	
@@ -105,6 +130,13 @@ public class TextualView extends JPanel implements Observer, Visitor{
 			this.remove(button);
 		}
 		this.pointsJButtonList.clear();
+	}
+	
+	
+	public void clearAllTextArea() {
+		for(JButton b : pointsJButtonList) {
+			b.setContentAreaFilled(false);
+		}
 	}
 	
 	public void display(Way w) {

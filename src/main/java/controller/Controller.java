@@ -1,5 +1,7 @@
 package controller;
 
+import javax.swing.JButton;
+
 import modele.Tour;
 import modele.Way;
 import view.Window;
@@ -16,6 +18,7 @@ public class Controller {
 	protected final MapLoadedState mapLoadedState = new MapLoadedState();
 	protected final RequestLoadedState requestLoadedState = new RequestLoadedState();
 	protected final TourModificationState tourModificationState = new TourModificationState();
+	protected final OrderModificationState orderModificationState = new OrderModificationState();
 	
 	public Controller() {
 		this.tour = new Tour();
@@ -41,9 +44,14 @@ public class Controller {
 		currentState.computeTour(this, this.window, this.tour);
 	}
 	
-	public void highlightWay(Way w) {
-		currentState.highlightWay(this.window, w);
+	public void clickOnStep(Way w, JButton button) {
+		currentState.clickOnStep(this.window, w, button);
 	}
+	
+	public void modifyOrder() {
+		setCurrentstate(orderModificationState);
+	}
+
 	
 	public void changeOptionalsButtonsVisibility() {
 		this.window.changeOptionalsButtonsVisibility();
@@ -53,5 +61,7 @@ public class Controller {
 			setCurrentstate(requestLoadedState);
 		}
 	}
+	
+	
 
 }

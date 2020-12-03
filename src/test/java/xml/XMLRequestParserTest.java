@@ -30,7 +30,7 @@ class XMLRequestParserTest {
 
 	@Test
 	@DisplayName("Loading small requests")
-	void smallRequestTest() throws InvalidRequestException {
+	void smallRequestTest() throws InvalidRequestException  {
 		XMLRequestParser p;
 		p = new XMLRequestParser("src/main/resources/requestsSmall1.xml", this.smallMap);
 		p.parse();
@@ -38,7 +38,7 @@ class XMLRequestParserTest {
 
 	@Test
 	@DisplayName("Loading medium requests")
-	void mediumRequestTest() throws InvalidRequestException {
+	void mediumRequestTest() throws InvalidRequestException  {
 		XMLRequestParser p;
 		p = new XMLRequestParser("src/main/resources/requestsMedium3.xml", this.mediumMap);
 		p.parse();
@@ -54,12 +54,14 @@ class XMLRequestParserTest {
 
 	@Test
 	@DisplayName("Loading requests with unknown intersections")
-	void missingLocations() throws InvalidRequestException {
+	void missingLocations() {
+		XMLRequestParser p;
+		p = new XMLRequestParser("src/main/resources/requestsLarge7.xml", this.smallMap);
 		assertThrows(InvalidRequestException.class, () -> {
-			XMLRequestParser p;
-			p = new XMLRequestParser("src/main/resources/requestsLarge7.xml", this.smallMap);
 			p.parse();
 	    });
+		
+
 	}
 
 }

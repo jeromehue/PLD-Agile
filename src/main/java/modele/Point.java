@@ -28,7 +28,7 @@ public class Point {
 	 * @return the distance between this and p
 	 */
 	public int distance(Point p){
-		return (int)(Math.sqrt((x-p.getX())*(x-p.getX()) + (y-p.getY())*(y-p.getY())));
+		return (int)(Math.sqrt((x-p.getX())*(x-p.getX()) + (double) (y-p.getY())*(y-p.getY())));
 	}
 
 	public int getX() {

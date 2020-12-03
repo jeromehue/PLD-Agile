@@ -82,6 +82,4 @@ public class CompleteGraph implements Graph {
 	public Long getIdFromIndex(Integer i) {
 		return reverseIndex.get(i);
 	}
-
-
 }

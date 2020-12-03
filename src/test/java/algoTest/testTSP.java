@@ -36,23 +36,32 @@ public class testTSP {
 			fail();
 		}
 		
-		
 		Pcc pcc = new Pcc(city, request);
 		
 		CompleteGraph graph = pcc.computePcc();
-
-		TSP1 tsp = new TSP1(graph, request);
-
-		tsp.init();
+		TSP1 tsp;
 		
-		long startTime = System.currentTimeMillis();
-		tsp.searchSolution(40000);
-		System.out.print("Solution of cost "+(int)tsp.getSolutionCost()+"m found in "
-				+(System.currentTimeMillis() - startTime)+"ms : ");
-		for (int i=0; i<graph.getNbVertices(); i++)
-			System.out.print(tsp.getSolution(i)+" ");
-		System.out.println("0");
+		Integer offset = 20; // paramètre à faire varier pour tester, à partir de dmax = 85 ça trouve le chemin optimal
 		
-		assertTrue(tsp != null);
+		for(Integer i = 0 ; i < 50 ; ++i) {
+			
+			tsp = new TSP1(graph, request, offset + i);
+
+			tsp.init();
+			
+			Long startTime = System.currentTimeMillis();
+			tsp.searchSolution(40000);
+			
+			System.out.println("dmax : " + (offset + i) + " - Solution of cost "+(int)Math.round(tsp.getSolutionCost())+"m found in "
+					+(System.currentTimeMillis() - startTime)+"ms : ");
+			assertTrue(tsp != null);
+		}
+		
+		
+		/*for (Integer i=0; i<graph.getNbVertices(); i++) {
+			System.out.println(tsp.getSolution(i)+" "+graph.getIdFromIndex(tsp.getSolution(i)));
+		}
+		System.out.println("0 " + graph.getIdFromIndex(tsp.getSolution(0)));
+		*/
 	}
 }

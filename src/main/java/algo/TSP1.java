@@ -10,43 +10,36 @@ public class TSP1 extends TemplateTSP {
 	private PriorityQueue<Double> vertexMinimum;
 	private Request request;
 	
-	public TSP1(Graph graph, Request request) {
+	public TSP1(Graph graph, Request request, Integer dMax) {
 		this.g = graph;
 		this.request = request;
+		this.maxDiscrepancy = dMax;
 	}
 	
 	@Override
 	public void init() {
 		vertexMinimum = new PriorityQueue<>();
-		int i=0;
-		int j=0;
-		for(i=0; i<g.getNbVertices(); i++) {
-			for(j=0; j<g.getNbVertices(); j++) {
-				if(i!=j) {
-					vertexMinimum.add( g.getCost(i, j));
+		Integer i=0;
+		Integer j=0;
+		for(i = 0; i < g.getNbVertices(); i++) {
+			for(j=0; j < g.getNbVertices(); j++) {
+				if(i != j) {
+					vertexMinimum.add(g.getCost(i, j));
 				}
 			}
 		}
-		//for (i=0; i< g.getNbVertices(); i++) { 
-		System.out.println("[TSP1.init]le cout minimum est "+vertexMinimum.peek());
-		//}
 	}
 	
 	@Override
-	protected double bound(Integer currentVertex, Collection<Integer> unvisited) {
-		/*PriorityQueue<Double> minimumQueue = new PriorityQueue<>();
-		for(Integer index : unvisited) {
-			minimumQueue.add( g.getCost(currentVertex, index));
-		}
-		*/
+	protected Double bound(Integer currentVertex, Collection<Integer> unvisited) {
 		
 		if(this.bestSolCost == Integer.MAX_VALUE) {
-			return 0;
+			return 0.0;
 		}
 		
-		double min = 0;
-		double localMin;
-		double currentVertexMin = Double.MAX_VALUE;
+		Double min = 0.0;
+		Double localMin;
+		Double currentVertexMin = Double.MAX_VALUE;
 		
 		for(Integer startVertex : unvisited) {
 			localMin = g.getCost(startVertex, 0);
@@ -64,9 +57,6 @@ public class TSP1 extends TemplateTSP {
 		min += currentVertexMin;
 		
 		return min;
-		
-		//return (int)((unvisited.size()+1) * vertexMinimum.peek());
-		//return 0;
 	}
 
 	@Override

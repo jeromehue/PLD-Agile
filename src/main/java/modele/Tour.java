@@ -43,13 +43,6 @@ public class Tour extends Observable{
 		notifyObservers();
 	}
 	
-
-	public void addNewWayInwaysList(List<Segment> s, Intersection start, Intersection arrival) {
-		Way way = new Way(s, start, arrival);
-		waysList.add(way);
-		notifyObservers();
-	}
-	
 	public void addWayInwaysList(Way s) {
 		waysList.add(s);
 	}
@@ -72,11 +65,11 @@ public class Tour extends Observable{
 		this.request = request;
 	}
 
-	public void setwaysList(List<Way> waysList) {
+	public void setWaysList(List<Way> waysList) {
 		this.waysList = waysList;
 	}
 	
-	public Iterator<Way> getwaysListIterrator() {
+	public Iterator<Way> getWaysListIterator() {
 		return this.waysList.iterator();
 	}
 
@@ -89,7 +82,7 @@ public class Tour extends Observable{
 		return request;
 	}
 
-	public List<Way> getwaysList() {
+	public List<Way> getWaysList() {
 		return waysList;
 	}
 

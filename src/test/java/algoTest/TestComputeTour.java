@@ -50,7 +50,7 @@ public class TestComputeTour {
 		
 		tour = pcc.changeOrder(tour, inter, -3);
 		
-		List<Way> wayList = tour.getwaysList();
+		List<Way> wayList = tour.getWaysList();
 		
 		for(Way w : wayList) {
 			System.out.println("start at "+w.getStartingTime()+", goes from "+w.getDeparture().getId() +" at "+w.getDepartureTime()+

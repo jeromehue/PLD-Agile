@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.util.Iterator;
 
 import javax.swing.BorderFactory;
@@ -94,8 +93,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 		super.paintComponent(graphics);
 
 		// Smooth lines (anti-aliasing)
-		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		graphics.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		//graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		//draw white background
 		graphics.setColor(new Color(248, 255, 242));
@@ -118,6 +116,14 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 				}
 				
 				drawRequest(graphics);
+				
+				if(tour != null && this.highlightedWay != null) {
+					graphics.setStroke(new BasicStroke(4));
+					graphics.setColor(Color.red);
+					graphics.fillOval(
+							this.highlightedWay.getSegmentList().get(0).getOrigin().getCoordinates().getX()-10, 
+							this.highlightedWay.getSegmentList().get(0).getOrigin().getCoordinates().getY()-10, 20, 20);
+				}
 			}
 			
 			if (this.highlightedSegment != null) {
@@ -125,6 +131,12 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 				graphics.setStroke(new BasicStroke(3));
 				drawSegment(graphics, this.highlightedSegment);
 			}
+		}
+		
+		//draw white rectangle in Top-Left corner
+		if(cityMap != null) {
+			graphics.setColor(Color.white);
+			graphics.fillRect(0, 0, 52, 18);
 		}
 	}
 	
@@ -135,14 +147,14 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 		double progress = 0.0;
 		
 		graphics.setStroke(new BasicStroke(4));
-		Iterator<Way> itWay = tour.getwaysListIterrator();
+		Iterator<Way> itWay = tour.getWaysListIterator();
 		
 		int i = 0;
 		int red, green, blue, currentCount = 0;
 		Way currrentWay;
 		while(itWay.hasNext())
 		{
-			progress = (double) ++i / tour.getwaysList().size();
+			progress = (double) ++i / tour.getWaysList().size();
 			red = (int)(to.getRed() * progress + from.getRed() * (1-progress));
 			green = (int)(to.getGreen() * progress + from.getGreen() * (1-progress));
 			blue = (int)(to.getBlue() * progress + from.getBlue() * (1-progress));
@@ -152,7 +164,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			if(currentCount != 0) {
 				graphics.setColor(Color.black);
 				graphics.setFont(graphics.getFont().deriveFont(Font.BOLD, 14f));
-				graphics.drawString("Step" + currentCount, 
+				graphics.drawString("Step " + currentCount, 
 						currrentWay.getSegmentList().get(0).getOrigin().getCoordinates().getX() - 65, 
 						currrentWay.getSegmentList().get(0).getOrigin().getCoordinates().getY() - 10);
 			}
@@ -163,6 +175,11 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			graphics.setColor(Color.black);
 			graphics.setStroke(new BasicStroke(4));
 			drawWay(graphics, this.highlightedWay);
+			graphics.setColor(Color.red);
+			graphics.fillOval(
+					this.highlightedWay.getSegmentList().get(0).getOrigin().getCoordinates().getX()-10, 
+					this.highlightedWay.getSegmentList().get(0).getOrigin().getCoordinates().getY()-10, 20, 20);
+			
 		}
 	}
 	
@@ -184,6 +201,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			drawSegment(graphics,segment);
 		}	
 	}
+	
 	private void drawSegment(Graphics graphics, Segment s) {
 		graphics.drawLine(s.getOrigin().getCoordinates().getX(),
 						  s.getOrigin().getCoordinates().getY(),

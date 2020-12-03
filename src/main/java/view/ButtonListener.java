@@ -16,8 +16,8 @@ public class ButtonListener  implements ActionListener  {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() instanceof ButtonWay) {
 			switch (e.getActionCommand()) {
-			case Window.HIGHLIGHT_WAY: System.out.println("Click on DISPLAY_WAY button");
-			controller.highlightWay(((ButtonWay) e.getSource()).getWay()); break;
+			case Window.CLICK_STEP: System.out.println("Click on a Step label button");
+			controller.clickOnStep(((ButtonWay) e.getSource()).getWay(), ((ButtonWay) e.getSource())); break;
 			default: System.out.println("Click button: DEFAULT_CASE_1"); break;
 			}
 		}
@@ -34,6 +34,7 @@ public class ButtonListener  implements ActionListener  {
 			case Window.MODIFY_TOUR: System.out.println("Click on MODIFY_TOUR button");
 			controller.changeOptionalsButtonsVisibility();break;
 			case Window.MODIFY_ORDER: System.out.println("Click on MODIFY_ORDER button");
+			controller.modifyOrder();
 			break;
 			default: System.out.println("Click button: DEFAULT_CASE_2"); break;
 			}

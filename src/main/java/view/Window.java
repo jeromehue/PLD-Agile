@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 
 import controller.Controller;
 import modele.Tour;
@@ -43,24 +44,23 @@ public class Window extends JFrame{
     protected final static Color BACKGROUND_COLOR = new Color(224,224,224);
     
     //Buttons titles
-    protected final static String LOAD_MAP 			= "Charger une carte";
-    protected final static String LOAD_REQUEST 		= "Charger des requêtes";
-    protected final static String COMPUTE_TOUR 		= "Calculer la tournée";
-    protected final static String HIGHLIGHT_WAY 	= "Afficher le chemin";
-    protected final static String MODIFY_TOUR 		= "Modifier la tournée";
-    protected final static String MODIFY_ORDER 		= "Modifier l'ordre de la tournée";
-    protected final static String MODIFY_REQUEST	= "Modifier une requête";
-    protected final static String ADD_REQUEST 		= "Ajouter une requête";
-    protected final static String REMOVE_REQUEST	= "Supprimer une requête";
-    
-        		
+    protected final static String LOAD_MAP 			= "Load a map";
+    protected final static String LOAD_REQUEST 		= "Load requests";
+    protected final static String COMPUTE_TOUR 		= "Compute tour";
+    protected final static String CLICK_STEP		= "Display tour";
+    protected final static String MODIFY_TOUR 		= "Change the tour";
+    protected final static String MODIFY_ORDER 		= "Change the tour's order";
+    protected final static String MODIFY_REQUEST	= "Change a request";
+    protected final static String ADD_REQUEST 		= "Add a request";
+    protected final static String REMOVE_REQUEST	= "Delete a request";
     
     public Window(Controller controller, Tour tour){
-        super("Hubert If");
+        super("Deliver'IF");
         this.buttonListener = new ButtonListener(controller);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(1800,1020);
         this.setLocationRelativeTo(null);
+        this.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         
         this.optionalsButtonsVisible = false;
         optionalsButtons = new ArrayList<JButton>();
@@ -78,6 +78,7 @@ public class Window extends JFrame{
         
         textualView = new TextualView(tour, this.buttonListener);
         JScrollPane scrollPane = new JScrollPane( textualView ,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         contentPane.add(scrollPane,BorderLayout.WEST);
         
         graphicalView = new GraphicalView(tour);
@@ -86,7 +87,9 @@ public class Window extends JFrame{
         mouseListener = new MouseListener( controller,  this, graphicalView);
 		addMouseMotionListener(mouseListener);
         
+		
         this.setVisible(true);
+        
         
         // To be place after the set visible.
         PointFactory.initPointFactory(graphicalView, null);
@@ -149,7 +152,7 @@ public class Window extends JFrame{
 		messageFrame.setBorder(BorderFactory.createTitledBorder("Messages"));
         messageFrame.setHorizontalAlignment(SwingConstants.CENTER);
         messageFrame.setVerticalAlignment(SwingConstants.TOP);
-        messageFrame.setText("Pour commencer, chargez une carte au format XML.");
+        messageFrame.setText("To begin, please load a map (XML file).");
         messageFrame.setBackground(BACKGROUND_COLOR);
         return messageFrame;
     } 
@@ -186,6 +189,21 @@ public class Window extends JFrame{
 		    } 
 		    return absPath;
 	}
+    
+    
+    public int displaySelectOrderDialog() {
+    	int i = -1;
+    	while (i == -1) {
+    		String str = JOptionPane.showInputDialog(this, "Entrez la nouvelle place de cette étape");
+    		if (str == null) {return -1;}
+    		try {
+    			i = Integer.parseInt(str);
+    		} catch(Exception e) {
+    			System.out.println("Erreur :  la saisie n'est pas un entier valide ");
+    		}
+    	}
+    	return i;
+    }
     
 }
         
