@@ -156,6 +156,7 @@ public class Pcc {
 		
 		Intersection passage = segmentsList.get(0).getOrigin();
 
+		/*
 		System.out.println("Affichage de trajet : ");
 		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
 		System.out.print(" de la rue " + segmentsList.get(0).getName());
@@ -166,7 +167,7 @@ public class Pcc {
 		System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
 		System.out.println(" à la rue " + segmentsList.get(segmentsList.size() - 1).getName());
 		System.out.print("Longueur totale :");
-		System.out.println(lengthAB);
+		System.out.println(lengthAB);*/
 		
 		return segmentsList;
 	}
@@ -196,11 +197,12 @@ public class Pcc {
 			goodInterList.add(inter);
 		}
 		
-		return computeTour(goodInterList);
+		List<Way> waysList = computeWaysList(goodInterList);
+		return new Tour(request.getStartingLocation(), request, waysList);
 		
 	}
 	
-	public Tour computeTour(List<Intersection> interList) {
+	public List<Way> computeWaysList(List<Intersection> interList) {
 		List<Way> wayList = new ArrayList<>();
 		LocalTime tourStartingTime = request.getStartingTime();
 		Integer totalWayDuration = 0;
@@ -234,6 +236,7 @@ public class Pcc {
 				
 			} else {
 				stayingStartDuration = request.getDurationPickUpDelivery(start.getId());
+				//System.out.println("[Pcc.computeWaysList]staying duration of "+start.getId());
 				arrivalAtStart = tourStartingTime.plusSeconds(totalWayDuration-wayDuration);
 				departureFromStart = arrivalAtStart.plusSeconds(stayingStartDuration);
 				totalWayDuration += stayingStartDuration;
@@ -244,30 +247,79 @@ public class Pcc {
 			wayList.add(way);
 		}
 		
-		Tour tour = new Tour(request.getStartingLocation(), request, wayList);
-		
-		tour.setTour(request.getStartingLocation(), request, wayList);
-		return tour;
+		return wayList;
 	}
 	
 
-	public Tour changeOrder (Tour tour, Intersection intersection, int newIndex){
+	public Tour changeOrder (Tour tour, Intersection intersection, int shift){
+		if(intersection.getId().equals(request.getStartingLocation().getId())) {
+			return tour;
+		}
 		
-		return null;
+		List<Intersection> list = new ArrayList<Intersection> ();
+		int oldIndex=0;
+		int i=0;
+		for (Way w : tour.getWaysList()) {
+			if(!w.getDeparture().getId().equals(intersection.getId())) {
+				list.add(w.getDeparture());
+			}
+			else {
+				intersection = w.getDeparture();
+				oldIndex=i;
+			}
+			i++;
+		}
+		
+		//TODO
+		//Verify shift is consistent with oldIndex and tour.getWaysList().size
+		if(oldIndex+shift>0 && oldIndex+shift<tour.getWaysList().size()) {
+			list.add(oldIndex+shift, intersection);
+		}
+		else {
+			return tour;
+		}
+		
+		tour.setWaysList( computeWaysList(list) );
+		
+		tour.updateIsPositionConsistent(intersection.getId());
+		if(request.isPickUp(intersection.getId())) {
+			tour.updateIsPositionConsistent(request.getDeliveryFromPickUp(intersection.getId()));			
+		}
+		
+		return tour;
 	}
 	
 	public Tour addRequest (Tour tour, Intersection pickup, Intersection delivery) {
+		//TODO
+		//Add new intersections in request
+		//pcc.compute ?
 		return null;
 	}
 	
 	public Tour deleteIntersection (Tour tour, Intersection intersection) {
+		if(intersection.getId().equals(request.getStartingLocation().getId())) {
+			return tour;
+		}
+		
 		List<Intersection> list = new ArrayList<Intersection> ();
+
 		for (Way w : tour.getWaysList()) {
-			if(w.getDeparture().getId() != intersection.getId()) {
+			if(!w.getDeparture().getId().equals(intersection.getId())) {
 				list.add(w.getDeparture());
+				//System.out.println("[Pcc.deleteIntersection] Add inter"+w.getDeparture().getId());
+			} else {
+				//System.out.println("[Pcc.deleteIntersection]Suppression of inter"+w.getDeparture().getId());
+				
+				//TODO
+				//Save deleted intersection into a list in Tour to have the possibility to put it back
 			}
 		}
-		return computeTour(list);
+		
+		tour.setWaysList(computeWaysList(list));
+		
+		tour.updateIsPositionConsistent(intersection.getId());
+		
+		return tour;
 	}
 	
 	public Double getBikeVelocity() {
