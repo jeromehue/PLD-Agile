@@ -17,6 +17,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 
@@ -27,6 +30,8 @@ import modele.PointFactory;
 public class Window extends JFrame{
 
 	private static final long serialVersionUID = 1L;
+	
+	//Components
 	public GraphicalView graphicalView;
 	public TextualView textualView;
 	private JLabel messageFrame;
@@ -36,7 +41,6 @@ public class Window extends JFrame{
     private ArrayList<JButton> optionalsButtons;
     private boolean optionalsButtonsVisible;
     
-    
     //Listeners 
     private ButtonListener buttonListener;
     private MouseListener mouseListener;
@@ -44,13 +48,13 @@ public class Window extends JFrame{
     protected final static Color BACKGROUND_COLOR = new Color(224,224,224);
     
     //Buttons titles
-    protected final static String LOAD_MAP 			= "Load a map";
-    protected final static String LOAD_REQUEST 		= "Load requests";
+    protected final static String LOAD_MAP 			= "Load XML Map...";
+    protected final static String LOAD_REQUEST 		= "Load XML Requests...";
     protected final static String COMPUTE_TOUR 		= "Compute tour";
     protected final static String CLICK_STEP		= "Display tour";
-    protected final static String MODIFY_TOUR 		= "Change the tour";
-    protected final static String MODIFY_ORDER 		= "Change the tour's order";
-    protected final static String MODIFY_REQUEST	= "Change a request";
+    protected final static String MODIFY_TOUR 		= "Set tour edition mode";
+    protected final static String MODIFY_ORDER 		= "Modify tour order";
+    protected final static String MODIFY_REQUEST	= "Modify a request";
     protected final static String ADD_REQUEST 		= "Add a request";
     protected final static String REMOVE_REQUEST	= "Delete a request";
     
@@ -70,23 +74,26 @@ public class Window extends JFrame{
         JPanel contentPane = (JPanel)getContentPane();
         contentPane.setLayout( new BorderLayout());
 
-        messageFrame = createMessageFrame();
+        this.messageFrame = createMessageFrame();
         contentPane.add(messageFrame,BorderLayout.SOUTH);
 
-        toolBar = createToolBar(controller);
+        this.toolBar = createToolBar(controller);
         contentPane.add(toolBar,BorderLayout.NORTH);
+        this.toolBar.setVisible(this.optionalsButtonsVisible);
         
-        textualView = new TextualView(tour, this.buttonListener);
+        this.textualView = new TextualView(tour, this.buttonListener);
         JScrollPane scrollPane = new JScrollPane( textualView ,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         contentPane.add(scrollPane,BorderLayout.WEST);
         
-        graphicalView = new GraphicalView(tour);
+        this.graphicalView = new GraphicalView(tour);
         contentPane.add(graphicalView,BorderLayout.CENTER);
 
-        mouseListener = new MouseListener( controller,  this, graphicalView);
+        this.mouseListener = new MouseListener( controller,  this, graphicalView);
 		addMouseMotionListener(mouseListener);
         
+		JMenuBar menuBar = createMenuBar();
+		this.setJMenuBar(menuBar);
 		
         this.setVisible(true);
         
@@ -95,53 +102,86 @@ public class Window extends JFrame{
         PointFactory.initPointFactory(graphicalView, null);
 
     }
+    
+    private JMenuBar createMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+        // Load
+        JMenu mnuLoad = new JMenu( " Load... " );
+        mnuLoad.setMnemonic( 'L' );
+        mnuLoad.setForeground(Color.black);
+        
+        JMenuItem mnuLoadMap = new JMenuItem( LOAD_MAP );
+        mnuLoadMap.setSize(new Dimension(50, 50));
+        mnuLoadMap.setMnemonic( 'L' );
+        mnuLoadMap.addActionListener(this.buttonListener);
+        mnuLoad.add(mnuLoadMap);
+        mnuLoad.addSeparator();
 
+        JMenuItem mnuLoadRequest = new JMenuItem( LOAD_REQUEST );
+        mnuLoadRequest.setMnemonic( 'L' );
+        mnuLoadRequest.addActionListener(this.buttonListener);
+        mnuLoad.add(mnuLoadRequest);
+        
+        menuBar.add(mnuLoad);
+        
+        // Compute
+        JMenu mnuCompute = new JMenu( " Compute " );
+        mnuCompute.setMnemonic( 'C' );
+        
+        JMenuItem mnuComputeTour = new JMenuItem( COMPUTE_TOUR );
+        mnuComputeTour.setMnemonic( 'C' );
+        mnuComputeTour.addActionListener(this.buttonListener);
+        mnuCompute.add(mnuComputeTour);
+        
+        menuBar.add( mnuCompute );
+        
+        // Edit 
+        JMenu mnuEdit = new JMenu( " Edit " );
+        mnuEdit.setMnemonic( 'E' );
+        
+        JMenuItem modifyTour = new JMenuItem( MODIFY_TOUR );
+        modifyTour.setMnemonic( 'S' );
+        modifyTour.addActionListener(this.buttonListener);
+        
+        mnuEdit.add(modifyTour);
+        menuBar.add( mnuEdit );
+        return menuBar;
+    }
+
+    
     JToolBar createToolBar(Controller controller)
     {
         JToolBar toolBar = new JToolBar();
         toolBar.setPreferredSize(new Dimension(100,30));
-
-        JButton loadMapButton = new JButton(LOAD_MAP);
-        loadMapButton.addActionListener(buttonListener);
-        toolBar.add(loadMapButton);
-
-        JButton loadRequestsButton = new JButton(LOAD_REQUEST);
-        loadRequestsButton.addActionListener(buttonListener);
-        toolBar.add(loadRequestsButton);
-
-        JButton calcuateTourButton = new JButton(COMPUTE_TOUR);
-        calcuateTourButton.addActionListener(buttonListener);
-        toolBar.add(calcuateTourButton);
         
-        JButton modifyTourButton = new JButton(MODIFY_TOUR);
-        modifyTourButton.addActionListener(buttonListener);
-        toolBar.add(modifyTourButton);
+        JButton addRequestButton = new JButton(ADD_REQUEST);
+        addRequestButton.addActionListener(buttonListener);
+        addRequestButton.setForeground(Color.darkGray);
+        addRequestButton.setVisible(false);
+        optionalsButtons.add(addRequestButton);
+        toolBar.add(addRequestButton);
+        
+        JButton modifyRequestButton = new JButton(MODIFY_REQUEST);
+        modifyRequestButton.addActionListener(buttonListener);
+        modifyRequestButton.setForeground(Color.darkGray);
+        modifyRequestButton.setVisible(false);
+        optionalsButtons.add(modifyRequestButton);
+        toolBar.add(modifyRequestButton);
         
         JButton modifyOrderButton = new JButton(MODIFY_ORDER);
         modifyOrderButton.addActionListener(buttonListener);
         modifyOrderButton.setVisible(false);
+        modifyOrderButton.setForeground(Color.darkGray);
         optionalsButtons.add(modifyOrderButton);
         toolBar.add(modifyOrderButton);
-
-        JButton addRequestButton = new JButton(ADD_REQUEST);
-        addRequestButton.addActionListener(buttonListener);
-        addRequestButton.setVisible(false);
-        optionalsButtons.add(addRequestButton);
-        toolBar.add(addRequestButton);
-
+       
         JButton removeRequestButton = new JButton(REMOVE_REQUEST);
         removeRequestButton.addActionListener(buttonListener);
+        removeRequestButton.setForeground(Color.darkGray);
         removeRequestButton.setVisible(false);
         optionalsButtons.add(removeRequestButton);
         toolBar.add(removeRequestButton);
         
-        JButton modifyRequestButton = new JButton(MODIFY_REQUEST);
-        modifyRequestButton.addActionListener(buttonListener);
-        modifyRequestButton.setVisible(false);
-        optionalsButtons.add(modifyRequestButton);
-        toolBar.add(modifyRequestButton);
-
-
         return toolBar;
     }
 
@@ -161,8 +201,6 @@ public class Window extends JFrame{
     	messageFrame.setText(message);
     }
     
-    
-    
     public boolean isOptionalsButtonsVisible() {
 		return optionalsButtonsVisible;
 	}
@@ -171,6 +209,7 @@ public class Window extends JFrame{
     	this.optionalsButtonsVisible = !this.optionalsButtonsVisible;
     	for(JButton b : optionalsButtons)
     		b.setVisible(optionalsButtonsVisible);
+    	this.toolBar.setVisible(optionalsButtonsVisible);
     }
     
     
@@ -199,7 +238,7 @@ public class Window extends JFrame{
     		try {
     			i = Integer.parseInt(str);
     		} catch(Exception e) {
-    			System.out.println("Erreur :  la saisie n'est pas un entier valide ");
+    			System.out.println("Window:displaySelectOrder Erreur :  la saisie n'est pas un entier valide ");
     		}
     	}
     	return i;

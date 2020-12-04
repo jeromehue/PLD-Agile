@@ -61,45 +61,14 @@ public class RequestLoadedState implements State {
 		
 		@Override
 		public void computeTour(Controller c, Window w, Tour t) {
-			Request request = w.graphicalView.getRequest();
-			CityMap cityMap = w.graphicalView.getCityMap();
-			
 			//Modify the tour
-			
-			Pcc shortestPathComputer = new Pcc(cityMap , request);
+			Pcc shortestPathComputer = new Pcc(w.graphicalView.getCityMap() ,  w.graphicalView.getRequest() );
 			shortestPathComputer.computePcc();
 			
 			Tour t2 = shortestPathComputer.computeGooodTSPTour();
-			t.setTour(t2.getStartingIntersection(), t2.getRequest(), t2.getWaysList());
+			t.setTour(t2);
 			t.notifyObservers();
 			
-			//t = shortestPathComputer.computeTour();
-			//w.graphicalView.setTour(t);
-			
-			
-			/*
-			Intersection intersection = request.getStartingLocation();
-			Intersection oldIntersecction;
-			Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
-			while(itPickUpTest.hasNext())
-			{
-				oldIntersecction = intersection;
-				intersection = itPickUpTest.next();
-				
-				List<Segment> localPaths = shortestPathComputer.getRoads(oldIntersecction,intersection);
-				t.addNewWayInwaysList(localPaths, localPaths.get(0).getOrigin(), localPaths.get(localPaths.size()-1).getDestination());
-			}
-			
-			Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
-			while(itDeliveryTest.hasNext())
-			{
-				oldIntersecction = intersection;
-				intersection = itDeliveryTest.next();
-				
-				List<Segment> localPaths2 = shortestPathComputer.getRoads(oldIntersecction,intersection);
-				t.addNewWayInwaysList(localPaths2, localPaths2.get(0).getOrigin(), localPaths2.get(localPaths2.size()-1).getDestination());
-				
-			}*/
 			w.graphicalView.setHighlightedWay(null);
 			w.setMessage("Your tour");
 		}

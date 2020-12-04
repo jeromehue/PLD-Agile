@@ -85,9 +85,8 @@ public class Way {
 	}
 	
 	public Integer getStayingDurationForDeparturePoint() {
-		return ((departureTime.getHour() - startingTime.getHour()) * 3600
-				+ (departureTime.getMinute() - startingTime.getMinute())*60
-				+ departureTime.getSecond() - startingTime.getSecond());
+		return ((departureTime.getHour() - startingTime.getHour()) * 60
+				+ (departureTime.getMinute() - startingTime.getMinute()));
 	}
 	
 	

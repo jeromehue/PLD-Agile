@@ -97,7 +97,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				
 				currentWay = itwaysInTour.next();
 				
-				text += "Time spent on the spot : "+ currentWay.getStayingDurationForDeparturePoint() + " seconds. <br />";
+				text += "Time spent on the spot : "+ currentWay.getStayingDurationForDeparturePoint() + " minute(s). <br />";
 				text += "Leave at " + currentWay.getDepartureTime().getHour() + ":";
 				if (currentWay.getDepartureTime().getMinute()<10)
 				{
@@ -137,10 +137,6 @@ public class TextualView extends JPanel implements Observer, Visitor{
 		for(JButton b : pointsJButtonList) {
 			b.setContentAreaFilled(false);
 		}
-	}
-	
-	public void display(Way w) {
-		
 	}
 	
 	@Override
