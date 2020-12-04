@@ -154,26 +154,12 @@ public class Window extends JFrame{
         JToolBar toolBar = new JToolBar();
         toolBar.setPreferredSize(new Dimension(100,30));
         
-        JButton modifyOrderButton = new JButton(MODIFY_ORDER);
-        modifyOrderButton.addActionListener(buttonListener);
-        modifyOrderButton.setVisible(false);
-        modifyOrderButton.setForeground(Color.darkGray);
-        optionalsButtons.add(modifyOrderButton);
-        toolBar.add(modifyOrderButton);
-
         JButton addRequestButton = new JButton(ADD_REQUEST);
         addRequestButton.addActionListener(buttonListener);
         addRequestButton.setForeground(Color.darkGray);
         addRequestButton.setVisible(false);
         optionalsButtons.add(addRequestButton);
         toolBar.add(addRequestButton);
-
-        JButton removeRequestButton = new JButton(REMOVE_REQUEST);
-        removeRequestButton.addActionListener(buttonListener);
-        removeRequestButton.setForeground(Color.darkGray);
-        removeRequestButton.setVisible(false);
-        optionalsButtons.add(removeRequestButton);
-        toolBar.add(removeRequestButton);
         
         JButton modifyRequestButton = new JButton(MODIFY_REQUEST);
         modifyRequestButton.addActionListener(buttonListener);
@@ -181,8 +167,21 @@ public class Window extends JFrame{
         modifyRequestButton.setVisible(false);
         optionalsButtons.add(modifyRequestButton);
         toolBar.add(modifyRequestButton);
-
-
+        
+        JButton modifyOrderButton = new JButton(MODIFY_ORDER);
+        modifyOrderButton.addActionListener(buttonListener);
+        modifyOrderButton.setVisible(false);
+        modifyOrderButton.setForeground(Color.darkGray);
+        optionalsButtons.add(modifyOrderButton);
+        toolBar.add(modifyOrderButton);
+       
+        JButton removeRequestButton = new JButton(REMOVE_REQUEST);
+        removeRequestButton.addActionListener(buttonListener);
+        removeRequestButton.setForeground(Color.darkGray);
+        removeRequestButton.setVisible(false);
+        optionalsButtons.add(removeRequestButton);
+        toolBar.add(removeRequestButton);
+        
         return toolBar;
     }
 
