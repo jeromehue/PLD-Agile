@@ -22,14 +22,14 @@ class testPcc {
 	@Test
 	void test() {
 		System.out.println("TEST\n-----------------" + "testPcc.java : test");
-		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/smallMap.xml");
+		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/largeMap.xml");
 		CityMap city = cmpp.parse();
 		
 		assertTrue(city.getIntersections() != null);
 		assertTrue(city.getIntersections().size() > 7);
 
 		
-		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsSmall1.xml", city);
+		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsLarge7.xml", city);
 		Request request = new Request();
 		try {
 			request = rp.parse();

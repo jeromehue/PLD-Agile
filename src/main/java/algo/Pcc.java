@@ -176,12 +176,14 @@ public class Pcc {
 		return (int) (lengthAB/bikeVelocity) ;
 	}
 	
-	public Tour computeGooodTSPTour(){
+	public Tour computeGooodTSPTour() {
 		CompleteGraph graph = computePcc();
 		System.out.println("[PCC.computeTour] taille graphe : "+graph.getNbVertices());
 		// TODO: remove 1000 and set a real max discrepancy
 		TSP1 tsp = new TSP1(graph, request, 1000);
 		tsp.init();
+		System.out.println("okay TSP init");
+
 		long startTime = System.currentTimeMillis();
 		tsp.searchSolution(40000);
 		System.out.print("Solution of cost "+tsp.getSolutionCost()+" found in "
@@ -189,6 +191,7 @@ public class Pcc {
 		
 		Intersection inter;
 		Long idInter;
+		System.out.println("okay TSP");
 		List<Intersection> goodInterList = new ArrayList<Intersection>();
 		
 		for (int i=0; i<graph.getNbVertices(); i++) {
