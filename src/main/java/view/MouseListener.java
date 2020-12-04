@@ -5,8 +5,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.SwingUtilities;
 
-import controller.Controller;
-
 import modele.Point;
 import modele.PointFactory;
 import modele.Segment;
@@ -14,7 +12,6 @@ import java.util.List;
 
 public class MouseListener extends MouseAdapter{
 
-	private Controller controller;
 	private Window window;
 	private GraphicalView graphicalView;
 
@@ -25,8 +22,7 @@ public class MouseListener extends MouseAdapter{
 	 * @param window
 	 * @param graphicalView
 	 */
-	public MouseListener(Controller controller, Window window, GraphicalView graphicalView) {
-		this.controller = controller;
+	public MouseListener(Window window, GraphicalView graphicalView) {
 		this.window = window;
 		this.graphicalView = graphicalView;
 	}
@@ -173,13 +169,13 @@ public class MouseListener extends MouseAdapter{
 		return false;
 	}
 	
-	private boolean isFlat(int x1, int y1,  int x2, int y2) {
+	/*private boolean isFlat(int x1, int y1,  int x2, int y2) {
 		int diffX = (int) Math.abs(x2 - x1);
 		int diffY = (int) Math.abs(y2 - y1);
 		
 		if (diffX < 5 || diffY < 5) 
 			return true;
 		return false;
-	}
+	}*/
 	
 }

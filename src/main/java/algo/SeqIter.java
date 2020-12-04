@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import modele.Request;
 
@@ -77,6 +78,9 @@ public class SeqIter implements Iterator<Integer> {
 
 	@Override
 	public Integer next() {
+		if(!hasNext()) {
+			throw new NoSuchElementException();
+		}
 		nbCandidates--;
 		return candidates[nbCandidates];
 	}

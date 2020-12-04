@@ -138,9 +138,9 @@ public class Tour extends Observable{
 						isPositionConsistent = true;
 					}
 				}
-				else {
+				/*else {
 					System.out.println("[Tour.update] currentInter is null...");
-				}
+				}*/
 			} 
 			while(!currentInter.getId().equals(idInterToCheck));
 		}

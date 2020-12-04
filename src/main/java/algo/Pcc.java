@@ -154,7 +154,7 @@ public class Pcc {
 		}while(path != null);
 		
 		
-		Intersection passage = segmentsList.get(0).getOrigin();
+		//Intersection passage = segmentsList.get(0).getOrigin();
 
 		/*
 		System.out.println("Affichage de trajet : ");
