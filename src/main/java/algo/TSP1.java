@@ -44,7 +44,7 @@ public class TSP1 extends TemplateTSP {
 		for(Integer startVertex : unvisited) {
 			localMin = g.getCost(startVertex, 0);
 			for(Integer targetVertex : unvisited) {
-				if(startVertex.equals(targetVertex) && g.getCost(startVertex, targetVertex) < localMin) {
+				if(!startVertex.equals(targetVertex) && g.getCost(startVertex, targetVertex) < localMin) {
 					localMin = g.getCost(startVertex, targetVertex);
 				}
 			}
