@@ -41,7 +41,7 @@ public class testTSP {
 		CompleteGraph graph = pcc.computePcc();
 		TSP1 tsp;
 		
-		Integer offset = 20; // paramètre à faire varier pour tester, à partir de dmax = 85 ça trouve le chemin optimal
+		Integer offset = 80; // paramètre à faire varier pour tester, à partir de dmax = 85 ça trouve le chemin optimal
 		
 		for(Integer i = 0 ; i < 50 ; ++i) {
 			
