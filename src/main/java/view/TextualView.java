@@ -139,10 +139,6 @@ public class TextualView extends JPanel implements Observer, Visitor{
 		}
 	}
 	
-	public void display(Way w) {
-		
-	}
-	
 	@Override
 	public void display(Segment s) {
 		/*text += s.getName() + " sur  " + (int)s.getLength() +" mètres <br />";

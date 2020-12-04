@@ -28,8 +28,4 @@ public class ButtonWay extends JButton{
 		this.way = way;
 	}
 	
-	public void setText() {
-		
-	}
-	
 }
