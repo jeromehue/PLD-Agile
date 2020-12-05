@@ -9,7 +9,6 @@ import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
 public class MapLoadedState implements State {
-
 	
 		@Override
 		public void loadMap(Controller c, Window w, Tour t) {

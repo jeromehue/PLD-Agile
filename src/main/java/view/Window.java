@@ -13,6 +13,10 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,6 +33,7 @@ import modele.PointFactory;
 
 public class Window extends JFrame{
 
+	private static final Logger logger = LoggerFactory.getLogger(Window.class);
 	private static final long serialVersionUID = 1L;
 	
 	//Components
@@ -36,8 +41,6 @@ public class Window extends JFrame{
 	public TextualView textualView;
 	private JLabel messageFrame;
     private JToolBar toolBar;
-    
-    
     private ArrayList<JButton> optionalsButtons;
     private boolean optionalsButtonsVisible;
     
@@ -223,7 +226,7 @@ public class Window extends JFrame{
 		    String absPath = null;
 		    if(returnVal == JFileChooser.APPROVE_OPTION) 
 		    {
-		      System.out.println("You chose to open this file: " + fc.getSelectedFile().getAbsolutePath()) ;
+		      logger.info("You chose totv open this file: " + fc.getSelectedFile().getAbsolutePath()) ;
 		      absPath = fc.getSelectedFile().getAbsolutePath();
 		    } 
 		    return absPath;

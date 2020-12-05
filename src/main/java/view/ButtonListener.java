@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.Controller;
-import xml.XMLCityMapParser;
+
 
 public class ButtonListener  implements ActionListener  {
 	private static final Logger logger = LoggerFactory.getLogger(ButtonListener.class);
@@ -21,9 +21,12 @@ public class ButtonListener  implements ActionListener  {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() instanceof ButtonWay) {
 			switch (e.getActionCommand()) {
-			case Window.CLICK_STEP: System.out.println("Click on a Step label button");
+			case Window.CLICK_STEP: 
+				logger.info("Click on a Step label button");
 			controller.clickOnStep(((ButtonWay) e.getSource()).getWay(), ((ButtonWay) e.getSource())); break;
-			default: System.out.println("Click button: DEFAULT_CASE_1"); break;
+			default: 
+				logger.info("Click button: DEFAULT_CASE_1"); 
+				break;
 			}
 		}
 		else {
@@ -47,10 +50,12 @@ public class ButtonListener  implements ActionListener  {
 				controller.changeOptionalsButtonsVisibility();
 				break;
 			case Window.MODIFY_ORDER: 
-				System.out.println("Click on MODIFY_ORDER button");
+				logger.info("Click on MODIFY_ORDER button");
 				controller.modifyOrder();
 				break;
-			default: System.out.println("Click button: DEFAULT_CASE_2"); break;
+			default: 
+				logger.info("Click button: DEFAULT_CASE_2"); 
+				break;
 			}
 		}
 	}
