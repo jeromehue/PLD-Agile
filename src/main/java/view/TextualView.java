@@ -25,6 +25,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 	private Tour tour;
 	private ArrayList<JButton> pointsJButtonList;
 
+	
 	public TextualView(Tour tour, ButtonListener buttonListener){
 		super();
 		setBorder(BorderFactory.createTitledBorder("Itinerary"));
@@ -33,7 +34,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
         this.setBackground(Window.BACKGROUND_COLOR);
         this.tour = tour;
         this.tour.addObserver(this);
-        this.pointsJButtonList = new ArrayList<JButton>();
+        this.pointsJButtonList = new ArrayList<>();
         this.buttonListener = buttonListener;
 	}
 	

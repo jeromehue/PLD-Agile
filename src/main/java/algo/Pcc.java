@@ -239,7 +239,7 @@ public class Pcc {
 				
 			} else {
 				stayingStartDuration = request.getDurationPickUpDelivery(start.getId());
-				arrivalAtStart = tourStartingTime.plusSeconds(new Long(totalWayDuration - wayDuration));
+				arrivalAtStart = tourStartingTime.plusSeconds((long) totalWayDuration - wayDuration);
 				departureFromStart = arrivalAtStart.plusSeconds(stayingStartDuration);
 				totalWayDuration += stayingStartDuration;
 			}

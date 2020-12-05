@@ -20,13 +20,14 @@ public class ButtonListener  implements ActionListener  {
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() instanceof ButtonWay) {
-			switch (e.getActionCommand()) {
-			case Window.CLICK_STEP: 
+			
+			if (e.getActionCommand().equals(Window.CLICK_STEP)) {
 				logger.info("Click on a Step label button");
-			controller.clickOnStep(((ButtonWay) e.getSource()).getWay(), ((ButtonWay) e.getSource())); break;
-			default: 
+				controller.clickOnStep(((ButtonWay) e.getSource()).getWay(), ((ButtonWay) e.getSource())); 
+			}
+			else 
+			{ 
 				logger.info("Click button: DEFAULT_CASE_1"); 
-				break;
 			}
 		}
 		else {

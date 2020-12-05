@@ -19,14 +19,14 @@ public class RequestLoadedState implements State {
 		public void loadMap(Controller c, Window w, Tour t) {
 			
 			String path = w.createDialogBoxToGetFilePath();
-			w.graphicalView.setHighlightedWay(null);
+			w.getGraphicalView().setHighlightedWay(null);
 			if(path != null) 
 			{
 				XMLCityMapParser p = new XMLCityMapParser(path);
 				CityMap cityMap = p.parse();
-				w.graphicalView.setCityMap(cityMap);
+				w.getGraphicalView().setCityMap(cityMap);
 				c.setCurrentstate(c.mapLoadedState);
-				w.graphicalView.setRequest(null);
+				w.getGraphicalView().setRequest(null);
 				t.ClearTour();
 			}
 			else 
@@ -38,13 +38,13 @@ public class RequestLoadedState implements State {
 		@Override
 		public void loadRequest(Controller c, Window w, Tour t) {
 			String path = w.createDialogBoxToGetFilePath();
-			w.graphicalView.setHighlightedWay(null);
+			w.getGraphicalView().setHighlightedWay(null);
 			if(path != null) 
 			{
 				try {
-					XMLRequestParser p = new XMLRequestParser(path, w.graphicalView.getCityMap());
+					XMLRequestParser p = new XMLRequestParser(path, w.getGraphicalView().getCityMap());
 					Request request = p.parse();
-					w.graphicalView.setRequest(request);
+					w.getGraphicalView().setRequest(request);
 					c.setCurrentstate(c.requestLoadedState);
 					w.setMessage("The requests were successfully loaded. You may now compute the tour.");
 					t.ClearTour();
@@ -62,21 +62,21 @@ public class RequestLoadedState implements State {
 		@Override
 		public void computeTour(Controller c, Window w, Tour t) {
 			//Modify the tour
-			Pcc shortestPathComputer = new Pcc(w.graphicalView.getCityMap() ,  w.graphicalView.getRequest() );
+			Pcc shortestPathComputer = new Pcc(w.getGraphicalView().getCityMap() ,  w.getGraphicalView().getRequest() );
 			shortestPathComputer.computePcc();
 			
 			Tour t2 = shortestPathComputer.computeGooodTSPTour();
 			t.setTour(t2);
 			t.notifyObservers();
 			
-			w.graphicalView.setHighlightedWay(null);
+			w.getGraphicalView().setHighlightedWay(null);
 			w.setMessage("Your tour");
 		}
 		
 		@Override
 		public void clickOnStep(Window w, Way wa, JButton button){	
-			w.textualView.clearAllTextArea();
+			w.getTextualView().clearAllTextArea();
 			button.setContentAreaFilled(true);
-			w.graphicalView.setHighlightedWay(wa);
+			w.getGraphicalView().setHighlightedWay(wa);
 		}
 }
