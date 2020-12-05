@@ -231,14 +231,15 @@ public class Window extends JFrame{
     
     
     public int displaySelectOrderDialog() {
-    	int i = -1;
-    	while (i == -1) {
+    	System.out.println("Entering displaySelectOrderDialog");
+    	int i = 0;
+    	while (i == 0) {
     		String str = JOptionPane.showInputDialog(this, "Entrez la nouvelle place de cette étape");
     		if (str == null) {return -1;}
     		try {
     			i = Integer.parseInt(str);
     		} catch(Exception e) {
-    			System.out.println("Window:displaySelectOrder Erreur :  la saisie n'est pas un entier valide ");
+    			System.out.println("Window:displaySelectOrder Erreur :  la saisie n'est pas un entier valide, ou est égale à 0");
     		}
     	}
     	return i;

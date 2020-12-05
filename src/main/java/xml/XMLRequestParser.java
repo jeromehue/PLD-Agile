@@ -16,10 +16,14 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import modele.*;
 
 public class XMLRequestParser extends XMLParser {
-
+	private static final Logger logger = LoggerFactory.getLogger(XMLRequestParser.class);
+	
 	private CityMap cityMap;
 	
 	public XMLRequestParser(String filename, CityMap cityMap) {
@@ -105,7 +109,7 @@ public class XMLRequestParser extends XMLParser {
 		    return (r);
 		    
 		} catch (InvalidRequestException e) {
-			System.out.println("Erreur lors de la récupération du fichier XML de requête : ");
+			logger.error("Erreur lors de la récupération du fichier XML de requête : ");
 			e.printStackTrace();
 			throw e;
 			//return (null);
