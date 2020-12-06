@@ -11,12 +11,13 @@ import view.Window;
 public class DeleteStepState implements State{
 	
 	@Override
-	public void clickOnStep(Window w, Way wa, JButton button, Tour t){	
-		button.setContentAreaFilled(true);
-		//w.graphicalView.setHighlightedWay(wa);
+	public void clickOnStep(Controller c, Window w, Way wa, JButton button, Tour t){	
 		Intersection stepToDelete = wa.getDeparture();
+		System.out.println(stepToDelete.toString());
 		
-		Pcc shortestPathComputer = new Pcc(w.graphicalView.getCityMap() , w.graphicalView.getRequest());
+		Pcc shortestPathComputer = new Pcc(w.getGraphicalView().getCityMap() , w.getGraphicalView().getRequest());
 		shortestPathComputer.deleteIntersection(t, stepToDelete);
+		
+		c.setCurrentstate(c.tourModificationState);
 	}
 }

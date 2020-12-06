@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 
 import org.slf4j.Logger;
@@ -17,6 +19,7 @@ public class Controller {
 	
 	private State currentState;
 	private Tour tour;
+	private ArrayList<Tour> tourModificationsHistory;
 	
 	//States
 	protected final InitState initState = new InitState();
@@ -28,6 +31,7 @@ public class Controller {
 	
 	public Controller() {
 		this.tour = new Tour();
+		this.tourModificationsHistory = new ArrayList<Tour>();
 		window = new Window(this, tour);
 		currentState = initState;
 	}
@@ -51,11 +55,11 @@ public class Controller {
 	}
 	
 	public void clickOnStep(Way way, JButton button) {
-		currentState.clickOnStep( this.window, way, button, this.tour);
+		currentState.clickOnStep(this, this.window, way, button, this.tour);
 	}
 	
 	public void modifyOrder() {
-		setCurrentstate(orderModificationState);
+		currentState.modifyOrder(this, this.window);
 	}
 
 	public void deleteAStep() {

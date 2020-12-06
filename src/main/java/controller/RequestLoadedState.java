@@ -74,7 +74,7 @@ public class RequestLoadedState implements State {
 		}
 		
 		@Override
-		public void clickOnStep(Window w, Way wa, JButton button, Tour t){	
+		public void clickOnStep(Controller c, Window w, Way wa, JButton button, Tour t){	
 			w.getTextualView().clearAllTextArea();
 			button.setContentAreaFilled(true);
 			w.getGraphicalView().setHighlightedWay(wa);
