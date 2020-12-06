@@ -2,12 +2,16 @@ package controller;
 
 import javax.swing.JButton;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import modele.Tour;
 import modele.Way;
 import view.Window;
 
 
 public class Controller {
+	private static final Logger logger = LoggerFactory.getLogger(Controller.class);
 	
 	private Window window;
 	
@@ -30,7 +34,7 @@ public class Controller {
 	
 	protected void setCurrentstate(State state){
 		currentState = state;
-		System.out.println("Updated state, CURRENT STATE is : "+ currentState);
+		logger.info("Updated state, CURRENT STATE is : "+ currentState);
 	}
 	
 	public void loadMap() {

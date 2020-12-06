@@ -5,8 +5,14 @@ package xml;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+
+
+
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.util.ArrayList;
@@ -16,7 +22,9 @@ import java.util.List;
 import modele.*;
 
 public class XMLCityMapParser extends XMLParser {
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(XMLCityMapParser.class);
+	
 	public XMLCityMapParser(String filename) {
 		super(filename);
 	}
@@ -92,7 +100,7 @@ public class XMLCityMapParser extends XMLParser {
 		    }
 			
 		} catch (Exception e) {
-			System.out.println("Erreur dans XMLCityMapParser");
+			logger.error("Erreur in XMLCityMapParser");
 			e.printStackTrace();
 		}
 

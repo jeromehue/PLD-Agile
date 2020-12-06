@@ -14,7 +14,7 @@ public class InitState implements State {
 		{
 			XMLCityMapParser p = new XMLCityMapParser(path);
 			CityMap cityMap = p.parse();
-			w.graphicalView.setCityMap(cityMap);
+			w.getGraphicalView().setCityMap(cityMap);
 			c.setCurrentstate(c.mapLoadedState);
 			w.setMessage ("The map was successfully loaded. You may now load requests.");
 		}

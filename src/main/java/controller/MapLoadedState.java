@@ -9,7 +9,6 @@ import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
 public class MapLoadedState implements State {
-
 	
 		@Override
 		public void loadMap(Controller c, Window w, Tour t) {
@@ -19,7 +18,7 @@ public class MapLoadedState implements State {
 			{
 				XMLCityMapParser p = new XMLCityMapParser(path);
 				CityMap cityMap = p.parse();
-				w.graphicalView.setCityMap(cityMap);
+				w.getGraphicalView().setCityMap(cityMap);
 				c.setCurrentstate(c.mapLoadedState);
 				w.setMessage ("The map was successfully loaded. You may now load requests.");
 			}
@@ -35,9 +34,9 @@ public class MapLoadedState implements State {
 			if(path != null) 
 			{
 				try {
-					XMLRequestParser p = new XMLRequestParser(path, w.graphicalView.getCityMap());
+					XMLRequestParser p = new XMLRequestParser(path, w.getGraphicalView().getCityMap());
 					Request request = p.parse();
-					w.graphicalView.setRequest(request);
+					w.getGraphicalView().setRequest(request);
 					c.setCurrentstate(c.requestLoadedState);
 					w.setMessage("The requests were successfully loaded. You may now compute the tour.");
 				} catch (InvalidRequestException e) {

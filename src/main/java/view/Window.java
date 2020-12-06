@@ -11,8 +11,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,15 +34,27 @@ import modele.PointFactory;
 
 public class Window extends JFrame{
 
+	private static final Logger logger = LoggerFactory.getLogger(Window.class);
 	private static final long serialVersionUID = 1L;
 	
+	protected final static Color BACKGROUND_COLOR = new Color(224,224,224);
+	    
+	//Buttons titles
+	protected final static String LOAD_MAP 			= "Load XML Map...";
+	protected final static String LOAD_REQUEST 		= "Load XML Requests...";
+	protected final static String COMPUTE_TOUR 		= "Compute tour";
+	protected final static String CLICK_STEP		= "Display tour";
+	protected final static String MODIFY_TOUR 		= "Set tour edition mode";
+	protected final static String MODIFY_ORDER 		= "Modify tour order";
+	protected final static String MODIFY_REQUEST	= "Modify a request";
+	protected final static String ADD_REQUEST 		= "Add a request";
+	protected final static String REMOVE_REQUEST	= "Delete a request";
+	
 	//Components
-	public GraphicalView graphicalView;
-	public TextualView textualView;
+	private GraphicalView graphicalView;
+	private TextualView textualView;
 	private JLabel messageFrame;
     private JToolBar toolBar;
-    
-    
     private ArrayList<JButton> optionalsButtons;
     private boolean optionalsButtonsVisible;
     
@@ -45,29 +62,18 @@ public class Window extends JFrame{
     private ButtonListener buttonListener;
     private MouseListener mouseListener;
     
-    protected final static Color BACKGROUND_COLOR = new Color(224,224,224);
-    
-    //Buttons titles
-    protected final static String LOAD_MAP 			= "Load XML Map...";
-    protected final static String LOAD_REQUEST 		= "Load XML Requests...";
-    protected final static String COMPUTE_TOUR 		= "Compute tour";
-    protected final static String CLICK_STEP		= "Display tour";
-    protected final static String MODIFY_TOUR 		= "Set tour edition mode";
-    protected final static String MODIFY_ORDER 		= "Modify tour order";
-    protected final static String MODIFY_REQUEST	= "Modify a request";
-    protected final static String ADD_REQUEST 		= "Add a request";
-    protected final static String REMOVE_REQUEST	= "Delete a request";
+ 
     
     public Window(Controller controller, Tour tour){
         super("Deliver'IF");
         this.buttonListener = new ButtonListener(controller);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setSize(1800,1020);
         this.setLocationRelativeTo(null);
         this.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         
         this.optionalsButtonsVisible = false;
-        optionalsButtons = new ArrayList<JButton>();
+        optionalsButtons = new ArrayList<>();
         try { UIManager.setLookAndFeel(new NimbusLookAndFeel()); }
         catch(Exception e){}
     
@@ -223,7 +229,7 @@ public class Window extends JFrame{
 		    String absPath = null;
 		    if(returnVal == JFileChooser.APPROVE_OPTION) 
 		    {
-		      System.out.println("You chose to open this file: " + fc.getSelectedFile().getAbsolutePath()) ;
+		      logger.info("You chose totv open this file: " + fc.getSelectedFile().getAbsolutePath()) ;
 		      absPath = fc.getSelectedFile().getAbsolutePath();
 		    } 
 		    return absPath;
@@ -231,18 +237,27 @@ public class Window extends JFrame{
     
     
     public int displaySelectOrderDialog() {
-    	int i = -1;
-    	while (i == -1) {
+    	logger.info("Entering displaySelectOrderDialog");
+    	int i = 0;
+    	while (i == 0) {
     		String str = JOptionPane.showInputDialog(this, "Entrez la nouvelle place de cette étape");
     		if (str == null) {return -1;}
     		try {
     			i = Integer.parseInt(str);
     		} catch(Exception e) {
-    			System.out.println("Window:displaySelectOrder Erreur :  la saisie n'est pas un entier valide ");
+    			logger.error("La saisie n'est pas un entier valide, ou est égale à 0");
     		}
     	}
     	return i;
     }
+
+	public GraphicalView getGraphicalView() {
+		return graphicalView;
+	}
+
+	public TextualView getTextualView() {
+		return textualView;
+	}
     
 }
         
