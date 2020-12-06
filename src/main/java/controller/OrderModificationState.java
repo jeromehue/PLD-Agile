@@ -14,14 +14,14 @@ import view.Window;
 public class OrderModificationState implements State {
 
 	
-	public void clickOnStep(Window w, Way wa, JButton button) {
+	public void clickOnStep(Window w, Way wa, JButton button, Tour t) {
 		System.out.println("[Order Modification State] Modify order of tour in controller");
 		System.out.println("[Order Modification State] Intersection to be modify" + wa.getDeparture());
 		
 		// Testing purposes
 		int newIndex = w.displaySelectOrderDialog();
 		Intersection intersection = wa.getDeparture();
-		Tour t = w.graphicalView.getTour();
+		//Tour t = w.graphicalView.getTour(); 
 		//CityMap cityMap = w.graphicalView.getCityMap();
 		//Request request = w.graphicalView.getRequest();
 		//Pcc shortestPathComputer = new Pcc(cityMap , request);

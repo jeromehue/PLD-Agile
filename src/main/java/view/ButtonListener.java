@@ -32,10 +32,11 @@ public class ButtonListener  implements ActionListener  {
 			case Window.COMPUTE_TOUR: System.out.println("Click on COMPUTE_TOUR button");
 			controller.computeTour(); break;
 			case Window.MODIFY_TOUR: System.out.println("Click on MODIFY_TOUR button");
-			controller.changeOptionalsButtonsVisibility();break;
+			controller.changeOptionalsButtonsVisibility(); break;
 			case Window.MODIFY_ORDER: System.out.println("Click on MODIFY_ORDER button");
-			controller.modifyOrder();
-			break;
+			controller.modifyOrder(); break;
+			case Window.REMOVE_REQUEST: System.out.println("Click on REMOVE_REQUEST button");
+			controller.deleteAStep(); break;
 			default: System.out.println("Click button: DEFAULT_CASE_2"); break;
 			}
 		}

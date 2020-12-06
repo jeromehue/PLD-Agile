@@ -11,14 +11,16 @@ public class Controller {
 	
 	private Window window;
 	
-	//States
 	private State currentState;
 	private Tour tour;
+	
+	//States
 	protected final InitState initState = new InitState();
 	protected final MapLoadedState mapLoadedState = new MapLoadedState();
 	protected final RequestLoadedState requestLoadedState = new RequestLoadedState();
 	protected final TourModificationState tourModificationState = new TourModificationState();
 	protected final OrderModificationState orderModificationState = new OrderModificationState();
+	protected final DeleteStepState deleteStepState = new DeleteStepState();
 	
 	public Controller() {
 		this.tour = new Tour();
@@ -44,14 +46,17 @@ public class Controller {
 		currentState.computeTour(this, this.window, this.tour);
 	}
 	
-	public void clickOnStep(Way w, JButton button) {
-		currentState.clickOnStep(this.window, w, button);
+	public void clickOnStep(Way way, JButton button) {
+		currentState.clickOnStep( this.window, way, button, this.tour);
 	}
 	
 	public void modifyOrder() {
 		setCurrentstate(orderModificationState);
 	}
 
+	public void deleteAStep() {
+		currentState.deleteAStep(this, this.window);
+	}
 	
 	public void changeOptionalsButtonsVisibility() {
 		this.window.changeOptionalsButtonsVisibility();
