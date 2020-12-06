@@ -107,5 +107,15 @@ public class Request {
 	public Integer getDurationPickUpDelivery(Long id) {
 		return durations.get(id);
 	}
+	
+	public void addRequest(Intersection pickUp, Intersection delivery, Integer pickUpDuration, Integer deliveryDuration) {
+		this.deliveryFromPickUp.put(pickUp.getId(), delivery.getId());
+		this.pickUpLocations.add(delivery);
+		this.deliveryLocations.add(pickUp);
+		this.durations.put(pickUp.getId(), pickUpDuration);
+		this.durations.put(delivery.getId(), deliveryDuration);
+	}
+	
+	
 
 }

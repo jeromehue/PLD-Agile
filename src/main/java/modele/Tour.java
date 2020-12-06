@@ -33,7 +33,9 @@ public class Tour extends Observable{
 	public Tour() {
 		this.startingIntersection = null;
 		this.waysList = new ArrayList<Way>();
-		this.request = null;	}
+		this.request = null;	
+	}
+	
 	public void initPositionConsistent() {
 		isPositionConsistent = new HashMap<Long, Boolean>();
 		for(int i = 0 ; i < request.getPickUpLocations().size(); ++i) {

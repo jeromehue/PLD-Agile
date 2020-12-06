@@ -59,6 +59,7 @@ public class Pcc {
 		IntersectionPcc neighbor;
 		IntersectionPcc minVertex;
 		
+		
 		//On fait un Dijkstra par point à visiter
 		for (Intersection start : startVertices) {
 			//Les sommets gris sont initialisés à null
@@ -144,6 +145,7 @@ public class Pcc {
 		Long currentPoint = finish.getId();
 		Segment path = predecessors.get(currentPoint);
 		lengthAB=0.0;
+		int i=0;
 		
 		do {
 			segmentsList.add(0, path);
@@ -151,6 +153,7 @@ public class Pcc {
 			
 			currentPoint = path.getOrigin().getId();
 			path = predecessors.get(currentPoint);
+			i++;
 		}while(path != null);
 		
 		
@@ -291,11 +294,36 @@ public class Pcc {
 		return tour;
 	}
 	
-	public Tour addRequest (Tour tour, Intersection pickup, Intersection delivery) {
-		//TODO
-		//Add new intersections in request
-		//pcc.compute ?
-		return null;
+	public Tour addRequest (Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration, Integer deliveryDuration,
+							Integer pickupIndex, Integer deliveryIndex) {		
+		
+		IntersectionPcc interD = allVerticesPcc.get(delivery.getId());
+		IntersectionPcc interP = allVerticesPcc.get(pickup.getId());
+		delivery = new Intersection(interD.getId(), interD.getLatitude(), interD.getLongitude(), interD.getOutboundSegments() );
+		pickup = new Intersection(interP.getId(), interP.getLatitude(), interP.getLongitude(), interP.getOutboundSegments() );
+		this.deliveryVertices.add(delivery);
+		this.pickUpVertices.add(pickup);
+		this.computePcc();
+
+		request.addRequest(pickup, delivery, pickUpDuration, deliveryDuration);
+		
+		List<Intersection> list = new ArrayList<Intersection>();
+		for (Way w : tour.getWaysList()) {			
+			list.add(w.getDeparture());
+		}
+		list.add(pickupIndex, pickup);
+		list.add(deliveryIndex, delivery);
+
+		List<Way> ways = computeWaysList(list); 
+		
+		tour.setRequest(request);
+		tour.setWaysList(ways);
+		tour.updateIsPositionConsistent(delivery.getId());
+		tour.updateIsPositionConsistent(pickup.getId());
+		
+		
+		
+		return tour;
 	}
 	
 	public Tour deleteIntersection (Tour tour, Intersection intersection) {
@@ -308,10 +336,7 @@ public class Pcc {
 		for (Way w : tour.getWaysList()) {
 			if(!w.getDeparture().getId().equals(intersection.getId())) {
 				list.add(w.getDeparture());
-				//System.out.println("[Pcc.deleteIntersection] Add inter"+w.getDeparture().getId());
-			} else {
-				//System.out.println("[Pcc.deleteIntersection]Suppression of inter"+w.getDeparture().getId());
-				
+			} else {				
 				//TODO
 				//Save deleted intersection into a list in Tour to have the possibility to put it back
 			}
