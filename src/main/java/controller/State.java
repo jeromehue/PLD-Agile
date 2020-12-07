@@ -21,5 +21,7 @@ public interface State {
 
 	public default void deleteAStep(Controller c, Window w) {}
 
+	public default void modifyTour(Controller c, Window w) {}
+	
 	public default void modifyOrder(Controller c, Window w) {}
 }
