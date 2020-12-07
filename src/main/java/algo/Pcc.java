@@ -15,19 +15,48 @@ import java.util.PriorityQueue;
 import java.util.HashMap;
 import java.time.LocalTime;
 
+/**
+ * This class computes and stores the shortest ways between pickUp and delivery points. 
+ * 
+ * @author H4414
+ *
+ */
+
 public class Pcc {
+	/**
+	 * All the intersections get from CityMap
+	 */
 	private List<Intersection> allVertices;
 	private List<Intersection> pickUpVertices;
 	private List<Intersection> deliveryVertices;
 	private Intersection start;
+	/**
+	 * Save how to reach each pickUp and delivery from any Intersection of interset (=the other pickUp and delivery) 
+	 */
 	private HashMap<Long, HashMap<Long, Segment>> savePredecessors;
 	HashMap<Long, IntersectionPcc> allVerticesPcc;
 	Request request;
-	private double bikeVelocity = 4; //en m.s-1 (=14,4 km/h)
-	private double lengthAB; //Length from point A to B, computed in getRoads
+	/**
+	 * Bike velocity in m.s-1 (4m.s-1 = 14,4km/h)
+	 */
+	private double bikeVelocity = 4;
+	/**
+	 * Length from point A to B, computed in getRoads
+	 */
+	private double lengthAB; 
 	
+	/**
+	 * Empty constructor
+	 */
 	public Pcc() {};
 	
+	/**
+	 * Initialization with a City Map which contains the intersections and segments.
+	 *  The request contains the pickup and delivery Intersections.
+	 * 
+	 * @param city
+	 * @param request
+	 */
 	public Pcc(CityMap city, Request request) {
 		allVertices = city.getIntersections();
 		pickUpVertices = request.getPickUpLocations();
@@ -38,6 +67,13 @@ public class Pcc {
 		this.request=request;
 	}
 	
+	/**
+	 * Computes lowest costs between pickup and delivery points.
+	 * Stores the predecessors to be able to travel from a point to another.
+	 * Returns a Complete graph to compute a optimized tour.
+	 * 
+	 * @return
+	 */
 	public CompleteGraph computePcc() {
 		
 		ArrayList<Intersection> startVertices = new ArrayList<>();
@@ -137,8 +173,13 @@ public class Pcc {
 		//System.out.println(graph.toString());
 		return graph;
 	}
-	
 
+	/**
+	 * Returns a list of Segment which allows to go from the intersection start to finish using the shortest way.
+	 * @param start
+	 * @param finish
+	 * @return
+	 */
 	public List<Segment> getRoads(Intersection start, Intersection finish){
 		ArrayList<Segment> segmentsList =  new ArrayList<Segment>();
 		HashMap<Long, Segment> predecessors = savePredecessors.get(start.getId());
@@ -173,20 +214,28 @@ public class Pcc {
 		return segmentsList;
 	}
 	
+	/**
+	 * Returns duration in seconds to travel the list of segments computed in getRoads
+	 * @return
+	 */
 	public Integer getDuration() {
 		return (int) (lengthAB/bikeVelocity) ;
 	}
 	
+	/**
+	 * Return a optimized tour computed with the TSP algorithm
+	 * @return a Tour
+	 */
 	public Tour computeGooodTSPTour() {
 		CompleteGraph graph = computePcc();
 		System.out.println("[PCC.computeTour] taille graphe : "+graph.getNbVertices());
 		// TODO: remove 1000 and set a real max discrepancy
-		TSP1 tsp = new TSP1(graph, request, 1000);
+		TSP1 tsp = new TSP1(graph, request, 20);
 		tsp.init();
 		System.out.println("okay TSP init");
 
 		long startTime = System.currentTimeMillis();
-		tsp.searchSolution(40000);
+		tsp.searchSolution(400000);
 		System.out.print("Solution of cost "+tsp.getSolutionCost()+" found in "
 				+(System.currentTimeMillis() - startTime)+"ms : ");
 		
@@ -206,6 +255,13 @@ public class Pcc {
 		
 	}
 	
+	/**
+	 * Return a list of ways from a list of intersections.
+	 * The list of intersections come from a orderof visit computed by the TSP algo or from a user modification.
+	 * 
+	 * @param interList
+	 * @return
+	 */
 	public List<Way> computeWaysList(List<Intersection> interList) {
 		List<Way> wayList = new ArrayList<>();
 		LocalTime tourStartingTime = request.getStartingTime();
@@ -253,7 +309,6 @@ public class Pcc {
 		return wayList;
 	}
 	
-
 	public Tour changeOrder (Tour tour, Intersection intersection, int shift){
 		if(intersection.getId().equals(request.getStartingLocation().getId())) {
 			return tour;
@@ -350,6 +405,7 @@ public class Pcc {
 	public Double getBikeVelocity() {
 		return bikeVelocity;
 	}
+	
 	public void setBikeVelocity(double velocity) {
 		bikeVelocity = velocity;
 	}

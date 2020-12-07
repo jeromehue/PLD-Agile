@@ -27,7 +27,7 @@ public class testTSP {
 		assertTrue(city.getIntersections().size() > 7);
 
 		
-		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsLarge7.xml", city);
+		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsLarge9.xml", city);
 		Request request = new Request();
 		try {
 			request = rp.parse();
@@ -45,14 +45,14 @@ public class testTSP {
 		// paramètre à faire varier pour tester, à partir de dmax = 85 pour 7 requetes ça trouve le chemin optimal
 		// pour 9 requetes : ???
 		
-		for(Integer i = 0 ; i < 50 ; ++i) {
+		for(Integer i = 0 ; i < 1  ; ++i) {
 			
 			tsp = new TSP1(graph, request, offset + i);
 
 			tsp.init();
 			
 			Long startTime = System.currentTimeMillis();
-			tsp.searchSolution(40000);
+			tsp.searchSolution(400000);
 			
 			System.out.println("dmax : " + (offset + i) + " - Solution of cost "+(int)Math.round(tsp.getSolutionCost())+"m found in "
 					+(System.currentTimeMillis() - startTime)+"ms : ");

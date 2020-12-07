@@ -66,7 +66,7 @@ public class Controller {
 		currentState.deleteAStep(this, this.window);
 	}
 	
-	public void changeOptionalsButtonsVisibility() {
+	public void modifyTour() {
 		this.window.changeOptionalsButtonsVisibility();
 		if (window.isOptionalsButtonsVisible()) {
 			setCurrentstate(tourModificationState);

@@ -14,6 +14,8 @@ public class SeqIter implements Iterator<Integer> {
 	private Integer[] candidates;
 	//private ArrayList candidates;
 	private int nbCandidates;
+	//private int maxDiscrepancy=2;
+	//private int nbTrash=7;
 
 	/**
 	 * Create an iterator to traverse the set of vertices in <code>unvisited</code> 
@@ -46,6 +48,7 @@ public class SeqIter implements Iterator<Integer> {
 		HashSet<Integer> deliveriesToRemove = new HashSet<>();
 		Long verticeId;
 		
+		//int i=0;
 		for(Integer vertice : toBeVisited) {
 			verticeId = g.getIdFromIndex(vertice);
 			if(request.isPickUp(verticeId)) {
@@ -73,7 +76,7 @@ public class SeqIter implements Iterator<Integer> {
 	
 	@Override
 	public boolean hasNext() {
-		return nbCandidates > 0;
+			return nbCandidates > 0 ;
 	}
 
 	@Override

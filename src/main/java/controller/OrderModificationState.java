@@ -7,8 +7,10 @@ import javax.swing.JButton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+import algo.Pcc;
+import modele.CityMap;
 import modele.Intersection;
+import modele.Request;
 import modele.Tour;
 import view.Window;
 
@@ -25,12 +27,16 @@ public class OrderModificationState implements State {
 		int newIndex = w.displaySelectOrderDialog();
 		Intersection intersection = wa.getDeparture();
 
-		//Tour t = w.graphicalView.getTour(); 
-		//CityMap cityMap = w.graphicalView.getCityMap();
-		//Request request = w.graphicalView.getRequest();
-		//Pcc shortestPathComputer = new Pcc(cityMap , request);
-		//Tour newTour = shortestPathComputer.changeOrder( t,  intersection,  newIndex);
-		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t, intersection, newIndex);
+		Tour t1 = w.getGraphicalView().getTour(); 
+		CityMap cityMap = w.getGraphicalView().getCityMap();
+		Request request = w.getGraphicalView().getRequest();
+		Pcc shortestPathComputer = new Pcc(cityMap , request);
+		shortestPathComputer.computePcc();
+		Tour newTour = shortestPathComputer.changeOrder( t1,  intersection,  newIndex);
+		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t1, intersection, newIndex);
+		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", newTour, intersection, newIndex);
+		t1.setTour(newTour);
+		t1.notifyObservers();
 		c.setCurrentstate(c.tourModificationState);
 	}
 }
