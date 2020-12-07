@@ -84,15 +84,15 @@ public class Pcc {
 	public CompleteGraph computePcc() {
 
 		ArrayList<Intersection> startVertices = new ArrayList<Intersection>();
+		HashMap<Long, IntersectionPcc> allVerticesPcc = new HashMap<Long, IntersectionPcc>();
+
 		startVertices.add(start);
 		startVertices.addAll(pickUpVertices);
 		startVertices.addAll(deliveryVertices);
+		
 		CompleteGraph graph = new CompleteGraph(startVertices);
 
-		final int END_TEST_CYCLE = 1;
-		boolean allBlackStartVertices = false;
 		// HashMap pour retrouver les voisins
-		HashMap<Long, IntersectionPcc> allVerticesPcc = new HashMap<Long, IntersectionPcc>();
 		PriorityQueue<IntersectionPcc> greyVertices; // tas binaire
 		// HashMap<Intersection id, segment qui relie le prédecesseur à l'intersection >
 		HashMap<Long, Segment> predecessors;
@@ -123,11 +123,9 @@ public class Pcc {
 			allVerticesPcc.put(startPcc.getId(), startPcc);
 			greyVertices.add(startPcc);
 
-			allBlackStartVertices = false;
-			int i = 0;
 			int nbBlackStartVertices = 0;
 
-			while (!greyVertices.isEmpty() && !allBlackStartVertices) {
+			while (!greyVertices.isEmpty()) {
 
 				minVertex = greyVertices.poll();// On prend l'intersection grise de cout minimal
 
@@ -155,18 +153,15 @@ public class Pcc {
 
 				allVerticesPcc.put(minVertex.getId(), minVertex);
 				// On met à jour la condition de fin
-				i++;
-				if (i == END_TEST_CYCLE) {// Pour ne pas tester trop souvent
-					i = 0;
-					nbBlackStartVertices = 0;
-					for (Intersection sVertex : startVertices) {
-						if (allVerticesPcc.get(sVertex.getId()).getColor() == 2) {
-							nbBlackStartVertices++;
-						}
+				
+				nbBlackStartVertices = 0;
+				for (Intersection sVertex : startVertices) {
+					if (allVerticesPcc.get(sVertex.getId()).getColor() == 2) {
+						nbBlackStartVertices++;
 					}
-					if (nbBlackStartVertices == startVertices.size()) {
-						allBlackStartVertices = true;
-					}
+				}
+				if (nbBlackStartVertices == startVertices.size()) {
+					break; // we found all shortest paths for all our vertices
 				}
 			}
 
