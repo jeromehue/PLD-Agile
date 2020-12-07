@@ -97,11 +97,7 @@ public class Window extends JFrame {
 		this.toolBar.setVisible(this.optionalsButtonsVisible);
 
 		this.textualView = new TextualView(tour, this.buttonListener);
-		JScrollPane scrollPane = new JScrollPane(textualView
-				,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS
-				,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-		contentPane.add(scrollPane, BorderLayout.WEST);
+		contentPane.add(textualView.getScrollPane(), BorderLayout.WEST);
 
 		this.graphicalView = new GraphicalView(tour);
 		contentPane.add(graphicalView, BorderLayout.CENTER);

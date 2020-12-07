@@ -8,6 +8,7 @@ import java.util.Iterator;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ public class TextualView extends JPanel implements Observer {
 	private ButtonListener buttonListener;
 	private Tour tour;
 	private ArrayList<JButton> pointsJButtonList;
+	private JScrollPane scrollPane;
 	
 	/**
 	 * Create a textual view of the computed tour in window
@@ -37,11 +39,15 @@ public class TextualView extends JPanel implements Observer {
 	public TextualView(Tour tour, ButtonListener buttonListener) {
 		super();
 		setBorder(BorderFactory.createTitledBorder("Itinerary"));
-		this.setPreferredSize(new Dimension(600, 2000));
+		this.setPreferredSize(new Dimension(600, 500));
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setBackground(Window.BACKGROUND_COLOR);
 		this.tour = tour;
+		this.scrollPane = new JScrollPane(this
+				,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS
+				,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.tour.addObserver(this);
+		this.scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		this.pointsJButtonList = new ArrayList<JButton>();
 		this.buttonListener = buttonListener;
 	}
@@ -54,10 +60,18 @@ public class TextualView extends JPanel implements Observer {
 	public void update(Observable observed) {
 		this.clearPointJButtonList();
 		this.displaySteps();
+		this.setPreferredSize(new Dimension(600, this.pointsJButtonList.size()*100));
 		logger.info(observed.getClass() + " object was modified: textual view updated");
 	}
-
 	
+	public JScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+	public void setScrollPane(JScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
+	}
+
 	/**
 	 * Delete button components of the textual view.
 	 */

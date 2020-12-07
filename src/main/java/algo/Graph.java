@@ -1,5 +1,11 @@
 package algo;
 
+/**
+ * This class is an interface for a graph.
+ * 
+ * @author H4414
+ *
+ */
 public interface Graph {
 	/**
 	 * @return the number of vertices in <code>this</code>

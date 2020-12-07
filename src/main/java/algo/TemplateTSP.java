@@ -4,6 +4,21 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * This abstract class provides a template for the class responsible
+ * for the execution of the TSP algorithm.
+ * 
+ * @author H4414
+ * 
+ * @param bestSol array storing the indexes of the vertices corresponding
+ * to the best known solution
+ * @param g the graph on which the TSP algorithm is being conducted
+ * @param bestSolCost the total cost associated to the best known solution
+ * @param timeLimit the time limit that can't be exceeded
+ * @param startTime the time at which the computation was started
+ * @param maxDiscrepancy the maximal discrepancy for the LDS meta-heuristic
+ */
+
 public abstract class TemplateTSP implements TSP {
 	private Integer[] bestSol;
 	protected Graph g;
@@ -12,6 +27,11 @@ public abstract class TemplateTSP implements TSP {
 	private Long startTime;
 	protected Integer maxDiscrepancy;
 
+	/**
+	 * the main method for the TSP, which updates the best solution.
+	 * 
+	 * @param timeLimit the time limit that can't be exceeded
+	 */
 	public void searchSolution(Integer timeLimit) {
 		if (timeLimit <= 0)
 			return;
@@ -31,12 +51,18 @@ public abstract class TemplateTSP implements TSP {
 		branchAndBound(0, unvisited, visited, 0.0, 0);
 	}
 
+	/**
+	 * @return the index of the i-th vertex from the best known solution
+	 */
 	public Integer getSolution(Integer i) {
 		if (g != null && i >= 0 && i < g.getNbVertices())
 			return bestSol[i];
 		return -1;
 	}
 
+	/**
+	 * @return the total cost of the best known solution
+	 */
 	public Double getSolutionCost() {
 		if (g != null)
 			return bestSolCost;
@@ -44,7 +70,8 @@ public abstract class TemplateTSP implements TSP {
 	}
 
 	/**
-	 * Method to init minimums in TSP1
+	 * Method that must be defined in TemplateTSP subclasses
+	 * to instantiate variables.
 	 */
 	public abstract void init();
 
@@ -81,6 +108,7 @@ public abstract class TemplateTSP implements TSP {
 	 *                      (including currentVertex)
 	 * @param currentCost   the cost of the path corresponding to
 	 *                      <code>visited</code>
+	 * @param discrepancy 	the current discrepancy for the LDS meta-heuristic
 	 */
 	private void branchAndBound(Integer currentVertex, Collection<Integer> unvisited, Collection<Integer> visited,
 			Double currentCost, Integer discrepancy) {
