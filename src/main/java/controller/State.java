@@ -31,11 +31,11 @@ public interface State {
 	 * Method called by the controller after a click on the button "Undo"
 	 * @param l the current list of commands
 	 */
-	//public default void undo(ListOfCommands l){};
+	public default void undo(ListOfCommands l){};
 
 	/**
 	 * Method called by the controller after a click on the button "Redo"
 	 * @param l the current list of commands
 	 */
-	//public default void redo(ListOfCommands l){};
+	public default void redo(ListOfCommands l){};
 }
