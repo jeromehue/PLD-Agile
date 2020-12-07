@@ -44,7 +44,8 @@ public class Window extends JFrame{
 	protected final static String LOAD_REQUEST 	         	= "Load XML Requests...";
 	protected final static String COMPUTE_TOUR 		        = "Compute tour";
 	protected final static String CLICK_STEP		        = "Display tour";
-	protected final static String MODIFY_TOUR       		= "Toggle edition mode";
+	protected final static String MODIFY_TOUR       		= "Enter tour edition mode";
+	protected final static String EXIT_MODIFY_TOUR			= "Exit tour edition mode";
 	protected final static String MODIFY_ORDER 		        = "Modify tour order";
 	protected final static String MODIFY_REQUEST	        = "Modify a request";
 	protected final static String ADD_REQUEST 		        = "Add a request";
@@ -60,6 +61,7 @@ public class Window extends JFrame{
 	private JLabel messageFrame;
     private JToolBar toolBar;
     private ArrayList<JButton> optionalsButtons;
+    private JMenuItem switchmode;
     private boolean optionalsButtonsVisible;
     
     //Listeners 
@@ -142,6 +144,7 @@ public class Window extends JFrame{
         mnuComputeTour.setMnemonic( 'C' );
         mnuComputeTour.addActionListener(this.buttonListener);
         mnuCompute.add(mnuComputeTour);
+        ;
         
         menuBar.add( mnuCompute );
         
@@ -152,6 +155,7 @@ public class Window extends JFrame{
         JMenuItem modifyTour = new JMenuItem( MODIFY_TOUR );
         modifyTour.setMnemonic( 'S' );
         modifyTour.addActionListener(this.buttonListener);
+        this.switchmode = modifyTour;
         
         mnuEdit.add(modifyTour);
         menuBar.add( mnuEdit );
@@ -247,6 +251,11 @@ public class Window extends JFrame{
     	this.optionalsButtonsVisible = !this.optionalsButtonsVisible;
     	for(JButton b : optionalsButtons)
     		b.setVisible(optionalsButtonsVisible);
+    	if(this.optionalsButtonsVisible) {
+			this.switchmode.setText(this.EXIT_MODIFY_TOUR);
+		} else {
+			this.switchmode.setText(this.MODIFY_TOUR);
+		}
     	this.toolBar.setVisible(optionalsButtonsVisible);
     }
     

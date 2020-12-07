@@ -29,7 +29,8 @@ public abstract class TemplateTSP implements TSP {
 		Collection<Integer> visited = new ArrayList<Integer>(g.getNbVertices());
 		visited.add(0); // The first visited vertex is 0
 		bestSolCost = Double.MAX_VALUE;
-		branchAndBound(0, unvisited, visited, 0.0, 0);
+		branchAndBound(0, unvisited, visited, 0.0, 5000);
+		//TODO: change value of dmax !
 	}
 	
 	public Integer getSolution(Integer i){

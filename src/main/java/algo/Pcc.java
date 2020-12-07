@@ -186,7 +186,6 @@ public class Pcc {
 		Long currentPoint = finish.getId();
 		Segment path = predecessors.get(currentPoint);
 		lengthAB=0.0;
-		int i=0;
 		
 		do {
 			segmentsList.add(0, path);
@@ -194,7 +193,6 @@ public class Pcc {
 			
 			currentPoint = path.getOrigin().getId();
 			path = predecessors.get(currentPoint);
-			i++;
 		}while(path != null);
 		
 		
@@ -342,7 +340,7 @@ public class Pcc {
 		tour.setWaysList( computeWaysList(list) );
 		
 		tour.updateIsPositionConsistent(intersection.getId());
-		if(request.isPickUp(intersection.getId())) {
+		if(request.hasDelivery(intersection.getId())) {
 			tour.updateIsPositionConsistent(request.getDeliveryFromPickUp(intersection.getId()));			
 		}
 		
