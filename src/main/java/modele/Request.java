@@ -110,8 +110,8 @@ public class Request {
 	public void addRequest(Intersection pickUp, Intersection delivery, Integer pickUpDuration,
 			Integer deliveryDuration) {
 		this.deliveryFromPickUp.put(pickUp.getId(), delivery.getId());
-		this.pickUpLocations.add(delivery);
-		this.deliveryLocations.add(pickUp);
+		this.pickUpLocations.add(pickUp);
+		this.deliveryLocations.add(delivery);
 		this.durations.put(pickUp.getId(), pickUpDuration);
 		this.durations.put(delivery.getId(), deliveryDuration);
 	}

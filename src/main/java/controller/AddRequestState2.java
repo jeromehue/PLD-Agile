@@ -68,10 +68,13 @@ public class AddRequestState2 implements State {
 		Request request = w.getGraphicalView().getRequest();
 		Tour 	tour 	= w.getGraphicalView().getTour();
 		Pcc shortestPathComputer = new Pcc(cityMap, request);
-		shortestPathComputer.computePcc();
+		
 		Intersection pickup 	= cityMap.getIntersectionFromAddress(this.pickUpId);
 		Intersection delivery 	= cityMap.getIntersectionFromAddress(w.getGraphicalView().getHighlightedIntersectionId());
 		Integer pickUpDuration 	= this.pickUpDuration;
+		
+		logger.info("pickup : {} ", pickup.getId());
+		logger.info("delivery : {}", delivery.getId());
 		
 		//Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration,
 		//Integer deliveryDuration, Integer pickupIndex, Integer deliveryIndex
@@ -79,6 +82,7 @@ public class AddRequestState2 implements State {
 				pickUpDuration, deliveryDuration, 1, 2);
 		tour.setTour(newTour);
 		tour.notifyObservers();
+		w.getGraphicalView().setHighlightedWay(null);
 		c.setCurrentstate(c.tourModificationState);
 		
 		
