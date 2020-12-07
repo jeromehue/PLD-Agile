@@ -11,7 +11,7 @@ import view.Window;
 public class DeleteStepState implements State{
 	
 	@Override
-	public void clickOnStep(Controller c, Window w, Way wa, JButton button, Tour t){	
+	public void clickOnStep(Controller c, Window w, ListOfCommands l, Way wa, JButton button, Tour t){	
 		Intersection stepToDelete = wa.getDeparture();
 		System.out.println(stepToDelete.toString());
 		
