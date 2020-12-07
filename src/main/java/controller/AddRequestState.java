@@ -48,8 +48,15 @@ public class AddRequestState implements State {
 		}
 	}
 	
-	public void leftClick(Point p, Window w) {
+	public void leftClick(Point p, Controller c, Window w) {
 		logger.info("Clicked on the map to add intersection");
 		logger.info("Intersection : {}", w.getGraphicalView().getHighlightedIntersectionId());
+		int pickupTime = w.displaySelectTimeDialog();
+		logger.info("pick-up time : {}", pickupTime);
+		
+		c.addRequestState2.enterAction( w.getGraphicalView().getHighlightedIntersectionId() , pickupTime);
+		c.setCurrentstate(c.addRequestState2);
 	}
+	
+	
 }

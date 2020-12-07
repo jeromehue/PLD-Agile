@@ -65,7 +65,7 @@ public class Pcc {
 	 * The request contains the pickup and delivery Intersections.
 	 * 
 	 * @param city
-	 * 		Objects who contains intersections ans segments to make a map
+	 * 		Objects who contains intersections and segments to make a map
 	 * @param request
 	 * 		Objects who contains specific intersections and informations to create a tour.
 	 */
@@ -86,10 +86,10 @@ public class Pcc {
 	/**
 	 * Computes lowest costs between pickup and delivery points. Stores the
 	 * predecessors to be able to travel from a point to another. Returns a Complete
-	 * graph to compute a optimized tour.
+	 * graph to compute an optimized tour.
 	 * 
 	 * @return
-	 * 		Object CompleteGraph whith costs to go from an intersections to an other
+	 * 		Object CompleteGraph with costs to go from an intersection to another
 	 */
 	public CompleteGraph computePcc() {
 
@@ -101,46 +101,27 @@ public class Pcc {
 		startVertices.addAll(deliveryVertices);
 		
 		CompleteGraph graph = new CompleteGraph(startVertices);
-
-		// HashMap pour retrouver les voisins
-		//PriorityQueue<IntersectionPcc> greyVertices = new PriorityQueue<IntersectionPcc>();
-		// HashMap<Intersection id, segment qui relie le prédecesseur à l'intersection >
-		//HashMap<Long, Segment> predecessors = new HashMap<Long, Segment>();
-
-		//IntersectionPcc neighbor;
-		//IntersectionPcc minVertex;
-
-
 		
-		// On fait un Dijkstra par point à visiter
 		for (Intersection start : startVertices) {
-			// Les sommets gris sont initialisés à null
-
-			// Début de l'algorithme classique de Dijkstra
-
-			// Pour chaque objet Intesection on crée un objet IntersectionPcc qu'on
-			// initialise
-			// avec un cout MAX et la couleur blanche
 			allVerticesPcc.clear();
-			/*greyVertices.clear();
-			IntersectionPcc startPcc = new IntersectionPcc(start, 1, 0.0);
-			greyVertices.add(startPcc);
-			*/
 			for (HashMap.Entry<Long, Intersection> inter : allVertices.entrySet()) {				
 				allVerticesPcc.put( inter.getKey(), new IntersectionPcc(inter.getValue(), 0, Double.MAX_VALUE) );
 			}
-			
-			/* DEBUT DU TEST */
-			
-			allVerticesPcc = doDijkstra(startVertices, start, allVerticesPcc);
-			//allVerticesPcc.put(startPcc.getId(), startPcc);
+						
+			doDijkstra(startVertices, start, allVerticesPcc);
 			graph.updateCompleteGraph(start.getId(), allVerticesPcc, startVertices);
 		}
 		
 		return graph;
 	}
 	
-	public HashMap<Long, IntersectionPcc> doDijkstra(ArrayList<Intersection> startVertices, Intersection start, 
+	/**
+	 * Computes the Dijkstra algorithm between the <code>start</code> 
+	 * vertex and all vertices of <code>startVertices</code>
+	 * The results are stored in <code>allVerticesPcc</code> 
+	 * and <code>savePredecessors</code>
+	 */
+	public void doDijkstra(ArrayList<Intersection> startVertices, Intersection start, 
 			HashMap<Long, IntersectionPcc> verticesPcc) {
 		
 		PriorityQueue<IntersectionPcc> greyVertices = new PriorityQueue<IntersectionPcc>();
@@ -153,9 +134,8 @@ public class Pcc {
 		
 		while (!greyVertices.isEmpty()) {			
 			
-			IntersectionPcc minVertex = greyVertices.poll();//On prend l'intersection grise de cout minimal
+			IntersectionPcc minVertex = greyVertices.poll();
 			
-			//On regarde tous les voisins "neighbor" de l'intersection "minVertex"
 			for (Segment s : minVertex.getOutboundSegments()) {
 				IntersectionPcc neighbor = verticesPcc.get( s.getDestination().getId() );
 				
@@ -186,120 +166,44 @@ public class Pcc {
 		
 		savePredecessors.put(start.getId(), predecessors);
 		verticesPcc.put(startPcc.getId(), startPcc);
-        
-        return verticesPcc;
-	}
+   	}
 			
-			/*
-			
-			allVerticesPcc.put(start.getId(), startPcc);
-
-			int nbBlackStartVertices = 0;
-
-			while (!greyVertices.isEmpty()) {
-
-				minVertex = greyVertices.poll();// On prend l'intersection grise de cout minimal
-
-				// On regarde tous les voisins "neighbor" de l'intersection "minVertex"
-				for (Segment s : minVertex.getOutboundSegments()) {
-					neighbor = allVerticesPcc.get(s.getDestination().getId());
-					if (neighbor.getColor() == 0 || neighbor.getColor() == 1) { // blanc ou gris
-						// relacher (minVertex, voisin, predecesseur, cout) :
-
-						if (minVertex.getCost() + s.getLength() < neighbor.getCost()) {
-							neighbor.setCost(minVertex.getCost() + s.getLength());
-							predecessors.put(neighbor.getId(), s);
-						}
-					}
-					if (neighbor.getColor() == 0) {
-						neighbor.setColor(1);
-						greyVertices.add(neighbor);
-					}
-					allVerticesPcc.put(neighbor.getId(), neighbor);// On enregistre les modifs faites à neighbor
-				}
-
-				/// On colorie l'intersection en noir quand elle n'a plus de voisins gris ou
-				/// blancs
-				minVertex.setColor(2);
-
-				allVerticesPcc.put(minVertex.getId(), minVertex);
-				// On met à jour la condition de fin
-				
-				nbBlackStartVertices = 0;
-				for (Intersection sVertex : startVertices) {
-					if (allVerticesPcc.get(sVertex.getId()).getColor() == 2) {
-						nbBlackStartVertices++;
-					}
-				}
-				if (nbBlackStartVertices == startVertices.size()) {
-					break; // we found all shortest paths for all our vertices
-				}
-			}
-
-			// sauvegarder le résultat obtenu pour le point de départ
-			graph.updateCompleteGraph(startPcc.getId(), allVerticesPcc, startVertices);
-			// puis sauvegarder une HashMap des predecessors
-			savePredecessors.put(start.getId(), predecessors);
-		}
-
-		// System.out.println(graph.toString());
-		return graph;
-	}*/
 
 	/**
 	 * Returns a list of Segment which allows to go from the intersection start to
 	 * finish using the shortest way.
 	 * 
 	 * @param start
-	 * 		Beginnig of the list of segments 
+	 * 		Beginning of the list of segments 
 	 * @param finish
-	 * 		Beginnig of the list of segments
+	 * 		Beginning of the list of segments
 	 * @return
-	 * 		A list of segments which represent the shortes way to go from start to finish
+	 * 		A list of segments which represent the shortest way to go from start to finish
 	 */
 	public List<Segment> getRoads(Intersection start, Intersection finish) {
 		ArrayList<Segment> segmentsList = new ArrayList<Segment>();
 		HashMap<Long, Segment> predecessors = savePredecessors.get(start.getId());
 		Long currentPoint = finish.getId();
 		Segment path = predecessors.get(currentPoint);
-//<<<<<<< HEAD
 		lengthAB=0.0;
 		
 		while(path != null) {
-/*=======
->>>>>>> 435c50fe1ab5f0b51e18f24ba002cb075a403a3e
-		lengthAB = 0.0;
 
-		do {
->>>>>>> 168994ce07de1f290540a3776294f2997e337797*/
 			segmentsList.add(0, path);
 						
 			lengthAB += path.getLength();
 
 			currentPoint = path.getOrigin().getId();
-//<<<<<<< HEAD
+
 			path = predecessors.get(currentPoint);				
 		}
-		
-		
-		/*//Intersection passage = segmentsList.get(0).getOrigin();
-=======
-			path = predecessors.get(currentPoint);
-		} while (path != null);
-
-		// Intersection passage = segmentsList.get(0).getOrigin();
->>>>>>> 168994ce07de1f290540a3776294f2997e337797*/
 
 		return segmentsList;
 	}
 
 	/**
-<<<<<<< HEAD
-	 * Returns duration in seconds to travel the list of segments computed in getRoads
-=======
 	 * Returns duration in seconds to travel the list of segments computed in
 	 * getRoads
->>>>>>> 168994ce07de1f290540a3776294f2997e337797
 	 * 
 	 * @return
 	 * 		An integer which represents the number of seconds needed to travel the list of segments computed in getRoads
@@ -471,20 +375,10 @@ public class Pcc {
 	 * @return
 	 * 		A new Tour updated
 	 */
-	/*<<<<<<< HEAD
-	public Tour addRequest (Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration, Integer deliveryDuration,
-							Integer pickupIndex, Integer deliveryIndex) {		
-		
-		IntersectionPcc interD = allVerticesPcc.get(delivery.getId());
-		IntersectionPcc interP = allVerticesPcc.get(pickup.getId());
-		delivery = new Intersection(interD.getId(), interD.getLatitude(), interD.getLongitude(), interD.getOutboundSegments() );
-		pickup = new Intersection(interP.getId(), interP.getLatitude(), interP.getLongitude(), interP.getOutboundSegments() );
-=======*/
 
 	public Tour addRequest(Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration,
 			Integer deliveryDuration, Integer pickupIndex, Integer deliveryIndex) {
 
-//>>>>>>> 168994ce07de1f290540a3776294f2997e337797
 		delivery = this.allVertices.get(delivery.getId());
 		pickup = this.allVertices.get(pickup.getId());
 		this.deliveryVertices.add(delivery);
