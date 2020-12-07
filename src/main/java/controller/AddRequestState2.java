@@ -73,7 +73,7 @@ public class AddRequestState2 implements State {
 		//Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration,
 		//Integer deliveryDuration, Integer pickupIndex, Integer deliveryIndex
 		Tour newTour = shortestPathComputer.addRequest(tour, pickup, delivery, 
-				pickUpDuration, deliveryDuration, 1, 1);
+				pickUpDuration, deliveryDuration, 1, 2);
 		tour.setTour(newTour);
 		
 		
