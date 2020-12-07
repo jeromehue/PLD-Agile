@@ -13,5 +13,6 @@ public class testWindow {
 		Controller c = new Controller();
 		Tour t = new Tour();
 		Window w = new Window(c, t);
+		w.dispose();
 	}
 }
