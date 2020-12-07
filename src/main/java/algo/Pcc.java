@@ -238,7 +238,7 @@ public class Pcc {
 		System.out.println("[PCC.computeTour] taille graphe : " + graph.getNbVertices());
 		// TODO: remove 1000 and set a real max discrepancy
 
-		TSP1 tsp = new TSP1(graph, request, 80);
+		TSP1 tsp = new TSP1(graph, request, 100);
 
 		tsp.init();
 		System.out.println("okay TSP init");
