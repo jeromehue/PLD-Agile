@@ -147,7 +147,7 @@ public class GraphicalView extends JPanel implements Observer {
 
 				if (tour != null && this.highlightedIntersection != null) {
 					graphics.setStroke(new BasicStroke(4));
-					graphics.setColor(Color.red);
+					graphics.setColor(Color.cyan);
 					graphics.fillOval(this.highlightedIntersection.getCoordinates().getX() - 10,
 							this.highlightedIntersection.getCoordinates().getY() - 10, 20, 20);
 				}

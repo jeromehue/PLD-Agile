@@ -29,6 +29,7 @@ public class Controller {
 	protected final ChangeOrderState orderModificationState = new ChangeOrderState();
 	protected final DeleteStepState deleteStepState = new DeleteStepState();
 	protected final AddRequestState addRequestState = new AddRequestState();
+	protected final AddRequestState2 addRequestState2 = new AddRequestState2();
 	
 
 	public Controller() {
@@ -91,7 +92,7 @@ public class Controller {
 	}
 
 	public void leftClick(Point p, Window w) {
-		addRequestState.leftClick(p, w);
+		currentState.leftClick(p, this, w);
 	}
 
 	public void rightClick() {
