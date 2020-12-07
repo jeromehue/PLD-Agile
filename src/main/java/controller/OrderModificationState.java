@@ -17,20 +17,20 @@ import view.Window;
 public class OrderModificationState implements State {
 	private static final Logger logger = LoggerFactory.getLogger(OrderModificationState.class);
 
-	@Override
-	public void clickOnStep(Window w, Way wa, JButton button) {
+	public void clickOnStep(Controller c, Window w, Way wa, JButton button, Tour t) {
 		logger.info("[Order Modification State] Modify order of tour in controller");
 		logger.info("[Order Modification State] Intersection to be modify" + wa.getDeparture());
 		
 		// Testing purposes
 		int newIndex = w.displaySelectOrderDialog();
 		Intersection intersection = wa.getDeparture();
-		Tour t = w.getGraphicalView().getTour();
+
+		//Tour t = w.graphicalView.getTour(); 
 		//CityMap cityMap = w.graphicalView.getCityMap();
 		//Request request = w.graphicalView.getRequest();
 		//Pcc shortestPathComputer = new Pcc(cityMap , request);
 		//Tour newTour = shortestPathComputer.changeOrder( t,  intersection,  newIndex);
 		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t, intersection, newIndex);
-		
+		c.setCurrentstate(c.tourModificationState);
 	}
 }

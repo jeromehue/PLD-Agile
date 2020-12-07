@@ -17,5 +17,9 @@ public interface State {
 	
 	public default void computeTour(Controller c, Window w, Tour t) {}
 
-	public default void clickOnStep( Window w, Way wa, JButton button) {}
+	public default void clickOnStep(Controller c, Window w, Way wa, JButton button, Tour t) {}
+
+	public default void deleteAStep(Controller c, Window w) {}
+
+	public default void modifyOrder(Controller c, Window w) {}
 }

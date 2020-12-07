@@ -54,6 +54,10 @@ public class ButtonListener  implements ActionListener  {
 				logger.info("Click on MODIFY_ORDER button");
 				controller.modifyOrder();
 				break;
+			case Window.REMOVE_REQUEST: 
+				logger.info("Click on REMOVE_REQUEST button");
+				controller.deleteAStep();
+			break;
 			default: 
 				logger.info("Click button: DEFAULT_CASE_2"); 
 				break;

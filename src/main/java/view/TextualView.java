@@ -117,16 +117,18 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				this.add(newStepButton);
 				pointsJButtonList.add(newStepButton);
 			}
-			//Displaying last point
-				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
-				text = "<html><u><strong> End : </strong></u> <br />";
-				text += "Return to the starting point (address n°"+currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1).getDestination().getId();
-				text += ") at "+ currentWay.getArrivalTime().getHour() + ":"+ currentWay.getArrivalTime().getMinute();
-				text += " from <strong>"+ currentArrival.getName() + "</strong>";
-				text += ". <br /></html>";
-				ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
-				this.add(b);
-				pointsJButtonList.add(b);
+					//Displaying last point
+					if(currentWay != null) {
+					currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
+					text = "<html><u><strong> End : </strong></u> <br />";
+					text += "Return to the starting point (address n°"+currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1).getDestination().getId();
+					text += ") at "+ currentWay.getArrivalTime().getHour() + ":"+ currentWay.getArrivalTime().getMinute();
+					text += " from <strong>"+ currentArrival.getName() + "</strong>";
+					text += ". <br /></html>";
+					ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
+					this.add(b);
+					pointsJButtonList.add(b);
+				}
 		}
 	}
 	
