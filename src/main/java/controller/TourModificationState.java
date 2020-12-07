@@ -9,7 +9,7 @@ import view.Window;
 public class TourModificationState  implements State {
 	
 	@Override
-	public void clickOnStep( Controller c, Window w, Way wa, JButton button, Tour t) {
+	public void clickOnStep( Controller c, Window w, ListOfCommands l, Way wa, JButton button, Tour t) {
 		w.setMessage("Choose a modification option before selecting a step.");
 		
 	}
@@ -39,5 +39,14 @@ public class TourModificationState  implements State {
 		w.setMessage("Choose a step to delete");
 		c.setCurrentstate(c.deleteStepState);
 	}
-	
+
+	@Override
+	public void undo(ListOfCommands listOfCdes){
+		listOfCdes.undo();
+	}
+
+	@Override
+	public void redo(ListOfCommands listOfCdes){
+		listOfCdes.redo();
+	}
 }

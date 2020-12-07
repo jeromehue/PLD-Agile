@@ -282,7 +282,8 @@ public class Window extends JFrame{
     	int i = 0;
     	while (i == 0) {
     		String str = JOptionPane.showInputDialog(this, "Enter the new index of this step");
-    		if (str == null) {return -1;}
+    		logger.info("String from showInput dialog {}", str);
+    		if (str == null) {return 0;}
     		try {
     			i = Integer.parseInt(str);
     		} catch(Exception e) {

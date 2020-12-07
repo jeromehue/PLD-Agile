@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import modele.Tour;
 import modele.Way;
 import view.Window;
+import controller.ListOfCommands;
 
 public interface State {
 	
@@ -17,7 +18,7 @@ public interface State {
 	
 	public default void computeTour(Controller c, Window w, Tour t) {}
 
-	public default void clickOnStep(Controller c, Window w, Way wa, JButton button, Tour t) {}
+	public default void clickOnStep(Controller c, Window w, ListOfCommands l, Way wa, JButton button, Tour t) {}
 
 	public default void deleteAStep(Controller c, Window w) {}
 
