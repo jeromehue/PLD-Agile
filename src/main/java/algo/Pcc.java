@@ -29,8 +29,15 @@ public class Pcc {
 	 * All the intersections get from CityMap
 	 */
 	private HashMap<Long, Intersection> allVertices;
+
 	private List<Intersection> pickUpVertices;
+	/**
+	 * Intersections where delivery driver delivers package
+	 */
 	private List<Intersection> deliveryVertices;
+	/**
+	 * Intersection where delivery driver begins his tour.
+	 */
 	private Intersection start;
 	/**
 	 * Save how to reach each pickUp and delivery from any Intersection of interest
@@ -58,7 +65,9 @@ public class Pcc {
 	 * The request contains the pickup and delivery Intersections.
 	 * 
 	 * @param city
+	 * 		Objects who contains intersections ans segments to make a map
 	 * @param request
+	 * 		Objects who contains specific intersections and informations to create a tour.
 	 */
 	public Pcc(CityMap city, Request request) {
 		allVertices = new HashMap<Long, Intersection>();
@@ -80,6 +89,7 @@ public class Pcc {
 	 * graph to compute a optimized tour.
 	 * 
 	 * @return
+	 * 		Object CompleteGraph whith costs to go from an intersections to an other
 	 */
 	public CompleteGraph computePcc() {
 
@@ -185,48 +195,56 @@ public class Pcc {
 	 * finish using the shortest way.
 	 * 
 	 * @param start
+	 * 		Beginnig of the list of segments 
 	 * @param finish
+	 * 		Beginnig of the list of segments
 	 * @return
+	 * 		A list of segments which represent the shortes way to go from start to finish
 	 */
 	public List<Segment> getRoads(Intersection start, Intersection finish) {
 		ArrayList<Segment> segmentsList = new ArrayList<Segment>();
 		HashMap<Long, Segment> predecessors = savePredecessors.get(start.getId());
 		Long currentPoint = finish.getId();
 		Segment path = predecessors.get(currentPoint);
+//<<<<<<< HEAD
+		lengthAB=0.0;
+		
+		while(path != null) {
+/*=======
 		lengthAB = 0.0;
 
 		do {
+>>>>>>> 168994ce07de1f290540a3776294f2997e337797*/
 			segmentsList.add(0, path);
 			lengthAB += path.getLength();
 
 			currentPoint = path.getOrigin().getId();
+//<<<<<<< HEAD
+			path = predecessors.get(currentPoint);				
+		}
+		
+		
+		/*//Intersection passage = segmentsList.get(0).getOrigin();
+=======
 			path = predecessors.get(currentPoint);
 		} while (path != null);
 
 		// Intersection passage = segmentsList.get(0).getOrigin();
-
-		/*
-		 * System.out.println("Affichage de trajet : "); System.out.print("(" +
-		 * passage.getLatitude() + " ; " + passage.getLongitude() + ")");
-		 * System.out.print(" de la rue " + segmentsList.get(0).getName());
-		 * System.out.print(" -> ");
-		 * 
-		 * passage = segmentsList.get(segmentsList.size() - 1).getDestination();
-		 * 
-		 * System.out.print("(" + passage.getLatitude() + " ; " + passage.getLongitude()
-		 * + ")"); System.out.println(" à la rue " +
-		 * segmentsList.get(segmentsList.size() - 1).getName());
-		 * System.out.print("Longueur totale :"); System.out.println(lengthAB);
-		 */
+>>>>>>> 168994ce07de1f290540a3776294f2997e337797*/
 
 		return segmentsList;
 	}
 
 	/**
+<<<<<<< HEAD
+	 * Returns duration in seconds to travel the list of segments computed in getRoads
+=======
 	 * Returns duration in seconds to travel the list of segments computed in
 	 * getRoads
+>>>>>>> 168994ce07de1f290540a3776294f2997e337797
 	 * 
 	 * @return
+	 * 		An integer which represents the number of seconds needed to travel the list of segments computed in getRoads
 	 */
 	public Integer getDuration() {
 		return (int) (lengthAB / bikeVelocity);
@@ -274,7 +292,9 @@ public class Pcc {
 	 * modification.
 	 * 
 	 * @param interList
+	 * 		List of intersections which represents classified
 	 * @return
+	 * 		A list of ways which contains all the segments to run the tour and some informations about tiome spent on each point.
 	 */
 	public List<Way> computeWaysList(List<Intersection> interList) {
 		List<Way> wayList = new ArrayList<>();
@@ -322,7 +342,20 @@ public class Pcc {
 
 		return wayList;
 	}
-
+	
+	/**
+	 * Enable to modify the position of an intersection
+	 * It's not possible to change the positionn of the start point.
+	 * 
+	 * @param tour
+	 * 		Contains the current order between pick up and delivery points.
+	 * @param intersection
+	 * 		The intersection to change
+	 * @param shift
+	 * 		Integer which reprensents the shift in the order. Can be positive or negative.
+	 * @return
+	 * 		A new Tour updated
+	 */
 	public Tour changeOrder(Tour tour, Intersection intersection, int shift) {
 		if (intersection.getId().equals(request.getStartingLocation().getId())) {
 			return tour;
@@ -358,10 +391,44 @@ public class Pcc {
 
 		return tour;
 	}
+	
+	/**
+	 * Enable to add a request.
+	 * Add a pickup and a delivery point at a specific index.
+	 *  
+	 * @param tour
+	 * 		Contains the current order between pick up and delivery points.
+	 * @param pickup
+	 * 		The pickup intersection to add
+	 * @param delivery
+	 * 		The delivery intersection to add
+	 * @param pickUpDuration
+	 * 		Time spent in seconds at pick up point
+	 * @param deliveryDuration
+	 * 		Time spent in seconds at delivery point
+	 * @param pickupIndex
+	 * 		Index where the pick up point will be added
+	 * @param deliveryIndex
+	 * 		Index where the delivery point will be added
+	 * @return
+	 * 		A new Tour updated
+	 */
+	/*<<<<<<< HEAD
+	public Tour addRequest (Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration, Integer deliveryDuration,
+							Integer pickupIndex, Integer deliveryIndex) {		
+		
+		IntersectionPcc interD = allVerticesPcc.get(delivery.getId());
+		IntersectionPcc interP = allVerticesPcc.get(pickup.getId());
+		delivery = new Intersection(interD.getId(), interD.getLatitude(), interD.getLongitude(), interD.getOutboundSegments() );
+		pickup = new Intersection(interP.getId(), interP.getLatitude(), interP.getLongitude(), interP.getOutboundSegments() );
+=======*/
 
 	public Tour addRequest(Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration,
 			Integer deliveryDuration, Integer pickupIndex, Integer deliveryIndex) {
 
+//>>>>>>> 168994ce07de1f290540a3776294f2997e337797
+		delivery = this.allVertices.get(delivery.getId());
+		pickup = this.allVertices.get(pickup.getId());
 		this.deliveryVertices.add(delivery);
 		this.pickUpVertices.add(pickup);
 		this.computePcc();
@@ -384,7 +451,17 @@ public class Pcc {
 
 		return tour;
 	}
-
+	
+	/**
+	 * Enable to delete an intersection.
+	 * 
+	 * @param tour
+	 * 		Contains the current order between pick up and delivery points.
+	 * @param intersection
+	 * 		The intersection to delete 
+	 * @return
+	 * 		A new Tour updated
+	 */
 	public Tour deleteIntersection(Tour tour, Intersection intersection) {
 		if (intersection.getId().equals(request.getStartingLocation().getId())) {
 			return tour;
@@ -395,10 +472,6 @@ public class Pcc {
 		for (Way w : tour.getWaysList()) {
 			if (!w.getDeparture().getId().equals(intersection.getId())) {
 				list.add(w.getDeparture());
-			} else {
-				// TODO
-				// Save deleted intersection into a list in Tour to have the possibility to put
-				// it back
 			}
 		}
 
@@ -411,11 +484,22 @@ public class Pcc {
 
 		return tour;
 	}
-
+	
+	/**
+	 * Getter of bikeVelocity
+	 * 
+	 * @return the bike Velocity in m.s-1
+	 */
 	public Double getBikeVelocity() {
 		return bikeVelocity;
 	}
-
+	
+	/**
+	 * Setter of bikeVelocity
+	 * 
+	 * @param velocity
+	 * 		The nex bike velocity in m.s-1
+	 */
 	public void setBikeVelocity(double velocity) {
 		bikeVelocity = velocity;
 	}
