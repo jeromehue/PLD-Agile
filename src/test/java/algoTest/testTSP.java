@@ -20,17 +20,25 @@ public class testTSP {
 		
 		System.out.println("TEST\n-----------------" + "testTSP.java : test");
 		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/largeMap.xml");
-		CityMap city = cmpp.parse();
+		CityMap city = new CityMap();
+		try {
+			city = cmpp.parse();
+		} catch (Exception e) {
+			System.err.println("Error while parsing map");
+			e.printStackTrace();
+			fail();
+		}
 		
 		assertTrue(city.getIntersections() != null);
 		assertTrue(city.getIntersections().size() > 7);
 
 		
-		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsLarge9.xml", city);
+		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsLarge7.xml", city);
 		Request request = new Request();
 		try {
 			request = rp.parse();
 		} catch (Exception e) {
+			System.err.println("Error while parsing requests");
 			e.printStackTrace();
 			fail();
 		}

@@ -80,7 +80,6 @@ public class Pcc {
 		startVertices.add(start);
 		startVertices.addAll(pickUpVertices);
 		startVertices.addAll(deliveryVertices);
-		System.out.println("test" + startVertices.size());
 		CompleteGraph graph = new CompleteGraph(startVertices);
 		
 		final int END_TEST_CYCLE = 1;

@@ -14,6 +14,11 @@ public class CityMap {
 	private double maxLatitude;
 	private double maxLongitude;
 	
+	/**
+     * Default constructor
+     */
+    public CityMap() {}
+
 	public CityMap(List<Intersection> intersections, List<Segment> segments) {
 		this.intersections = intersections;
 		this.segments = segments;

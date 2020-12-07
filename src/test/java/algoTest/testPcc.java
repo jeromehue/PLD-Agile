@@ -22,7 +22,14 @@ class testPcc {
 	void test() {
 		System.out.println("TEST\n-----------------" + "testPcc.java : test");
 		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/largeMap.xml");
-		CityMap city = cmpp.parse();
+		CityMap city = new CityMap();
+		try {
+			city = cmpp.parse();
+		} catch (Exception e) {
+			System.err.println("Error while parsing map");
+			e.printStackTrace();
+			fail();
+		}
 		
 		assertTrue(city.getIntersections() != null);
 		assertTrue(city.getIntersections().size() > 7);
@@ -33,6 +40,7 @@ class testPcc {
 		try {
 			request = rp.parse();
 		} catch (Exception e) {
+			System.err.println("Error while parsing requests");
 			e.printStackTrace();
 			fail();
 		}
