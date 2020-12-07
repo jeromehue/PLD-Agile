@@ -53,6 +53,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 			int currentCount = 0;
 			Segment currentArrival;
 			String text;
+			String alert="";
 			
 			//start point
 			if(itwaysInTour.hasNext()) {
@@ -78,6 +79,10 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				
 				++currentCount;
 				text = "<html><u><strong> Step n°" + currentCount + ":</strong></u> <br />";
+				if(!tour.isPositionConsistent(currentArrival.getDestination().getId()) ){
+					alert = "Attention, ce point de delivery est placé avant son point de pickUp !" ;
+				}
+				text+="<p style='color:red'>"+alert+"</p>";
 				if (tour.getRequest().isPickUp (currentArrival.getDestination().getId()))
 				{
 					text += "Arrival to pick-up point n°"+ currentArrival.getDestination().getId();

@@ -86,7 +86,7 @@ public abstract class TemplateTSP implements TSP {
 	    			bestSolCost = currentCost+g.getCost(currentVertex,0);
 	    		}
 	    	}
-	    } else if (currentCost + bound(currentVertex,unvisited) < bestSolCost) {// && discrepancy < maxDiscrepancy){
+	    } else if (discrepancy < maxDiscrepancy && currentCost + bound(currentVertex,unvisited) < bestSolCost ){
 	    	Integer i = 0;
 	        Iterator<Integer> it = iterator(currentVertex, unvisited, g);
 	        while (it.hasNext()){
