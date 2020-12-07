@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import modele.Point;
 import modele.Tour;
 import modele.Way;
 import view.Window;
@@ -74,6 +75,11 @@ public class Controller {
 	
 	public void addRequest() {
 		currentState.addRequest(this, this.window);
+	}
+	
+	public void mouseMoved(Point p) {
+		System.out.println("Ici");
+		currentState.mouseMoved(this, this.window,  p);
 	}
 	
 	public void undo() {

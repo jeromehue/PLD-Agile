@@ -1,8 +1,13 @@
 package controller;
 
+import java.util.List;
+
 import modele.CityMap;
+import modele.Point;
 import modele.Request;
+import modele.Segment;
 import modele.Tour;
+import view.GraphicalView;
 import view.Window;
 import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
@@ -58,5 +63,34 @@ public class MapLoadedState implements State {
 		@Override
 		public void modifyTour(Controller c, Window w) {
 			w.setMessage("Before trying to modify a tour, please load a map and a requests file, then compute the Tour");
+		}
+		
+		@Override
+		public void mouseMoved(Controller c, Window w, Point p) {
+			GraphicalView graphicalView = w.getGraphicalView();
+			if( graphicalView.getCityMap() != null ) {
+				List<Segment> allsegments = graphicalView.getCityMap().getSegments();
+				float mindist= (float) 0.5;
+				Segment sclosest = null;
+				for(Segment s: allsegments) {
+					int x1 = s.getOrigin().getCoordinates().getX();
+					int y1 = s.getOrigin().getCoordinates().getY();
+					int x2 = s.getDestination().getCoordinates().getX();
+					int y2 = s.getDestination().getCoordinates().getY();
+					float distance = (float) 1.1;
+					if ( p.inBox(x1, y1, x2, y2) ) {
+						distance = p.distBetweenPointAndLine(x1,y1,x2,y2);
+					}
+					if(distance < mindist ) {
+						mindist = distance;
+						//System.out.println("distance : " +distance);
+						sclosest = s;
+					}
+				}
+				if (sclosest != null) {
+					graphicalView.highlight(sclosest);
+					w.setMessage(sclosest.getName());
+				}
+			}
 		}
 }
