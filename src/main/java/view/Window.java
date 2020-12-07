@@ -237,13 +237,13 @@ public class Window extends JFrame {
     
     
     
-    public int displaySelectTimeDialog() {
+    public int displaySelectTimeDialog(String msg) {
     	logger.info("displaySelectTimeDialog()");
-    	int i = 0;
-    	while (i == 0) {
-    		String str = JOptionPane.showInputDialog(this, "Enter the duration of pickup");
+    	int i = -1;
+    	while (i < 0) {
+    		String str = JOptionPane.showInputDialog(this, msg);
     		logger.info("String from showInput dialog {}", str);
-    		if (str == null) {return 0;}
+    		if (str == null) {return (-1);}
     		try {
     			i = Integer.parseInt(str);
     		} catch(Exception e) {

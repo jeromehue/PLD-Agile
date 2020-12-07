@@ -27,7 +27,7 @@ public class DeleteStepCommand implements Command {
 	public void doCommand() {
 		// TODO: Make it work
 		this.oldTour = this.tour;
-		this.tour = this.pcc.deleteIntersection(this.tour, this.intersection);
+		this.tour = this.pcc.deleteStep(this.tour, this.intersection);
 		tour.setTour(tour);
 		tour.notifyObservers();
 	}

@@ -1,8 +1,6 @@
 package algo;
 
 import modele.CityMap;
-//import modele.Request;
-//import modele.CityMap;
 import modele.Intersection;
 import modele.Request;
 import modele.Segment;
@@ -44,7 +42,7 @@ public class Pcc {
 	 * (=the other pickUp and delivery)
 	 */
 	private HashMap<Long, HashMap<Long, Segment>> savePredecessors;
-	Request request;
+	private Request request;
 	/**
 	 * Bike velocity in m.s-1 (4m.s-1 = 14,4km/h)
 	 */
@@ -55,10 +53,9 @@ public class Pcc {
 	private double lengthAB;
 
 	/**
-	 * Empty constructor
+	 * Default constructor
 	 */
-	public Pcc() {
-	};
+	public Pcc() {};
 
 	/**
 	 * Initialization with a City Map which contains the intersections and segments.
@@ -250,13 +247,13 @@ public class Pcc {
 
 	/**
 	 * Return a list of ways from a list of intersections. The list of intersections
-	 * come from a orderof visit computed by the TSP algo or from a user
+	 * come from a order of visit computed by the TSP algo or from a user
 	 * modification.
 	 * 
 	 * @param interList
 	 * 		List of intersections which represents classified
 	 * @return
-	 * 		A list of ways which contains all the segments to run the tour and some informations about tiome spent on each point.
+	 * 		A list of ways which contains all the segments to run the tour and some informations about time spent on each point.
 	 */
 	public List<Way> computeWaysList(List<Intersection> interList) {
 		List<Way> wayList = new ArrayList<Way>();
@@ -307,14 +304,14 @@ public class Pcc {
 	
 	/**
 	 * Enable to modify the position of an intersection
-	 * It's not possible to change the positionn of the start point.
+	 * It's not possible to change the position of the start point.
 	 * 
 	 * @param tour
 	 * 		Contains the current order between pick up and delivery points.
 	 * @param intersection
 	 * 		The intersection to change
 	 * @param shift
-	 * 		Integer which reprensents the shift in the order. Can be positive or negative.
+	 * 		Integer which represents the shift in the order. Can be positive or negative.
 	 * @return
 	 * 		A new Tour updated
 	 */
@@ -379,8 +376,6 @@ public class Pcc {
 	public Tour addRequest(Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration,
 			Integer deliveryDuration, Integer pickupIndex, Integer deliveryIndex) {
 
-		delivery = this.allVertices.get(delivery.getId());
-		pickup = this.allVertices.get(pickup.getId());
 		this.deliveryVertices.add(delivery);
 		this.pickUpVertices.add(pickup);
 		this.computePcc();
@@ -394,10 +389,8 @@ public class Pcc {
 		list.add(pickupIndex, pickup);
 		list.add(deliveryIndex, delivery);
 
-		List<Way> ways = computeWaysList(list);
-
 		tour.setRequest(request);
-		tour.setWaysList(ways);
+		tour.setWaysList(computeWaysList(list));
 		tour.updateIsPositionConsistent(delivery.getId());
 		tour.updateIsPositionConsistent(pickup.getId());
 
@@ -405,16 +398,16 @@ public class Pcc {
 	}
 	
 	/**
-	 * Enable to delete an intersection.
+	 * Enable to delete a step of the tour.
 	 * 
 	 * @param tour
 	 * 		Contains the current order between pick up and delivery points.
 	 * @param intersection
-	 * 		The intersection to delete 
+	 * 		The step to delete 
 	 * @return
 	 * 		A new Tour updated
 	 */
-	public Tour deleteIntersection(Tour tour, Intersection intersection) {
+	public Tour deleteStep(Tour tour, Intersection intersection) {
 		if (intersection.getId().equals(request.getStartingLocation().getId())) {
 			return tour;
 		}
@@ -450,7 +443,7 @@ public class Pcc {
 	 * Setter of bikeVelocity
 	 * 
 	 * @param velocity
-	 * 		The nex bike velocity in m.s-1
+	 * 		The next bike velocity in m.s-1
 	 */
 	public void setBikeVelocity(double velocity) {
 		bikeVelocity = velocity;
