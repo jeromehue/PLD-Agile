@@ -46,7 +46,7 @@ public class SeqIter implements Iterator<Integer> {
 
 		ArrayList<Integer> toBeVisited = new ArrayList<Integer>(unvisited);
 
-		HashSet<Integer> deliveriesToRemove = new HashSet<>();
+		HashSet<Integer> deliveriesToRemove = new HashSet<Integer>();
 		Long verticeId;
 
 		// int i=0;

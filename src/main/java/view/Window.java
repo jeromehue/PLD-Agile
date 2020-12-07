@@ -83,7 +83,7 @@ public class Window extends JFrame {
 		this.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 
 		this.optionalsButtonsVisible = false;
-		optionalsButtons = new ArrayList<>();
+		optionalsButtons = new ArrayList<JButton>();
 		try { UIManager.setLookAndFeel(new NimbusLookAndFeel()); } catch (Exception e) {}
 
 		JPanel contentPane = (JPanel) getContentPane();

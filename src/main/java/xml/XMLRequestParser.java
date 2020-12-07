@@ -29,12 +29,12 @@ public class XMLRequestParser extends XMLParser {
 
 	public Request parse() throws InvalidRequestException, ParserConfigurationException, SAXException, IOException {
 
-		ArrayList<Intersection> pickUpLocations = new ArrayList<>();
-		ArrayList<Intersection> deliveryLocations = new ArrayList<>();
+		ArrayList<Intersection> pickUpLocations = new ArrayList<Intersection>();
+		ArrayList<Intersection> deliveryLocations = new ArrayList<Intersection>();
 		Intersection startingLocation = null;
 		LocalTime startingTime = null;
-		ArrayList<Integer> pickUpDurations = new ArrayList<>();
-		ArrayList<Integer> deliveryDurations = new ArrayList<>();
+		ArrayList<Integer> pickUpDurations = new ArrayList<Integer>();
+		ArrayList<Integer> deliveryDurations = new ArrayList<Integer>();
 
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 

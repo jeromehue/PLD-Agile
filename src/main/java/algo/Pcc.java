@@ -83,7 +83,7 @@ public class Pcc {
 	 */
 	public CompleteGraph computePcc() {
 
-		ArrayList<Intersection> startVertices = new ArrayList<>();
+		ArrayList<Intersection> startVertices = new ArrayList<Intersection>();
 		startVertices.add(start);
 		startVertices.addAll(pickUpVertices);
 		startVertices.addAll(deliveryVertices);
@@ -277,7 +277,7 @@ public class Pcc {
 	 * @return
 	 */
 	public List<Way> computeWaysList(List<Intersection> interList) {
-		List<Way> wayList = new ArrayList<>();
+		List<Way> wayList = new ArrayList<Way>();
 		LocalTime tourStartingTime = request.getStartingTime();
 		Integer totalWayDuration = 0;
 
@@ -289,7 +289,7 @@ public class Pcc {
 		Way way;
 
 		for (int i = 0; i < interList.size(); i++) {
-			List<Segment> list = new ArrayList<>();
+			List<Segment> list = new ArrayList<Segment>();
 			Intersection start;
 			Intersection finish;
 			start = interList.get(i);

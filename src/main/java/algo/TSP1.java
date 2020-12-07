@@ -19,7 +19,7 @@ public class TSP1 extends TemplateTSP {
 
 	@Override
 	public void init() {
-		vertexMinimum = new PriorityQueue<>();
+		vertexMinimum = new PriorityQueue<Double>();
 		Integer i = 0;
 		Integer j = 0;
 		for (i = 0; i < g.getNbVertices(); i++) {

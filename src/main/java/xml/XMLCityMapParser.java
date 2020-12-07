@@ -28,10 +28,10 @@ public class XMLCityMapParser extends XMLParser {
 
 	public CityMap parse() throws ParserConfigurationException, IOException, SAXException, InvalidMapException {
 
-		List<Intersection> intersections = new ArrayList<>();
-		List<Segment> segments = new ArrayList<>();
+		List<Intersection> intersections = new ArrayList<Intersection>();
+		List<Segment> segments = new ArrayList<Segment>();
 
-		HashMap<Long, Intersection> mapIntersections = new HashMap<>();
+		HashMap<Long, Intersection> mapIntersections = new HashMap<Long, Intersection>();
 
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 

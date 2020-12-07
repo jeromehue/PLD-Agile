@@ -42,7 +42,7 @@ public class TextualView extends JPanel implements Observer {
 		this.setBackground(Window.BACKGROUND_COLOR);
 		this.tour = tour;
 		this.tour.addObserver(this);
-		this.pointsJButtonList = new ArrayList<>();
+		this.pointsJButtonList = new ArrayList<JButton>();
 		this.buttonListener = buttonListener;
 	}
 	
