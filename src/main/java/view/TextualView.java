@@ -80,7 +80,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				++currentCount;
 				text = "<html><u><strong> Step n°" + currentCount + ":</strong></u> <br />";
 				if(!tour.isPositionConsistent(currentArrival.getDestination().getId()) ){
-					alert = "Attention, ce point de delivery est placé avant son point de pickUp !" ;
+					alert = "Warning : this delivery point is placed before its pick-up point !" ;
 				}
 				text+="<p style='color:red'>"+alert+"</p>";
 				if (tour.getRequest().isPickUp (currentArrival.getDestination().getId()))
