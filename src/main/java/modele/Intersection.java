@@ -3,30 +3,28 @@ package modele;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Intersection{
+public class Intersection {
 
-    private Long id;
-    private double latitude;
-    private double longitude;
-    private ArrayList<Segment> outboundSegments;
-    private Point coordinates;
+	private Long id;
+	private double latitude;
+	private double longitude;
+	private ArrayList<Segment> outboundSegments;
+	private Point coordinates;
 
-    public Intersection(Long Id, double latitude, double longitude, ArrayList<Segment> segments) {
+	public Intersection(Long Id, double latitude, double longitude, ArrayList<Segment> segments) {
 
-        this.id = Id;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.coordinates = null;
-        if(segments != null) {
-        	this.outboundSegments = new ArrayList<Segment>(segments);
-        }
-        else
-        {
-        	this.outboundSegments = new ArrayList<Segment>();
-        }
-    }
+		this.id = Id;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.coordinates = null;
+		if (segments != null) {
+			this.outboundSegments = new ArrayList<Segment>(segments);
+		} else {
+			this.outboundSegments = new ArrayList<Segment>();
+		}
+	}
 
-    public Point getCoordinates() {
+	public Point getCoordinates() {
 		return coordinates;
 	}
 
@@ -35,21 +33,21 @@ public class Intersection{
 	}
 
 	public List<Intersection> getNeighbors() {
-    	ArrayList<Intersection> neighbors = new ArrayList<Intersection>();
-    	for(Segment seg : outboundSegments) {
-    		neighbors.add(seg.getDestination());
-    	}
-    	return neighbors;
-    }
+		ArrayList<Intersection> neighbors = new ArrayList<Intersection>();
+		for (Segment seg : outboundSegments) {
+			neighbors.add(seg.getDestination());
+		}
+		return neighbors;
+	}
 
-    public void addOutboundSegment(Segment segment) {
-    	this.outboundSegments.add(segment);
-    }
-    
-    public void removeOutboundSegment(Segment segment) {
-    	this.outboundSegments.remove(segment);
-    }
-    
+	public void addOutboundSegment(Segment segment) {
+		this.outboundSegments.add(segment);
+	}
+
+	public void removeOutboundSegment(Segment segment) {
+		this.outboundSegments.remove(segment);
+	}
+
 	@Override
 	public String toString() {
 		return "Intersection [Id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + "]";
@@ -70,12 +68,12 @@ public class Intersection{
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-	
+
 	public ArrayList<Segment> getOutboundSegments() {
 		return outboundSegments;
 	}
 
 	public Long getId() {
 		return id;
-	}    
+	}
 }

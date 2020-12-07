@@ -9,54 +9,54 @@ import modele.Request;
 public class TSP1 extends TemplateTSP {
 	private PriorityQueue<Double> vertexMinimum;
 	private Request request;
-	
+
 	public TSP1(Graph graph, Request request, Integer dMax) {
 		this.g = graph;
 		this.request = request;
 		this.maxDiscrepancy = dMax;
-		//TODO : adapt dmax value according to number of intersections
+		// TODO : adapt dmax value according to number of intersections
 	}
-	
+
 	@Override
 	public void init() {
 		vertexMinimum = new PriorityQueue<>();
-		Integer i=0;
-		Integer j=0;
-		for(i = 0; i < g.getNbVertices(); i++) {
-			for(j=0; j < g.getNbVertices(); j++) {
-				if(!i.equals(j)) {
+		Integer i = 0;
+		Integer j = 0;
+		for (i = 0; i < g.getNbVertices(); i++) {
+			for (j = 0; j < g.getNbVertices(); j++) {
+				if (!i.equals(j)) {
 					vertexMinimum.add(g.getCost(i, j));
 				}
 			}
 		}
 	}
-	
+
 	@Override
 	protected Double bound(Integer currentVertex, Collection<Integer> unvisited) {
-		
-		if(this.bestSolCost == Integer.MAX_VALUE) {
+
+		if (this.bestSolCost == Integer.MAX_VALUE) {
 			return 0.0;
 		}
-		
+
 		Double min = 0.0;
 		Double localMin;
 		Double currentVertexMin = Double.MAX_VALUE;
-		
-		for(Integer startVertex : unvisited) {
+
+		for (Integer startVertex : unvisited) {
 			localMin = g.getCost(startVertex, 0);
-			for(Integer targetVertex : unvisited) {
-				if(!startVertex.equals(targetVertex) && g.getCost(startVertex, targetVertex) < localMin) {
+			for (Integer targetVertex : unvisited) {
+				if (!startVertex.equals(targetVertex) && g.getCost(startVertex, targetVertex) < localMin) {
 					localMin = g.getCost(startVertex, targetVertex);
 				}
 			}
 			min += localMin;
-			if(g.getCost(currentVertex, startVertex) < currentVertexMin) {
+			if (g.getCost(currentVertex, startVertex) < currentVertexMin) {
 				currentVertexMin = g.getCost(currentVertex, startVertex);
- 			}
+			}
 		}
-		
+
 		min += currentVertexMin;
-		
+
 		return min;
 	}
 

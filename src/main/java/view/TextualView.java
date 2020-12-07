@@ -9,151 +9,157 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import modele.Segment;
-import modele.Shape;
 import modele.Tour;
-import modele.Visitor;
 import modele.Way;
 import observer.Observable;
 import observer.Observer;
 
-public class TextualView extends JPanel implements Observer, Visitor{
 
+public class TextualView extends JPanel implements Observer {
+
+	private static final Logger logger = LoggerFactory.getLogger(TextualView.class);
+	
 	private static final long serialVersionUID = 1L;
 	
-	private ButtonListener buttonListener; 
+	private ButtonListener buttonListener;
 	private Tour tour;
 	private ArrayList<JButton> pointsJButtonList;
-
 	
-	public TextualView(Tour tour, ButtonListener buttonListener){
+	/**
+	 * Create a textual view of the computed tour in window
+	 * @param buttonListener the buttonListener
+	 * @param tour the computed tour from controller 
+	 */
+	public TextualView(Tour tour, ButtonListener buttonListener) {
 		super();
 		setBorder(BorderFactory.createTitledBorder("Itinerary"));
-        this.setPreferredSize(new Dimension(600,2000));
-        setLayout(new FlowLayout(FlowLayout.LEFT));
-        this.setBackground(Window.BACKGROUND_COLOR);
-        this.tour = tour;
-        this.tour.addObserver(this);
-        this.pointsJButtonList = new ArrayList<>();
-        this.buttonListener = buttonListener;
+		this.setPreferredSize(new Dimension(600, 2000));
+		setLayout(new FlowLayout(FlowLayout.LEFT));
+		this.setBackground(Window.BACKGROUND_COLOR);
+		this.tour = tour;
+		this.tour.addObserver(this);
+		this.pointsJButtonList = new ArrayList<>();
+		this.buttonListener = buttonListener;
 	}
 	
+	/**
+	 * Method called by tour observed by this each time it is modified
+	 * @param observed an updated object which is observed by textual view
+	 */
 	@Override
-	public void update(Observable observed, Object arg) {
-		if (arg != null){ // arg is a shape that has been added to the tour
-			Shape f = (Shape)arg;
-			f.addObserver(this);
-		}
-		
-		if(this.tour != null)
-		{
-			clearPointJButtonList();
-			Iterator<Way> itwaysInTour = tour.getWaysListIterator();
-			Way currentWay = null;
-			int currentCount = 0;
-			Segment currentArrival;
-			String text;
-			String alert="";
-			
-			//start point
-			if(itwaysInTour.hasNext()) {
-				currentWay = itwaysInTour.next();
-				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
-				text = "<html><u><strong> Start: </strong></u> <br />";
-				text += "Leave the starting point (address n°"+currentWay.getSegmentList().get(0).getOrigin().getId();
-				text += ") at "+ currentWay.getDepartureTime().getHour() + ":";
-				if (currentWay.getDepartureTime().getMinute()<10)
-				{
-					text+="0";
-				}
-				text +=currentWay.getDepartureTime().getMinute();
-				text += " following "+ "<strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
-				text += ". <br /></html>";
-				ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
-				this.add(b);
-				pointsJButtonList.add(b);
-			}
-			
-			while (itwaysInTour.hasNext() && currentWay!= null) {
-				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
-				alert="";
-				
-				++currentCount;
-				text = "<html><u><strong> Step n°" + currentCount + ":</strong></u> <br />";
-				if(!tour.isPositionConsistent(currentArrival.getDestination().getId()) ){
-					alert = "Warning : this delivery point is placed before its pick-up point !" ;
-				}
-				text+="<p style='color:red'>"+alert+"</p>";
-				if (tour.getRequest().isPickUp (currentArrival.getDestination().getId()))
-				{
-					text += "Arrival to pick-up point n°"+ currentArrival.getDestination().getId();
-				}
-				else
-				{
-					text += "Arrival to delivery point n°"+ currentArrival.getDestination().getId();
-				}
-				
-				
-				text += " at " + currentWay.getArrivalTime().getHour() + ":";
-				if (currentWay.getArrivalTime().getMinute()<10)
-				{
-					text+="0";
-				}
-				text +=currentWay.getArrivalTime().getMinute();
-				text += " from <strong>"+ currentArrival.getName() + "</strong>. <br />";
-				
-				currentWay = itwaysInTour.next();
-				
-				text += "Time spent on the spot : "+ currentWay.getStayingDurationForDeparturePoint() + " minute(s). <br />";
-				text += "Leave at " + currentWay.getDepartureTime().getHour() + ":";
-				if (currentWay.getDepartureTime().getMinute()<10)
-				{
-					text+="0";
-				}
-				text +=currentWay.getDepartureTime().getMinute();
-				text += " following <strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
-				text += ". <br /> </html>";
-				ButtonWay newStepButton = new ButtonWay(currentWay, buttonListener, text);
-				
-				this.add(newStepButton);
-				pointsJButtonList.add(newStepButton);
-			}
-					//Displaying last point
-					if(currentWay != null) {
-					currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
-					text = "<html><u><strong> End : </strong></u> <br />";
-					text += "Return to the starting point (address n°"+currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1).getDestination().getId();
-					text += ") at "+ currentWay.getArrivalTime().getHour() + ":"+ currentWay.getArrivalTime().getMinute();
-					text += " from <strong>"+ currentArrival.getName() + "</strong>";
-					text += ". <br /></html>";
-					ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
-					this.add(b);
-					pointsJButtonList.add(b);
-				}
-		}
+	public void update(Observable observed) {
+		this.clearPointJButtonList();
+		this.displaySteps();
+		logger.info(observed.getClass() + " object was modified: textual view updated");
 	}
+
 	
+	/**
+	 * Delete button components of the textual view.
+	 */
 	private void clearPointJButtonList() {
-		for(JButton button : this.pointsJButtonList) {
+		for (JButton button : this.pointsJButtonList) {
 			button.setVisible(false);
 			this.remove(button);
 		}
 		this.pointsJButtonList.clear();
 	}
 	
-	
+	/**
+	 * Reset graphical selection effect around text areas   
+	 */
 	public void clearAllTextArea() {
-		for(JButton b : pointsJButtonList) {
+		for (JButton b : pointsJButtonList) {
 			b.setContentAreaFilled(false);
 		}
 	}
 	
-	@Override
-	public void display(Segment s) {
-		/*text += s.getName() + " sur  " + (int)s.getLength() +" mètres <br />";
-		if (s.getIsSelected())
-		{
-			text += "est selectionné";
-		}*/
+	/**
+	 * Method called to display steps of the tour on the graphical view
+	 */
+	private void displaySteps() {
+		if (this.tour != null) {
+			Iterator<Way> itwaysInTour = tour.getWaysListIterator();
+			Way currentWay = null;
+			int currentCount = 0;
+			Segment currentArrival;
+			String text;
+			String alert = "";
+
+			// start point
+			if (itwaysInTour.hasNext()) {
+				currentWay = itwaysInTour.next();
+				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size() - 1);
+				text = "<html><u><strong> Start: </strong></u> <br />";
+				text += "Leave the starting point (address n°" + currentWay.getSegmentList().get(0).getOrigin().getId();
+				text += ") at " + currentWay.getDepartureTime().getHour() + ":";
+				if (currentWay.getDepartureTime().getMinute() < 10) {
+					text += "0";
+				}
+				text += currentWay.getDepartureTime().getMinute();
+				text += " following " + "<strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
+				text += ". <br /></html>";
+				ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
+				this.add(b);
+				pointsJButtonList.add(b);
+			}
+
+			while (itwaysInTour.hasNext() && currentWay != null) {
+				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size() - 1);
+				alert = "";
+
+				++currentCount;
+				text = "<html><u><strong> Step n°" + currentCount + ":</strong></u> <br />";
+				if (!tour.isPositionConsistent(currentArrival.getDestination().getId())) {
+					alert = "Warning : this delivery point is placed before its pick-up point !";
+				}
+				text += "<p style='color:red'>" + alert + "</p>";
+				if (tour.getRequest().isPickUp(currentArrival.getDestination().getId())) {
+					text += "Arrival to pick-up point n°" + currentArrival.getDestination().getId();
+				} else {
+					text += "Arrival to delivery point n°" + currentArrival.getDestination().getId();
+				}
+
+				text += " at " + currentWay.getArrivalTime().getHour() + ":";
+				if (currentWay.getArrivalTime().getMinute() < 10) {
+					text += "0";
+				}
+				text += currentWay.getArrivalTime().getMinute();
+				text += " from <strong>" + currentArrival.getName() + "</strong>. <br />";
+
+				currentWay = itwaysInTour.next();
+
+				text += "Time spent on the spot : " + currentWay.getStayingDurationForDeparturePoint()
+						+ " minute(s). <br />";
+				text += "Leave at " + currentWay.getDepartureTime().getHour() + ":";
+				if (currentWay.getDepartureTime().getMinute() < 10) {
+					text += "0";
+				}
+				text += currentWay.getDepartureTime().getMinute();
+				text += " following <strong>" + currentWay.getSegmentList().get(0).getName() + "</strong>";
+				text += ". <br /> </html>";
+				ButtonWay newStepButton = new ButtonWay(currentWay, buttonListener, text);
+
+				this.add(newStepButton);
+				pointsJButtonList.add(newStepButton);
+			}
+			// Displaying last point
+			if (currentWay != null) {
+				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size() - 1);
+				text = "<html><u><strong> End : </strong></u> <br />";
+				text += "Return to the starting point (address n°" + currentWay.getSegmentList()
+						.get(currentWay.getSegmentList().size() - 1).getDestination().getId();
+				text += ") at " + currentWay.getArrivalTime().getHour() + ":" + currentWay.getArrivalTime().getMinute();
+				text += " from <strong>" + currentArrival.getName() + "</strong>";
+				text += ". <br /></html>";
+				ButtonWay b = new ButtonWay(currentWay, buttonListener, text);
+				this.add(b);
+				pointsJButtonList.add(b);
+			}
+		}
 	}
 }
