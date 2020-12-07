@@ -5,15 +5,22 @@ import java.util.HashMap;
 
 import modele.Intersection;
 
+/**
+ * Create a complete directed graph such that each edge is a step of the tour
+ * @param nbVertices number of steps
+ * @param costsMatrix the matrix containing the lowest known costs between vertices
+ * @param index hashmap linking an intersection's id to its index in the costs matrix 
+ * @param reverseIndex hashmap linking an index in the costs matrix to its intersection's id
+ */
 public class CompleteGraph implements Graph {
 	private int nbVertices;
 	private double[][] costsMatrix;
-	private HashMap<Long, Integer> index; // Id d'intersection, index dans le tableau de couts
-	private HashMap<Integer, Long> reverseIndex; // index dans le tableau de couts, Id d'intersection
+	private HashMap<Long, Integer> index;
+	private HashMap<Integer, Long> reverseIndex;
 	
 	/**
-	 * Create a complete directed graph such that each edge has a weight within [MIN_COST,MAX_COST]
-	 * @param nbVertices
+	 * Constructor of CompleteGraph, initializes the costs matrix with DOUBLE.MAX_VALUE
+	 * @param startVertices list of the vertices for the graph (steps of the tour)
 	 */
 	public CompleteGraph(List<Intersection> startVertices){
 		this.nbVertices = startVertices.size();
@@ -32,18 +39,32 @@ public class CompleteGraph implements Graph {
 		}
 	}
 	
-	public void updateCompleteGraph(Long startId, HashMap<Long, IntersectionPcc> costs, List<Intersection> start) {
+	/**
+	 * updating a line of the costs matrix when a vertex has been released
+	 * @param startId the id of the intersection whose departing edges are being updated
+	 * @param costs hashmap linking a target intersection id to its new cost
+	 * @param targets list of intersections linked to the one being released
+	 */
+	public void updateCompleteGraph(Long startId, HashMap<Long, IntersectionPcc> costs, List<Intersection> targets) {
 		Integer startIndex = index.get(startId);
-		for(Intersection startIntersection : start) {
-			costsMatrix[startIndex][index.get(startIntersection.getId())] = costs.get(startIntersection.getId()).getCost();
+		for(Intersection targetIntersection : targets) {
+			costsMatrix[startIndex][index.get(targetIntersection.getId())] = costs.get(targetIntersection.getId()).getCost();
 		}
 	}
 
+	/**
+	 * Returns the number of vertices of the complete graph
+	 */
 	@Override
 	public int getNbVertices() {
 		return nbVertices;
 	}
 
+	/**
+	 * Returns the cost between two vertices of the graph
+	 * @param i index in the costs matrix of the first vertex
+	 * @param j index in the costs matrix of the second vertex
+	 */
 	@Override
 	public double getCost(int i, int j) {
 		if (i<0 || i>=nbVertices || j<0 || j>=nbVertices)
@@ -51,6 +72,11 @@ public class CompleteGraph implements Graph {
 		return costsMatrix[i][j];
 	}
 
+	/**
+	 * Returns true if the two vertices are linked by an edge, else false
+	 * @param i index in the costs matrix of the first vertex
+	 * @param j index in the costs matrix of the second vertex
+	 */
 	@Override
 	public boolean isArc(int i, int j) {
 		if (i<0 || i>=nbVertices || j<0 || j>=nbVertices)
@@ -58,10 +84,17 @@ public class CompleteGraph implements Graph {
 		return i != j;
 	}
 	
+	/**
+	 * Returns the index of the costs matrix of the intersection whose id is passed
+	 * @param id intersection's id whose index is wanted
+	 */
 	public Integer getIndex(Long id) {
 		return index.get(id);
 	}
 	
+	/**
+	 * Returns a textual representation of the complete graph
+	 */
 	@Override
 	public String toString() {
 		String ret = "";
@@ -78,6 +111,10 @@ public class CompleteGraph implements Graph {
 		return ret;
 	}
 	
+	/**
+	 * Returns the  the intersection whose index of the costs matrix is passed
+	 * @param i index in the costs matrix of an intersection
+	 */
 	@Override
 	public Long getIdFromIndex(Integer i) {
 		return reverseIndex.get(i);
