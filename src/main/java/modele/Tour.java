@@ -143,5 +143,17 @@ public class Tour extends Observable{
 	public Boolean isPositionConsistent(Long idIntersection) {
 		return this.isPositionConsistent.get(idIntersection);
 	}
+	
+	public Integer getIndex(Long idIntersection) {
+		int index=-1;
+		int i=0;
+		for (Way w : this.waysList) {
+			if(w.getDeparture().getId() == idIntersection) {
+				index = i;
+			}
+			i++;
+		}
+		return index;
+	}
 
 }

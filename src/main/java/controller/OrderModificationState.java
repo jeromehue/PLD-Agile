@@ -28,11 +28,12 @@ public class OrderModificationState implements State {
 		Intersection intersection = wa.getDeparture();
 
 		Tour t1 = w.getGraphicalView().getTour(); 
+		int shift = newIndex - t1.getIndex(intersection.getId()); 
 		CityMap cityMap = w.getGraphicalView().getCityMap();
 		Request request = w.getGraphicalView().getRequest();
 		Pcc shortestPathComputer = new Pcc(cityMap , request);
 		shortestPathComputer.computePcc();
-		Tour newTour = shortestPathComputer.changeOrder( t1,  intersection,  newIndex);
+		Tour newTour = shortestPathComputer.changeOrder( t1,  intersection,  shift);
 		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t1, intersection, newIndex);
 		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", newTour, intersection, newIndex);
 		t1.setTour(newTour);
