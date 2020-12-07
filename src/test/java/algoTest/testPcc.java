@@ -30,11 +30,10 @@ class testPcc {
 			e.printStackTrace();
 			fail();
 		}
-		
+
 		assertTrue(city.getIntersections() != null);
 		assertTrue(city.getIntersections().size() > 7);
 
-		
 		XMLRequestParser rp = new XMLRequestParser("./src/main/resources/requestsLarge7.xml", city);
 		Request request = new Request();
 		try {
@@ -44,17 +43,17 @@ class testPcc {
 			e.printStackTrace();
 			fail();
 		}
-		
+
 		Pcc pcc = new Pcc(city, request);
-		
+
 		CompleteGraph graph = pcc.computePcc();
-		//System.out.println(graph.toString());
-		
+		// System.out.println(graph.toString());
+
 		ArrayList<Intersection> deliveries = request.getDeliveryLocations();
-		Integer randomDeliveryLocation = (int)((Math.random()*deliveries.size()));
+		Integer randomDeliveryLocation = (int) ((Math.random() * deliveries.size()));
 
 		List<Segment> chemin = pcc.getRoads(request.getStartingLocation(), deliveries.get(randomDeliveryLocation));
-		
+
 		Intersection passage = chemin.get(0).getOrigin();
 
 		System.out.println("\n\nOn commence au point (" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
@@ -62,13 +61,13 @@ class testPcc {
 			passage = s.getDestination();
 			System.out.print("On prend la rue : ");
 			System.out.println(s.getName());
-			
+
 			System.out.println("On passe au point (" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
 		}
 		System.out.println();
-		
-		for (int i = 0 ; i < graph.getNbVertices() ; ++i) {
-			for (int j = 0 ; j < graph.getNbVertices() ; ++j) {
+
+		for (int i = 0; i < graph.getNbVertices(); ++i) {
+			for (int j = 0; j < graph.getNbVertices(); ++j) {
 				if (i == j) {
 					assertTrue(graph.getCost(i, j) == 0.0);
 				} else {

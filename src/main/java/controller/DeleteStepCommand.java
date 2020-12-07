@@ -5,14 +5,15 @@ import modele.Intersection;
 import modele.Tour;
 
 public class DeleteStepCommand implements Command {
-	
+
 	private Pcc pcc;
 	private Tour oldTour;
 	private Tour tour;
 	private Intersection intersection;
-	
+
 	/**
 	 * Create the command which adds the shape s to the plan p
+	 * 
 	 * @param p the plan to which f is added
 	 * @param s the shape added to p
 	 */

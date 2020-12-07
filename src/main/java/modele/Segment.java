@@ -1,7 +1,7 @@
 package modele;
 
 public class Segment extends Shape {
-	
+
 	@Override
 	public boolean contains(Point p) {
 		return false;
@@ -16,8 +16,9 @@ public class Segment extends Shape {
 	private String name;
 	private Intersection origin;
 	private Intersection destination;
-	
-	public Segment() {}
+
+	public Segment() {
+	}
 
 	public Segment(double length, String name, Intersection origin, Intersection destination) {
 		super();
@@ -32,7 +33,7 @@ public class Segment extends Shape {
 		return "Segment [length=" + length + ", name=" + name + ", origin=" + origin + ", destination=" + destination
 				+ "]";
 	}
-	
+
 	public double getLength() {
 		return length;
 	}
