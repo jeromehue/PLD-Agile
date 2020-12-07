@@ -97,6 +97,10 @@ public class Request {
 	public Boolean isPickUp(Long id) {
 		return(deliveryFromPickUp.get(id) != null);
 	}
+	
+	public Boolean hasDelivery(Long id) {
+		return(deliveryFromPickUp.get(id) != null && deliveryFromPickUp.get(id) != -1);
+	}
 
 	@Override
 	public String toString() {
@@ -115,7 +119,4 @@ public class Request {
 		this.durations.put(pickUp.getId(), pickUpDuration);
 		this.durations.put(delivery.getId(), deliveryDuration);
 	}
-	
-	
-
 }

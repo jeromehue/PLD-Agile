@@ -47,13 +47,6 @@ public class Tour extends Observable{
 		isPositionConsistent.put(request.getStartingLocation().getId(), true);
 	}
 	
-	/*public void setTour(Intersection start, Request request, List<Way> waysList, HashMap<Long, Boolean> isPickUpBeforeDelivery) {
-		this.startingIntersection = start;
-		this.request = request;
-		this.waysList = waysList;
-		this.isPositionConsistent = isPickUpBeforeDelivery;
-	}*/
-	
 	public void setTour(Tour t2) {
 		this.startingIntersection = t2.getStartingIntersection();
 		this.request = t2.getRequest();
@@ -128,7 +121,7 @@ public class Tour extends Observable{
 		} else if(request.isPickUp(idInterToCheck)) {
 			isPositionConsistent = true;
 		}else {
-			int i=1;//Begining is after start Point
+			int i=1;//Beginning is after start Point
 			Intersection currentInter ;
 		
 			do {
