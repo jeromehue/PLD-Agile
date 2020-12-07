@@ -36,6 +36,7 @@ public class TourModificationState implements State {
 
 	@Override
 	public void mouseMoved(Controller c, Window w, Point p) {
+		/*
 		GraphicalView graphicalView = w.getGraphicalView();
 		if (graphicalView.getCityMap() != null) {
 			List<Intersection> intersections = graphicalView.getCityMap().getIntersections();
@@ -57,6 +58,7 @@ public class TourModificationState implements State {
 				w.setMessage("truc");
 			}
 		}
+		*/
 	}
 
 	@Override

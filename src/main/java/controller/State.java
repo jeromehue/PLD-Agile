@@ -39,6 +39,9 @@ public interface State {
 	public default void mouseMoved(Controller c, Window w, Point p) {
 	}
 
+	public default void leftClick(Point p, Controller controller, Window w) {
+	}
+	
 	/**
 	 * Method called by the controller after a click on the button "Undo"
 	 * 
@@ -53,5 +56,7 @@ public interface State {
 	 * @param l the current list of commands
 	 */
 	public default void redo(ListOfCommands l) {
-	};
+	}
+
+	
 }
