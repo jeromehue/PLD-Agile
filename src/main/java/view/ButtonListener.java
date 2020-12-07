@@ -12,11 +12,19 @@ public class ButtonListener implements ActionListener {
 	private static final Logger logger = LoggerFactory.getLogger(ButtonListener.class);
 
 	private Controller controller;
-
+	
+	/**
+	 * button listener of the window
+	 * @param controller the controller
+	 */
 	public ButtonListener(Controller controller) {
 		this.controller = controller;
 	}
-
+	
+	/**
+	 * Call controller after a button event
+	 * @param e the event
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() instanceof ButtonWay) {
 
@@ -27,9 +35,6 @@ public class ButtonListener implements ActionListener {
 				logger.info("Click button: DEFAULT_CASE_1");
 			}
 		} else {
-			// Méthode appelée par l'ecouteur de boutons a chaque fois qu'un bouton est
-			// clique
-			// Envoi au controleur du message correspondant au bouton clique
 			switch (e.getActionCommand()) {
 			case Window.LOAD_REQUEST:
 				logger.info("Click on LOAD_REQUEST button");
