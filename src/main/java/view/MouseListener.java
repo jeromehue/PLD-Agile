@@ -8,8 +8,6 @@ import javax.swing.SwingUtilities;
 import controller.Controller;
 import modele.Point;
 import modele.PointFactory;
-import modele.Segment;
-import java.util.List;
 
 public class MouseListener extends MouseAdapter{
 

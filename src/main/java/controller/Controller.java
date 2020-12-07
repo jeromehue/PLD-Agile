@@ -78,7 +78,7 @@ public class Controller {
 	}
 	
 	public void mouseMoved(Point p) {
-		System.out.println("Ici");
+		//System.out.println("Ici");
 		currentState.mouseMoved(this, this.window,  p);
 	}
 	
