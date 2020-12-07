@@ -252,9 +252,9 @@ public class Window extends JFrame{
     	for(JButton b : optionalsButtons)
     		b.setVisible(optionalsButtonsVisible);
     	if(this.optionalsButtonsVisible) {
-			this.switchmode.setText(this.EXIT_MODIFY_TOUR);
+			this.switchmode.setText(EXIT_MODIFY_TOUR);
 		} else {
-			this.switchmode.setText(this.MODIFY_TOUR);
+			this.switchmode.setText(MODIFY_TOUR);
 		}
     	this.toolBar.setVisible(optionalsButtonsVisible);
     }

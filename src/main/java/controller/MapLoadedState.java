@@ -54,4 +54,9 @@ public class MapLoadedState implements State {
 		public void computeTour(Controller c,Window w, Tour t) {
 			w.setMessage("Before trying to compute a tour, please load a requests file.");
 		}
+		
+		@Override
+		public void modifyTour(Controller c, Window w) {
+			w.setMessage("Before trying to modify a tour, please load a map and a requests file, then compute the Tour");
+		}
 }

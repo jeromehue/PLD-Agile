@@ -68,12 +68,7 @@ public class Controller {
 	}
 	
 	public void modifyTour() {
-		this.window.changeOptionalsButtonsVisibility();
-		if (window.isOptionalsButtonsVisible()) {
-			setCurrentstate(tourModificationState);
-		} else {
-			setCurrentstate(requestLoadedState);
-		}
+		currentState.modifyTour(this, this.window);
 	}
 	
 	public void undo() {
