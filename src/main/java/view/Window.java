@@ -39,7 +39,7 @@ public class Window extends JFrame {
 
 	protected final static Color BACKGROUND_COLOR = new Color(224, 224, 224);
 
-	// Buttons titles
+	// Buttons labels
 	protected final static String LOAD_MAP = "Load XML Map";
 	protected final static String LOAD_REQUEST = "Load XML Requests";
 	protected final static String COMPUTE_TOUR = "Compute tour";
@@ -60,26 +60,31 @@ public class Window extends JFrame {
 	private JToolBar toolBar;
 	private ArrayList<JButton> optionalsButtons;
 	private JMenuItem switchmode;
-	private boolean optionalsButtonsVisible;
-
+	
 	// Listeners
 	private ButtonListener buttonListener;
 	private MouseListener mouseListener;
-
+	
+	private boolean optionalsButtonsVisible;
+	
+	/**
+	 * Create a window with menu bar, a graphical zone to display the map, the request and the tour, 
+	 * a frame for displaying messages, a textual zone for describing steps of the tour,
+	 * and listeners which catch events and forward them to controller 
+	 * @param tour the tour
+	 * @param controller the controller
+	 */
 	public Window(Controller controller, Tour tour) {
 		super("Deliver'IF");
 		this.buttonListener = new ButtonListener(controller);
+		this.setSize(1400,1000);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		this.setSize(1800, 1020);
 		this.setLocationRelativeTo(null);
 		this.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 
 		this.optionalsButtonsVisible = false;
 		optionalsButtons = new ArrayList<>();
-		try {
-			UIManager.setLookAndFeel(new NimbusLookAndFeel());
-		} catch (Exception e) {
-		}
+		try { UIManager.setLookAndFeel(new NimbusLookAndFeel()); } catch (Exception e) {}
 
 		JPanel contentPane = (JPanel) getContentPane();
 		contentPane.setLayout(new BorderLayout());
@@ -92,8 +97,9 @@ public class Window extends JFrame {
 		this.toolBar.setVisible(this.optionalsButtonsVisible);
 
 		this.textualView = new TextualView(tour, this.buttonListener);
-		JScrollPane scrollPane = new JScrollPane(textualView, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollPane scrollPane = new JScrollPane(textualView
+				,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS
+				,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		contentPane.add(scrollPane, BorderLayout.WEST);
 
@@ -108,107 +114,104 @@ public class Window extends JFrame {
 
 		this.setVisible(true);
 
-		// To be place after the set visible.
+		// To be placed after the set visible.
 		PointFactory.initPointFactory(graphicalView, null);
-
+	}
+	
+	public GraphicalView getGraphicalView() {
+		return graphicalView;
 	}
 
+	public TextualView getTextualView() {
+		return textualView;
+	}
+	
+	/**
+	 * Displays a message in the message frame
+	 * @param message the message to display
+	 */
+	public void setMessage(String message) {
+		messageFrame.setText(message);
+	}
+
+	public boolean isOptionalsButtonsVisible() {
+		return optionalsButtonsVisible;
+	}
+	
+	/**
+	 * Method called to create the menu bar component
+	 */
 	private JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		// Load
 		JMenu mnuLoad = new JMenu(" File ");
 		mnuLoad.setMnemonic('F');
 		mnuLoad.setForeground(Color.black);
-
 		JMenuItem mnuLoadMap = new JMenuItem(LOAD_MAP);
 		mnuLoadMap.setSize(new Dimension(50, 50));
 		mnuLoadMap.setMnemonic('M');
 		mnuLoadMap.addActionListener(this.buttonListener);
 		mnuLoad.add(mnuLoadMap);
-
 		JMenuItem mnuLoadRequest = new JMenuItem(LOAD_REQUEST);
 		mnuLoadRequest.setMnemonic('R');
 		mnuLoadRequest.addActionListener(this.buttonListener);
 		mnuLoad.add(mnuLoadRequest);
-
 		menuBar.add(mnuLoad);
 
 		// Compute
 		JMenu mnuCompute = new JMenu(" Action ");
 		mnuCompute.setMnemonic('A');
-
 		JMenuItem mnuComputeTour = new JMenuItem(COMPUTE_TOUR);
 		mnuComputeTour.setMnemonic('C');
 		mnuComputeTour.addActionListener(this.buttonListener);
 		mnuCompute.add(mnuComputeTour);
-		;
-
 		menuBar.add(mnuCompute);
 
 		// Edit
 		JMenu mnuEdit = new JMenu(" Edit ");
 		mnuEdit.setMnemonic('E');
-
 		JMenuItem modifyTour = new JMenuItem(MODIFY_TOUR);
 		modifyTour.setMnemonic('S');
 		modifyTour.addActionListener(this.buttonListener);
 		this.switchmode = modifyTour;
-
 		mnuEdit.add(modifyTour);
 		menuBar.add(mnuEdit);
+		
 		return menuBar;
 	}
-
-	JToolBar createToolBar(Controller controller) {
+	
+	/**
+	 * Method called to create a button of the menu bar
+	 */
+	private JButton createButton(Color foregroundColor, String label) {
+		JButton createdButton = new JButton(label);
+		createdButton.addActionListener(buttonListener);
+		createdButton.setForeground(foregroundColor);
+		createdButton.setVisible(false);
+		this.optionalsButtons.add(createdButton);
+		return createdButton;
+	}
+	
+	/**
+	 * Method called to create the tool bar component (edition mode) which is hided when application starts
+	 * @param controller the controller
+	 */
+	private JToolBar createToolBar(Controller controller) {
 		JToolBar toolBar = new JToolBar();
 		toolBar.setPreferredSize(new Dimension(100, 30));
-
-		JButton undoButton = new JButton(UNDO);
-		undoButton.addActionListener(buttonListener);
-		undoButton.setForeground(Color.black);
-		undoButton.setVisible(false);
-		optionalsButtons.add(undoButton);
-		toolBar.add(undoButton);
-
-		JButton redoButton = new JButton(REDO);
-		redoButton.addActionListener(buttonListener);
-		redoButton.setForeground(Color.black);
-		redoButton.setVisible(false);
-		optionalsButtons.add(redoButton);
-		toolBar.add(redoButton);
-
-		JButton addRequestButton = new JButton(ADD_REQUEST);
-		addRequestButton.addActionListener(buttonListener);
-		addRequestButton.setForeground(Color.darkGray);
-		addRequestButton.setVisible(false);
-		optionalsButtons.add(addRequestButton);
-		toolBar.add(addRequestButton);
-
-		JButton modifyRequestButton = new JButton(MODIFY_REQUEST);
-		modifyRequestButton.addActionListener(buttonListener);
-		modifyRequestButton.setForeground(Color.darkGray);
-		modifyRequestButton.setVisible(false);
-		optionalsButtons.add(modifyRequestButton);
-		toolBar.add(modifyRequestButton);
-
-		JButton modifyOrderButton = new JButton(MODIFY_ORDER);
-		modifyOrderButton.addActionListener(buttonListener);
-		modifyOrderButton.setVisible(false);
-		modifyOrderButton.setForeground(Color.darkGray);
-		optionalsButtons.add(modifyOrderButton);
-		toolBar.add(modifyOrderButton);
-
-		JButton removeRequestButton = new JButton(REMOVE_REQUEST);
-		removeRequestButton.addActionListener(buttonListener);
-		removeRequestButton.setForeground(Color.darkGray);
-		removeRequestButton.setVisible(false);
-		optionalsButtons.add(removeRequestButton);
-		toolBar.add(removeRequestButton);
-
+		toolBar.add(this.createButton(Color.black, UNDO));
+		toolBar.add(this.createButton(Color.black, REDO));
+		toolBar.add(this.createButton(Color.darkGray, ADD_REQUEST));
+		toolBar.add(this.createButton(Color.darkGray, MODIFY_REQUEST));
+		toolBar.add(this.createButton(Color.darkGray, MODIFY_ORDER));
+		toolBar.add(this.createButton(Color.darkGray, REMOVE_REQUEST));
 		return toolBar;
 	}
-
-	JLabel createMessageFrame() {
+	
+	/**
+	 * Method called to create the message frame component 
+	 */
+	private JLabel createMessageFrame() {
 		messageFrame = new JLabel();
 		messageFrame.setPreferredSize(new Dimension(50, 150));
 		messageFrame.setBorder(BorderFactory.createTitledBorder("Messages"));
@@ -219,14 +222,9 @@ public class Window extends JFrame {
 		return messageFrame;
 	}
 
-	public void setMessage(String message) {
-		messageFrame.setText(message);
-	}
-
-	public boolean isOptionalsButtonsVisible() {
-		return optionalsButtonsVisible;
-	}
-
+	/**
+	 * Method called hide or display the tool bar 
+	 */
 	public void changeOptionalsButtonsVisibility() {
 		this.optionalsButtonsVisible = !this.optionalsButtonsVisible;
 		for (JButton b : optionalsButtons)
@@ -238,7 +236,10 @@ public class Window extends JFrame {
 		}
 		this.toolBar.setVisible(optionalsButtonsVisible);
 	}
-
+	
+	/**
+	 * Method called to open a dialog frame and select a file path  
+	 */
 	public String createDialogBoxToGetFilePath() {
 		final JFileChooser fc = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("XML files (*.xml)", "xml");
@@ -253,7 +254,10 @@ public class Window extends JFrame {
 		}
 		return absPath;
 	}
-
+	
+	/**
+	 * Method called to open a dialog frame and select a number
+	 */
 	public int displaySelectOrderDialog() {
 		logger.info("Entering displaySelectOrderDialog");
 		int i = 0;
@@ -271,13 +275,4 @@ public class Window extends JFrame {
 		}
 		return i;
 	}
-
-	public GraphicalView getGraphicalView() {
-		return graphicalView;
-	}
-
-	public TextualView getTextualView() {
-		return textualView;
-	}
-
 }
