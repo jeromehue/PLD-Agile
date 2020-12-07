@@ -40,8 +40,8 @@ public class Window extends JFrame{
 	protected final static Color BACKGROUND_COLOR = new Color(224,224,224);
 	    
 	//Buttons titles
-	protected final static String LOAD_MAP 			        = "Load XML Map...";
-	protected final static String LOAD_REQUEST 	         	= "Load XML Requests...";
+	protected final static String LOAD_MAP 			        = "Load XML Map";
+	protected final static String LOAD_REQUEST 	         	= "Load XML Requests";
 	protected final static String COMPUTE_TOUR 		        = "Compute tour";
 	protected final static String CLICK_STEP		        = "Display tour";
 	protected final static String MODIFY_TOUR       		= "Enter tour edition mode";
@@ -118,27 +118,26 @@ public class Window extends JFrame{
     private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         // Load
-        JMenu mnuLoad = new JMenu( " Load... " );
-        mnuLoad.setMnemonic( 'L' );
+        JMenu mnuLoad = new JMenu( " File " );
+        mnuLoad.setMnemonic( 'F' );
         mnuLoad.setForeground(Color.black);
         
         JMenuItem mnuLoadMap = new JMenuItem( LOAD_MAP );
         mnuLoadMap.setSize(new Dimension(50, 50));
-        mnuLoadMap.setMnemonic( 'L' );
+        mnuLoadMap.setMnemonic( 'M' );
         mnuLoadMap.addActionListener(this.buttonListener);
         mnuLoad.add(mnuLoadMap);
-        mnuLoad.addSeparator();
 
         JMenuItem mnuLoadRequest = new JMenuItem( LOAD_REQUEST );
-        mnuLoadRequest.setMnemonic( 'L' );
+        mnuLoadRequest.setMnemonic( 'R' );
         mnuLoadRequest.addActionListener(this.buttonListener);
         mnuLoad.add(mnuLoadRequest);
         
         menuBar.add(mnuLoad);
         
         // Compute
-        JMenu mnuCompute = new JMenu( " Compute " );
-        mnuCompute.setMnemonic( 'C' );
+        JMenu mnuCompute = new JMenu( " Action " );
+        mnuCompute.setMnemonic( 'A' );
         
         JMenuItem mnuComputeTour = new JMenuItem( COMPUTE_TOUR );
         mnuComputeTour.setMnemonic( 'C' );
