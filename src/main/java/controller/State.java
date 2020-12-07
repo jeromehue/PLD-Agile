@@ -2,6 +2,7 @@ package controller;
 
 import javax.swing.JButton;
 
+import modele.Point;
 import modele.Tour;
 import modele.Way;
 import view.Window;
@@ -26,6 +27,8 @@ public interface State {
 	public default void modifyOrder(Controller c, Window w) {}
 	
 	public default void addRequest(Controller c, Window w) {}
+	
+	public default void mouseMoved(Controller c, Window w, Point p) {}
 
 	/**
 	 * Method called by the controller after a click on the button "Undo"
