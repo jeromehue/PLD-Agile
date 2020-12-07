@@ -18,7 +18,7 @@ class XMLMapParserTest {
 			fail();
 		}
 	}
-	
+
 	@Test
 	@DisplayName("Loading a medium map")
 	void mediumMapTest() {
@@ -29,8 +29,9 @@ class XMLMapParserTest {
 		} catch (Exception e) {
 			System.err.println("Error while parsing map");
 			fail();
-		}	
+		}
 	}
+
 	@Test
 	@DisplayName("Loading a large map")
 	void largeMapTest() {
@@ -43,6 +44,5 @@ class XMLMapParserTest {
 			fail();
 		}
 	}
-
 
 }

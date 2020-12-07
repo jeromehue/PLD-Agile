@@ -16,7 +16,7 @@ class XMLRequestParserTest {
 	private CityMap smallMap;
 	private CityMap mediumMap;
 	private CityMap largeMap;
-	
+
 	@BeforeAll
 	void setup() {
 		XMLCityMapParser p;
@@ -26,7 +26,7 @@ class XMLRequestParserTest {
 		} catch (Exception e) {
 			System.err.println("Error while parsing map");
 			fail();
-		}	
+		}
 		p = new XMLCityMapParser("src/main/resources/mediumMap.xml");
 
 		try {
@@ -34,7 +34,8 @@ class XMLRequestParserTest {
 		} catch (Exception e) {
 			System.err.println("Error while parsing map");
 			fail();
-		}			p = new XMLCityMapParser("src/main/resources/largeMap.xml");
+		}
+		p = new XMLCityMapParser("src/main/resources/largeMap.xml");
 
 		try {
 			this.largeMap = p.parse();
@@ -44,29 +45,28 @@ class XMLRequestParserTest {
 		}
 	}
 
-
 	@Test
 	@DisplayName("Loading small requests")
-	void smallRequestTest() throws InvalidRequestException  {
+	void smallRequestTest() throws InvalidRequestException {
 		XMLRequestParser p;
 		p = new XMLRequestParser("src/main/resources/requestsSmall1.xml", this.smallMap);
 		try {
 			p.parse();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.err.println("Error while parsing requests");
 			fail();
 		}
-		
+
 	}
 
 	@Test
 	@DisplayName("Loading medium requests")
-	void mediumRequestTest() throws InvalidRequestException  {
+	void mediumRequestTest() throws InvalidRequestException {
 		XMLRequestParser p;
 		p = new XMLRequestParser("src/main/resources/requestsMedium3.xml", this.mediumMap);
 		try {
 			p.parse();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.err.println("Error while parsing requests");
 			fail();
 		}
@@ -79,7 +79,7 @@ class XMLRequestParserTest {
 		p = new XMLRequestParser("src/main/resources/requestsLarge7.xml", this.largeMap);
 		try {
 			p.parse();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.err.println("Error while parsing requests");
 			fail();
 		}
@@ -92,7 +92,7 @@ class XMLRequestParserTest {
 		p = new XMLRequestParser("src/main/resources/requestsLarge7.xml", this.smallMap);
 		assertThrows(InvalidRequestException.class, () -> {
 			p.parse();
-	    });
+		});
 	}
 
 }
