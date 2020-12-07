@@ -18,13 +18,15 @@ public interface State {
 	
 	public default void computeTour(Controller c, Window w, Tour t) {}
 
-	public default void clickOnStep(Controller c, Window w, Way wa, JButton button, Tour t) {}
+	public default void clickOnStep(Controller c, Window w, ListOfCommands l, Way wa, JButton button, Tour t) {}
 
 	public default void deleteAStep(Controller c, Window w) {}
 
 	public default void modifyTour(Controller c, Window w) {}
 	
 	public default void modifyOrder(Controller c, Window w) {}
+	
+	public default void addRequest(Controller c, Window w) {}
 
 	/**
 	 * Method called by the controller after a click on the button "Undo"

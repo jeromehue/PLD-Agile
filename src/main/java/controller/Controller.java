@@ -72,6 +72,10 @@ public class Controller {
 		currentState.modifyTour(this, this.window);
 	}
 	
+	public void addRequest() {
+		currentState.addRequest(this, this.window);
+	}
+	
 	public void undo() {
 		currentState.undo(l);
 	}

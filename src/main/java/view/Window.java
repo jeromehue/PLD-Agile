@@ -281,12 +281,12 @@ public class Window extends JFrame{
     	logger.info("Entering displaySelectOrderDialog");
     	int i = 0;
     	while (i == 0) {
-    		String str = JOptionPane.showInputDialog(this, "Entrez la nouvelle place de cette étape");
+    		String str = JOptionPane.showInputDialog(this, "Enter the shift of this step");
     		if (str == null) {return -1;}
     		try {
     			i = Integer.parseInt(str);
     		} catch(Exception e) {
-    			logger.error("La saisie n'est pas un entier valide, ou est égale à 0");
+    			logger.error("You did not enter a valid number, or it was equal to zero");
     		}
     	}
     	return i;
