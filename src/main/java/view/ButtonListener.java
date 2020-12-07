@@ -69,6 +69,7 @@ public class ButtonListener  implements ActionListener  {
 			case Window.REDO: 
 				logger.info("Click on REDO button");
 				controller.redo();
+				break;
 			case Window.ADD_REQUEST:
 				logger.info("Click on ADD_REQUEST button");
 				controller.addRequest();
