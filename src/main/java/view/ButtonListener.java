@@ -64,7 +64,7 @@ public class ButtonListener  implements ActionListener  {
 				break;
 			case Window.ADD_REQUEST:
 				logger.info("Click on ADD_REQUEST button");
-				//controller.addRequest();
+				controller.addRequest();
 				break;
 			default: 
 				logger.info("Click button: DEFAULT_CASE_2"); 
