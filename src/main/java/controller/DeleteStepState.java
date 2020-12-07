@@ -16,7 +16,9 @@ public class DeleteStepState implements State{
 		System.out.println(stepToDelete.toString());
 		
 		Pcc shortestPathComputer = new Pcc(w.getGraphicalView().getCityMap() , w.getGraphicalView().getRequest());
-		shortestPathComputer.deleteIntersection(t, stepToDelete);
+		shortestPathComputer.computePcc();
+		t.setTour( shortestPathComputer.deleteIntersection(t, stepToDelete) );
+		t.notifyObservers();
 		
 		c.setCurrentstate(c.tourModificationState);
 	}

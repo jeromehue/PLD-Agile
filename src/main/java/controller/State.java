@@ -6,7 +6,6 @@ import modele.Point;
 import modele.Tour;
 import modele.Way;
 import view.Window;
-import controller.ListOfCommands;
 
 public interface State {
 	

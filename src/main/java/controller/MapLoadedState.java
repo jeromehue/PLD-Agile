@@ -1,6 +1,14 @@
 package controller;
 
+
 import java.util.List;
+import java.io.IOException;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
+
 
 import modele.CityMap;
 import modele.Point;
@@ -14,6 +22,8 @@ import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
 public class MapLoadedState implements State {
+	
+	private static final Logger logger = LoggerFactory.getLogger(XMLRequestParser.class);
 	
 		@Override
 		public void loadMap(Controller c, Window w, Tour t) {
@@ -45,7 +55,17 @@ public class MapLoadedState implements State {
 					c.setCurrentstate(c.requestLoadedState);
 					w.setMessage("The requests were successfully loaded. You may now compute the tour.");
 				} catch (InvalidRequestException e) {
-					w.setMessage(e.getMessage());
+					w.setMessage("A problem occurred while trying to load the requests file.");
+					logger.error("Error while trying to load the request file because of invalid requests or non-conform file.");
+				} catch (ParserConfigurationException e) {
+					w.setMessage("A problem occurred while trying to load the requests file.");
+					logger.error("Error while trying to load the request file because of the parser configuration.");
+				} catch(SAXException e) {
+					w.setMessage("A problem occurred while trying to load the requests file.");
+					logger.error("Error while trying to load the request file because of the XML parser.");
+				} catch (IOException e) {
+					w.setMessage("A problem occurred while trying to load the requests file.");
+					logger.error("Error while trying to load the request file because of a I/O problem.");
 				}
 			}
 			else 

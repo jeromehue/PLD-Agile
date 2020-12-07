@@ -14,7 +14,6 @@ import modele.Request;
 import modele.Segment;
 import modele.Tour;
 import view.GraphicalView;
-import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
@@ -30,8 +29,8 @@ public class testGraphicalView {
 		Request request = new Request();
 		try {
 			request = p2.parse();
-		} catch (InvalidRequestException e) {
-			System.err.println("Error while parsing request");
+		} catch (Exception e) {
+			System.err.println("Error while parsing requests");
 			e.printStackTrace();
 			System.exit(0);
 		}

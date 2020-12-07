@@ -13,7 +13,6 @@ import modele.CityMap;
 import modele.Request;
 import modele.Segment;
 import modele.Intersection;
-import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
@@ -33,7 +32,7 @@ class testPcc {
 		Request request = new Request();
 		try {
 			request = rp.parse();
-		} catch (InvalidRequestException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}

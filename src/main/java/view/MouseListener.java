@@ -29,7 +29,10 @@ public class MouseListener extends MouseAdapter{
 		this.controller = controller;
 	}
 
-
+	public void mousePressed(MouseEvent e) {
+		Point p = coordinates(e);
+		this.window.setMessage("HEY !!");
+	}
 	
 	
 	public void mouseMoved(MouseEvent evt) {

@@ -1,8 +1,16 @@
 package controller;
 
+
 import java.util.List;
+import java.io.IOException;
+
 
 import javax.swing.JButton;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
 import algo.Pcc;
 import modele.CityMap;
@@ -19,84 +27,95 @@ import xml.XMLRequestParser;
 
 public class RequestLoadedState implements State {
 
+	private static final Logger logger = LoggerFactory.getLogger(XMLRequestParser.class);
 	
-		@Override
-		public void loadMap(Controller c, Window w, Tour t) {
-			
-			String path = w.createDialogBoxToGetFilePath();
-			w.getGraphicalView().setHighlightedWay(null);
-			if(path != null) 
-			{
-				XMLCityMapParser p = new XMLCityMapParser(path);
-				CityMap cityMap = p.parse();
-				w.getGraphicalView().setCityMap(cityMap);
-				c.setCurrentstate(c.mapLoadedState);
-				w.getGraphicalView().setRequest(null);
-				t.ClearTour();
-			}
-			else 
-			{
-				w.setMessage("You can load a new map, load a requests file or compute the tour.");
-			}
-		}
-	
-		@Override
-		public void loadRequest(Controller c, Window w, Tour t) {
-			String path = w.createDialogBoxToGetFilePath();
-			w.getGraphicalView().setHighlightedWay(null);
-			if(path != null) 
-			{
-				try {
-					XMLRequestParser p = new XMLRequestParser(path, w.getGraphicalView().getCityMap());
-					Request request = p.parse();
-					w.getGraphicalView().setRequest(request);
-					c.setCurrentstate(c.requestLoadedState);
-					w.setMessage("The requests were successfully loaded. You may now compute the tour.");
-					t.ClearTour();
-				} catch (InvalidRequestException e) {
-					System.out.println(e.getMessage());
-				}
-			}
-			else 
-			{
-				w.setMessage("Please load a XML file.");
-			}
-			
-		}
+	@Override
+	public void loadMap(Controller c, Window w, Tour t) {
 		
-		@Override
-		public void computeTour(Controller c, Window w, Tour t) {
-			//Modify the tour
-			Pcc shortestPathComputer = new Pcc(w.getGraphicalView().getCityMap() ,  w.getGraphicalView().getRequest() );
-			shortestPathComputer.computePcc();
-			
-			Tour t2 = shortestPathComputer.computeGooodTSPTour();
-			t.setTour(t2);
-			t.notifyObservers();
-			
-			w.getGraphicalView().setHighlightedWay(null);
-			w.setMessage("Your tour");
+		String path = w.createDialogBoxToGetFilePath();
+		w.getGraphicalView().setHighlightedWay(null);
+		if(path != null) 
+		{
+			XMLCityMapParser p = new XMLCityMapParser(path);
+			CityMap cityMap = p.parse();
+			w.getGraphicalView().setCityMap(cityMap);
+			c.setCurrentstate(c.mapLoadedState);
+			w.getGraphicalView().setRequest(null);
+			t.ClearTour();
 		}
-		
-		@Override
-		public void clickOnStep(Controller c, Window w, ListOfCommands l, Way wa, JButton button, Tour t){	
-			w.getTextualView().clearAllTextArea();
-			button.setContentAreaFilled(true);
-			w.getGraphicalView().setHighlightedWay(wa);
+		else 
+		{
+			w.setMessage("You can load a new map, load a requests file or compute the tour.");
 		}
-		
-		@Override
-		public void modifyTour(Controller c, Window w) {
-			w.changeOptionalsButtonsVisibility();
-			if (w.isOptionalsButtonsVisible()) {
-				c.setCurrentstate(c.tourModificationState);
-			} else {
+	}
+
+	@Override
+	public void loadRequest(Controller c, Window w, Tour t) {
+		String path = w.createDialogBoxToGetFilePath();
+		w.getGraphicalView().setHighlightedWay(null);
+		if(path != null) 
+		{
+			try {
+				XMLRequestParser p = new XMLRequestParser(path, w.getGraphicalView().getCityMap());
+				Request request = p.parse();
+				w.getGraphicalView().setRequest(request);
 				c.setCurrentstate(c.requestLoadedState);
+				w.setMessage("The requests were successfully loaded. You may now compute the tour.");
+				t.ClearTour();
+			} catch (InvalidRequestException e) {
+				w.setMessage("A problem occurred while trying to load the requests file.");
+				logger.error("Error while trying to load the request file because of invalid requests or non-conform file.");
+			} catch (ParserConfigurationException e) {
+				w.setMessage("A problem occurred while trying to load the requests file.");
+				logger.error("Error while trying to load the request file because of the parser configuration.");
+			} catch(SAXException e) {
+				w.setMessage("A problem occurred while trying to load the requests file.");
+				logger.error("Error while trying to load the request file because of the XML parser.");
+			} catch (IOException e) {
+				w.setMessage("A problem occurred while trying to load the requests file.");
+				logger.error("Error while trying to load the request file because of a I/O problem.");
 			}
 		}
+		else 
+		{
+			w.setMessage("Please load a XML file.");
+		}
 		
-		@Override
-		public void mouseMoved(Controller c, Window w, Point p) {
+	}
+	
+	@Override
+	public void computeTour(Controller c, Window w, Tour t) {
+		//Modify the tour
+		Pcc shortestPathComputer = new Pcc(w.getGraphicalView().getCityMap() ,  w.getGraphicalView().getRequest() );
+		shortestPathComputer.computePcc();
+		
+		Tour t2 = shortestPathComputer.computeGooodTSPTour();
+		t.setTour(t2);
+		t.notifyObservers();
+		
+		w.getGraphicalView().setHighlightedWay(null);
+		w.setMessage("Your tour");
+	}
+	
+	@Override
+	public void clickOnStep(Controller c, Window w, ListOfCommands l, Way wa, JButton button, Tour t){	
+		w.getTextualView().clearAllTextArea();
+		button.setContentAreaFilled(true);
+		w.getGraphicalView().setHighlightedWay(wa);
+	}
+	
+	@Override
+	public void modifyTour(Controller c, Window w) {
+		w.changeOptionalsButtonsVisibility();
+		if (w.isOptionalsButtonsVisible()) {
+			c.setCurrentstate(c.tourModificationState);
+		} else {
+			c.setCurrentstate(c.requestLoadedState);
+		}
+	}
+		
+	@Override
+	public void mouseMoved(Controller c, Window w, Point p) {
 			GraphicalView graphicalView = w.getGraphicalView();
 			if( graphicalView.getCityMap() != null ) {
 				List<Segment> allsegments = graphicalView.getCityMap().getSegments();
@@ -123,4 +142,6 @@ public class RequestLoadedState implements State {
 				}
 			}
 		}
+	
+
 }
