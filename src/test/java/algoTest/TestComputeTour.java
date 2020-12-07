@@ -13,7 +13,6 @@ import modele.Intersection;
 import modele.Request;
 import modele.Tour;
 import modele.Way;
-import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
@@ -35,7 +34,7 @@ public class TestComputeTour {
 		Request request = new Request();
 		try {
 			request = rp.parse();
-		} catch (InvalidRequestException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
@@ -61,10 +60,10 @@ public class TestComputeTour {
 		
 		
 		//Long id = new Long(1362781062);
-		long id = 2774590477L;
+		//long id = 2774590477L;
 		Intersection inter = new Intersection(34401989L, 0.0, 0.0, null);
-		Intersection newPU = new Intersection(25327124L, 0.0, 0.0, null );
-		Intersection newD = new Intersection(1678996781L, 0.0, 0.0, null );
+		//Intersection newPU = new Intersection(25327124L, 0.0, 0.0, null );
+		//Intersection newD = new Intersection(1678996781L, 0.0, 0.0, null );
 		
 		
 		tour = pcc.changeOrder(tour, inter, -3);

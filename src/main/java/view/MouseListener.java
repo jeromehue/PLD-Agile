@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.SwingUtilities;
 
-import modele.Intersection;
 import modele.Point;
 import modele.PointFactory;
 import modele.Segment;
