@@ -46,12 +46,12 @@ public class Request {
 		allLocations.addAll(0,pickUpLocations);
 		allLocations.addAll(0,deliveryLocations);
 		durations = new HashMap<Long, Integer>();
-		for(int i =0; i< allDurations.size(); i++ ) {
+		for (int i =0; i< allDurations.size(); i++ ) {
 			durations.put(allLocations.get(i).getId(), allDurations.get(i));
 		}
 		this.deliveryFromPickUp = new HashMap<Long, Long>();
 		
-		for(int i = 0 ; i < pickUpLocations.size(); ++i) {
+		for (int i = 0 ; i < pickUpLocations.size(); ++i) {
 			deliveryFromPickUp.put(pickUpLocations.get(i).getId(), deliveryLocations.get(i).getId());
 		}
 	}

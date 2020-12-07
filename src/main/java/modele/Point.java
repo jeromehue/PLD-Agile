@@ -42,8 +42,8 @@ public class Point {
 		int maxY;
 		int minX;
 		int minY;
-		if(x2 > x1) { maxX = x2; minX = x1; } else { maxX = x1;  minX = x2;}
-		if(y2 > y1) { maxY = y2; minY = y1; } else { maxY = y1;  minY = y2;}
+		if (x2 > x1) { maxX = x2; minX = x1; } else { maxX = x1;  minX = x2;}
+		if (y2 > y1) { maxY = y2; minY = y1; } else { maxY = y1;  minY = y2;}
 		return  (x <= maxX && x >= minX && y <= maxY && y >= minY);
 	}
 

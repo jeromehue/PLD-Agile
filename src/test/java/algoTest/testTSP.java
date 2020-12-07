@@ -52,7 +52,7 @@ public class testTSP {
 		// paramètre à faire varier pour tester, à partir de dmax = 85 pour 7 requetes ça trouve le chemin optimal
 		// pour 9 requetes : ???
 		
-		for(Integer i = 0 ; i < 1  ; ++i) {
+		for (Integer i = 0 ; i < 1  ; ++i) {
 			
 			tsp = new TSP1(graph, request, offset + i);
 

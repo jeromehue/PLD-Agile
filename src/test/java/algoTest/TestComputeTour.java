@@ -60,9 +60,9 @@ public class TestComputeTour {
 
 		List<Way> oldWayList = tour.getWaysList();
 
-		for(Way w : oldWayList) {
+		for (Way w : oldWayList) {
 			System.out.print(w.getDeparture().getId()+ " - ");
-			if(!tour.isPositionConsistent(w.getDeparture().getId())) {
+			if (!tour.isPositionConsistent(w.getDeparture().getId())) {
 				System.out.print("!!!");
 			}
 		}
@@ -82,16 +82,16 @@ public class TestComputeTour {
 		
 		List<Way> wayList = tour.getWaysList();
 		
-		/*for(Way w : wayList) {
+		/*for (Way w : wayList) {
 			System.out.println("start at "+w.getStartingTime()+", goes from "+w.getDeparture().getId() +" at "+w.getDepartureTime()+
 					" -> arrives at "+w.getArrival().getId() +" at "+w.getArrivalTime());
 		}*/
 		
 
 		
-		for(Way w : wayList) {
+		for (Way w : wayList) {
 			System.out.print(w.getDeparture().getId());
-			if(!tour.isPositionConsistent(w.getDeparture().getId())) {
+			if (!tour.isPositionConsistent(w.getDeparture().getId())) {
 				System.out.print("!!!");
 			}
 			System.out.print(" - ");

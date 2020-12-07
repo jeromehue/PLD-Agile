@@ -22,7 +22,7 @@ public class InitState implements State {
 	@Override
 	public void loadMap(Controller c,Window w, Tour t) {
 		String path = w.createDialogBoxToGetFilePath();
-		if(path != null) 
+		if (path != null) 
 		{
 			try {
 				XMLCityMapParser p = new XMLCityMapParser(path);
@@ -30,13 +30,13 @@ public class InitState implements State {
 				w.getGraphicalView().setCityMap(cityMap);
 				c.setCurrentstate(c.mapLoadedState);
 				w.setMessage ("The map was successfully loaded. You may now load requests.");
-			} catch(InvalidMapException e) {
+			} catch (InvalidMapException e) {
 				w.setMessage("A problem occurred while trying to load the map file.");
 				logger.error("Error while trying to load the map file because the file is not correct.");
 			} catch (ParserConfigurationException e) {
 				w.setMessage("A problem occurred while trying to load the map file.");
 				logger.error("Error while trying to load the map file because of the parser configuration.");
-			} catch(SAXException e) {
+			} catch (SAXException e) {
 				w.setMessage("A problem occurred while trying to load the map file.");
 				logger.error("Error while trying to load the map file because of the XML parser.");
 			} catch (IOException e) {

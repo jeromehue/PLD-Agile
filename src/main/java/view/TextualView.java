@@ -45,7 +45,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 			f.addObserver(this);
 		}
 		
-		if(this.tour != null)
+		if (this.tour != null)
 		{
 			clearPointJButtonList();
 			Iterator<Way> itwaysInTour = tour.getWaysListIterator();
@@ -56,7 +56,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 			String alert="";
 			
 			//start point
-			if(itwaysInTour.hasNext()) {
+			if (itwaysInTour.hasNext()) {
 				currentWay = itwaysInTour.next();
 				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
 				text = "<html><u><strong> Start: </strong></u> <br />";
@@ -80,7 +80,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				
 				++currentCount;
 				text = "<html><u><strong> Step n°" + currentCount + ":</strong></u> <br />";
-				if(!tour.isPositionConsistent(currentArrival.getDestination().getId()) ){
+				if (!tour.isPositionConsistent(currentArrival.getDestination().getId()) ){
 					alert = "Warning : this delivery point is placed before its pick-up point !" ;
 				}
 				text+="<p style='color:red'>"+alert+"</p>";
@@ -119,7 +119,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 				pointsJButtonList.add(newStepButton);
 			}
 					//Displaying last point
-					if(currentWay != null) {
+					if (currentWay != null) {
 					currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
 					text = "<html><u><strong> End : </strong></u> <br />";
 					text += "Return to the starting point (address n°"+currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1).getDestination().getId();
@@ -134,7 +134,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 	}
 	
 	private void clearPointJButtonList() {
-		for(JButton button : this.pointsJButtonList) {
+		for (JButton button : this.pointsJButtonList) {
 			button.setVisible(false);
 			this.remove(button);
 		}
@@ -143,7 +143,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 	
 	
 	public void clearAllTextArea() {
-		for(JButton b : pointsJButtonList) {
+		for (JButton b : pointsJButtonList) {
 			b.setContentAreaFilled(false);
 		}
 	}

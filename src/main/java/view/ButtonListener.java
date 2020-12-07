@@ -19,7 +19,7 @@ public class ButtonListener  implements ActionListener  {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() instanceof ButtonWay) {
+		if (e.getSource() instanceof ButtonWay) {
 			
 			if (e.getActionCommand().equals(Window.CLICK_STEP)) {
 				logger.info("Click on a Step label button");

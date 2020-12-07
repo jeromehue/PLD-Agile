@@ -22,9 +22,9 @@ public class TSP1 extends TemplateTSP {
 		vertexMinimum = new PriorityQueue<>();
 		Integer i=0;
 		Integer j=0;
-		for(i = 0; i < g.getNbVertices(); i++) {
-			for(j=0; j < g.getNbVertices(); j++) {
-				if(!i.equals(j)) {
+		for (i = 0; i < g.getNbVertices(); i++) {
+			for (j=0; j < g.getNbVertices(); j++) {
+				if (!i.equals(j)) {
 					vertexMinimum.add(g.getCost(i, j));
 				}
 			}
@@ -34,7 +34,7 @@ public class TSP1 extends TemplateTSP {
 	@Override
 	protected Double bound(Integer currentVertex, Collection<Integer> unvisited) {
 		
-		if(this.bestSolCost == Integer.MAX_VALUE) {
+		if (this.bestSolCost == Integer.MAX_VALUE) {
 			return 0.0;
 		}
 		
@@ -42,15 +42,15 @@ public class TSP1 extends TemplateTSP {
 		Double localMin;
 		Double currentVertexMin = Double.MAX_VALUE;
 		
-		for(Integer startVertex : unvisited) {
+		for (Integer startVertex : unvisited) {
 			localMin = g.getCost(startVertex, 0);
-			for(Integer targetVertex : unvisited) {
-				if(!startVertex.equals(targetVertex) && g.getCost(startVertex, targetVertex) < localMin) {
+			for (Integer targetVertex : unvisited) {
+				if (!startVertex.equals(targetVertex) && g.getCost(startVertex, targetVertex) < localMin) {
 					localMin = g.getCost(startVertex, targetVertex);
 				}
 			}
 			min += localMin;
-			if(g.getCost(currentVertex, startVertex) < currentVertexMin) {
+			if (g.getCost(currentVertex, startVertex) < currentVertexMin) {
 				currentVertexMin = g.getCost(currentVertex, startVertex);
  			}
 		}

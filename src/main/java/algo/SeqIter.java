@@ -33,9 +33,9 @@ public class SeqIter implements Iterator<Integer> {
 	            public int compare(Integer inter1, Integer inter2) {
 	                double cost1 = g.getCost(currentVertex, inter1);
 	                double cost2 = g.getCost(currentVertex, inter2);
-	                if(cost1 > cost2) {
+	                if (cost1 > cost2) {
 	                	return 1;
-	                } else if(cost1 == cost2) {
+	                } else if (cost1 == cost2) {
 	                	return 0;
 	                } else {
 	                	return -1;
@@ -49,9 +49,9 @@ public class SeqIter implements Iterator<Integer> {
 		Long verticeId;
 		
 		//int i=0;
-		for(Integer vertice : toBeVisited) {
+		for (Integer vertice : toBeVisited) {
 			verticeId = g.getIdFromIndex(vertice);
-			if(request.isPickUp(verticeId)) {
+			if (request.isPickUp(verticeId)) {
 				// store all deliveries that shouldn't be visited
 				deliveriesToRemove.add(g.getIndex(request.getDeliveryFromPickUp(verticeId)));
 			}
@@ -60,7 +60,7 @@ public class SeqIter implements Iterator<Integer> {
 		Iterator<Integer> it = toBeVisited.iterator();
 		while(it.hasNext()) {
 
-			if(deliveriesToRemove.contains(it.next())) {
+			if (deliveriesToRemove.contains(it.next())) {
 				// remove deliveries that shouldn't be visited
 				it.remove();
 			}
@@ -81,7 +81,7 @@ public class SeqIter implements Iterator<Integer> {
 
 	@Override
 	public Integer next() {
-		if(!hasNext()) {
+		if (!hasNext()) {
 			throw new NoSuchElementException();
 		}
 		nbCandidates--;

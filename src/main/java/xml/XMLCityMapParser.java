@@ -49,13 +49,13 @@ public class XMLCityMapParser extends XMLParser {
 	
 	    NodeList nodes = doc.getElementsByTagName("map");
 	    
-	    if(nodes.getLength() != 1) {
+	    if (nodes.getLength() != 1) {
 	    	throw new InvalidMapException("Error while parsing XML map file, please load a correct one");
 	    }
 
 	    nodes = doc.getElementsByTagName("intersection");
 	    
-	    if(nodes.getLength() <= 1) {
+	    if (nodes.getLength() <= 1) {
 	    	throw new InvalidMapException("Error while parsing XML map file, please load a correct one");
 	    }
 	
@@ -81,7 +81,7 @@ public class XMLCityMapParser extends XMLParser {
 	    
 	    nodes = doc.getElementsByTagName("segment");
 	
-	    if(nodes.getLength() <= 1) {
+	    if (nodes.getLength() <= 1) {
 	    	throw new InvalidMapException("Error while parsing XML map file, please load a correct one");
 	    }
 	    

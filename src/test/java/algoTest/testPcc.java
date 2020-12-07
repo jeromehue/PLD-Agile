@@ -58,7 +58,7 @@ class testPcc {
 		Intersection passage = chemin.get(0).getOrigin();
 
 		System.out.println("\n\nOn commence au point (" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
-		for(Segment s : chemin) {
+		for (Segment s : chemin) {
 			passage = s.getDestination();
 			System.out.print("On prend la rue : ");
 			System.out.println(s.getName());
@@ -67,9 +67,9 @@ class testPcc {
 		}
 		System.out.println();
 		
-		for(int i = 0 ; i < graph.getNbVertices() ; ++i) {
-			for(int j = 0 ; j < graph.getNbVertices() ; ++j) {
-				if(i == j) {
+		for (int i = 0 ; i < graph.getNbVertices() ; ++i) {
+			for (int j = 0 ; j < graph.getNbVertices() ; ++j) {
+				if (i == j) {
 					assertTrue(graph.getCost(i, j) == 0.0);
 				} else {
 					assertTrue(graph.getCost(i, j) != 0.0);

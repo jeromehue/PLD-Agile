@@ -108,15 +108,15 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 		graphics.fillRect(0, 0, getWidth(), getHeight());
 		
 		//draw the cityMap
-		if(cityMap != null) {
+		if (cityMap != null) {
 			cityMap.setIntersectionCordinates(this);
 			drawCityMap(graphics);
 			
 			//draw the request
-			if(request != null)
+			if (request != null)
 			{
 				//draw the tour
-				if(tour != null)
+				if (tour != null)
 				{
 					
 					drawTour(graphics);
@@ -124,7 +124,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 				
 				drawRequest(graphics);
 				
-				if(tour != null && this.highlightedWay != null) {
+				if (tour != null && this.highlightedWay != null) {
 					graphics.setStroke(new BasicStroke(4));
 					graphics.setColor(Color.red);
 					graphics.fillOval(
@@ -132,7 +132,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 							this.highlightedWay.getSegmentList().get(0).getOrigin().getCoordinates().getY()-10, 20, 20);
 				}
 				
-				if(tour != null && this.highlightedIntersection != null) {
+				if (tour != null && this.highlightedIntersection != null) {
 					graphics.setStroke(new BasicStroke(4));
 					graphics.setColor(Color.red);
 					graphics.fillOval(
@@ -149,7 +149,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 		}
 		
 		//draw white rectangle in Top-Left corner
-		if(cityMap != null) {
+		if (cityMap != null) {
 			graphics.setColor(Color.white);
 			graphics.fillRect(0, 0, 52, 18);
 		}
@@ -176,7 +176,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			graphics.setColor(new Color(red, green, blue));
 			currrentWay = itWay.next();
 			drawWay(graphics, currrentWay);
-			if(currentCount != 0) {
+			if (currentCount != 0) {
 				graphics.setColor(Color.black);
 				graphics.setFont(graphics.getFont().deriveFont(Font.BOLD, 14f));
 				graphics.drawString("Step " + currentCount, 
@@ -186,7 +186,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			++currentCount;
 		}
 		
-		if(this.highlightedWay != null) {
+		if (this.highlightedWay != null) {
 			graphics.setColor(Color.black);
 			graphics.setStroke(new BasicStroke(4));
 			drawWay(graphics, this.highlightedWay);
@@ -229,7 +229,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 	private void drawRequest(Graphics graphics) {
 		//draw start point
 		Intersection startIntersection = request.getStartingLocation();
-		if(startIntersection != null ) 
+		if (startIntersection != null ) 
 		{ drawStartIntersection(graphics, startIntersection); }
 		
 		Intersection pickUpAdresseToDraw;
@@ -245,17 +245,17 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 			graphics.setColor(color);
 			
 			// System.out.println(pickUpAdresseToDraw);
-			if(pickUpAdresseToDraw != null ) 
+			if (pickUpAdresseToDraw != null ) 
 			{ drawIntersectionSquare(graphics, pickUpAdresseToDraw); }
 			
 			// System.out.println(deliveryAdressToDraw);
-			if(deliveryAdressToDraw != null ) 
+			if (deliveryAdressToDraw != null ) 
 			{ drawIntersection(graphics, deliveryAdressToDraw); }	
 		}
 	}
 	
 	private void drawIntersection(Graphics graphics, Intersection intersection){
-		if(intersection.getId() != null) {
+		if (intersection.getId() != null) {
 			graphics.setFont(graphics.getFont().deriveFont(Font.BOLD, 14f));
 			graphics.drawString("Delivery", 
 					intersection.getCoordinates().getX() + 5, 

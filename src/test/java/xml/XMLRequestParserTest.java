@@ -52,7 +52,7 @@ class XMLRequestParserTest {
 		p = new XMLRequestParser("src/main/resources/requestsSmall1.xml", this.smallMap);
 		try {
 			p.parse();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.err.println("Error while parsing requests");
 			fail();
 		}
@@ -66,7 +66,7 @@ class XMLRequestParserTest {
 		p = new XMLRequestParser("src/main/resources/requestsMedium3.xml", this.mediumMap);
 		try {
 			p.parse();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.err.println("Error while parsing requests");
 			fail();
 		}
@@ -79,7 +79,7 @@ class XMLRequestParserTest {
 		p = new XMLRequestParser("src/main/resources/requestsLarge7.xml", this.largeMap);
 		try {
 			p.parse();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.err.println("Error while parsing requests");
 			fail();
 		}

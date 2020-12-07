@@ -79,7 +79,7 @@ public class Window extends JFrame{
         this.optionalsButtonsVisible = false;
         optionalsButtons = new ArrayList<>();
         try { UIManager.setLookAndFeel(new NimbusLookAndFeel()); }
-        catch(Exception e){}
+        catch (Exception e){}
     
         JPanel contentPane = (JPanel)getContentPane();
         contentPane.setLayout( new BorderLayout());
@@ -232,9 +232,9 @@ public class Window extends JFrame{
 
 	public void changeOptionalsButtonsVisibility() {
     	this.optionalsButtonsVisible = !this.optionalsButtonsVisible;
-    	for(JButton b : optionalsButtons)
+    	for (JButton b : optionalsButtons)
     		b.setVisible(optionalsButtonsVisible);
-    	if(this.optionalsButtonsVisible) {
+    	if (this.optionalsButtonsVisible) {
 			this.switchmode.setText(EXIT_MODIFY_TOUR);
 		} else {
 			this.switchmode.setText(MODIFY_TOUR);
@@ -251,7 +251,7 @@ public class Window extends JFrame{
 		    fc.setCurrentDirectory(new File("./src/main"));
 		    int returnVal = fc.showOpenDialog(null);
 		    String absPath = null;
-		    if(returnVal == JFileChooser.APPROVE_OPTION) 
+		    if (returnVal == JFileChooser.APPROVE_OPTION) 
 		    {
 		      logger.info("You chose totv open this file: " + fc.getSelectedFile().getAbsolutePath()) ;
 		      absPath = fc.getSelectedFile().getAbsolutePath();
@@ -269,7 +269,7 @@ public class Window extends JFrame{
     		if (str == null) {return 0;}
     		try {
     			i = Integer.parseInt(str);
-    		} catch(Exception e) {
+    		} catch (Exception e) {
     			logger.error("You did not enter a valid number, or it was equal to zero");
     		}
     	}

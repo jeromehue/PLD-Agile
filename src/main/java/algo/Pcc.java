@@ -126,17 +126,17 @@ public class Pcc {
 				minVertex = greyVertices.poll();//On prend l'intersection grise de cout minimal
 				
 				//On regarde tous les voisins "neighbor" de l'intersection "minVertex"
-				for(Segment s : minVertex.getOutboundSegments()) {
+				for (Segment s : minVertex.getOutboundSegments()) {
 					neighbor = allVerticesPcc.get(s.getDestination().getId());
-					if(neighbor.getColor() == 0 || neighbor.getColor()== 1) { // blanc ou gris
+					if (neighbor.getColor() == 0 || neighbor.getColor()== 1) { // blanc ou gris
 						//relacher (minVertex, voisin, predecesseur, cout) : 
 
-						if( minVertex.getCost() + s.getLength() < neighbor.getCost() ) {
+						if ( minVertex.getCost() + s.getLength() < neighbor.getCost() ) {
 							neighbor.setCost( minVertex.getCost() + s.getLength() );
 							predecessors.put(neighbor.getId(), s);
 						}
 					}
-					if(neighbor.getColor() == 0) {
+					if (neighbor.getColor() == 0) {
 						neighbor.setColor(1);
 						greyVertices.add(neighbor);
 					}
@@ -149,15 +149,15 @@ public class Pcc {
 				allVerticesPcc.put(minVertex.getId(), minVertex);
 				//On met à jour la condition de fin
 				i++;
-				if(i==END_TEST_CYCLE) {//Pour ne pas tester trop souvent
+				if (i==END_TEST_CYCLE) {//Pour ne pas tester trop souvent
 					i=0;
 					nbBlackStartVertices=0;
-					for(Intersection sVertex : startVertices ) {
-						if(allVerticesPcc.get(sVertex.getId()).getColor() == 2) {
+					for (Intersection sVertex : startVertices ) {
+						if (allVerticesPcc.get(sVertex.getId()).getColor() == 2) {
 							nbBlackStartVertices++;
 						}
 					}
-					if(nbBlackStartVertices == startVertices.size()) {
+					if (nbBlackStartVertices == startVertices.size()) {
 						allBlackStartVertices = true;
 					}
 				}
@@ -275,12 +275,12 @@ public class Pcc {
 		Integer wayDuration;
 		Way way;
 		
-		for(int i=0; i<interList.size(); i++) {
+		for (int i=0; i<interList.size(); i++) {
 			List<Segment> list = new ArrayList<>();
 			Intersection start;
 			Intersection finish;
 			start = interList.get(i);
-			if( (i+1)<interList.size() ) {
+			if ( (i+1)<interList.size() ) {
 				finish = interList.get(i+1);
 			} else {
 				finish = interList.get(0);
@@ -291,7 +291,7 @@ public class Pcc {
 
 			totalWayDuration += wayDuration;
 
-			if(i==0) {
+			if (i==0) {
 				arrivalAtStart = tourStartingTime;
 				departureFromStart = tourStartingTime;
 				
@@ -311,7 +311,7 @@ public class Pcc {
 	}
 	
 	public Tour changeOrder (Tour tour, Intersection intersection, int shift){
-		if(intersection.getId().equals(request.getStartingLocation().getId())) {
+		if (intersection.getId().equals(request.getStartingLocation().getId())) {
 			return tour;
 		}
 		
@@ -319,7 +319,7 @@ public class Pcc {
 		int oldIndex=0;
 		int i=0;
 		for (Way w : tour.getWaysList()) {
-			if(!w.getDeparture().getId().equals(intersection.getId())) {
+			if (!w.getDeparture().getId().equals(intersection.getId())) {
 				list.add(w.getDeparture());
 			}
 			else {
@@ -331,7 +331,7 @@ public class Pcc {
 		
 		//TODO
 		//Verify shift is consistent with oldIndex and tour.getWaysList().size
-		if(oldIndex+shift>0 && oldIndex+shift<tour.getWaysList().size()) {
+		if (oldIndex+shift>0 && oldIndex+shift<tour.getWaysList().size()) {
 			list.add(oldIndex+shift, intersection);
 		}
 		else {
@@ -341,7 +341,7 @@ public class Pcc {
 		tour.setWaysList( computeWaysList(list) );
 		
 		tour.updateIsPositionConsistent(intersection.getId());
-		if(request.hasDelivery(intersection.getId())) {
+		if (request.hasDelivery(intersection.getId())) {
 			tour.updateIsPositionConsistent(request.getDeliveryFromPickUp(intersection.getId()));			
 		}
 		
@@ -381,14 +381,14 @@ public class Pcc {
 	}
 	
 	public Tour deleteIntersection (Tour tour, Intersection intersection) {
-		if(intersection.getId().equals(request.getStartingLocation().getId())) {
+		if (intersection.getId().equals(request.getStartingLocation().getId())) {
 			return tour;
 		}
 		
 		List<Intersection> list = new ArrayList<Intersection> ();
 
 		for (Way w : tour.getWaysList()) {
-			if(!w.getDeparture().getId().equals(intersection.getId())) {
+			if (!w.getDeparture().getId().equals(intersection.getId())) {
 				list.add(w.getDeparture());
 			} else {				
 				//TODO
@@ -399,7 +399,7 @@ public class Pcc {
 		tour.setWaysList(computeWaysList(list));
 		
 		tour.updateIsPositionConsistent(intersection.getId());
-		if(request.isPickUp(intersection.getId())) {
+		if (request.isPickUp(intersection.getId())) {
 			tour.updateIsPositionConsistent(request.getDeliveryFromPickUp(intersection.getId()));			
 		}
 		

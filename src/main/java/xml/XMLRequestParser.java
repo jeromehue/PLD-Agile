@@ -52,7 +52,7 @@ public class XMLRequestParser extends XMLParser {
 			            
 	    NodeList nodes = doc.getElementsByTagName("depot");
 	    
-	    if(nodes.getLength() != 1) {
+	    if (nodes.getLength() != 1) {
 	    	throw new InvalidRequestException("Error while parsing XML request file, please load a correct one");
 	    }
 	
@@ -80,7 +80,7 @@ public class XMLRequestParser extends XMLParser {
 	    
 	    nodes = doc.getElementsByTagName("request");
 	    
-	    if(nodes.getLength() == 0) {
+	    if (nodes.getLength() == 0) {
 	    	throw new InvalidRequestException("Error while parsing XML request file, please load a correct one");
 	    }
 	    

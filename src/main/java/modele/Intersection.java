@@ -17,7 +17,7 @@ public class Intersection{
         this.latitude = latitude;
         this.longitude = longitude;
         this.coordinates = null;
-        if(segments != null) {
+        if (segments != null) {
         	this.outboundSegments = new ArrayList<Segment>(segments);
         }
         else
@@ -36,7 +36,7 @@ public class Intersection{
 
 	public List<Intersection> getNeighbors() {
     	ArrayList<Intersection> neighbors = new ArrayList<Intersection>();
-    	for(Segment seg : outboundSegments) {
+    	for (Segment seg : outboundSegments) {
     		neighbors.add(seg.getDestination());
     	}
     	return neighbors;

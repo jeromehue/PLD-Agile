@@ -35,7 +35,7 @@ public class RequestLoadedState implements State {
 		
 		String path = w.createDialogBoxToGetFilePath();
 		w.getGraphicalView().setHighlightedWay(null);
-		if(path != null) 
+		if (path != null) 
 		{
 			try {
 				XMLCityMapParser p = new XMLCityMapParser(path);
@@ -44,13 +44,13 @@ public class RequestLoadedState implements State {
 				c.setCurrentstate(c.mapLoadedState);
 				w.getGraphicalView().setRequest(null);
 				t.ClearTour();
-			} catch(InvalidMapException e) {
+			} catch (InvalidMapException e) {
 				w.setMessage("A problem occurred while trying to load the map file.");
 				logger.error("Error while trying to load the map file because the file is not correct.");
 			} catch (ParserConfigurationException e) {
 				w.setMessage("A problem occurred while trying to load the map file.");
 				logger.error("Error while trying to load the map file because of the parser configuration.");
-			} catch(SAXException e) {
+			} catch (SAXException e) {
 				w.setMessage("A problem occurred while trying to load the map file.");
 				logger.error("Error while trying to load the map file because of the XML parser.");
 			} catch (IOException e) {
@@ -69,7 +69,7 @@ public class RequestLoadedState implements State {
 	public void loadRequest(Controller c, Window w, Tour t) {
 		String path = w.createDialogBoxToGetFilePath();
 		w.getGraphicalView().setHighlightedWay(null);
-		if(path != null) 
+		if (path != null) 
 		{
 			try {
 				XMLRequestParser p = new XMLRequestParser(path, w.getGraphicalView().getCityMap());
@@ -84,7 +84,7 @@ public class RequestLoadedState implements State {
 			} catch (ParserConfigurationException e) {
 				w.setMessage("A problem occurred while trying to load the requests file.");
 				logger.error("Error while trying to load the request file because of the parser configuration.");
-			} catch(SAXException e) {
+			} catch (SAXException e) {
 				w.setMessage("A problem occurred while trying to load the requests file.");
 				logger.error("Error while trying to load the request file because of the XML parser.");
 			} catch (IOException e) {
@@ -133,11 +133,11 @@ public class RequestLoadedState implements State {
 	@Override
 	public void mouseMoved(Controller c, Window w, Point p) {
 			GraphicalView graphicalView = w.getGraphicalView();
-			if( graphicalView.getCityMap() != null ) {
+			if ( graphicalView.getCityMap() != null ) {
 				List<Segment> allsegments = graphicalView.getCityMap().getSegments();
 				float mindist= (float) 0.5;
 				Segment sclosest = null;
-				for(Segment s: allsegments) {
+				for (Segment s: allsegments) {
 					int x1 = s.getOrigin().getCoordinates().getX();
 					int y1 = s.getOrigin().getCoordinates().getY();
 					int x2 = s.getDestination().getCoordinates().getX();
@@ -146,7 +146,7 @@ public class RequestLoadedState implements State {
 					if ( p.inBox(x1, y1, x2, y2) ) {
 						distance = p.distBetweenPointAndLine(x1,y1,x2,y2);
 					}
-					if(distance < mindist ) {
+					if (distance < mindist ) {
 						mindist = distance;
 						//System.out.println("distance : " +distance);
 						sclosest = s;

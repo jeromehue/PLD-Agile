@@ -38,10 +38,10 @@ public class Tour extends Observable{
 	
 	public void initPositionConsistent() {
 		isPositionConsistent = new HashMap<Long, Boolean>();
-		for(int i = 0 ; i < request.getPickUpLocations().size(); ++i) {
+		for (int i = 0 ; i < request.getPickUpLocations().size(); ++i) {
 			isPositionConsistent.put(request.getPickUpLocations().get(i).getId(), true);
 		}
-		for(int i = 0 ; i < request.getDeliveryLocations().size(); ++i) {
+		for (int i = 0 ; i < request.getDeliveryLocations().size(); ++i) {
 			isPositionConsistent.put(request.getDeliveryLocations().get(i).getId(), true);
 		}
 		isPositionConsistent.put(request.getStartingLocation().getId(), true);
@@ -116,9 +116,9 @@ public class Tour extends Observable{
 	public void updateIsPositionConsistent(Long idInterToCheck) {
 		boolean isPositionConsistent=false;
 		
-		if(request.getStartingLocation().getId().equals(idInterToCheck)) {
+		if (request.getStartingLocation().getId().equals(idInterToCheck)) {
 			isPositionConsistent = true;
-		} else if(request.isPickUp(idInterToCheck)) {
+		} else if (request.isPickUp(idInterToCheck)) {
 			isPositionConsistent = true;
 		}else {
 			int i=1;//Beginning is after start Point
@@ -128,7 +128,7 @@ public class Tour extends Observable{
 				currentInter = waysList.get(i).getDeparture();
 				i++;
 				//If interToCheck is a delivery and associate pickup point is before
-				if( idInterToCheck.equals(request.getDeliveryFromPickUp(currentInter.getId())) ) {
+				if ( idInterToCheck.equals(request.getDeliveryFromPickUp(currentInter.getId())) ) {
 					isPositionConsistent = true;
 				}
 				/*else {
@@ -148,7 +148,7 @@ public class Tour extends Observable{
 		int index=-1;
 		int i=0;
 		for (Way w : this.waysList) {
-			if(w.getDeparture().getId() == idIntersection) {
+			if (w.getDeparture().getId() == idIntersection) {
 				index = i;
 			}
 			i++;

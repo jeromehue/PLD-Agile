@@ -22,18 +22,18 @@ public class CompleteGraph implements Graph {
 	 * Constructor of CompleteGraph, initializes the costs matrix with DOUBLE.MAX_VALUE
 	 * @param startVertices list of the vertices for the graph (steps of the tour)
 	 */
-	public CompleteGraph(List<Intersection> startVertices){
+	public CompleteGraph(List<Intersection> startVertices) {
 		this.nbVertices = startVertices.size();
 		index = new HashMap<Long, Integer>();
 		reverseIndex = new HashMap<Integer, Long>();
 		
 		this.costsMatrix = new double[nbVertices][nbVertices];
-		for(int i = 0 ; i < nbVertices ; ++i) {
+		for (int i = 0 ; i < nbVertices ; ++i) {
 			Intersection inter = startVertices.get(i);
 			index.put(inter.getId(), i); // initialisation de index
 			reverseIndex.put(i, inter.getId()); //init de reverse index
 
-			for(int j = 0 ; j < nbVertices ; ++j) {
+			for (int j = 0 ; j < nbVertices ; ++j) {
 				costsMatrix[i][j] = Double.MAX_VALUE;
 			}
 		}
@@ -47,8 +47,8 @@ public class CompleteGraph implements Graph {
 	 */
 	public void updateCompleteGraph(Long startId, HashMap<Long, IntersectionPcc> costs, List<Intersection> targets) {
 		Integer startIndex = index.get(startId);
-		for(Intersection targetIntersection : targets) {
-			costsMatrix[startIndex][index.get(targetIntersection.getId())] = costs.get(targetIntersection.getId()).getCost();
+		for (Intersection targetIntersection : targets) {
+			costsMatrix[startIndex][index.get( targetIntersection.getId() )] = costs.get( targetIntersection.getId() ).getCost();
 		}
 	}
 
@@ -67,8 +67,9 @@ public class CompleteGraph implements Graph {
 	 */
 	@Override
 	public double getCost(int i, int j) {
-		if (i<0 || i>=nbVertices || j<0 || j>=nbVertices)
+		if ( (i < 0) || (i >= nbVertices) || (j < 0) || (j >= nbVertices) ) {
 			return -1;
+		}
 		return costsMatrix[i][j];
 	}
 
@@ -79,8 +80,9 @@ public class CompleteGraph implements Graph {
 	 */
 	@Override
 	public boolean isArc(int i, int j) {
-		if (i<0 || i>=nbVertices || j<0 || j>=nbVertices)
+		if ( (i < 0) || (i >= nbVertices) || (j < 0) || (j >= nbVertices) ) {
 			return false;
+		}
 		return i != j;
 	}
 	
@@ -98,10 +100,11 @@ public class CompleteGraph implements Graph {
 	@Override
 	public String toString() {
 		String ret = "";
-		for(int i = 0 ; i < nbVertices ; ++i) {
+		
+		for (int i = 0 ; i < nbVertices ; ++i) {
 			ret += "Cout pour aller de " + i + " a :\n";
-			for(int j = 0 ; j < nbVertices ; ++j) {
-				if(costsMatrix[i][j] == Double.MAX_VALUE) {
+			for (int j = 0 ; j < nbVertices ; ++j) {
+				if (costsMatrix[i][j] == Double.MAX_VALUE) {
 					ret += j + " = Unreachable\n";
 				} else {
 					ret += j + " = " + costsMatrix[i][j] + "\n";

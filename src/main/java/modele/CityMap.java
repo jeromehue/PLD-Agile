@@ -90,30 +90,30 @@ public class CityMap {
 		 maxLatitude = intersections.get(0).getLatitude();
 		 maxLongitude = intersections.get(0).getLongitude();
 		
-		for(Intersection i: intersections)
+		for (Intersection i: intersections)
 		{
-			if(minLatitude > i.getLatitude())
+			if (minLatitude > i.getLatitude())
 			{
 				minLatitude = i.getLatitude();
 			}
-			if(minLongitude > i.getLongitude())
+			if (minLongitude > i.getLongitude())
 			{
 				minLongitude = i.getLongitude();
 			}
-			if(maxLatitude < i.getLatitude())
+			if (maxLatitude < i.getLatitude())
 			{
 				maxLatitude = i.getLatitude();
 			}
-			if(maxLongitude < i.getLongitude())
+			if (maxLongitude < i.getLongitude())
 			{
 				maxLongitude = i.getLongitude();
 			}
 		}
 	}
 	public Intersection getIntersectionFromAddress(Long address) {
-		for(Intersection intersection : intersections)
+		for (Intersection intersection : intersections)
 		{
-			if(address.equals(intersection.getId())) 
+			if (address.equals(intersection.getId())) 
 			{
 				return intersection;
 			}
