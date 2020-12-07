@@ -102,6 +102,7 @@ public class Window extends JFrame{
         contentPane.add(graphicalView,BorderLayout.CENTER);
 
         this.mouseListener = new MouseListener(this, graphicalView, controller);
+        addMouseListener(mouseListener);
 		addMouseMotionListener(mouseListener);
         
 		JMenuBar menuBar = createMenuBar();
@@ -289,6 +290,23 @@ public class Window extends JFrame{
     			logger.error("You did not enter a valid number, or it was equal to zero");
     		}
     	}
+    	return i;
+    }
+    
+    public int displaySelectTimeDialog() {
+    	logger.info("displaySelectTimeDialog()");
+    	int i = 0;
+    	while (i == 0) {
+    		String str = JOptionPane.showInputDialog(this, "Enter the duration of pickup");
+    		logger.info("String from showInput dialog {}", str);
+    		if (str == null) {return 0;}
+    		try {
+    			i = Integer.parseInt(str);
+    		} catch(Exception e) {
+    			logger.error("You did not enter a valid number, or it was equal to zero");
+    		}
+    	}
+    	// TODO Test if number < 0
     	return i;
     }
 
