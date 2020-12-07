@@ -36,14 +36,10 @@ public class OrderModificationState implements State {
 		Request request = w.getGraphicalView().getRequest();
 		Pcc shortestPathComputer = new Pcc(cityMap , request);
 		shortestPathComputer.computePcc();
-<<<<<<< HEAD
-		Tour newTour = shortestPathComputer.changeOrder( t1,  intersection,  shift);
-=======
 		
 		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t1, intersection, newIndex);
-		l.add(new ChangeOrderCommand(shortestPathComputer, t1, intersection, newIndex));
->>>>>>> f3db9811dc4c8e28d10ba210eeee6951c897eb7c
-		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t1, intersection, newIndex);
+		l.add(new ChangeOrderCommand(shortestPathComputer, t1, intersection, shift));
+
 		
 		c.setCurrentstate(c.tourModificationState);
 		}
