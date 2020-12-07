@@ -51,6 +51,7 @@ public class ButtonListener  implements ActionListener  {
 				controller.modifyTour();
 				break;
 			case Window.EXIT_MODIFY_TOUR: 
+				logger.info("Click on EXIT_MODIFY_TOUR button");
 				controller.modifyTour();
 				break;
 			case Window.MODIFY_ORDER: 
@@ -60,7 +61,11 @@ public class ButtonListener  implements ActionListener  {
 			case Window.REMOVE_REQUEST: 
 				logger.info("Click on REMOVE_REQUEST button");
 				controller.deleteAStep();
-			break;
+				break;
+			case Window.ADD_REQUEST:
+				logger.info("Click on ADD_REQUEST button");
+				//controller.addRequest();
+				break;
 			default: 
 				logger.info("Click button: DEFAULT_CASE_2"); 
 				break;

@@ -20,6 +20,20 @@ public class TourModificationState  implements State {
 		c.setCurrentstate(c.orderModificationState);
 	}
 	
+	public void addRequest(Controller c, Window w) {
+		w.setMessage("Request to be added here");
+	}
+	
+	@Override
+	public void modifyTour(Controller c, Window w) {
+		w.changeOptionalsButtonsVisibility();
+		if (w.isOptionalsButtonsVisible()) {
+			c.setCurrentstate(c.tourModificationState);
+		} else {
+			c.setCurrentstate(c.requestLoadedState);
+		}
+	}
+	
 	@Override
 	public void deleteAStep(Controller c, Window w){
 		w.setMessage("Choose a step to delete");
