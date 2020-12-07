@@ -232,7 +232,7 @@ public class Pcc {
 		CompleteGraph graph = computePcc();
 		System.out.println("[PCC.computeTour] taille graphe : "+graph.getNbVertices());
 		// TODO: remove 1000 and set a real max discrepancy
-		TSP1 tsp = new TSP1(graph, request, 20);
+		TSP1 tsp = new TSP1(graph, request, 80);
 		tsp.init();
 		System.out.println("okay TSP init");
 
@@ -400,6 +400,9 @@ public class Pcc {
 		tour.setWaysList(computeWaysList(list));
 		
 		tour.updateIsPositionConsistent(intersection.getId());
+		/* if(request.isPickUp(intersection.getId())) {
+			tour.updateIsPositionConsistent(request.getDeliveryFromPickUp(intersection.getId()));			
+		} */
 		
 		return tour;
 	}
