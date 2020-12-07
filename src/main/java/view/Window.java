@@ -281,7 +281,7 @@ public class Window extends JFrame{
     	logger.info("Entering displaySelectOrderDialog");
     	int i = 0;
     	while (i == 0) {
-    		String str = JOptionPane.showInputDialog(this, "Enter the shift of this step");
+    		String str = JOptionPane.showInputDialog(this, "Enter the new index of this step");
     		if (str == null) {return -1;}
     		try {
     			i = Integer.parseInt(str);

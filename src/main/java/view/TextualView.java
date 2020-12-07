@@ -76,6 +76,7 @@ public class TextualView extends JPanel implements Observer, Visitor{
 			
 			while (itwaysInTour.hasNext() && currentWay!= null) {
 				currentArrival = currentWay.getSegmentList().get(currentWay.getSegmentList().size()-1);
+				alert="";
 				
 				++currentCount;
 				text = "<html><u><strong> Step n°" + currentCount + ":</strong></u> <br />";
