@@ -99,7 +99,7 @@ public class Window extends JFrame{
         this.graphicalView = new GraphicalView(tour);
         contentPane.add(graphicalView,BorderLayout.CENTER);
 
-        this.mouseListener = new MouseListener(this, graphicalView);
+        this.mouseListener = new MouseListener(this, graphicalView, controller);
 		addMouseMotionListener(mouseListener);
         
 		JMenuBar menuBar = createMenuBar();
