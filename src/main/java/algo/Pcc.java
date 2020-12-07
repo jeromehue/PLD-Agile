@@ -400,9 +400,9 @@ public class Pcc {
 		tour.setWaysList(computeWaysList(list));
 		
 		tour.updateIsPositionConsistent(intersection.getId());
-		/* if(request.isPickUp(intersection.getId())) {
+		if(request.isPickUp(intersection.getId())) {
 			tour.updateIsPositionConsistent(request.getDeliveryFromPickUp(intersection.getId()));			
-		} */
+		}
 		
 		return tour;
 	}
