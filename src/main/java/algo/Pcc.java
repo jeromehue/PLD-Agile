@@ -28,16 +28,15 @@ public class Pcc {
 	/**
 	 * All the intersections get from CityMap
 	 */
-	private List<Intersection> allVertices;
+	private HashMap<Long, Intersection> allVertices;
 	private List<Intersection> pickUpVertices;
 	private List<Intersection> deliveryVertices;
 	private Intersection start;
 	/**
-	 * Save how to reach each pickUp and delivery from any Intersection of interset
+	 * Save how to reach each pickUp and delivery from any Intersection of interest
 	 * (=the other pickUp and delivery)
 	 */
 	private HashMap<Long, HashMap<Long, Segment>> savePredecessors;
-	HashMap<Long, IntersectionPcc> allVerticesPcc;
 	Request request;
 	/**
 	 * Bike velocity in m.s-1 (4m.s-1 = 14,4km/h)
@@ -62,7 +61,11 @@ public class Pcc {
 	 * @param request
 	 */
 	public Pcc(CityMap city, Request request) {
-		allVertices = city.getIntersections();
+		allVertices = new HashMap<Long, Intersection>();
+		for ( Intersection inter : city.getIntersections() ) {
+			allVertices.put(inter.getId(), inter);
+		}
+		
 		pickUpVertices = request.getPickUpLocations();
 		deliveryVertices = request.getDeliveryLocations();
 		start = request.getStartingLocation();
@@ -89,7 +92,7 @@ public class Pcc {
 		final int END_TEST_CYCLE = 1;
 		boolean allBlackStartVertices = false;
 		// HashMap pour retrouver les voisins
-		allVerticesPcc = new HashMap<Long, IntersectionPcc>();
+		HashMap<Long, IntersectionPcc> allVerticesPcc = new HashMap<Long, IntersectionPcc>();
 		PriorityQueue<IntersectionPcc> greyVertices; // tas binaire
 		// HashMap<Intersection id, segment qui relie le prédecesseur à l'intersection >
 		HashMap<Long, Segment> predecessors;
@@ -106,11 +109,12 @@ public class Pcc {
 			// Pour chaque objet Intesection on crée un objet IntersectionPcc qu'on
 			// initialise
 			// avec un cout MAX et la couleur blanche
-			allVerticesPcc = new HashMap<Long, IntersectionPcc>();
+			allVerticesPcc.clear();
 			predecessors = new HashMap<Long, Segment>();
-			for (Intersection inter : allVertices) {
-				allVerticesPcc.put(inter.getId(), new IntersectionPcc(inter, 0, Double.MAX_VALUE));
-				predecessors.put(inter.getId(), null);
+			
+			for (HashMap.Entry<Long, Intersection> inter : allVertices.entrySet()) {				
+				allVerticesPcc.put( inter.getKey(), new IntersectionPcc(inter.getValue(), 0, Double.MAX_VALUE) );
+				predecessors.put(inter.getKey(), null);
 			}
 
 			// On colorie le point de départ en gris et on met son cout à 0.
@@ -238,7 +242,7 @@ public class Pcc {
 		System.out.println("[PCC.computeTour] taille graphe : " + graph.getNbVertices());
 		// TODO: remove 1000 and set a real max discrepancy
 
-		TSP1 tsp = new TSP1(graph, request, 80);
+		TSP1 tsp = new TSP1(graph, request, 100);
 
 		tsp.init();
 		System.out.println("okay TSP init");
@@ -255,7 +259,7 @@ public class Pcc {
 
 		for (int i = 0; i < graph.getNbVertices(); i++) {
 			idInter = graph.getIdFromIndex(tsp.getSolution(i));
-			inter = allVerticesPcc.get(idInter);
+			inter = allVertices.get(idInter);
 			goodInterList.add(inter);
 		}
 
@@ -358,12 +362,6 @@ public class Pcc {
 	public Tour addRequest(Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration,
 			Integer deliveryDuration, Integer pickupIndex, Integer deliveryIndex) {
 
-		IntersectionPcc interD = allVerticesPcc.get(delivery.getId());
-		IntersectionPcc interP = allVerticesPcc.get(pickup.getId());
-		delivery = new Intersection(interD.getId(), interD.getLatitude(), interD.getLongitude(),
-				interD.getOutboundSegments());
-		pickup = new Intersection(interP.getId(), interP.getLatitude(), interP.getLongitude(),
-				interP.getOutboundSegments());
 		this.deliveryVertices.add(delivery);
 		this.pickUpVertices.add(pickup);
 		this.computePcc();
