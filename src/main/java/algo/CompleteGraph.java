@@ -11,8 +11,6 @@ import modele.Intersection;
  * 
  * @author H4414
  * 
- * Create a complete directed graph such that each edge is a step of the tour
- * 
  * @param nbVertices   number of steps
  * @param costsMatrix  the matrix containing the lowest known costs between
  *                     vertices

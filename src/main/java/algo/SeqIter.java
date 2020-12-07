@@ -10,21 +10,30 @@ import java.util.NoSuchElementException;
 
 import modele.Request;
 
+/**
+ * This class provides a custom iterator for the TSP algorithm.
+ * It allows the implementation of an order heuristic
+ * and to satisfy the constraint of visiting pick-up points
+ * before their associated delivery points.
+ * 
+ * @author H4414
+ * 
+ * @param candidates   the vertices to sort
+ * @param nbCandidates  the number of vertices to sort
+ *               
+ */
 public class SeqIter implements Iterator<Integer> {
 	private Integer[] candidates;
-	// private ArrayList candidates;
 	private int nbCandidates;
-	// private int maxDiscrepancy=2;
-	// private int nbTrash=7;
 
 	/**
 	 * Create an iterator to traverse the set of vertices in <code>unvisited</code>
-	 * which are successors of <code>currentVertex</code> in <code>g</code> Vertices
-	 * are traversed in the same order as in <code>unvisited</code>
+	 * which are successors of <code>currentVertex</code> in <code>g</code> 
 	 * 
 	 * @param unvisited
 	 * @param currentVertex
 	 * @param g
+	 * @param request
 	 */
 	public SeqIter(Collection<Integer> unvisited, int currentVertex, Graph g, Request request) {
 		this.candidates = new Integer[unvisited.size()];
@@ -75,11 +84,18 @@ public class SeqIter implements Iterator<Integer> {
 		}
 	}
 
+	/**
+	 * @return returns true if the iterator isn't pointing on
+	 * the last element of the collection, else returns false
+	 */
 	@Override
 	public boolean hasNext() {
 		return nbCandidates > 0;
 	}
 
+	/**
+	 * @return the index in the collection of the next element
+	 */
 	@Override
 	public Integer next() {
 		if (!hasNext()) {
@@ -87,9 +103,5 @@ public class SeqIter implements Iterator<Integer> {
 		}
 		nbCandidates--;
 		return candidates[nbCandidates];
-	}
-
-	@Override
-	public void remove() {
 	}
 }
