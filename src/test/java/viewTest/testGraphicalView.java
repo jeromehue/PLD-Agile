@@ -23,7 +23,14 @@ public class testGraphicalView {
 		JFrame frame = new JFrame("test vue grapique");
 		
 		XMLCityMapParser p = new XMLCityMapParser("src/main/resources/largeMap.xml");
-		CityMap cityMap = p.parse();
+		CityMap cityMap = new CityMap();
+		try {
+			cityMap = p.parse();
+		} catch (Exception e) {
+			System.err.println("Error while parsing requests");
+			e.printStackTrace();
+			System.exit(0);
+		}
 		
 		XMLRequestParser p2 = new XMLRequestParser("src/main/resources/requestsLarge7.xml", cityMap);
 		Request request = new Request();

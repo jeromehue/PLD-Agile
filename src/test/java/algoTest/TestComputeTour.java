@@ -24,7 +24,15 @@ public class TestComputeTour {
 
 		System.out.println("TEST\n-----------------" + "TestComputeTour.java : test");
 		XMLCityMapParser cmpp = new XMLCityMapParser("src/main/resources/largeMap.xml");
-		CityMap city = cmpp.parse();
+		
+		CityMap city = new CityMap();
+		try {
+			city = cmpp.parse();
+		} catch (Exception e) {
+			System.err.println("Error while parsing map");
+			e.printStackTrace();
+			fail();
+		}
 		
 		assertTrue(city.getIntersections() != null);
 		assertTrue(city.getIntersections().size() > 7);
@@ -35,6 +43,7 @@ public class TestComputeTour {
 		try {
 			request = rp.parse();
 		} catch (Exception e) {
+			System.err.println("Error while parsing requests");
 			e.printStackTrace();
 			fail();
 		}
