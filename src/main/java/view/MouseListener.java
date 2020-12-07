@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.SwingUtilities;
 
+import modele.Intersection;
 import modele.Point;
 import modele.PointFactory;
 import modele.Segment;
@@ -27,7 +28,10 @@ public class MouseListener extends MouseAdapter{
 		this.graphicalView = graphicalView;
 	}
 
-
+	public void mousePressed(MouseEvent e) {
+		Point p = coordinates(e);
+		this.window.setMessage("HEY !!");
+	}
 	
 	
 	public void mouseMoved(MouseEvent evt) {

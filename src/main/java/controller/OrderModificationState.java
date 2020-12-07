@@ -31,14 +31,15 @@ public class OrderModificationState implements State {
 		logger.info("New index : {}", newIndex);
 		Intersection intersection = wa.getDeparture();
 		Tour t1 = w.getGraphicalView().getTour(); 
+		int shift = newIndex - t1.getIndex(intersection.getId()); 
 		CityMap cityMap = w.getGraphicalView().getCityMap();
 		Request request = w.getGraphicalView().getRequest();
 		Pcc shortestPathComputer = new Pcc(cityMap , request);
 		shortestPathComputer.computePcc();
 		
 		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t1, intersection, newIndex);
-		l.add(new ChangeOrderCommand(shortestPathComputer, t1, intersection, newIndex));
-		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t1, intersection, newIndex);
+		l.add(new ChangeOrderCommand(shortestPathComputer, t1, intersection, shift));
+
 		
 		c.setCurrentstate(c.tourModificationState);
 		}

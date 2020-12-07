@@ -126,12 +126,10 @@ public class Tour extends Observable{
 		
 			do {
 				currentInter = waysList.get(i).getDeparture();
-				i++; 
-				if(true){//request.getDeliveryFromPickUp(currentInter.getId()) != null) {
-					//If interToCheck is a delivery and associate pickup point is before
-					if( idInterToCheck.equals(request.getDeliveryFromPickUp(currentInter.getId())) ) {
-						isPositionConsistent = true;
-					}
+				i++;
+				//If interToCheck is a delivery and associate pickup point is before
+				if( idInterToCheck.equals(request.getDeliveryFromPickUp(currentInter.getId())) ) {
+					isPositionConsistent = true;
 				}
 				/*else {
 					System.out.println("[Tour.update] currentInter is null...");
@@ -144,6 +142,18 @@ public class Tour extends Observable{
 	
 	public Boolean isPositionConsistent(Long idIntersection) {
 		return this.isPositionConsistent.get(idIntersection);
+	}
+	
+	public Integer getIndex(Long idIntersection) {
+		int index=-1;
+		int i=0;
+		for (Way w : this.waysList) {
+			if(w.getDeparture().getId() == idIntersection) {
+				index = i;
+			}
+			i++;
+		}
+		return index;
 	}
 
 }
