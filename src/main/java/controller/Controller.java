@@ -20,7 +20,6 @@ public class Controller {
 	private ListOfCommands l;
 	private State currentState;
 	private Tour tour;
-	// private ArrayList<Tour> tourModificationsHistory;
 
 	// States
 	protected final InitState initState = new InitState();
@@ -33,7 +32,6 @@ public class Controller {
 	public Controller() {
 		this.l = new ListOfCommands();
 		this.tour = new Tour();
-		// this.tourModificationsHistory = new ArrayList<Tour>();
 		window = new Window(this, tour);
 		currentState = initState;
 	}

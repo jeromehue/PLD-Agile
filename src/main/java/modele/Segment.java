@@ -1,16 +1,7 @@
 package modele;
 
-public class Segment extends Shape {
+public class Segment {
 
-	@Override
-	public boolean contains(Point p) {
-		return false;
-	}
-
-	@Override
-	public void display(Visitor v) {
-		v.display(this);
-	}
 
 	private double length;
 	private String name;

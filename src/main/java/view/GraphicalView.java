@@ -15,12 +15,11 @@ import modele.Intersection;
 import modele.Request;
 import modele.Segment;
 import modele.Tour;
-import modele.Visitor;
 import modele.Way;
 import observer.Observable;
 import observer.Observer;
 
-public class GraphicalView extends JPanel implements Observer, Visitor {
+public class GraphicalView extends JPanel implements Observer {
 
 	private static final long serialVersionUID = 1L;
 
@@ -86,12 +85,12 @@ public class GraphicalView extends JPanel implements Observer, Visitor {
 	}
 
 	@Override
-	public void update(Observable observed, Object arg) {
+	public void update(Observable observed) {
 		this.repaint();
 	}
 
 	/**
-	 * Method called each this must be redrawn
+	 * Method called each time this must be redrawn
 	 */
 	@Override
 	protected void paintComponent(Graphics _graphics) {
@@ -152,7 +151,8 @@ public class GraphicalView extends JPanel implements Observer, Visitor {
 			graphics.fillRect(0, 0, 52, 18);
 		}
 	}
-
+	
+	
 	private void drawTour(Graphics2D graphics) {
 
 		Color from = new Color(3, 115, 252); // Blue
@@ -269,11 +269,5 @@ public class GraphicalView extends JPanel implements Observer, Visitor {
 		graphics.drawString("Start", intersection.getCoordinates().getX() + 5,
 				intersection.getCoordinates().getY() - 10);
 		graphics.fillRect(intersection.getCoordinates().getX() - 5, intersection.getCoordinates().getY() - 5, 10, 10);
-	}
-
-	@Override
-	public void display(Segment s) {
-		// TODO Auto-generated method stub
-
 	}
 }

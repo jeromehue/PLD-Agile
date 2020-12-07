@@ -9,22 +9,31 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import modele.Segment;
-import modele.Shape;
 import modele.Tour;
-import modele.Visitor;
 import modele.Way;
 import observer.Observable;
 import observer.Observer;
 
-public class TextualView extends JPanel implements Observer, Visitor {
 
+public class TextualView extends JPanel implements Observer {
+
+	private static final Logger logger = LoggerFactory.getLogger(TextualView.class);
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	private ButtonListener buttonListener;
 	private Tour tour;
 	private ArrayList<JButton> pointsJButtonList;
-
+	
+	/**
+	 * Create a textual view of the computed tour in window
+	 * @param buttonListener the buttonListener
+	 * @param tour the computed tour from controller 
+	 */
 	public TextualView(Tour tour, ButtonListener buttonListener) {
 		super();
 		setBorder(BorderFactory.createTitledBorder("Itinerary"));
@@ -36,14 +45,42 @@ public class TextualView extends JPanel implements Observer, Visitor {
 		this.pointsJButtonList = new ArrayList<>();
 		this.buttonListener = buttonListener;
 	}
-
+	
+	/**
+	 * Method called by tour observed by this each time it is modified
+	 * @param observed an updated object which is observed by textual view
+	 */
 	@Override
-	public void update(Observable observed, Object arg) {
-		if (arg != null) { // arg is a shape that has been added to the tour
-			Shape f = (Shape) arg;
-			f.addObserver(this);
-		}
+	public void update(Observable observed) {
+		this.displaySteps();
+		logger.info(observed.getClass() + " object was modified: textual view updated");
+	}
 
+	
+	/**
+	 * Delete button components of the textual view.
+	 */
+	private void clearPointJButtonList() {
+		for (JButton button : this.pointsJButtonList) {
+			button.setVisible(false);
+			this.remove(button);
+		}
+		this.pointsJButtonList.clear();
+	}
+	
+	/**
+	 * Reset graphical selection effect around text areas   
+	 */
+	public void clearAllTextArea() {
+		for (JButton b : pointsJButtonList) {
+			b.setContentAreaFilled(false);
+		}
+	}
+	
+	/**
+	 * Method called to display steps of the tour on the graphical view
+	 */
+	private void displaySteps() {
 		if (this.tour != null) {
 			clearPointJButtonList();
 			Iterator<Way> itwaysInTour = tour.getWaysListIterator();
@@ -124,27 +161,5 @@ public class TextualView extends JPanel implements Observer, Visitor {
 				pointsJButtonList.add(b);
 			}
 		}
-	}
-
-	private void clearPointJButtonList() {
-		for (JButton button : this.pointsJButtonList) {
-			button.setVisible(false);
-			this.remove(button);
-		}
-		this.pointsJButtonList.clear();
-	}
-
-	public void clearAllTextArea() {
-		for (JButton b : pointsJButtonList) {
-			b.setContentAreaFilled(false);
-		}
-	}
-
-	@Override
-	public void display(Segment s) {
-		/*
-		 * text += s.getName() + " sur  " + (int)s.getLength() +" mètres <br />"; if
-		 * (s.getIsSelected()) { text += "est selectionné"; }
-		 */
 	}
 }

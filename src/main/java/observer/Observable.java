@@ -15,12 +15,8 @@ public class Observable {
 			obs.add(o);
 	}
 
-	public void notifyObservers(Object arg) {
-		for (Observer o : obs)
-			o.update(this, arg);
-	}
-
 	public void notifyObservers() {
-		notifyObservers(null);
+		for (Observer o : obs)
+		o.update(this);
 	}
 }
