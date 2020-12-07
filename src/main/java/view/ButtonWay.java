@@ -15,7 +15,7 @@ public class ButtonWay extends JButton {
 	
 	/**
 	 * Association of a button and a way to make steps of the textual view clickables
-	 * Does the link between graphical and textual view 
+	 * Does the link between graphical and textual view  
 	 * @param way the way 
 	 * @param buttonListener the button listener 
 	 * @param text the label 
