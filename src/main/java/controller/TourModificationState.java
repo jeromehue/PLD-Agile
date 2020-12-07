@@ -26,6 +26,9 @@ public class TourModificationState implements State {
 
 	public void addRequest(Controller c, Window w) {
 		w.setMessage("Select the pickup intersection on the map");
+		c.setCurrentstate(c.addRequestState);
+		//Tour addRequest (Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration, Integer deliveryDuration,
+		//Integer pickupIndex, Integer deliveryIndex)
 		// Tour addRequest (Tour tour, Intersection pickup, Intersection delivery,
 		// Integer pickUpDuration, Integer deliveryDuration,
 		// Integer pickupIndex, Integer deliveryIndex)

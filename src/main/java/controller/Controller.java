@@ -28,6 +28,8 @@ public class Controller {
 	protected final TourModificationState tourModificationState = new TourModificationState();
 	protected final ChangeOrderState orderModificationState = new ChangeOrderState();
 	protected final DeleteStepState deleteStepState = new DeleteStepState();
+	protected final AddRequestState addRequestState = new AddRequestState();
+	
 
 	public Controller() {
 		this.l = new ListOfCommands();
@@ -87,5 +89,15 @@ public class Controller {
 	public void redo() {
 		currentState.redo(l);
 	}
+
+	public void leftClick(Point p, Window w) {
+		addRequestState.leftClick(p, w);
+	}
+
+	public void rightClick() {
+		// TODO Auto-generated method stub	
+	}
+
+	
 
 }

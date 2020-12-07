@@ -88,6 +88,12 @@ public class GraphicalView extends JPanel implements Observer {
 		return this.tour;
 	}
 
+	
+	public Long getHighlightedIntersectionId() {
+		return this.highlightedIntersection.getId();
+	}
+	
+
 	public void setTour(Tour tour) {
 		this.tour = tour;
 	}
