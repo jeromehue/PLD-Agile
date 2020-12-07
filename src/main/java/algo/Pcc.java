@@ -80,7 +80,6 @@ public class Pcc {
 		startVertices.add(start);
 		startVertices.addAll(pickUpVertices);
 		startVertices.addAll(deliveryVertices);
-		System.out.println("test" + startVertices.size());
 		CompleteGraph graph = new CompleteGraph(startVertices);
 		
 		final int END_TEST_CYCLE = 1;
@@ -400,9 +399,9 @@ public class Pcc {
 		tour.setWaysList(computeWaysList(list));
 		
 		tour.updateIsPositionConsistent(intersection.getId());
-		/* if(request.isPickUp(intersection.getId())) {
+		if(request.isPickUp(intersection.getId())) {
 			tour.updateIsPositionConsistent(request.getDeliveryFromPickUp(intersection.getId()));			
-		} */
+		}
 		
 		return tour;
 	}

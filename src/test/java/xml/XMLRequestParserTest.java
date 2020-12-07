@@ -21,12 +21,29 @@ class XMLRequestParserTest {
 	void setup() {
 		XMLCityMapParser p;
 		p = new XMLCityMapParser("src/main/resources/smallMap.xml");
-		this.smallMap = p.parse();
+		try {
+			this.smallMap = p.parse();
+		} catch (Exception e) {
+			System.err.println("Error while parsing map");
+			fail();
+		}	
 		p = new XMLCityMapParser("src/main/resources/mediumMap.xml");
-		this.mediumMap = p.parse();
-		p = new XMLCityMapParser("src/main/resources/largeMap.xml");
-		this.largeMap = p.parse();
+
+		try {
+			this.mediumMap = p.parse();
+		} catch (Exception e) {
+			System.err.println("Error while parsing map");
+			fail();
+		}			p = new XMLCityMapParser("src/main/resources/largeMap.xml");
+
+		try {
+			this.largeMap = p.parse();
+		} catch (Exception e) {
+			System.err.println("Error while parsing map");
+			fail();
+		}
 	}
+
 
 	@Test
 	@DisplayName("Loading small requests")
@@ -36,6 +53,7 @@ class XMLRequestParserTest {
 		try {
 			p.parse();
 		} catch(Exception e) {
+			System.err.println("Error while parsing requests");
 			fail();
 		}
 		
@@ -49,6 +67,7 @@ class XMLRequestParserTest {
 		try {
 			p.parse();
 		} catch(Exception e) {
+			System.err.println("Error while parsing requests");
 			fail();
 		}
 	}
@@ -61,6 +80,7 @@ class XMLRequestParserTest {
 		try {
 			p.parse();
 		} catch(Exception e) {
+			System.err.println("Error while parsing requests");
 			fail();
 		}
 	}

@@ -17,6 +17,7 @@ import modele.Segment;
 import modele.Tour;
 import view.GraphicalView;
 import view.Window;
+import xml.InvalidMapException;
 import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
@@ -31,11 +32,25 @@ public class MapLoadedState implements State {
 			String path = w.createDialogBoxToGetFilePath();
 			if(path != null) 
 			{
-				XMLCityMapParser p = new XMLCityMapParser(path);
-				CityMap cityMap = p.parse();
-				w.getGraphicalView().setCityMap(cityMap);
-				c.setCurrentstate(c.mapLoadedState);
-				w.setMessage ("The map was successfully loaded. You may now load requests.");
+				try {
+					XMLCityMapParser p = new XMLCityMapParser(path);
+					CityMap cityMap = p.parse();
+					w.getGraphicalView().setCityMap(cityMap);
+					c.setCurrentstate(c.mapLoadedState);
+					w.setMessage ("The map was successfully loaded. You may now load requests.");
+				} catch(InvalidMapException e) {
+					w.setMessage("A problem occurred while trying to load the map file.");
+					logger.error("Error while trying to load the map file because the file is not correct.");
+				} catch (ParserConfigurationException e) {
+					w.setMessage("A problem occurred while trying to load the map file.");
+					logger.error("Error while trying to load the map file because of the parser configuration.");
+				} catch(SAXException e) {
+					w.setMessage("A problem occurred while trying to load the map file.");
+					logger.error("Error while trying to load the map file because of the XML parser.");
+				} catch (IOException e) {
+					w.setMessage("A problem occurred while trying to load the map file.");
+					logger.error("Error while trying to load the map file because of a I/O problem.");
+				}
 			}
 			else 
 			{
@@ -56,7 +71,7 @@ public class MapLoadedState implements State {
 					w.setMessage("The requests were successfully loaded. You may now compute the tour.");
 				} catch (InvalidRequestException e) {
 					w.setMessage("A problem occurred while trying to load the requests file.");
-					logger.error("Error while trying to load the request file because of invalid requests or non-conform file.");
+					logger.error("Error while trying to load the request file because of invalid requests or incorrect file.");
 				} catch (ParserConfigurationException e) {
 					w.setMessage("A problem occurred while trying to load the requests file.");
 					logger.error("Error while trying to load the request file because of the parser configuration.");
