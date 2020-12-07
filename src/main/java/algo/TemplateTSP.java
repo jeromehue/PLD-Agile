@@ -10,9 +10,7 @@ public abstract class TemplateTSP implements TSP {
 	protected Double bestSolCost;
 	private Integer timeLimit;
 	private Long startTime;
-	// max discrepancy should be defined experimentally
 	protected Integer maxDiscrepancy;
-	
 	
 	public void searchSolution(Integer timeLimit) {
 		if (timeLimit <= 0) return;
@@ -29,8 +27,7 @@ public abstract class TemplateTSP implements TSP {
 		Collection<Integer> visited = new ArrayList<Integer>(g.getNbVertices());
 		visited.add(0); // The first visited vertex is 0
 		bestSolCost = Double.MAX_VALUE;
-		branchAndBound(0, unvisited, visited, 0.0, 5000);
-		//TODO: change value of dmax !
+		branchAndBound(0, unvisited, visited, 0.0, 0);
 	}
 	
 	public Integer getSolution(Integer i){
