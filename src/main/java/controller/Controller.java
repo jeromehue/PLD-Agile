@@ -17,6 +17,7 @@ public class Controller {
 	
 	private Window window;
 	
+	private ListOfCommands l;
 	private State currentState;
 	private Tour tour;
 	private ArrayList<Tour> tourModificationsHistory;
@@ -75,6 +76,12 @@ public class Controller {
 		}
 	}
 	
+	public void undo() {
+		currentState.undo(l);
+	}
 	
+	public void redo() {
+		currentState.redo(l);
+	}
 
 }

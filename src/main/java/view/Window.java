@@ -52,7 +52,8 @@ public class Window extends JFrame{
 	protected final static String REMOVE_REQUEST	        = "Delete a request";
 	protected final static String VALIDATE_MODIFICATIONS	= "<html><strong>SAVE ALL<html/><strong/>";
 	protected final static String CANCEL_MODIFICATIONS	    = "<html><strong>CANCEL ALL<html/><strong/>";
-	protected final static String UNDO	                    = "<html><strong>Undo last<html/><strong/>";
+	protected final static String UNDO	                    = "<html><strong>Undo<html/><strong/>";
+	protected final static String REDO	                    = "<html><strong>Redo<html/><strong/>";
 	
 	//Components
 	private GraphicalView graphicalView;
@@ -194,13 +195,20 @@ public class Window extends JFrame{
         removeRequestButton.setVisible(false);
         optionalsButtons.add(removeRequestButton);
         toolBar.add(removeRequestButton);
-        
+
         JButton undoButton = new JButton(UNDO);
         undoButton.addActionListener(buttonListener);
         undoButton.setForeground(Color.black);
         undoButton.setVisible(false);
         optionalsButtons.add(undoButton);
         toolBar.add(undoButton);
+        
+        JButton redoButton = new JButton(REDO);
+        redoButton.addActionListener(buttonListener);
+        redoButton.setForeground(Color.black);
+        redoButton.setVisible(false);
+        optionalsButtons.add(redoButton);
+        toolBar.add(redoButton);
         
         JButton validateModifiactionButton = new JButton(VALIDATE_MODIFICATIONS);
         validateModifiactionButton.addActionListener(buttonListener);
