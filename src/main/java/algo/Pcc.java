@@ -11,7 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import controller.ChangeOrderState;
+
 import java.util.HashMap;
+import java.util.Iterator;
 import java.time.LocalTime;
 
 /**
@@ -23,6 +29,9 @@ import java.time.LocalTime;
  */
 
 public class Pcc {
+	
+	private static final Logger logger = LoggerFactory.getLogger(Pcc.class);
+	
 	/**
 	 * All the intersections get from CityMap
 	 */
@@ -376,11 +385,11 @@ public class Pcc {
 	public Tour addRequest(Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration,
 			Integer deliveryDuration, Integer pickupIndex, Integer deliveryIndex) {
 
-		this.deliveryVertices.add(delivery);
-		this.pickUpVertices.add(pickup);
-		this.computePcc();
-
+		//this.deliveryVertices.add(delivery);
+		//this.pickUpVertices.add(pickup);
+		
 		request.addRequest(pickup, delivery, pickUpDuration, deliveryDuration);
+		this.computePcc();
 
 		List<Intersection> list = new ArrayList<Intersection>();
 		for (Way w : tour.getWaysList()) {
@@ -388,7 +397,9 @@ public class Pcc {
 		}
 		list.add(pickupIndex, pickup);
 		list.add(deliveryIndex, delivery);
-
+		
+		List<Way> ways = computeWaysList(list);
+		
 		tour.setRequest(request);
 		tour.setWaysList(computeWaysList(list));
 		tour.updateIsPositionConsistent(delivery.getId());

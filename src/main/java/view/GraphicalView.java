@@ -267,6 +267,9 @@ public class GraphicalView extends JPanel implements Observer {
 			pickUpAdresseToDraw = itPickUpTest.next();
 			deliveryAdressToDraw = itDeliveryTest.next();
 
+			//logger.info("Pickup 	: {} ", pickUpAdresseToDraw.getId());
+			//logger.info("Delivery 	: {} ", deliveryAdressToDraw.getId());
+			
 			Color color = new Color(pickUpAdresseToDraw.hashCode()).darker();
 			graphics.setColor(color);
 
