@@ -70,28 +70,4 @@ class testPcc {
 			}
 		}
 	}
-	
-	/*@Test
-	void testCustomInit() {
-		System.out.println("TEST\n-----------------" + "testPcc.java : testCustomInit");
-
-		Pcc pcc = new Pcc();
-		CompleteGraph graph = pcc.initTest();
-		
-		//Intersection inter1 = new Intersection(new Long(1), 0.0, 0.0, new ArrayList<Segment>() ); 
-		//Intersection inter6 = new Intersection(new Long(6), 0.0, 0.0, new ArrayList<Segment>() ); 
-		//pcc.getRoads(inter1, inter6);
-		
-		//System.out.println(graph.toString());
-
-		for(int i = 0 ; i < graph.getNbVertices() ; ++i) {
-			for(int j = 0 ; j < graph.getNbVertices() ; ++j) {
-				if(i == j) {
-					assertTrue(graph.getCost(i, j) == 0.0);
-				} else {
-					assertTrue(graph.getCost(i, j) != 0.0);
-				}
-			}
-		}
-	}*/
 }
