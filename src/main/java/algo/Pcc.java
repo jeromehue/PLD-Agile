@@ -389,10 +389,8 @@ public class Pcc {
 		list.add(pickupIndex, pickup);
 		list.add(deliveryIndex, delivery);
 
-		List<Way> ways = computeWaysList(list);
-
 		tour.setRequest(request);
-		tour.setWaysList(ways);
+		tour.setWaysList(computeWaysList(list));
 		tour.updateIsPositionConsistent(delivery.getId());
 		tour.updateIsPositionConsistent(pickup.getId());
 
@@ -400,16 +398,16 @@ public class Pcc {
 	}
 	
 	/**
-	 * Enable to delete an intersection.
+	 * Enable to delete a step of the tour.
 	 * 
 	 * @param tour
 	 * 		Contains the current order between pick up and delivery points.
 	 * @param intersection
-	 * 		The intersection to delete 
+	 * 		The step to delete 
 	 * @return
 	 * 		A new Tour updated
 	 */
-	public Tour deleteIntersection(Tour tour, Intersection intersection) {
+	public Tour deleteStep(Tour tour, Intersection intersection) {
 		if (intersection.getId().equals(request.getStartingLocation().getId())) {
 			return tour;
 		}

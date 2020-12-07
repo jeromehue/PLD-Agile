@@ -6,6 +6,11 @@ import java.util.HashMap;
 import modele.Intersection;
 
 /**
+ * This class computes and stores the shortest ways between pickUp and delivery
+ * points.
+ * 
+ * @author H4414
+ * 
  * Create a complete directed graph such that each edge is a step of the tour
  * 
  * @param nbVertices   number of steps
@@ -127,7 +132,7 @@ public class CompleteGraph implements Graph {
 	}
 
 	/**
-	 * Returns the the intersection whose index of the costs matrix is passed
+	 * Returns the intersection whose index of the costs matrix is passed
 	 * 
 	 * @param i index in the costs matrix of an intersection
 	 */
