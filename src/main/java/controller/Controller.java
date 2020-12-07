@@ -31,6 +31,7 @@ public class Controller {
 	protected final DeleteStepState deleteStepState = new DeleteStepState();
 	
 	public Controller() {
+		this.l = new ListOfCommands();
 		this.tour = new Tour();
 		this.tourModificationsHistory = new ArrayList<Tour>();
 		window = new Window(this, tour);
@@ -56,7 +57,7 @@ public class Controller {
 	}
 	
 	public void clickOnStep(Way way, JButton button) {
-		currentState.clickOnStep(this, this.window, way, button, this.tour);
+		currentState.clickOnStep(this, this.window, l, way, button, this.tour);
 	}
 	
 	public void modifyOrder() {

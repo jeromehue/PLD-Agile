@@ -19,7 +19,7 @@ import view.Window;
 public class OrderModificationState implements State {
 	private static final Logger logger = LoggerFactory.getLogger(OrderModificationState.class);
 
-	public void clickOnStep(Controller c, Window w, Way wa, JButton button, Tour t) {
+	public void clickOnStep(Controller c, Window w, ListOfCommands l, Way wa, JButton button, Tour t) {
 		logger.info("[Order Modification State] Modify order of tour in controller");
 		logger.info("[Order Modification State] Intersection to be modify" + wa.getDeparture());
 		
@@ -32,10 +32,14 @@ public class OrderModificationState implements State {
 		Request request = w.getGraphicalView().getRequest();
 		Pcc shortestPathComputer = new Pcc(cityMap , request);
 		shortestPathComputer.computePcc();
-		Tour newTour = shortestPathComputer.changeOrder( t1,  intersection,  newIndex);
+		
 		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t1, intersection, newIndex);
-		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", newTour, intersection, newIndex);
-		t1.setTour(newTour);
+		
+		l.add(new ChangeOrderCommand(shortestPathComputer, t1, intersection, newIndex));
+		//Tour newTour = shortestPathComputer.changeOrder( t1,  intersection,  newIndex);
+		
+		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t1, intersection, newIndex);
+		t1.setTour(t1);
 		t1.notifyObservers();
 		c.setCurrentstate(c.tourModificationState);
 	}

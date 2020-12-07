@@ -1,34 +1,36 @@
 package controller;
 
 import algo.Pcc;
-import modele.Request;
+import modele.Intersection;
 import modele.Tour;
 
-public class DeleteStepCommand implements Command {
+public class ChangeOrderCommand implements Command {
 	
 	private Pcc pcc;
 	private Tour tour;
-	private Request request;
+	private Intersection intersection;
+	private int offset;
 	
 	/**
 	 * Create the command which adds the shape s to the plan p
 	 * @param p the plan to which f is added
 	 * @param s the shape added to p
 	 */
-	public DeleteStepCommand(Pcc p, Tour t, Request r) {
+	public ChangeOrderCommand(Pcc p, Tour t, Intersection i, int offset) {
 		this.pcc = p;
 		this.tour = t;
-		this.request = r;
+		this.intersection = i;
+		this.offset = offset;
 	}
 
 	@Override
 	public void doCommand() {
-		// TODO
+		this.pcc.changeOrder(tour, intersection, offset);
 	}
 
 	@Override
 	public void undoCommand() {
-		// TODO
+		this.pcc.changeOrder(tour, intersection, -offset);
 	}
 
 }

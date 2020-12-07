@@ -60,7 +60,15 @@ public class ButtonListener  implements ActionListener  {
 			case Window.REMOVE_REQUEST: 
 				logger.info("Click on REMOVE_REQUEST button");
 				controller.deleteAStep();
-			break;
+				break;
+			case Window.UNDO: 
+				logger.info("Click on UNDO button");
+				controller.undo();
+				break;
+			case Window.REDO: 
+				logger.info("Click on REDO button");
+				controller.redo();
+				break;
 			default: 
 				logger.info("Click button: DEFAULT_CASE_2"); 
 				break;
