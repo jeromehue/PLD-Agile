@@ -39,5 +39,14 @@ public class TourModificationState  implements State {
 		w.setMessage("Choose a step to delete");
 		c.setCurrentstate(c.deleteStepState);
 	}
-	
+
+	@Override
+	public void undo(ListOfCommands listOfCdes){
+		listOfCdes.undo();
+	}
+
+	@Override
+	public void redo(ListOfCommands listOfCdes){
+		listOfCdes.redo();
+	}
 }

@@ -34,13 +34,19 @@ public class OrderModificationState implements State {
 		shortestPathComputer.computePcc();
 		
 		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t1, intersection, newIndex);
-		
 		l.add(new ChangeOrderCommand(shortestPathComputer, t1, intersection, newIndex));
-		//Tour newTour = shortestPathComputer.changeOrder( t1,  intersection,  newIndex);
-		
 		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t1, intersection, newIndex);
-		t1.setTour(t1);
-		t1.notifyObservers();
+		
 		c.setCurrentstate(c.tourModificationState);
+	}
+
+	@Override
+	public void undo(ListOfCommands listOfCdes){
+		listOfCdes.undo();
+	}
+
+	@Override
+	public void redo(ListOfCommands listOfCdes){
+		listOfCdes.redo();
 	}
 }

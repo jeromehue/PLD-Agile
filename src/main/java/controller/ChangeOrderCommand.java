@@ -26,11 +26,15 @@ public class ChangeOrderCommand implements Command {
 	@Override
 	public void doCommand() {
 		this.pcc.changeOrder(tour, intersection, offset);
+		tour.setTour(tour);
+		tour.notifyObservers();
 	}
 
 	@Override
 	public void undoCommand() {
 		this.pcc.changeOrder(tour, intersection, -offset);
+		tour.setTour(tour);
+		tour.notifyObservers();
 	}
 
 }
