@@ -33,7 +33,12 @@ class XMLRequestParserTest {
 	void smallRequestTest() throws InvalidRequestException  {
 		XMLRequestParser p;
 		p = new XMLRequestParser("src/main/resources/requestsSmall1.xml", this.smallMap);
-		p.parse();
+		try {
+			p.parse();
+		} catch(Exception e) {
+			fail();
+		}
+		
 	}
 
 	@Test
@@ -41,7 +46,11 @@ class XMLRequestParserTest {
 	void mediumRequestTest() throws InvalidRequestException  {
 		XMLRequestParser p;
 		p = new XMLRequestParser("src/main/resources/requestsMedium3.xml", this.mediumMap);
-		p.parse();
+		try {
+			p.parse();
+		} catch(Exception e) {
+			fail();
+		}
 	}
 
 	@Test
@@ -49,7 +58,11 @@ class XMLRequestParserTest {
 	void largeRequestTest() throws InvalidRequestException {
 		XMLRequestParser p;
 		p = new XMLRequestParser("src/main/resources/requestsLarge7.xml", this.largeMap);
-		p.parse();
+		try {
+			p.parse();
+		} catch(Exception e) {
+			fail();
+		}
 	}
 
 	@Test
@@ -60,8 +73,6 @@ class XMLRequestParserTest {
 		assertThrows(InvalidRequestException.class, () -> {
 			p.parse();
 	    });
-		
-
 	}
 
 }

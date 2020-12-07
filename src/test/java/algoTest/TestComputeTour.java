@@ -13,7 +13,6 @@ import modele.Intersection;
 import modele.Request;
 import modele.Tour;
 import modele.Way;
-import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
@@ -35,7 +34,7 @@ public class TestComputeTour {
 		Request request = new Request();
 		try {
 			request = rp.parse();
-		} catch (InvalidRequestException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}

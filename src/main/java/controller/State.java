@@ -5,7 +5,6 @@ import javax.swing.JButton;
 import modele.Tour;
 import modele.Way;
 import view.Window;
-import controller.ListOfCommands;
 
 public interface State {
 	
