@@ -70,16 +70,16 @@ public class TestComputeTour {
 		
 		//Long id = new Long(1362781062);
 		long id = 2774590477L;
-		Intersection inter = new Intersection(id, 0.0, 0.0, null);
+		Intersection inter = new Intersection(34401989L, 0.0, 0.0, null);
 		Intersection newPU = new Intersection(25327124L, 0.0, 0.0, null );
 		Intersection newD = new Intersection(1678996781L, 0.0, 0.0, null );
 		
 		System.out.println("33COUCOU");
 
 		
-		//tour = pcc.changeOrder(tour, inter, -3);
+		tour = pcc.changeOrder(tour, inter, -3);
 		//tour = pcc.deleteIntersection(tour, inter);
-		tour = pcc.addRequest(tour, newPU, newD, 120, 120, 3, 2);
+		//tour = pcc.addRequest(tour, newPU, newD, 120, 120, 3, 2);
 		
 		System.out.println("4COUCOU");
 
