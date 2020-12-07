@@ -50,7 +50,7 @@ public class TourModificationState implements State {
 				}
 			}
 			if (iclosest != null) {
-				graphicalView.highlightInter(iclosest);
+				graphicalView.setHighlightInter(iclosest);
 				w.setMessage("truc");
 			}
 		}

@@ -52,6 +52,7 @@ public class TextualView extends JPanel implements Observer {
 	 */
 	@Override
 	public void update(Observable observed) {
+		this.clearPointJButtonList();
 		this.displaySteps();
 		logger.info(observed.getClass() + " object was modified: textual view updated");
 	}
@@ -82,7 +83,6 @@ public class TextualView extends JPanel implements Observer {
 	 */
 	private void displaySteps() {
 		if (this.tour != null) {
-			clearPointJButtonList();
 			Iterator<Way> itwaysInTour = tour.getWaysListIterator();
 			Way currentWay = null;
 			int currentCount = 0;

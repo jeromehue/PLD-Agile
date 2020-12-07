@@ -10,6 +10,9 @@ import java.util.Iterator;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import modele.CityMap;
 import modele.Intersection;
 import modele.Request;
@@ -20,6 +23,7 @@ import observer.Observable;
 import observer.Observer;
 
 public class GraphicalView extends JPanel implements Observer {
+	private static final Logger logger = LoggerFactory.getLogger(GraphicalView.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -29,8 +33,11 @@ public class GraphicalView extends JPanel implements Observer {
 	private Intersection highlightedIntersection;
 	private Way highlightedWay;
 	private Tour tour; // tour is unique -> modified in the controller and observed to display changes
-						// here
 
+	/**
+	 * Create the graphical view for drawing Map, request and tour  
+	 * @param tour the observed Tour to redraw on graphical view each time it is modified
+	 */
 	public GraphicalView(Tour tour) {
 		super();
 		this.setBorder(BorderFactory.createTitledBorder("Carte"));
@@ -42,7 +49,8 @@ public class GraphicalView extends JPanel implements Observer {
 		this.tour = tour;
 		this.tour.addObserver(this); // observes tour changes
 	}
-
+	
+	
 	public void setRequest(Request request) {
 		this.request = request;
 		this.repaint();
@@ -58,7 +66,7 @@ public class GraphicalView extends JPanel implements Observer {
 		this.repaint();
 	}
 
-	public void highlightInter(Intersection intersection) {
+	public void setHighlightInter(Intersection intersection) {
 		this.highlightedIntersection = intersection;
 		this.repaint();
 	}
@@ -83,23 +91,24 @@ public class GraphicalView extends JPanel implements Observer {
 	public void setTour(Tour tour) {
 		this.tour = tour;
 	}
-
+	
+	/**
+	 * Method called by objects observed by this graphical view each time they are modified
+	 */
 	@Override
 	public void update(Observable observed) {
 		this.repaint();
+		logger.info(observed.getClass() + " object was modified: graphical view updated");
 	}
 
 	/**
 	 * Method called each time this must be redrawn
+	 * @param _graphics the graphic context of the view
 	 */
 	@Override
 	protected void paintComponent(Graphics _graphics) {
 		Graphics2D graphics = (Graphics2D) _graphics;
 		super.paintComponent(graphics);
-
-		// Smooth lines (anti-aliasing)
-		// graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-		// RenderingHints.VALUE_ANTIALIAS_ON);
 
 		// draw white background
 		graphics.setColor(new Color(248, 255, 242));
@@ -152,7 +161,10 @@ public class GraphicalView extends JPanel implements Observer {
 		}
 	}
 	
-	
+	/**
+	 * Method called to draw this.tour 
+	 * @param graphics the graphic context of the view
+	 */
 	private void drawTour(Graphics2D graphics) {
 
 		Color from = new Color(3, 115, 252); // Blue
@@ -193,14 +205,23 @@ public class GraphicalView extends JPanel implements Observer {
 
 		}
 	}
-
+	
+	/**
+	 * Method called to draw a Way
+	 * @param graphics the graphic context of the view
+	 * @param way the Way to draw   
+	 */
 	private void drawWay(Graphics2D graphics, Way way) {
 		Iterator<Segment> itSegment = way.getSegmentListIterator();
 		while (itSegment.hasNext()) {
 			drawSegment(graphics, itSegment.next());
 		}
 	}
-
+	
+	/**
+	 * Method called to draw this.cityMap 
+	 * @param graphics the graphic context of the view
+	 */
 	private void drawCityMap(Graphics2D graphics) {
 		graphics.setColor(Color.darkGray);
 		graphics.setStroke(new BasicStroke(1));
@@ -210,12 +231,21 @@ public class GraphicalView extends JPanel implements Observer {
 			drawSegment(graphics, segment);
 		}
 	}
-
+	
+	/**
+	 * Method called to draw a Segment
+	 * @param graphics the graphic context of the view
+	 * @param s the Segment to draw   
+	 */
 	private void drawSegment(Graphics graphics, Segment s) {
 		graphics.drawLine(s.getOrigin().getCoordinates().getX(), s.getOrigin().getCoordinates().getY(),
 				s.getDestination().getCoordinates().getX(), s.getDestination().getCoordinates().getY());
 	}
-
+	
+	/**
+	 * Method called to draw this.request
+	 * @param graphics the graphic context of the view 
+	 */
 	private void drawRequest(Graphics graphics) {
 		// draw start point
 		Intersection startIntersection = request.getStartingLocation();
@@ -241,12 +271,17 @@ public class GraphicalView extends JPanel implements Observer {
 
 			// System.out.println(deliveryAdressToDraw);
 			if (deliveryAdressToDraw != null) {
-				drawIntersection(graphics, deliveryAdressToDraw);
+				drawIntersectionCircle(graphics, deliveryAdressToDraw);
 			}
 		}
 	}
-
-	private void drawIntersection(Graphics graphics, Intersection intersection) {
+	
+	/**
+	 * Method called to draw a delivery point
+	 * @param graphics the graphic context of the view
+	 * @param intersection the delivery point intersection to draw  
+	 */
+	private void drawIntersectionCircle(Graphics graphics, Intersection intersection) {
 		if (intersection.getId() != null) {
 			graphics.setFont(graphics.getFont().deriveFont(Font.BOLD, 14f));
 			graphics.drawString("Delivery", intersection.getCoordinates().getX() + 5,
@@ -255,7 +290,12 @@ public class GraphicalView extends JPanel implements Observer {
 					10);
 		}
 	}
-
+	
+	/**
+	 * Method called to draw a pick up point
+	 * @param graphics the graphic context of the view
+	 * @param intersection the pick up point intersection to draw  
+	 */
 	private void drawIntersectionSquare(Graphics graphics, Intersection intersection) {
 		graphics.setFont(graphics.getFont().deriveFont(Font.BOLD, 14f));
 		graphics.drawString("Pick-up", intersection.getCoordinates().getX() + 5,
@@ -263,6 +303,11 @@ public class GraphicalView extends JPanel implements Observer {
 		graphics.fillRect(intersection.getCoordinates().getX() - 5, intersection.getCoordinates().getY() - 5, 10, 10);
 	}
 
+	/**
+	 * Method called to draw the starting point
+	 * @param graphics the graphic context of the view
+	 * @param intersection of the starting point  
+	 */
 	private void drawStartIntersection(Graphics graphics, Intersection intersection) {
 		graphics.setColor(Color.red);
 		graphics.setFont(graphics.getFont().deriveFont(Font.BOLD, 14f));
