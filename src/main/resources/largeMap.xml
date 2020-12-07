@@ -4534,7 +4534,7 @@
 <segment destination="25321687" length="153.3693" name="Passage Feuillat" origin="25321689"/>
 <segment destination="25303841" length="83.108986" name="Rue Feuillat" origin="25321689"/>
 <segment destination="25303831" length="153.72511" name="Rue Feuillat" origin="25321689"/>
-<segment destination="26079790" length="153.56767" name="Rue de l'AbondanceRue Garibaldi" origin="34401989"/>
+<segment destination="26079790" length="153.56767" name="Rue de l'Abondance" origin="34401989"/>
 <segment destination="34401987" length="18.621817" name="Rue Garibaldi" origin="34401988"/>
 <segment destination="34401989" length="17.924046" name="Rue Garibaldi" origin="34401988"/>
 <segment destination="25306034" length="100.629295" name="Avenue Félix Faure" origin="34401987"/>
@@ -9547,8 +9547,8 @@
 <segment destination="2774590476" length="12.430098" name="" origin="2774590462"/>
 <segment destination="2774590477" length="15.935466" name="" origin="2774590462"/>
 <segment destination="25932604" length="135.98303" name="Cours de la République" origin="2774590462"/>
-<segment destination="2774590489" length="12.359177" name="" origin="2774590477"/>
-<segment destination="2774590462" length="15.935466" name="" origin="2774590477"/>
+<segment destination="2774590489" length="12.359177" name="Rue Francis de Pressensé" origin="2774590477"/>
+<segment destination="2774590462" length="15.935466" name="Rue Francis de Pressensé" origin="2774590477"/>
 <segment destination="110421994" length="109.91045" name="Rue Francis de Pressensé" origin="2774590477"/>
 <segment destination="2774590489" length="13.438265" name="" origin="2774590476"/>
 <segment destination="2774590462" length="12.430098" name="" origin="2774590476"/>
