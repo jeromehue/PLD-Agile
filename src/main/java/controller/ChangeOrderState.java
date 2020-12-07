@@ -16,8 +16,8 @@ import view.Window;
 
 
 
-public class OrderModificationState implements State {
-	private static final Logger logger = LoggerFactory.getLogger(OrderModificationState.class);
+public class ChangeOrderState implements State {
+	private static final Logger logger = LoggerFactory.getLogger(ChangeOrderState.class);
 
 	public void clickOnStep(Controller c, Window w, ListOfCommands l, Way wa, JButton button, Tour t) {
 		logger.info("[Order Modification State] Modify order of tour in controller");
@@ -39,7 +39,6 @@ public class OrderModificationState implements State {
 		
 		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t1, intersection, newIndex);
 		l.add(new ChangeOrderCommand(shortestPathComputer, t1, intersection, shift));
-
 		
 		c.setCurrentstate(c.tourModificationState);
 		}
@@ -55,7 +54,6 @@ public class OrderModificationState implements State {
 		}
 	}
 	
-
 	@Override
 	public void undo(ListOfCommands listOfCdes){
 		listOfCdes.undo();

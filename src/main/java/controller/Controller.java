@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import modele.Intersection;
 import modele.Point;
 import modele.Tour;
 import modele.Way;
@@ -28,7 +29,7 @@ public class Controller {
 	protected final MapLoadedState mapLoadedState = new MapLoadedState();
 	protected final RequestLoadedState requestLoadedState = new RequestLoadedState();
 	protected final TourModificationState tourModificationState = new TourModificationState();
-	protected final OrderModificationState orderModificationState = new OrderModificationState();
+	protected final ChangeOrderState orderModificationState = new ChangeOrderState();
 	protected final DeleteStepState deleteStepState = new DeleteStepState();
 	
 	public Controller() {
@@ -75,6 +76,7 @@ public class Controller {
 	
 	public void addRequest() {
 		currentState.addRequest(this, this.window);
+		
 	}
 	
 	public void mouseMoved(Point p) {

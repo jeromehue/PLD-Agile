@@ -44,6 +44,7 @@ public class MouseListener extends MouseAdapter{
 		} else {
 			this.window.setMessage("");
 			this.graphicalView.highlight(null);
+			this.graphicalView.highlightInter(null);
 		}
 		
 	}

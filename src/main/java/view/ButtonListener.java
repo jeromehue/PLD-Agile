@@ -17,7 +17,7 @@ public class ButtonListener  implements ActionListener  {
 	public ButtonListener(Controller controller){
 		this.controller = controller;
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() instanceof ButtonWay) {
 			
