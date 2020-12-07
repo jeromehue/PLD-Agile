@@ -55,14 +55,4 @@ public class MouseListener extends MouseAdapter{
 		int y = Math.round(e.getY());
 		return PointFactory.createPoint(x, y);
 	}
-	
-	
-
-	
-
-	
-	
-	
-	
-	
 }

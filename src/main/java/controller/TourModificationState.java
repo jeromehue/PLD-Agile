@@ -6,7 +6,6 @@ import javax.swing.JButton;
 
 import modele.Intersection;
 import modele.Point;
-import modele.Segment;
 import modele.Tour;
 import modele.Way;
 import view.GraphicalView;
