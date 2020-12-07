@@ -206,42 +206,24 @@ public class Pcc {
 		HashMap<Long, Segment> predecessors = savePredecessors.get(start.getId());
 		Long currentPoint = finish.getId();
 		Segment path = predecessors.get(currentPoint);
-//<<<<<<< HEAD
 		lengthAB=0.0;
 		
 		while(path != null) {
-/*=======
-		lengthAB = 0.0;
 
-		do {
->>>>>>> 168994ce07de1f290540a3776294f2997e337797*/
 			segmentsList.add(0, path);
 			lengthAB += path.getLength();
 
 			currentPoint = path.getOrigin().getId();
-//<<<<<<< HEAD
+
 			path = predecessors.get(currentPoint);				
 		}
-		
-		
-		/*//Intersection passage = segmentsList.get(0).getOrigin();
-=======
-			path = predecessors.get(currentPoint);
-		} while (path != null);
-
-		// Intersection passage = segmentsList.get(0).getOrigin();
->>>>>>> 168994ce07de1f290540a3776294f2997e337797*/
 
 		return segmentsList;
 	}
 
 	/**
-<<<<<<< HEAD
-	 * Returns duration in seconds to travel the list of segments computed in getRoads
-=======
 	 * Returns duration in seconds to travel the list of segments computed in
 	 * getRoads
->>>>>>> 168994ce07de1f290540a3776294f2997e337797
 	 * 
 	 * @return
 	 * 		An integer which represents the number of seconds needed to travel the list of segments computed in getRoads
@@ -413,20 +395,10 @@ public class Pcc {
 	 * @return
 	 * 		A new Tour updated
 	 */
-	/*<<<<<<< HEAD
-	public Tour addRequest (Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration, Integer deliveryDuration,
-							Integer pickupIndex, Integer deliveryIndex) {		
-		
-		IntersectionPcc interD = allVerticesPcc.get(delivery.getId());
-		IntersectionPcc interP = allVerticesPcc.get(pickup.getId());
-		delivery = new Intersection(interD.getId(), interD.getLatitude(), interD.getLongitude(), interD.getOutboundSegments() );
-		pickup = new Intersection(interP.getId(), interP.getLatitude(), interP.getLongitude(), interP.getOutboundSegments() );
-=======*/
 
 	public Tour addRequest(Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration,
 			Integer deliveryDuration, Integer pickupIndex, Integer deliveryIndex) {
 
-//>>>>>>> 168994ce07de1f290540a3776294f2997e337797
 		delivery = this.allVertices.get(delivery.getId());
 		pickup = this.allVertices.get(pickup.getId());
 		this.deliveryVertices.add(delivery);
