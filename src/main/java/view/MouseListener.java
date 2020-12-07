@@ -54,7 +54,7 @@ public class MouseListener extends MouseAdapter {
 		if (p != null) {
 			controller.mouseMoved(p);
 		} else {
-			this.window.setMessage("");
+			this.window.setStreet("");
 			this.graphicalView.highlight(null);
 			this.graphicalView.setHighlightInter(null);
 		}

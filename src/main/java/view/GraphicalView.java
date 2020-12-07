@@ -40,7 +40,7 @@ public class GraphicalView extends JPanel implements Observer {
 	 */
 	public GraphicalView(Tour tour) {
 		super();
-		this.setBorder(BorderFactory.createTitledBorder("Carte"));
+		this.setBorder(BorderFactory.createTitledBorder("Map"));
 		this.setLayout(null);
 		this.cityMap = null;
 		this.request = null;

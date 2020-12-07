@@ -3,6 +3,8 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -20,7 +22,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -52,11 +53,15 @@ public class Window extends JFrame {
 	protected final static String REMOVE_REQUEST = "Delete a request";
 	protected final static String UNDO = "<html><strong>Undo<html/><strong/>";
 	protected final static String REDO = "<html><strong>Redo<html/><strong/>";
+	
+	private String HEADER_TEXT = "PLD-AGILE 4IF-H4414 Quentin Regaud - Sylvain de Verclos - Yohan Meyer - Jérome Hue - Lucie Clémenceau - Charly Poirier";
 
 	// Components
 	private GraphicalView graphicalView;
 	private TextualView textualView;
 	private JLabel messageFrame;
+	private JLabel streetFrame;
+	private JLabel bottomBar;
 	private JToolBar toolBar;
 	private ArrayList<JButton> optionalsButtons;
 	private JMenuItem switchmode;
@@ -88,9 +93,8 @@ public class Window extends JFrame {
 
 		JPanel contentPane = (JPanel) getContentPane();
 		contentPane.setLayout(new BorderLayout());
-
-		this.messageFrame = createMessageFrame();
-		contentPane.add(messageFrame, BorderLayout.SOUTH);
+		
+		contentPane.add(this.CreateSouthPanel(), BorderLayout.SOUTH);
 
 		this.toolBar = createToolBar(controller);
 		contentPane.add(toolBar, BorderLayout.NORTH);
@@ -100,7 +104,7 @@ public class Window extends JFrame {
 		contentPane.add(textualView.getScrollPane(), BorderLayout.WEST);
 
 		this.graphicalView = new GraphicalView(tour);
-		contentPane.add(graphicalView, BorderLayout.CENTER);
+		contentPane.add(this.createCenterPanel(), BorderLayout.CENTER);
 
 
         this.mouseListener = new MouseListener(this, graphicalView, controller);
@@ -129,7 +133,11 @@ public class Window extends JFrame {
 	 * @param message the message to display
 	 */
 	public void setMessage(String message) {
-		messageFrame.setText(message);
+		this.messageFrame.setText("<html><strong>" + message + "<html/><strong/>");
+	}
+	
+	public void setStreet(String street) {
+		this.streetFrame.setText(street);
 	}
 
 	public boolean isOptionalsButtonsVisible() {
@@ -209,15 +217,51 @@ public class Window extends JFrame {
 	/**
 	 * Method called to create the message frame component 
 	 */
-	private JLabel createMessageFrame() {
-		messageFrame = new JLabel();
-		messageFrame.setPreferredSize(new Dimension(50, 150));
-		messageFrame.setBorder(BorderFactory.createTitledBorder("Messages"));
-		messageFrame.setHorizontalAlignment(SwingConstants.CENTER);
-		messageFrame.setVerticalAlignment(SwingConstants.TOP);
-		messageFrame.setText("To begin, please load a map (XML file).");
-		messageFrame.setBackground(BACKGROUND_COLOR);
-		return messageFrame;
+	private JLabel createMessageFrame(String tittle) {
+		JLabel newFrame = new JLabel();
+		newFrame.setPreferredSize(new Dimension(50, 80));
+		newFrame.setBorder(BorderFactory.createTitledBorder(tittle));
+		newFrame.setHorizontalAlignment(SwingConstants.CENTER);
+		newFrame.setVerticalAlignment(SwingConstants.CENTER);
+		newFrame.setBackground(BACKGROUND_COLOR);
+		return newFrame;
+	}
+	
+	private JLabel createBottomBar(){
+		JLabel newBottomBar = new JLabel();
+		newBottomBar.setPreferredSize(new Dimension(50,20));
+		newBottomBar.setHorizontalAlignment(SwingConstants.CENTER);
+		newBottomBar.setVerticalAlignment(SwingConstants.CENTER);
+		newBottomBar.setText(this.HEADER_TEXT);
+		newBottomBar.setFont(new Font("", 0, 10));
+		return newBottomBar;
+	}
+	
+	/**
+	 * Method called initialize south panel 
+	 */
+	private JPanel CreateSouthPanel() {
+		JPanel southPanel = new JPanel(new BorderLayout());
+		southPanel.setPreferredSize(new Dimension(50,100));
+		this.messageFrame = createMessageFrame("Messages");
+		this.bottomBar = createBottomBar();
+		this.setMessage("To begin, please load a map (XML file).");
+		southPanel.add(this.messageFrame, BorderLayout.CENTER);
+		southPanel.add(this.bottomBar, BorderLayout.SOUTH);
+		return southPanel;
+	}
+	
+	/**
+	 * Method called initialize center panel 
+	 */
+	private JPanel createCenterPanel() {
+		JPanel centerPanel = new JPanel(new BorderLayout());
+		centerPanel.setBackground(Color.white);
+		this.streetFrame = createMessageFrame("Street");
+		this.streetFrame.setPreferredSize(new Dimension(50,50));
+		centerPanel.add(this.graphicalView, BorderLayout.CENTER);
+		centerPanel.add(this.streetFrame, BorderLayout.SOUTH);
+		return centerPanel;
 	}
 
 	/**
