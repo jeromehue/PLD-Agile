@@ -34,4 +34,7 @@ public class InitState implements State {
 		w.setMessage("Before trying to compute a tour, please load a map and a requests file.");
 	}
 	
+	public void modifyTour(Controller c, Window w) {
+		w.setMessage("Before trying to modify a tour, please load a map and a requests file, then compute the Tour");
+	}
 }

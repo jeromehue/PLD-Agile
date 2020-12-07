@@ -186,7 +186,6 @@ public class Pcc {
 		Long currentPoint = finish.getId();
 		Segment path = predecessors.get(currentPoint);
 		lengthAB=0.0;
-		int i=0;
 		
 		do {
 			segmentsList.add(0, path);
@@ -194,7 +193,6 @@ public class Pcc {
 			
 			currentPoint = path.getOrigin().getId();
 			path = predecessors.get(currentPoint);
-			i++;
 		}while(path != null);
 		
 		
@@ -232,7 +230,9 @@ public class Pcc {
 		CompleteGraph graph = computePcc();
 		System.out.println("[PCC.computeTour] taille graphe : "+graph.getNbVertices());
 		// TODO: remove 1000 and set a real max discrepancy
+
 		TSP1 tsp = new TSP1(graph, request, 80);
+
 		tsp.init();
 		System.out.println("okay TSP init");
 
@@ -342,7 +342,7 @@ public class Pcc {
 		tour.setWaysList( computeWaysList(list) );
 		
 		tour.updateIsPositionConsistent(intersection.getId());
-		if(request.isPickUp(intersection.getId())) {
+		if(request.hasDelivery(intersection.getId())) {
 			tour.updateIsPositionConsistent(request.getDeliveryFromPickUp(intersection.getId()));			
 		}
 		

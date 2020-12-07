@@ -79,4 +79,14 @@ public class RequestLoadedState implements State {
 			button.setContentAreaFilled(true);
 			w.getGraphicalView().setHighlightedWay(wa);
 		}
+		
+		@Override
+		public void modifyTour(Controller c, Window w) {
+			w.changeOptionalsButtonsVisibility();
+			if (w.isOptionalsButtonsVisible()) {
+				c.setCurrentstate(c.tourModificationState);
+			} else {
+				c.setCurrentstate(c.requestLoadedState);
+			}
+		}
 }

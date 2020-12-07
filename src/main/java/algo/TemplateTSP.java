@@ -10,9 +10,7 @@ public abstract class TemplateTSP implements TSP {
 	protected Double bestSolCost;
 	private Integer timeLimit;
 	private Long startTime;
-	// max discrepancy should be defined experimentally
 	protected Integer maxDiscrepancy;
-	
 	
 	public void searchSolution(Integer timeLimit) {
 		if (timeLimit <= 0) return;

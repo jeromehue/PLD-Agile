@@ -48,7 +48,10 @@ public class ButtonListener  implements ActionListener  {
 				break;
 			case Window.MODIFY_TOUR: 
 				logger.info("Click on MODIFY_TOUR button");
-				controller.changeOptionalsButtonsVisibility();
+				controller.modifyTour();
+				break;
+			case Window.EXIT_MODIFY_TOUR: 
+				controller.modifyTour();
 				break;
 			case Window.MODIFY_ORDER: 
 				logger.info("Click on MODIFY_ORDER button");

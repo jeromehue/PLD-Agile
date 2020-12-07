@@ -17,6 +17,7 @@ public class Controller {
 	
 	private Window window;
 	
+	private ListOfCommands l;
 	private State currentState;
 	private Tour tour;
 	private ArrayList<Tour> tourModificationsHistory;
@@ -66,15 +67,16 @@ public class Controller {
 		currentState.deleteAStep(this, this.window);
 	}
 	
-	public void changeOptionalsButtonsVisibility() {
-		this.window.changeOptionalsButtonsVisibility();
-		if (window.isOptionalsButtonsVisible()) {
-			setCurrentstate(tourModificationState);
-		} else {
-			setCurrentstate(requestLoadedState);
-		}
+	public void modifyTour() {
+		currentState.modifyTour(this, this.window);
 	}
 	
+	public void undo() {
+		currentState.undo(l);
+	}
 	
+	public void redo() {
+		currentState.redo(l);
+	}
 
 }
