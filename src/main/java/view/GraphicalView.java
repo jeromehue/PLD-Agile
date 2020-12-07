@@ -27,6 +27,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 	private CityMap cityMap;
 	private Request request;
 	private Segment highlightedSegment;
+	private Intersection highlightedIntersection;
 	private Way highlightedWay;
 	private Tour tour; // tour is unique -> modified in the controller and observed to display changes here
 
@@ -37,6 +38,7 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 		this.cityMap = null;
 		this.request = null;
 		this.highlightedWay = null;
+		this.highlightedIntersection = null;
 		this.tour = tour;
 		this.tour.addObserver(this); // observes tour changes
 	}
@@ -53,6 +55,11 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 	
 	public void highlight(Segment segment) {
 		this.highlightedSegment = segment;
+		this.repaint();
+	}
+	
+	public void highlightInter(Intersection intersection) {
+		this.highlightedIntersection = intersection;
 		this.repaint();
 	}
 	
@@ -123,6 +130,14 @@ public class GraphicalView extends JPanel implements Observer, Visitor{
 					graphics.fillOval(
 							this.highlightedWay.getSegmentList().get(0).getOrigin().getCoordinates().getX()-10, 
 							this.highlightedWay.getSegmentList().get(0).getOrigin().getCoordinates().getY()-10, 20, 20);
+				}
+				
+				if(tour != null && this.highlightedIntersection != null) {
+					graphics.setStroke(new BasicStroke(4));
+					graphics.setColor(Color.red);
+					graphics.fillOval(
+							this.highlightedIntersection.getCoordinates().getX()-10, 
+							this.highlightedIntersection.getCoordinates().getY()-10, 20, 20);
 				}
 			}
 			

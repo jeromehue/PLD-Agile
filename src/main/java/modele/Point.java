@@ -30,6 +30,10 @@ public class Point {
 	public int distance(Point p){
 		return (int)(Math.sqrt((x-p.getX())*(x-p.getX()) + (double) (y-p.getY())*(y-p.getY())));
 	}
+	
+	public int distanceWithCoordinates(int x1, int y1) {
+		return (int)(Math.sqrt((x-x1)*(x-x1) + (double) (y-y1)*(y-y1)));
+	}
 
 	public boolean inBox(int x1, int y1,  int x2, int y2) {
 		int x =  this.getX();
