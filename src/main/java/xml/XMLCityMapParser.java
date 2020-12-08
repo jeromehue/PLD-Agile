@@ -1,6 +1,6 @@
 package xml;
 
-// From https://mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/ 
+
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,23 +20,31 @@ import java.util.List;
 
 import modele.*;
 
+/**
+ * XML Parser for city maps.
+ * 
+ * @author H4414
+ * 
+ * */
+
 public class XMLCityMapParser extends XMLParser {
 
 	/**
-	 * @param filename
+	 * @param filename The file to be parsed.
 	 */
 	public XMLCityMapParser(String filename) {
 		super(filename);
 	}
 
 	/**
-	 * Parse an XML file and return a map
+	 * Parse an XML file containing a map and return the map.
 	 * 
-	 * @return the citymap that was parsed from the XML file
-	 * @throws ParserConfigurationException
-	 * @throws IOException
-	 * @throws SAXException
-	 * @throws InvalidMapException
+	 * @return The citymap that was parsed from the XML file.
+	 * @throws ParserConfigurationException indicates at serious configuration error
+	 * @throws IOException signals that an I/O exception of some sort has occurred. This class is the 
+	 * 			general class of exceptions produced by failed or interrupted I/O operations.
+	 * @throws SAXException Encapsulate a general SAX error or warning. 
+	 * @throws InvalidMapException The xml file to be parsed is badly formed.
 	 */
 	public CityMap parse() throws ParserConfigurationException, IOException, SAXException, InvalidMapException {
 
