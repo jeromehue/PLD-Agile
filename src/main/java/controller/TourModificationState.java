@@ -1,6 +1,5 @@
 package controller;
 
-
 import javax.swing.JButton;
 
 import modele.Point;

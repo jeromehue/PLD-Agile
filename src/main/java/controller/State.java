@@ -10,36 +10,93 @@ import view.Window;
 public interface State {
 
 	/**
-	 * Méthode appelée lors du chargement de la carte
+	 * Method called by the controller after a click on the "Load XML Map" button
+	 * @param c the controller
+	 * @param w the window 
+	 * @param t the tour
 	 */
 	public default void loadMap(Controller c, Window w, Tour t) {
 	}
 
+	/**
+	 * Method called by the controller after a click on the "Load XML Map" button
+	 * @param c the controller
+	 * @param w the window
+	 * @param t the tour
+	 */
 	public default void loadRequest(Controller c, Window w, Tour t) {
 	}
 
+	/**
+	 * Method called by the controller after a click on the "Compute tour" button
+	 * @param c the controller
+	 * @param w the window
+	 * @param t the tour
+	 */
 	public default void computeTour(Controller c, Window w, Tour t) {
 	}
 
+	/**
+	 * Method called by the controller after a click on a step in the textual view panel
+	 * @param c the controller
+	 * @param w the window
+	 * @param l the list of commands
+	 * @param wa the way starting from the clicked step
+	 * @param button the button clicked on
+	 * @param t the tour
+	 */
 	public default void clickOnStep(Controller c, Window w, ListOfCommands l, Way wa, JButton button, Tour t) {
 	}
 
+	/**
+	 * Method called by the controller after a click on the "Delete request" button
+	 * @param c the controller
+	 * @param w the window
+	 */
 	public default void deleteAStep(Controller c, Window w) {
 	}
 
+	/**
+	 * Method called by the controller after a click on the "Enter/Exit step" button
+	 * 
+	 * @param c the controller
+	 * @param w the window
+	 */
 	public default void modifyTour(Controller c, Window w) {
 	}
 
+	/**
+	 * Method called by the controller after a click on the "Change order" button 
+	 * @param c the controller
+	 * @param w the window
+	 */
 	public default void modifyOrder(Controller c, Window w) {
 	}
 
+	/**
+	 * Method called by the controller after a click on the "Add request" button
+	 * @param c the controller
+	 * @param w the window
+	 */
 	public default void addRequest(Controller c, Window w) {
 	}
 
+	/**
+	 * Method called by the controller after a click on the "Add request" button
+	 * @param c the controller	
+	 * @param w	the window
+	 * @param p the point
+	 */
 	public default void mouseMoved(Controller c, Window w, Point p) {
 	}
 
-	public default void leftClick(Point p, Controller controller, Window w) {
+	/**
+	 * Method called by the controller after a click on the left mouse button
+	 * @param p the point
+	 * @param c the controller
+	 * @param w the window
+	 */
+	public default void leftClick(Point p, Controller c, Window w) {
 	}
 	
 	/**
