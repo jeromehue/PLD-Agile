@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"algo"},{"l":"All Packages","url":"allpackages-index.html"},{"l":"app"},{"l":"controller"},{"l":"modele"},{"l":"observer"},{"l":"view"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"controller"}]

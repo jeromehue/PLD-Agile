@@ -23,22 +23,36 @@ public class ChangeOrderState implements State {
 
 		logger.info("Modify order of tour in controller");
 
-		int newIndex = w.displaySelectOrderDialog();
-		if (newIndex != 0) {
-			logger.info("New index : {}", newIndex);
-			Intersection intersection = wa.getDeparture();
-			Tour t1 = w.getGraphicalView().getTour();
-			int shift = newIndex - t1.getIndex(intersection.getId());
-			CityMap cityMap = w.getGraphicalView().getCityMap();
-			Request request = w.getGraphicalView().getRequest();
-			Pcc shortestPathComputer = new Pcc(cityMap, request);
-			shortestPathComputer.computePcc();
+		Intersection intersection = wa.getDeparture();
+		
+		int newIndex=-1;
+		int nbIntersectionTour = t.getWaysList().size();
 
-			logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t1, intersection, newIndex);
-			l.add(new ChangeOrderCommand(shortestPathComputer, t1, intersection, shift));
-
-			c.setCurrentstate(c.tourModificationState);
+		//Si on sélectionne pas le point de départ on ne peut pas changer la position
+		if(!intersection.getId().equals(t.getRequest().getStartingLocation().getId())) {
+			newIndex = w.displaySelectOrderDialog();
+			while(newIndex < 0 || newIndex >= nbIntersectionTour) {
+				newIndex = w.displaySelectOrderDialog();
+				w.setMessage("You can't select this index.");
+			}
 		}
+		else {
+			w.setMessage("You can't change the order of the starting point.");
+		}
+		
+		logger.info("New index : {}", newIndex);
+		Tour t1 = w.getGraphicalView().getTour();
+		int shift = newIndex - t1.getIndex(intersection.getId());
+		CityMap cityMap = w.getGraphicalView().getCityMap();
+		Request request = w.getGraphicalView().getRequest();
+		Pcc shortestPathComputer = new Pcc(cityMap, request);
+		shortestPathComputer.computePcc();
+
+		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t1, intersection, newIndex);
+		l.add(new ChangeOrderCommand(shortestPathComputer, t1, intersection, shift));
+
+		c.setCurrentstate(c.tourModificationState);
+		
 	}
 
 	@Override

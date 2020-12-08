@@ -13,13 +13,19 @@ public class DeleteStepState implements State {
 	@Override
 	public void clickOnStep(Controller c, Window w, ListOfCommands l, Way wa, JButton button, Tour t) {
 		Intersection stepToDelete = wa.getDeparture();
+		Long startId = t.getRequest().getStartingLocation().getId();
 		System.out.println(stepToDelete.toString());
-
-		Pcc shortestPathComputer = new Pcc(w.getGraphicalView().getCityMap(), w.getGraphicalView().getRequest());
-		shortestPathComputer.computePcc();
-
-		l.add(new DeleteStepCommand(shortestPathComputer, t, stepToDelete));
-
+		
+		if ( stepToDelete.getId().equals(startId) ) {
+			w.setMessage("You can't delete the starting point !");
+		}
+		else {			
+			Pcc shortestPathComputer = new Pcc(w.getGraphicalView().getCityMap(), w.getGraphicalView().getRequest());
+			shortestPathComputer.computePcc();
+	
+			l.add(new DeleteStepCommand(shortestPathComputer, t, stepToDelete));
+		}
+			
 		c.setCurrentstate(c.tourModificationState);
 	}
 
