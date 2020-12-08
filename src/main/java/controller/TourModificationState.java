@@ -1,10 +1,14 @@
 package controller;
 
+import java.util.List;
+
 import javax.swing.JButton;
 
 import modele.Point;
+import modele.Segment;
 import modele.Tour;
 import modele.Way;
+import view.GraphicalView;
 import view.Window;
 
 public class TourModificationState implements State {
@@ -32,29 +36,30 @@ public class TourModificationState implements State {
 
 	@Override
 	public void mouseMoved(Controller c, Window w, Point p) {
-		/*
 		GraphicalView graphicalView = w.getGraphicalView();
 		if (graphicalView.getCityMap() != null) {
-			List<Intersection> intersections = graphicalView.getCityMap().getIntersections();
-			float mindist = (float) 100;
-			int floor = 1;
-			Intersection iclosest = null;
-			for (Intersection i : intersections) {
-				int distance = p.distanceWithCoordinates(i.getCoordinates().getX(), i.getCoordinates().getY());
+			List<Segment> allsegments = graphicalView.getCityMap().getSegments();
+			float mindist = (float) 0.5;
+			Segment sclosest = null;
+			for (Segment s : allsegments) {
+				int x1 = s.getOrigin().getCoordinates().getX();
+				int y1 = s.getOrigin().getCoordinates().getY();
+				int x2 = s.getDestination().getCoordinates().getX();
+				int y2 = s.getDestination().getCoordinates().getY();
+				float distance = (float) 1.1;
+				if (p.inBox(x1, y1, x2, y2)) {
+					distance = p.distBetweenPointAndLine(x1, y1, x2, y2);
+				}
 				if (distance < mindist) {
 					mindist = distance;
-					// System.out.println("distance : " +distance);
-					iclosest = i;
-					if (mindist < floor)
-						break;
+					sclosest = s;
 				}
 			}
-			if (iclosest != null) {
-				graphicalView.setHighlightInter(iclosest);
-				w.setMessage("truc");
+			if (sclosest != null) {
+				graphicalView.highlight(sclosest);
+				w.setStreet(sclosest.getName());
 			}
 		}
-		*/
 	}
 
 	@Override

@@ -206,18 +206,17 @@ public class Window extends JFrame {
 	private JToolBar createToolBar(Controller controller) {
 		JToolBar toolBar = new JToolBar();
 		toolBar.setPreferredSize(new Dimension(100, 30));
+		JButton cancelButton = createButton(Color.black, QUIT_TOUR_EDITION);
+		Icon icon = new ImageIcon("src/main/resources/icons/icons8-cancel-16.png");
+	    cancelButton.setIcon(icon);
+	    cancelButton.setPreferredSize(new Dimension(50,20));
+	    cancelButton.setContentAreaFilled(false);
+		toolBar.add(cancelButton);
 		toolBar.add(this.createButton(Color.black, UNDO));
 		toolBar.add(this.createButton(Color.black, REDO));
 		toolBar.add(this.createButton(Color.darkGray, ADD_REQUEST));
 		toolBar.add(this.createButton(Color.darkGray, MODIFY_ORDER));
 		toolBar.add(this.createButton(Color.darkGray, REMOVE_REQUEST));
-		
-		JButton cancelButton = createButton(Color.black, QUIT_TOUR_EDITION);
-		Icon icon = new ImageIcon("src/main/resources/icons/icons8-cancel-16.png");
-	    //JButton cancelButton = new JButton(icon);
-	    cancelButton.setIcon(icon);
-	    cancelButton.setContentAreaFilled(false);
-		toolBar.add(cancelButton);
 		return toolBar;
 	}
 	
