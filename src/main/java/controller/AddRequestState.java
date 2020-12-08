@@ -83,8 +83,15 @@ public class AddRequestState implements State {
 		if( pickupTime < 0 ) {		// Cancel
 			return ;
 		}
-		int pickupIndex = w.displaySelectTimeDialog("Enter pickup index : ");
-		if( pickupIndex < 0 ) {		// Cancel
+		int nbPoints = w.getGraphicalView().getTour().getWaysList().size();
+		int pickupIndex = w.displaySelectTimeDialog("Enter delivery index : ");
+		while ( pickupIndex <= 0 || pickupIndex >=nbPoints +1 ) {
+			pickupIndex = w.displaySelectTimeDialog("Bad index ! Enter delivery index : ");
+			if( pickupIndex == -1 ) {
+				return ;
+			}
+		}
+		if( pickupIndex == -1 ) {
 			return ;
 		}
 		logger.info("pick-up time : {}", pickupTime);
