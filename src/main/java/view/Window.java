@@ -60,7 +60,7 @@ public class Window extends JFrame {
 	protected final static String EXIT_MODIFY_TOUR = "Exit tour edition mode";
 	protected final static String MODIFY_ORDER = "Change order";
 	protected final static String ADD_REQUEST = "Add a request";
-	protected final static String REMOVE_REQUEST = "Delete a request";
+	protected final static String REMOVE_REQUEST = "Delete a step";
 	protected final static String UNDO = "<html><strong>Undo<html/><strong/>";
 	protected final static String REDO = "<html><strong>Redo<html/><strong/>";
 	protected final static String QUIT_TOUR_EDITION = " ";
