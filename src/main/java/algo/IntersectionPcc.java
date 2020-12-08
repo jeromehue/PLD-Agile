@@ -13,13 +13,22 @@ import modele.Intersection;
  *
  */
 public class IntersectionPcc extends Intersection implements Comparable<IntersectionPcc> {
+	/**
+	 * The color of this (0 for white, 1 for grey and 2 for black).
+	 */
 	private Integer color;
+	
+	/**
+	 * In the instance of a Dijkstra algorithm, it is the lowest known 
+	 * cost needed to go from the starting point to this. 
+	 */
 	private Double cost;
+	
 	/**
 	 * Default constructor.
-	 * @param inter Intersection it is extending
-	 * @param color White (0), grey (1) or black (2)
-	 * @param cost cost to go from origin to destination
+	 * @param inter Intersection it is extending.
+	 * @param color White (0), grey (1) or black (2).
+	 * @param cost Cost to go from origin to destination.
 	 */
 	public IntersectionPcc(Intersection inter, Integer color, Double cost) {
 		super(inter.getId(), inter.getLatitude(), inter.getLongitude(), inter.getOutboundSegments());
@@ -29,7 +38,7 @@ public class IntersectionPcc extends Intersection implements Comparable<Intersec
 	
 	/**
 	 * Default getter.
-	 * @return the IntersectionPcc's color
+	 * @return The IntersectionPcc's color.
 	 */
 	public Integer getColor() {
 		return color;
@@ -37,7 +46,7 @@ public class IntersectionPcc extends Intersection implements Comparable<Intersec
 
 	/**
 	 * Default getter.
-	 * @return the IntersectionPcc's cost
+	 * @return The IntersectionPcc's cost.
 	 */
 	public Double getCost() {
 		return cost;
@@ -45,7 +54,7 @@ public class IntersectionPcc extends Intersection implements Comparable<Intersec
 
 	/**
 	 * Default setter.
-	 * @param color the IntersectionPcc's color to update
+	 * @param color The IntersectionPcc's color to update.
 	 */
 	public void setColor(Integer color) {
 		this.color = color;
@@ -53,14 +62,14 @@ public class IntersectionPcc extends Intersection implements Comparable<Intersec
 
 	/**
 	 * Default setter.
-	 * @param cost the IntersectionPcc's cost to update
+	 * @param cost The IntersectionPcc's cost to update.
 	 */
 	public void setCost(Double cost) {
 		this.cost = cost;
 	}
 
 	/**
-	 * Returns a textual representation of the IntersectionPcc
+	 * Returns a textual representation of the IntersectionPcc.
 	 */
 	@Override
 	public int compareTo(IntersectionPcc inter) {
@@ -72,5 +81,4 @@ public class IntersectionPcc extends Intersection implements Comparable<Intersec
 			return -1;
 		}
 	}
-
 }
