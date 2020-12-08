@@ -11,18 +11,31 @@ import modele.Intersection;
  * 
  * @author H4414
  * 
- * @param nbVertices   number of steps
- * @param costsMatrix  the matrix containing the lowest known costs between
- *                     vertices
- * @param index        hashmap linking an intersection's id to its index in the
- *                     costs matrix
- * @param reverseIndex hashmap linking an index in the costs matrix to its
- *                     intersection's id
  */
 public class CompleteGraph implements Graph {
+	/**
+	 * The number of vertices in the graph.
+	 */
 	private int nbVertices;
+	
+	/**
+	 * The costs matrix of the graph. At the index (i, j),
+	 * it contains the lowest known cost to go from the Intersection
+	 * corresponding to the index i to the Intersection corresponding
+	 * to the index j.
+	 */
 	private double[][] costsMatrix;
+	
+	/**
+	 * A HashMap linking an intersection's id to its index in the
+	 * costs matrix.
+	 */
 	private HashMap<Long, Integer> index;
+	
+	/**
+	 * A HashMap linking an index in the costs matrix to its
+	 * intersection's id.
+	 */
 	private HashMap<Integer, Long> reverseIndex;
 
 	/**

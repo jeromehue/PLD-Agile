@@ -1,23 +1,33 @@
 package modele;
 
+/**
+ * This class contains the coordinates (x,y) of an Intersection on the window. 
+ * 
+ * @author H4414
+ *
+ * @param x coordinate on the x axis
+ * @param y coordinate on the y axis
+ */
 public class Point {
 	private int x;
 	private int y;
 
 	/**
-	 * Create a point of coordinates (x,y)
+	 * Constructor to initialize a Point of coordinates (x,y)
+	 * Because of the Design Pattern FlyWeight, the instances of Point
+	 * are created by a PointFactory.
 	 * 
-	 * @param x
-	 * @param y
+	 * @param x coordinate on the x axis
+	 * @param y coordinate on the y axis
 	 */
-	protected Point(int x, int y) { // Design Pattern FlyWeight: instances of Point are created by PointFactory
+	protected Point(int x, int y) { 
 		this.x = x;
 		this.y = y;
 	}
 
 	/**
-	 * @return the point corresponding to the deplacement of this according to
-	 *         (deltaX,deltaY)
+	 * @return the new coordinates corresponding to a translation of this point.
+
 	 * @param deltaX the number of unit moves on the x-axis
 	 * @param deltaY the number of unit moves on the y-axis
 	 */
@@ -26,17 +36,35 @@ public class Point {
 	}
 
 	/**
-	 * @param p a point
-	 * @return the distance between this and p
+	 * Computes the Euclidian distance between this Point and another
+	 * 
+	 * @param p a Point
+	 * @return the distance between this Point and p
 	 */
 	public int distance(Point p) {
 		return (int) (Math.sqrt((x - p.getX()) * (x - p.getX()) + (double) (y - p.getY()) * (y - p.getY())));
 	}
 
+	/**
+	 * Computes the Euclidian distance between this Point and another (as coordinates)
+	 * 
+	 * @param x1 coordinate on the x axis
+	 * @param y1 coordinate on the y axis
+	 * 
+	 * @return the distance between this Point and the coordinates
+	 */
 	public int distanceWithCoordinates(int x1, int y1) {
 		return (int) (Math.sqrt((x - x1) * (x - x1) + (double) (y - y1) * (y - y1)));
 	}
 
+	/**
+	 * Allows to know if this Point is in a rectangle of known coordinates.
+	 * @param x1 one edge of the box
+	 * @param y1 one edge of the box
+	 * @param x2 one edge of the box
+	 * @param y2 one edge of the box
+	 * @return true if this Point is in the rectangle, else false
+	 */
 	public boolean inBox(int x1, int y1, int x2, int y2) {
 		int x = this.getX();
 		int y = this.getY();
@@ -58,7 +86,7 @@ public class Point {
 			maxY = y1;
 			minY = y2;
 		}
-		return (x <= maxX && x >= minX && y <= maxY && y >= minY);
+		return ( (x <= maxX && x >= minX) && (y <= maxY && y >= minY) );
 	}
 
 	public float distBetweenPointAndLine(int x1, int y1, int x2, int y2) {

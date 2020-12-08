@@ -25,10 +25,13 @@ import java.time.LocalTime;
 public class Pcc {
 		
 	/**
-	 * All the intersections get from CityMap
+	 * All the intersections gotten from CityMap
 	 */
 	private HashMap<Long, Intersection> allVertices;
 
+	/**
+	 * Intersections where delivery driver picks up package
+	 */
 	private List<Intersection> pickUpVertices;
 	/**
 	 * Intersections where delivery driver delivers package
