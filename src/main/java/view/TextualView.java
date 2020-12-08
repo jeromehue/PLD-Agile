@@ -22,6 +22,13 @@ import modele.Way;
 import observer.Observable;
 import observer.Observer;
 
+/**
+ * The textual view of the window, that indicates the steps when a tour
+ * is computed.
+ * 
+ * @author H4414
+ * 
+ * */
 
 public class TextualView extends JPanel implements Observer {
 

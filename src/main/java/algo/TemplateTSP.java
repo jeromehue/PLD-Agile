@@ -9,38 +9,71 @@ import java.util.Iterator;
  * for the execution of the TSP algorithm.
  * 
  * @author H4414
- * 
- * @param bestSol array storing the indexes of the vertices corresponding
- * to the best known solution
- * @param g the graph on which the TSP algorithm is being conducted
- * @param bestSolCost the total cost associated to the best known solution
- * @param timeLimit the time limit that can't be exceeded
- * @param startTime the time at which the computation was started
- * @param maxDiscrepancy the maximal discrepancy for the LDS meta-heuristic
+ * 	
  */
 
 public abstract class TemplateTSP implements TSP {
+	/**
+	 * Array storing the indexes of the vertices corresponding
+	 * to the best known solution.
+	 */
 	private Integer[] bestSol;
+	
+	/*
+	 * The graph on which the TSP algorithm is being conducted.
+	 */
 	protected Graph g;
+	
+	/**
+	 * The total cost associated to the best known solution.
+	 */
 	protected Double bestSolCost;
+	
+	/**
+	 * The maximal discrepancy for the LDS meta-heuristic.
+	 */
 	protected Integer maxDiscrepancy;
+	
+	/**
+	 * The last visited vertex.
+	 */
 	protected Integer currentVertex;
+	
+	/**
+	 * A collection of vertices that have to be explored.
+	 */
 	protected Collection<Integer> unvisited;
+	
+	/**
+	 * A collection of all vertices already explored.
+	 */
 	protected Collection<Integer> visited;
+	
+	/**
+	 * The cost associated to the solution which is being computed.
+	 */
 	protected Double currentCost;
+	
+	/**
+	 * The discrepancy associated to the solution which is being computed.
+	 */
 	protected Integer discrepancy;
 	
+	/**
+	 * The time limit that can't be exceeded.
+	 */
 	private Integer timeLimit;
+	
+	/**
+	 * The time at which the computation was started.
+	 */
 	private Long startTime;
 
-	/**
-	 * the main method for the TSP, which updates the best solution.
-	 * 
-	 * @param timeLimit the time limit that can't be exceeded
-	 */
+	@Override
 	public void searchSolution(Integer timeLimit) {
-		if (timeLimit <= 0)
+		if (timeLimit <= 0) {
 			return;
+		}
 
 		startTime = System.currentTimeMillis();
 		this.timeLimit = timeLimit;
@@ -57,36 +90,28 @@ public abstract class TemplateTSP implements TSP {
 		branchAndBound(0, unvisited, visited, 0.0, 0);
 	}
 
-	/**
-	 * @return the index of the i-th vertex from the best known solution
-	 */
+	@Override
 	public Integer getSolution(Integer i) {
-		if (g != null && i >= 0 && i < g.getNbVertices())
+		if (g != null && i >= 0 && i < g.getNbVertices()) {
 			return bestSol[i];
+		}
 		return -1;
 	}
 
-	/**
-	 * @return the total cost of the best known solution
-	 */
+	@Override
 	public Double getSolutionCost() {
-		if (g != null)
+		if (g != null) {
 			return bestSolCost;
+		}
 		return -1.0;
 	}
 
 	/**
-	 * Method that must be defined in TemplateTSP subclasses
-	 * to instantiate variables.
-	 */
-	public abstract void init();
-
-	/**
-	 * Method that must be defined in TemplateTSP subclasses
+	 * Method that must be defined in TemplateTSP subclasses.
 	 * 
-	 * @param currentVertex
-	 * @param unvisited
-	 * @return a lower bound of the cost of paths in <code>g</code> starting from
+	 * @param 	currentVertex The last visited vertex.
+	 * @param 	unvisited A collection of vertices that we have to explore.
+	 * @return A lower bound of the cost of paths in <code>g</code> starting from
 	 *         <code>currentVertex</code>, visiting every vertex in
 	 *         <code>unvisited</code> exactly once, and returning back to vertex
 	 *         <code>0</code>.
@@ -96,11 +121,11 @@ public abstract class TemplateTSP implements TSP {
 	/**
 	 * Method that must be defined in TemplateTSP subclasses
 	 * 
-	 * @param currentVertex
-	 * @param unvisited
-	 * @param g
-	 * @return an iterator for visiting all vertices in <code>unvisited</code> which
-	 *         are successors of <code>currentVertex</code>
+	 * @param currentVertex The last visited vertex.
+	 * @param unvisited 	A collection of vertices that we have to explore.
+	 * @param g 			The graph on which we operate.
+	 * @return 				An iterator for visiting all vertices in <code>unvisited
+	 * </code> which are successors of <code>currentVertex</code>.
 	 */
 	protected abstract Iterator<Integer> iterator(Integer currentVertex, Collection<Integer> unvisited, Graph g);
 
@@ -108,7 +133,7 @@ public abstract class TemplateTSP implements TSP {
 	 * Template method of a branch and bound algorithm for solving the TSP in
 	 * <code>g</code>.
 	 * 
-	 * @param currentVertex the last visited vertex
+	 * @param currentVertex The last visited vertex.
 	 * @param unvisited     the set of vertex that have not yet been visited
 	 * @param visited       the sequence of vertices that have been already visited
 	 *                      (including currentVertex)
@@ -145,5 +170,4 @@ public abstract class TemplateTSP implements TSP {
 			}
 		}
 	}
-
 }

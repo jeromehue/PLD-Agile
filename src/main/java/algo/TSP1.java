@@ -2,33 +2,35 @@ package algo;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.PriorityQueue;
 
 import modele.Request;
 
+/**
+ * This class is an utility for computing the Traveling 
+ * Salesman Problem on a directed asymmetric graph.
+ * 
+ * @author H4414
+ *
+ */
 public class TSP1 extends TemplateTSP {
-	private PriorityQueue<Double> vertexMinimum;
+	
+	/**
+	 * The request containing the tour's steps entered by the user.
+	 */
 	private Request request;
 
+	/**
+	 * Constructor to initialize all parameters of this.
+	 * 
+	 * @param graph The graph on which the TSP will be computed.
+	 * @param request The request containing the tour's steps entered by the user.
+	 * @param dMax The maximal discrepancy used for the LDS meta-heuristic.
+	 */
 	public TSP1(Graph graph, Request request, Integer dMax) {
 		this.g = graph;
 		this.request = request;
 		this.maxDiscrepancy = dMax;
 		// TODO : adapt dmax value according to number of intersections
-	}
-
-	@Override
-	public void init() {
-		vertexMinimum = new PriorityQueue<Double>();
-		Integer i = 0;
-		Integer j = 0;
-		for (i = 0; i < g.getNbVertices(); i++) {
-			for (j = 0; j < g.getNbVertices(); j++) {
-				if (!i.equals(j)) {
-					vertexMinimum.add(g.getCost(i, j));
-				}
-			}
-		}
 	}
 
 	@Override
@@ -64,5 +66,4 @@ public class TSP1 extends TemplateTSP {
 	protected Iterator<Integer> iterator(Integer currentVertex, Collection<Integer> unvisited, Graph g) {
 		return new SeqIter(unvisited, currentVertex, g, request);
 	}
-
 }

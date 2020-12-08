@@ -17,23 +17,28 @@ import modele.Request;
  * before their associated delivery points.
  * 
  * @author H4414
- * 
- * @param candidates   the vertices to sort
- * @param nbCandidates  the number of vertices to sort
  *               
  */
 public class SeqIter implements Iterator<Integer> {
+	/**
+	 * The indexes in the costs matrix of the Intersections
+	 * to be iterated through.
+	 */
+	
 	private Integer[] candidates;
+	/**
+	 * The number of considered Intersections.
+	 */
 	private int nbCandidates;
 
 	/**
 	 * Create an iterator to traverse the set of vertices in <code>unvisited</code>
-	 * which are successors of <code>currentVertex</code> in <code>g</code> 
+	 * which are successors of <code>currentVertex</code> in <code>g</code>.
 	 * 
-	 * @param unvisited
-	 * @param currentVertex
-	 * @param g
-	 * @param request
+	 * @param unvisited The collection of vertices to be iterated through.
+	 * @param currentVertex The last visited vertex.
+	 * @param g The whole graph.
+	 * @param request The request containing all steps of the tour.
 	 */
 	public SeqIter(Collection<Integer> unvisited, int currentVertex, Graph g, Request request) {
 		this.candidates = new Integer[unvisited.size()];
@@ -58,7 +63,6 @@ public class SeqIter implements Iterator<Integer> {
 		HashSet<Integer> deliveriesToRemove = new HashSet<Integer>();
 		Long verticeId;
 
-		// int i=0;
 		for (Integer vertice : toBeVisited) {
 			verticeId = g.getIdFromIndex(vertice);
 			if (request.isPickUp(verticeId)) {
@@ -85,8 +89,8 @@ public class SeqIter implements Iterator<Integer> {
 	}
 
 	/**
-	 * @return returns true if the iterator isn't pointing on
-	 * the last element of the collection, else returns false
+	 * @return True if the iterator isn't pointing on
+	 * the last element of the collection, else returns false.
 	 */
 	@Override
 	public boolean hasNext() {
@@ -94,7 +98,7 @@ public class SeqIter implements Iterator<Integer> {
 	}
 
 	/**
-	 * @return the index in the collection of the next element
+	 * @return The index in the collection of the next element.
 	 */
 	@Override
 	public Integer next() {

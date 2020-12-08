@@ -22,6 +22,10 @@ import modele.Way;
 import observer.Observable;
 import observer.Observer;
 
+/**
+ * The graphicaview area of our window, that displays the map.
+ * */
+
 public class GraphicalView extends JPanel implements Observer {
 	private static final Logger logger = LoggerFactory.getLogger(GraphicalView.class);
 

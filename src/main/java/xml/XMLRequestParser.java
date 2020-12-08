@@ -18,15 +18,41 @@ import java.util.ArrayList;
 
 import modele.*;
 
+/**
+ * XML Parser for requests.
+ * 
+ * @author H4414
+ * 
+ * */
+
+
 public class XMLRequestParser extends XMLParser {
 
 	private CityMap cityMap;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param filename the file to be parsed.
+	 * @param cityMap the CityMap object that contains all segments and intersections
+	 */
 	public XMLRequestParser(String filename, CityMap cityMap) {
 		super(filename);
 		this.cityMap = cityMap;
 	}
 
+	
+	/**
+	 * Parse an XML file containing a request ( a starting point, a list of pickup and delivery points and 
+	 * delivery and pickup duration for each point ) and return the map.
+	 * 
+	 * @return The citymap that was parsed from the XML file.
+	 * @throws ParserConfigurationException indicates at serious configuration error
+	 * @throws IOException signals that an I/O exception of some sort has occurred. This class is the 
+	 * 			general class of exceptions produced by failed or interrupted I/O operations.
+	 * @throws SAXException Encapsulate a general SAX error or warning. 
+	 * @throws InvalidRequestException The xml file to be parsed is badly formed.
+	 */
 	public Request parse() throws InvalidRequestException, ParserConfigurationException, SAXException, IOException {
 
 		ArrayList<Intersection> pickUpLocations = new ArrayList<Intersection>();

@@ -90,6 +90,7 @@ public class AddRequestState2 implements State {
 		tour.setTour(newTour);
 		tour.notifyObservers();
 		w.getGraphicalView().setHighlightedWay(null);
+		w.setMessage("");
 		c.setCurrentstate(c.tourModificationState);
 
 	}

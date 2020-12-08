@@ -34,6 +34,16 @@ import controller.Controller;
 import modele.Tour;
 import modele.PointFactory;
 
+/**
+ * The main window of our program, divided into three main areas: a graphical 
+ * view to display the map, a text view to display information about steps, 
+ * and a box to display messages.
+ * 
+ *  @author H4414
+ * 
+ * */
+
+
 public class Window extends JFrame {
 
 	private static final Logger logger = LoggerFactory.getLogger(Window.class);
@@ -55,7 +65,12 @@ public class Window extends JFrame {
 	protected final static String REDO = "<html><strong>Redo<html/><strong/>";
 	protected final static String QUIT_TOUR_EDITION = " ";
 	
-	private String HEADER_TEXT = "PLD-AGILE 4IF-H4414 Quentin Regaud - Sylvain de Verclos - Yohan Meyer - Jérome Hue - Lucie Clémenceau - Charly Poirier";
+	private String HEADER_TEXT = "PLD-AGILE 4IF-H4414 Quentin Regaud - "
+									+ "Sylvain de Verclos - "
+									+ "Yohan Meyer - "
+									+ "Jérome Hue - "
+									+ "Lucie Clémenceau - "
+									+ "Charly Poirier";
 
 	// Components
 	private GraphicalView graphicalView;
@@ -74,8 +89,9 @@ public class Window extends JFrame {
 	private boolean optionalsButtonsVisible;
 	
 	/**
-	 * Create a window with menu bar, a graphical zone to display the map, the request and the tour, 
-	 * a frame for displaying messages, a textual zone for describing steps of the tour,
+	 * Create a window with menu bar, a graphical zone to display the map, the 
+	 * request and the tour, a frame for displaying messages, a textual zone 
+	 * for describing steps of the tour,
 	 * and listeners which catch events and forward them to controller 
 	 * @param tour the tour
 	 * @param controller the controller
@@ -131,22 +147,29 @@ public class Window extends JFrame {
 	
 	/**
 	 * Displays a message in the message frame
-	 * @param message the message to display
+	 * @param message the message to display.
 	 */
 	public void setMessage(String message) {
-		this.messageFrame.setText("<html><strong>" + message + "<html/><strong/>");
+		this.messageFrame.setText("<html><strong>" + 
+				message + "<html/><strong/>");
 	}
 	
 	public void setStreet(String street) {
 		this.streetFrame.setText(street);
 	}
 
+	/**
+	 * Return true if Optionals buttons are visible, wich means that we are
+	 * in the 'Tour Modification' mode.
+	 * @return A boolean variable indicating the visibility of the optional 
+	 * buttons.
+	 */
 	public boolean isOptionalsButtonsVisible() {
 		return optionalsButtonsVisible;
 	}
 	
 	/**
-	 * Method called to create the menu bar component
+	 * Method called to create the menu bar component.
 	 */
 	private JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
@@ -188,7 +211,7 @@ public class Window extends JFrame {
 	}
 	
 	/**
-	 * Method called to create a button of the menu bar
+	 * Method called to create a button of the menu bar.
 	 */
 	private JButton createButton(Color foregroundColor, String label) {
 		JButton createdButton = new JButton(label);
@@ -200,7 +223,8 @@ public class Window extends JFrame {
 	}
 	
 	/**
-	 * Method called to create the tool bar component (edition mode) which is hided when application starts
+	 * Method called to create the tool bar component (edition mode) which 
+	 * is hidden when application starts.
 	 * @param controller the controller
 	 */
 	private JToolBar createToolBar(Controller controller) {
@@ -222,11 +246,12 @@ public class Window extends JFrame {
 	
 	/**
 	 * Method called to create the message frame component 
+	 * @param title The title of the message frame.
 	 */
-	private JLabel createMessageFrame(String tittle) {
+	private JLabel createMessageFrame(String title) {
 		JLabel newFrame = new JLabel();
 		newFrame.setPreferredSize(new Dimension(50, 80));
-		newFrame.setBorder(BorderFactory.createTitledBorder(tittle));
+		newFrame.setBorder(BorderFactory.createTitledBorder(title));
 		newFrame.setHorizontalAlignment(SwingConstants.CENTER);
 		newFrame.setVerticalAlignment(SwingConstants.CENTER);
 		newFrame.setBackground(BACKGROUND_COLOR);
@@ -234,7 +259,7 @@ public class Window extends JFrame {
 	}
 	
 	/**
-	 * Method called to initialize the bottom bar 
+	 * Method called to initialize the bottom bar. 
 	 */
 	private JLabel createBottomBar(){
 		JLabel newBottomBar = new JLabel();
@@ -247,7 +272,7 @@ public class Window extends JFrame {
 	}
 	
 	/**
-	 * Method called initialize south panel 
+	 * Method called initialize south panel. 
 	 */
 	private JPanel CreateSouthPanel() {
 		JPanel southPanel = new JPanel(new BorderLayout());
@@ -261,7 +286,7 @@ public class Window extends JFrame {
 	}
 	
 	/**
-	 * Method called initialize center panel 
+	 * Method called initialize center panel. 
 	 */
 	private JPanel createCenterPanel() {
 		JPanel centerPanel = new JPanel(new BorderLayout());
@@ -274,7 +299,7 @@ public class Window extends JFrame {
 	}
 
 	/**
-	 * Method called hide or display the tool bar 
+	 * Method called hide or display the tool bar.
 	 */
 	public void changeOptionalsButtonsVisibility() {
 		this.optionalsButtonsVisible = !this.optionalsButtonsVisible;
@@ -290,7 +315,11 @@ public class Window extends JFrame {
 	}
     
     
-    
+    /**
+     * Method called to display a number input dialog window.
+     * @param msg The message displayed to the user.
+     * @return The duration of pickup/delivery, as an int.
+     * */
     public int displaySelectTimeDialog(String msg) {
     	logger.info("displaySelectTimeDialog()");
     	int i = -1;
@@ -314,7 +343,8 @@ public class Window extends JFrame {
 
 	
 	/**
-	 * Method called to open a dialog frame and select a file path  
+	 * Method called to open a dialog frame and select a file path. 
+	 * @return The file to be later parse, as a string.
 	 */
 	public String createDialogBoxToGetFilePath() {
 		final JFileChooser fc = new JFileChooser();
@@ -325,30 +355,32 @@ public class Window extends JFrame {
 		int returnVal = fc.showOpenDialog(null);
 		String absPath = null;
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			logger.info("You chose totv open this file: " + fc.getSelectedFile().getAbsolutePath());
+			logger.info("You chose totv open this file: " + 
+					fc.getSelectedFile().getAbsolutePath());
 			absPath = fc.getSelectedFile().getAbsolutePath();
 		}
 		return absPath;
 	}
 	
 	/**
-	 * Method called to open a dialog frame and select a number
+	 * Method called to open a dialog frame and select a number.
+	 * @return the number entered by user
 	 */
 	public int displaySelectOrderDialog() {
 		logger.info("Entering displaySelectOrderDialog");
 		int i = 0;
-		while (i == 0) {
-			String str = JOptionPane.showInputDialog(this, "Enter the new index of this step");
-			logger.info("String from showInput dialog {}", str);
-			if (str == null) {
-				return 0;
-			}
-			try {
-				i = Integer.parseInt(str);
-			} catch (Exception e) {
-				logger.error("You did not enter a valid number, or it was equal to zero");
-			}
+		
+		String str = JOptionPane.showInputDialog(this, "Enter the new index of this step");
+		logger.info("String from showInput dialog {}", str);
+		if (str == null) {
+			return 0;
 		}
+		try {
+			i = Integer.parseInt(str);
+		} catch (Exception e) {
+			logger.error("You did not enter a valid number, or it was equal to zero");
+		}
+		
 		return i;
 	}
 }
