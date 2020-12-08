@@ -66,7 +66,7 @@ public class XMLRequestParser extends XMLParser {
 
 				Element element = (Element) node;
 				Long startingLocationId = Long.parseLong(element.getAttribute("address"));
-				startingLocation = this.cityMap.getIntersectionFromAddress(startingLocationId);
+				startingLocation = this.cityMap.getIntersectionFromId(startingLocationId);
 
 				String[] departureTime = element.getAttribute("departureTime").split(":", 3);
 				Integer hour = Integer.parseInt(departureTime[0]);
@@ -95,11 +95,11 @@ public class XMLRequestParser extends XMLParser {
 				Element element = (Element) node;
 
 				Long pickUpLocationId = Long.parseLong(element.getAttribute("pickupAddress"));
-				Intersection pickUpLocation = this.cityMap.getIntersectionFromAddress(pickUpLocationId);
+				Intersection pickUpLocation = this.cityMap.getIntersectionFromId(pickUpLocationId);
 				pickUpLocations.add(pickUpLocation);
 
 				Long deliveryLocationId = Long.parseLong(element.getAttribute("deliveryAddress"));
-				Intersection deliveryLocation = this.cityMap.getIntersectionFromAddress(deliveryLocationId);
+				Intersection deliveryLocation = this.cityMap.getIntersectionFromId(deliveryLocationId);
 				deliveryLocations.add(deliveryLocation);
 
 				if (pickUpLocation == null && deliveryLocation == null) {

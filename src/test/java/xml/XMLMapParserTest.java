@@ -2,6 +2,8 @@ package xml;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class XMLMapParserTest {
@@ -43,6 +45,16 @@ class XMLMapParserTest {
 			System.err.println("Error while parsing map");
 			fail();
 		}
+	}
+	
+	@Test
+	@DisplayName("Loading a small map with missing longitude")
+	void missingIntersection() {
+		XMLCityMapParser p;
+		p = new XMLCityMapParser("src/test/resources/smallMap_missing_longitude.xml");
+		assertThrows(NumberFormatException.class, () -> {
+			p.parse();
+		});
 	}
 
 }
