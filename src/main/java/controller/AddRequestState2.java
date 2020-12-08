@@ -19,6 +19,7 @@ public class AddRequestState2 implements State {
 	
 	private Long pickUpId;
 	private int pickUpDuration;
+	private int pickUpIndex;
 	
 	@Override
 	public void modifyTour(Controller c, Window w) {
@@ -58,10 +59,16 @@ public class AddRequestState2 implements State {
 	public void leftClick(Point p, Controller c, Window w) {
 		logger.info("Clicked on the map to delivery intersection");
 		logger.info("Intersection : {}", w.getGraphicalView().getHighlightedIntersectionId());
+		
 		int deliveryDuration = w.displaySelectTimeDialog("Enter delivery duration : ");
 		if( deliveryDuration < 0 ) {
 			return ;
 		}
+		int deliveryIndex = w.displaySelectTimeDialog("Enter delivery index : ");
+		if( deliveryIndex < 0 ) {
+			return ;
+		}
+		
 		logger.info("delivery time : {}", deliveryDuration);
 		
 		CityMap cityMap = w.getGraphicalView().getCityMap();
@@ -72,24 +79,24 @@ public class AddRequestState2 implements State {
 		Intersection pickup 	= cityMap.getIntersectionFromId(this.pickUpId);
 		Intersection delivery 	= cityMap.getIntersectionFromId(w.getGraphicalView().getHighlightedIntersectionId());
 		Integer pickUpDuration 	= this.pickUpDuration;
+		Integer pickUpIndex 	= this.pickUpIndex;
 		
 		logger.info("pickup : {} ", pickup.getId());
 		logger.info("delivery : {}", delivery.getId());
 		
-		//Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration,
-		//Integer deliveryDuration, Integer pickupIndex, Integer deliveryIndex
+
 		Tour newTour = shortestPathComputer.addRequest(tour, pickup, delivery, 
-				pickUpDuration, deliveryDuration, 1, 2);
+				pickUpDuration, deliveryDuration, pickUpIndex, deliveryIndex);
 		tour.setTour(newTour);
 		tour.notifyObservers();
 		w.getGraphicalView().setHighlightedWay(null);
 		c.setCurrentstate(c.tourModificationState);
-		
-		
+
 	}
 	
-	protected void enterAction(Long pickUpId, Integer pickUpDuration) {
+	protected void enterAction(Long pickUpId, Integer pickUpDuration, Integer pickUpIndex) {
 		this.pickUpId = pickUpId;
 		this.pickUpDuration = pickUpDuration;
+		this.pickUpIndex = pickUpIndex;
 	}
 }

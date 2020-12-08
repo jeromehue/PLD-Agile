@@ -226,7 +226,7 @@ public class Pcc {
 		System.out.println("okay TSP init");
 
 		long startTime = System.currentTimeMillis();
-		tsp.searchSolution(400000);
+		tsp.searchSolution(40000);
 		System.out.print("Solution of cost " + tsp.getSolutionCost() + " found in "
 				+ (System.currentTimeMillis() - startTime) + "ms : ");
 
@@ -426,8 +426,13 @@ public class Pcc {
 		tour.updateIsPositionConsistent(intersection.getId());
 		if (request.isPickUp(intersection.getId())) {
 			tour.updateIsPositionConsistent(request.getDeliveryFromPickUp(intersection.getId()));
+			request.getPickUpLocations().remove(intersection);
 		}
-
+		else {
+			request.getDeliveryLocations().remove(intersection);
+		}
+		tour.setRequest(request);
+		
 		return tour;
 	}
 	
