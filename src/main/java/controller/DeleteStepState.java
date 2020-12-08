@@ -23,7 +23,7 @@ public class DeleteStepState implements State {
 			Pcc shortestPathComputer = new Pcc(w.getGraphicalView().getCityMap(), w.getGraphicalView().getRequest());
 			shortestPathComputer.computePcc();
 	
-			l.add(new DeleteStepCommand(shortestPathComputer, t, stepToDelete));
+			l.add(new DeleteStepCommand(w.getGraphicalView(), shortestPathComputer, t, stepToDelete));
 		}
 			
 		c.setCurrentstate(c.tourModificationState);

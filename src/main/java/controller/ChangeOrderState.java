@@ -49,7 +49,7 @@ public class ChangeOrderState implements State {
 		shortestPathComputer.computePcc();
 
 		logger.info("Tour : {} ,intersection : {} ,newIndex : {}", t1, intersection, newIndex);
-		l.add(new ChangeOrderCommand(shortestPathComputer, t1, intersection, shift));
+		l.add(new ChangeOrderCommand(w.getGraphicalView(), shortestPathComputer, t1, intersection, shift));
 
 		c.setCurrentstate(c.tourModificationState);
 		

@@ -3,6 +3,7 @@ package controller;
 import algo.Pcc;
 import modele.Intersection;
 import modele.Tour;
+import view.GraphicalView;
 
 public class ChangeOrderCommand implements Command {
 
@@ -10,6 +11,7 @@ public class ChangeOrderCommand implements Command {
 	private Tour tour;
 	private Intersection intersection;
 	private int offset;
+	private GraphicalView g;
 
 	/**
 	 * Create the command which adds the shape s to the plan p
@@ -17,11 +19,12 @@ public class ChangeOrderCommand implements Command {
 	 * @param p the plan to which f is added
 	 * @param s the shape added to p
 	 */
-	public ChangeOrderCommand(Pcc p, Tour t, Intersection i, int offset) {
+	public ChangeOrderCommand(GraphicalView g, Pcc p, Tour t, Intersection i, int offset) {
 		this.pcc = p;
-		this.tour = t;
+		this.tour = g.getTour();
 		this.intersection = i;
 		this.offset = offset;
+		this.g = g;
 	}
 
 	@Override

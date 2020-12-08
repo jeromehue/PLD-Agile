@@ -100,6 +100,7 @@ public class GraphicalView extends JPanel implements Observer {
 
 	public void setTour(Tour tour) {
 		this.tour = tour;
+		
 	}
 	
 	/**
@@ -134,7 +135,6 @@ public class GraphicalView extends JPanel implements Observer {
 			if (request != null) {
 				// draw the tour
 				if (tour != null) {
-
 					drawTour(graphics);
 				}
 
@@ -176,7 +176,6 @@ public class GraphicalView extends JPanel implements Observer {
 	 * @param graphics the graphic context of the view
 	 */
 	private void drawTour(Graphics2D graphics) {
-
 		Color from = new Color(3, 115, 252); // Blue
 		Color to = new Color(227, 36, 30); // Red
 		double progress = 0.0;
@@ -268,7 +267,7 @@ public class GraphicalView extends JPanel implements Observer {
 		Intersection deliveryAdressToDraw;
 		Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
 		Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
-		while (itPickUpTest.hasNext()) {
+		while (itPickUpTest.hasNext() && itDeliveryTest.hasNext()) {
 			pickUpAdresseToDraw = itPickUpTest.next();
 			deliveryAdressToDraw = itDeliveryTest.next();
 

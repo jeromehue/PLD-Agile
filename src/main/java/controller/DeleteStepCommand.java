@@ -3,13 +3,14 @@ package controller;
 import algo.Pcc;
 import modele.Intersection;
 import modele.Tour;
+import view.GraphicalView;
 
 public class DeleteStepCommand implements Command {
 
 	private Pcc pcc;
-	private Tour oldTour;
-	private Tour tour;
+	private Tour oldTour, tour;
 	private Intersection intersection;
+	private GraphicalView g;
 
 	/**
 	 * Create the command which adds the shape s to the plan p
@@ -17,26 +18,29 @@ public class DeleteStepCommand implements Command {
 	 * @param p the plan to which f is added
 	 * @param s the shape added to p
 	 */
-	public DeleteStepCommand(Pcc p, Tour t, Intersection i) {
+	public DeleteStepCommand(GraphicalView g, Pcc p, Tour t, Intersection i) {
 		this.pcc = p;
-		this.tour = t;
+		this.oldTour = null;
+		this.tour = g.getTour();
 		this.intersection = i;
+		this.g = g;
 	}
 
 	@Override
 	public void doCommand() {
-		// TODO: Make it work
-		this.oldTour = this.tour;
-		this.tour = this.pcc.deleteStep(this.tour, this.intersection);
-		tour.setTour(tour);
-		tour.notifyObservers();
+		this.oldTour = new Tour(this.tour); // Copie du tour (contenant le step)
+		this.oldTour.setTour(this.oldTour);
+		this.oldTour.notifyObservers();
+		
+		Tour newTour = this.pcc.deleteStep(this.tour, this.intersection); // On modifie le tour
+		this.tour.setTour(newTour);
+		this.tour.notifyObservers();
 	}
 
 	@Override
 	public void undoCommand() {
-		// TODO: Make it work
-		tour.setTour(this.oldTour);
-		tour.notifyObservers();
+		this.tour.setTour(this.oldTour);
+		this.tour.notifyObservers();
 	}
 
 }
