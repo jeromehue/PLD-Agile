@@ -45,7 +45,7 @@ public class TextualView extends JPanel implements Observer {
 	private int height;
 	
 	/**
-	 * Create a textual view of the computed tour in window
+	 * Create a textual view of the computed tour in window.
 	 * @param buttonListener the buttonListener
 	 * @param tour the computed tour from controller 
 	 */
@@ -69,13 +69,17 @@ public class TextualView extends JPanel implements Observer {
 		this.add(this.tourEditionLabel);
 	}
 	
+	/**
+	 * Set visibility of the 'edition mode' label.
+	 * @param visible boolean value indicating the visibility of the label.
+	 */
 	public void setTourEditionLabelVisibility(boolean visible) {
 		this.tourEditionLabel.setVisible(visible);
 	}
 	
 
 	/**
-	 * Method called by tour observed by this each time it is modified
+	 * Method called by tour observed by this each time it is modified.
 	 * @param observed an updated object which is observed by textual view
 	 */
 	@Override
@@ -95,7 +99,8 @@ public class TextualView extends JPanel implements Observer {
 	}
 	
 	/**
-	 * Method called to initialize the button edition mode label 
+	 * Method called to initialize the button edition mode label. 
+	 * @return The created JLabel.
 	 */
 	public JLabel createTourEditionLabel() {
 		JLabel label = new JLabel("[ Edition mode ]");
@@ -120,7 +125,7 @@ public class TextualView extends JPanel implements Observer {
 	}
 	
 	/**
-	 * Reset graphical selection effect around text areas   
+	 * Reset graphical selection effect around text areas.  
 	 */
 	public void clearAllTextArea() {
 		for (JButton b : pointsJButtonList) {
@@ -129,7 +134,7 @@ public class TextualView extends JPanel implements Observer {
 	}
 	
 	/**
-	 * Method called to display steps of the tour on the graphical view
+	 * Method called to display steps of the tour on the graphical view.
 	 */
 	private void displaySteps() {
 		if (this.tour != null) {

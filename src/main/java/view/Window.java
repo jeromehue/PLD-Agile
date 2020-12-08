@@ -214,6 +214,9 @@ public class Window extends JFrame {
 	
 	/**
 	 * Method called to create a button of the menu bar.
+	 * @param foregroundColor The foreground color of the Jbutton.
+	 * @param label The label of the Jbutton.
+	 * @return The Jbutton created
 	 */
 	private JButton createButton(Color foregroundColor, String label) {
 		JButton createdButton = new JButton(label);

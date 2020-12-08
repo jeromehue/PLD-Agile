@@ -11,6 +11,7 @@ import controller.Controller;
 /**
  * Receives button clicks events and calls
  *  the controller to update data and view.
+ *  @author H4414
  * */
 
 public class ButtonListener implements ActionListener {
@@ -19,8 +20,8 @@ public class ButtonListener implements ActionListener {
 	private Controller controller;
 	
 	/**
-	 * button listener of the window
-	 * @param controller the controller
+	 * The vutton listener of the window.
+	 * @param controller The controller.
 	 */
 	public ButtonListener(Controller controller) {
 		this.controller = controller;
@@ -28,7 +29,7 @@ public class ButtonListener implements ActionListener {
 	
 	/**
 	 * Call controller after a button event
-	 * @param e the event
+	 * @param e The event?
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() instanceof ButtonWay) {
