@@ -29,6 +29,13 @@ public class Tour extends Observable {
 		initPositionConsistent();
 	}
 
+	public Tour(Tour tour) {
+		this.startingIntersection = new Intersection(tour.startingIntersection);
+		this.request = new Request(tour.getRequest());
+		this.waysList = new ArrayList<Way>(tour.getWaysList());
+		this.isPositionConsistent = new HashMap<>(tour.isPositionConsistent);
+	}
+	
 	public Tour() {
 		this.startingIntersection = null;
 		this.waysList = new ArrayList<Way>();

@@ -54,6 +54,21 @@ public class Request {
 			deliveryFromPickUp.put(pickUpLocations.get(i).getId(), deliveryLocations.get(i).getId());
 		}
 	}
+	
+	// Ah c'est le constructeur par copie que j'ai ajouté
+	public Request(Request request) {
+		this.startingLocation = new Intersection(request.getStartingLocation());
+		this.startingTime = request.getStartingTime();
+		this.pickUpLocations = new ArrayList<Intersection>(request.getPickUpLocations());
+		this.deliveryLocations = new ArrayList<Intersection>(request.getDeliveryLocations());
+		this.durations = new HashMap<Long, Integer>(request.getDurations());
+		//this.deliveryFromPickUp = new HashMap<Long, Long>();
+		this.deliveryFromPickUp = request.getDeliveryFromPickUp();
+	}
+	
+	public HashMap<Long, Long> getDeliveryFromPickUp() {
+		return this.deliveryFromPickUp;
+	}
 
 	public Intersection getStartingLocation() {
 		return startingLocation;
@@ -69,6 +84,10 @@ public class Request {
 
 	public ArrayList<Intersection> getDeliveryLocations() {
 		return deliveryLocations;
+	}
+
+	public HashMap<Long, Integer> getDurations() {
+		return durations;
 	}
 
 	/**

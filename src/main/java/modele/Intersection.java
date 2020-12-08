@@ -31,7 +31,6 @@ public class Intersection {
 	 * @param segments
 	 */
 	public Intersection(Long Id, double latitude, double longitude, ArrayList<Segment> segments) {
-
 		this.id = Id;
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -43,6 +42,15 @@ public class Intersection {
 		}
 	}
 
+	// TODO: Javadoc
+	public Intersection(Intersection intersection) {
+		this.id = intersection.getId();
+		this.latitude = intersection.getLatitude();
+		this.longitude = intersection.getLongitude();
+		this.coordinates = new Point(intersection.getCoordinates().getX(), intersection.getCoordinates().getY());
+		this.outboundSegments = new ArrayList<Segment>(intersection.getOutboundSegments());
+	}
+	
 	/**
 	 * @return the coordinates of the intersection
 	 */
