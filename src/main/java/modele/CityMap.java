@@ -5,8 +5,21 @@ import java.util.List;
 
 import view.GraphicalView;
 
-public class CityMap {
+/**
+ * This class contains all the elements to draw a map.
+ * 
+ * @author H4414
+ *
+ * @param intersections   	list of all intersections
+ * @param segments 			list of all segments
+ * @param minLatitude  		lowest intersection on the map
+ * @param minLongitude 		farthest intersection on the left of the map
+ * @param maxLatitude   	highest intersection on the map
+ * @param minLongitude 		farthest intersection on the right of the map
+ *            
+ */
 
+public class CityMap {
 	private List<Intersection> intersections;
 	private List<Segment> segments;
 	private double minLatitude;
@@ -20,12 +33,21 @@ public class CityMap {
 	public CityMap() {
 	}
 
+	/**
+	 * Constructor to initialize a full map.
+	 * @param intersections 	list of intersections
+	 * @param segments 			list of segments
+	 */
 	public CityMap(List<Intersection> intersections, List<Segment> segments) {
 		this.intersections = intersections;
 		this.segments = segments;
 		findMinMax();
 	}
 
+	/**
+	 * Initializes the coordinates on the window of all intersections
+	 * @param graphicalView
+	 */
 	public void setIntersectionCordinates(GraphicalView graphicalView) {
 		PointFactory.initPointFactory(graphicalView, this);
 		Iterator<Intersection> itIntersections = getIntersectionsIterator();
@@ -36,18 +58,32 @@ public class CityMap {
 		}
 	}
 
+	/**
+	 * Adds an intersection to the map
+	 * @param inter the intersection to add
+	 */
 	public void addIntersection(Intersection inter) {
 		intersections.add(inter);
 	}
 
+	/**
+	 * Adds a segment to the map
+	 * @param seg the segment to add
+	 */
 	public void addSegment(Segment seg) {
 		segments.add(seg);
 	}
 
+	/**
+	 * @return the list of all intersections of the map
+	 */
 	public List<Intersection> getIntersections() {
 		return intersections;
 	}
 
+	/**
+	 * @return the list of all segments of the map
+	 */
 	public List<Segment> getSegments() {
 		return segments;
 	}
@@ -66,22 +102,37 @@ public class CityMap {
 		return intersections.iterator();
 	}
 
+	/**
+	 * @return the minimal latitude of all intersections
+	 */
 	public double getMinLatitude() {
 		return minLatitude;
 	}
 
+	/**
+	 * @return the minimal longitude of all intersections
+	 */
 	public double getMinLongitude() {
 		return minLongitude;
 	}
 
+	/**
+	 * @return the maximal latitude of all intersections
+	 */
 	public double getMaxLatitude() {
 		return maxLatitude;
 	}
 
+	/**
+	 * @return the maximal longitude of all intersections
+	 */
 	public double getMaxLongitude() {
 		return maxLongitude;
 	}
 
+	/**
+	 * Used to update the minimal and maximal latitudes and longitudes
+	 */
 	private void findMinMax() {
 		minLatitude = intersections.get(0).getLatitude();
 		minLongitude = intersections.get(0).getLongitude();
@@ -104,9 +155,14 @@ public class CityMap {
 		}
 	}
 
-	public Intersection getIntersectionFromAddress(Long address) {
+	/**
+	 * Finds the Intersection corresponding to an Id
+	 * @param 	address the Id of the Intersection to find
+	 * @return	the Intersection
+	 */
+	public Intersection getIntersectionFromId(Long id) {
 		for (Intersection intersection : intersections) {
-			if (address.equals(intersection.getId())) {
+			if (id.equals(intersection.getId())) {
 				return intersection;
 			}
 		}

@@ -258,7 +258,8 @@ public class GraphicalView extends JPanel implements Observer {
 		if (startIntersection != null) {
 			drawStartIntersection(graphics, startIntersection);
 		}
-
+		
+		int requestNumber = 0;
 		Intersection pickUpAdresseToDraw;
 		Intersection deliveryAdressToDraw;
 		Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
@@ -275,25 +276,29 @@ public class GraphicalView extends JPanel implements Observer {
 
 			// System.out.println(pickUpAdresseToDraw);
 			if (pickUpAdresseToDraw != null) {
-				drawIntersectionSquare(graphics, pickUpAdresseToDraw);
+				String label = "Pick-up " + (char)(requestNumber + 65);
+				drawIntersectionSquare(graphics, pickUpAdresseToDraw, label);
 			}
 
 			// System.out.println(deliveryAdressToDraw);
 			if (deliveryAdressToDraw != null) {
-				drawIntersectionCircle(graphics, deliveryAdressToDraw);
+				String label = "Delivery " + (char)(requestNumber + 65);
+				drawIntersectionCircle(graphics, deliveryAdressToDraw, label);
 			}
+			++requestNumber;
 		}
 	}
 	
 	/**
 	 * Method called to draw a delivery point
 	 * @param graphics the graphic context of the view
-	 * @param intersection the delivery point intersection to draw  
+	 * @param intersection the delivery point intersection to draw 
+	 * @param label the label 
 	 */
-	private void drawIntersectionCircle(Graphics graphics, Intersection intersection) {
+	private void drawIntersectionCircle(Graphics graphics, Intersection intersection, String label) {
 		if (intersection.getId() != null) {
 			graphics.setFont(graphics.getFont().deriveFont(Font.BOLD, 14f));
-			graphics.drawString("Delivery", intersection.getCoordinates().getX() + 5,
+			graphics.drawString(label, intersection.getCoordinates().getX() + 5,
 					intersection.getCoordinates().getY() - 10);
 			graphics.fillOval(intersection.getCoordinates().getX() - 5, intersection.getCoordinates().getY() - 5, 10,
 					10);
@@ -304,10 +309,11 @@ public class GraphicalView extends JPanel implements Observer {
 	 * Method called to draw a pick up point
 	 * @param graphics the graphic context of the view
 	 * @param intersection the pick up point intersection to draw  
+	 * @param label the label 
 	 */
-	private void drawIntersectionSquare(Graphics graphics, Intersection intersection) {
+	private void drawIntersectionSquare(Graphics graphics, Intersection intersection, String label) {
 		graphics.setFont(graphics.getFont().deriveFont(Font.BOLD, 14f));
-		graphics.drawString("Pick-up", intersection.getCoordinates().getX() + 5,
+		graphics.drawString(label, intersection.getCoordinates().getX() + 5,
 				intersection.getCoordinates().getY() - 10);
 		graphics.fillRect(intersection.getCoordinates().getX() - 5, intersection.getCoordinates().getY() - 5, 10, 10);
 	}
