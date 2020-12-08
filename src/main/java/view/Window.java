@@ -338,18 +338,18 @@ public class Window extends JFrame {
 	public int displaySelectOrderDialog() {
 		logger.info("Entering displaySelectOrderDialog");
 		int i = 0;
-		while (i == 0) {
-			String str = JOptionPane.showInputDialog(this, "Enter the new index of this step");
-			logger.info("String from showInput dialog {}", str);
-			if (str == null) {
-				return 0;
-			}
-			try {
-				i = Integer.parseInt(str);
-			} catch (Exception e) {
-				logger.error("You did not enter a valid number, or it was equal to zero");
-			}
+		
+		String str = JOptionPane.showInputDialog(this, "Enter the new index of this step");
+		logger.info("String from showInput dialog {}", str);
+		if (str == null) {
+			return 0;
 		}
+		try {
+			i = Integer.parseInt(str);
+		} catch (Exception e) {
+			logger.error("You did not enter a valid number, or it was equal to zero");
+		}
+		
 		return i;
 	}
 }
