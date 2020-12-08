@@ -55,8 +55,6 @@ public class testTSP {
 
 			tsp = new TSP1(graph, request, offset + i);
 
-			tsp.init();
-
 			Long startTime = System.currentTimeMillis();
 			tsp.searchSolution(400000);
 
@@ -65,12 +63,5 @@ public class testTSP {
 							+ "m found in " + (System.currentTimeMillis() - startTime) + "ms : ");
 			assertTrue(tsp != null);
 		}
-
-		/*
-		 * for (Integer i=0; i<graph.getNbVertices(); i++) {
-		 * System.out.println(tsp.getSolution(i)+" "+graph.getIdFromIndex(tsp.
-		 * getSolution(i))); } System.out.println("0 " +
-		 * graph.getIdFromIndex(tsp.getSolution(0)));
-		 */
 	}
 }
