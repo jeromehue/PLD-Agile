@@ -285,16 +285,19 @@ public class Window extends JFrame {
     	logger.info("displaySelectTimeDialog()");
     	int i = -1;
     	while (i < 0) {
-    		String str = JOptionPane.showInputDialog(this, msg);
-    		logger.info("String from showInput dialog {}", str);
-    		if (str == null) {return (-1);}
-    		try {
-    			i = Integer.parseInt(str);
-    		} catch(Exception e) {
-    			logger.error("You did not enter a valid number, or it was equal to zero");
+    		String response = JOptionPane.showInputDialog(this, msg);
+    		logger.info("String from showInput dialog {}", response);
+    		if ((response != null) && (response.length() > 0)) {
+    			try {
+        			i = Integer.parseInt(response);
+        		} catch(Exception e) {
+        			logger.error("You did not enter a valid number, or it was equal to zero");
+        		}
+    		} else  {
+    			logger.info("Cancel button clicked");
+    			return -1;
     		}
     	}
-    	// TODO Test if number < 0
     	return i;
     }
 

@@ -50,7 +50,7 @@ public class AddRequestState2 implements State {
 			}
 			if (iclosest != null) {
 				graphicalView.setHighlightInter(iclosest);
-				w.setMessage("truc");
+				w.setMessage("Select the delivery point");
 			}
 		}
 	}
