@@ -23,9 +23,15 @@ public abstract class TemplateTSP implements TSP {
 	private Integer[] bestSol;
 	protected Graph g;
 	protected Double bestSolCost;
+	protected Integer maxDiscrepancy;
+	protected Integer currentVertex;
+	protected Collection<Integer> unvisited;
+	protected Collection<Integer> visited;
+	protected Double currentCost;
+	protected Integer discrepancy;
+	
 	private Integer timeLimit;
 	private Long startTime;
-	protected Integer maxDiscrepancy;
 
 	/**
 	 * the main method for the TSP, which updates the best solution.
@@ -113,8 +119,9 @@ public abstract class TemplateTSP implements TSP {
 	private void branchAndBound(Integer currentVertex, Collection<Integer> unvisited, Collection<Integer> visited,
 			Double currentCost, Integer discrepancy) {
 
-		if (System.currentTimeMillis() - startTime > timeLimit)
+		if (System.currentTimeMillis() - startTime > timeLimit) {
 			return;
+		}
 
 		if (unvisited.size() == 0) {
 			if (g.isArc(currentVertex, 0)) {
