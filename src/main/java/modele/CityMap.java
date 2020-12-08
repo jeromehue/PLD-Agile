@@ -44,15 +44,15 @@ public class CityMap {
 	private double maxLongitude;
 
 	/**
-	 * Default constructor.
+	 * Empty constructor used for tests.
 	 */
-	public CityMap() {
-	}
+	public CityMap() {};
 
 	/**
-	 * Constructor to initialize a full map.
-	 * @param intersections 	List of intersections.
-	 * @param segments 			List of segments.
+	 * Constructor to initialize a full map. The extrema are initialized by the 
+	 * <code>findMinMax()</code> function.
+	 * @param intersections 	List of all intersections of the map.
+	 * @param segments 			List of all segments of the map.
 	 */
 	public CityMap(List<Intersection> intersections, List<Segment> segments) {
 		this.intersections = intersections;
@@ -62,9 +62,10 @@ public class CityMap {
 
 	/**
 	 * Initializes the coordinates on the window of all intersections
-	 * @param graphicalView
+	 * @param graphicalView Used to create the Points containing the coordinates.
 	 */
-	public void setIntersectionCordinates(GraphicalView graphicalView) {
+	public void setIntersectionCoordinates(GraphicalView graphicalView) {
+		System.out.println(getMinLatitude());
 		PointFactory.initPointFactory(graphicalView, this);
 		Iterator<Intersection> itIntersections = getIntersectionsIterator();
 		while (itIntersections.hasNext()) {
@@ -75,79 +76,80 @@ public class CityMap {
 	}
 
 	/**
-	 * Adds an intersection to the map
-	 * @param inter the intersection to add
+	 * Adds an intersection to the map.
+	 * @param inter The intersection to add.
 	 */
 	public void addIntersection(Intersection inter) {
 		intersections.add(inter);
+		findMinMax();
 	}
 
 	/**
-	 * Adds a segment to the map
-	 * @param seg the segment to add
+	 * Adds a segment to the map.
+	 * @param seg The segment to add.
 	 */
 	public void addSegment(Segment seg) {
 		segments.add(seg);
 	}
 
 	/**
-	 * @return the list of all intersections of the map
+	 * @return The list of all intersections of the map.
 	 */
 	public List<Intersection> getIntersections() {
 		return intersections;
 	}
 
 	/**
-	 * @return the list of all segments of the map
+	 * @return The list of all segments of the map.
 	 */
 	public List<Segment> getSegments() {
 		return segments;
 	}
 
 	/**
-	 * @return an iterator on all Segments in the CityMap
+	 * @return An iterator on all Segments of the CityMap.
 	 */
 	public Iterator<Segment> getSegmentsIterator() {
 		return segments.iterator();
 	}
 
 	/**
-	 * @return an iterator on all Intersections in the CityMap
+	 * @return An iterator on all Intersections of the CityMap.
 	 */
 	public Iterator<Intersection> getIntersectionsIterator() {
 		return intersections.iterator();
 	}
 
 	/**
-	 * @return the minimal latitude of all intersections
+	 * @return The minimal latitude of all intersections.
 	 */
 	public double getMinLatitude() {
 		return minLatitude;
 	}
 
 	/**
-	 * @return the minimal longitude of all intersections
+	 * @return The minimal longitude of all intersections.
 	 */
 	public double getMinLongitude() {
 		return minLongitude;
 	}
 
 	/**
-	 * @return the maximal latitude of all intersections
+	 * @return The maximal latitude of all intersections.
 	 */
 	public double getMaxLatitude() {
 		return maxLatitude;
 	}
 
 	/**
-	 * @return the maximal longitude of all intersections
+	 * @return The maximal longitude of all intersections.
 	 */
 	public double getMaxLongitude() {
 		return maxLongitude;
 	}
 
 	/**
-	 * Used to update the minimal and maximal latitudes and longitudes
+	 * Used to update the minimal and maximal latitudes and longitudes.
 	 */
 	private void findMinMax() {
 		minLatitude = intersections.get(0).getLatitude();
@@ -172,9 +174,9 @@ public class CityMap {
 	}
 
 	/**
-	 * Finds the Intersection corresponding to an Id
-	 * @param 	address the Id of the Intersection to find
-	 * @return	the Intersection
+	 * Finds the Intersection corresponding to a given id.
+	 * @param id The id of the Intersection to find.
+	 * @return	The Intersection corresponding to the given id.
 	 */
 	public Intersection getIntersectionFromId(Long id) {
 		for (Intersection intersection : intersections) {

@@ -7,6 +7,11 @@ import modele.Tour;
 import modele.Way;
 import view.Window;
 
+/**
+ * Interface defining the methods implemented in the different states
+ * @author H4414
+ */
+
 public interface State {
 
 	/**

@@ -1,7 +1,6 @@
 /**
- *  Provides the State interface, the states that implement this interface and
- *  the classes needed for the Undo/Redo design pattern.
- * 
+ * Observer / Observable design pattern
+ * To manage view updating when tour is modified.
  * */
 
 package observer;

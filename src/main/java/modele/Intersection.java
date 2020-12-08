@@ -6,32 +6,45 @@ import java.util.List;
 /**
  * This class contains all informations relative to an Intersection.
  * 
- * @author H4414
- *
- * @param id   				unique identifier of an intersection
- * @param latitude 			latitude of the intersection
- * @param longitude  		longitude of the intersection
- * @param outboundSegments 	list of Segments whose origin is this Intersection
- * @param coordinates   	x and y coordinates to draw the Intersection on the map
+ * @author H4414 	
  *            
  */
 public class Intersection {
+	/**
+	 * Unique identifier of an Intersection.
+	 */
 	private Long id;
+	
+	/**
+	 * Latitude of the intersection (given by the XML file).
+	 */
 	private double latitude;
+	
+	/**
+	 * Longitude of the intersection (given by the XML file).
+	 */
 	private double longitude;
+	
+	/**
+	 * List of Segments whose origin is this Intersection.
+	 */
 	private ArrayList<Segment> outboundSegments;
+	
+	/**
+	 * X and y coordinates on the window to draw the Intersection on the displayed map.
+	 */
 	private Point coordinates;
 
 	/**
 	 * Constructor to initialize an Intersection.
 	 * 
-	 * @param Id
-	 * @param latitude
-	 * @param longitude
-	 * @param segments
+	 * @param id 		This Intersection's id.
+	 * @param latitude 	This Intersection's latitude.
+	 * @param longitude	This Intersection's longitude.
+	 * @param segments	The list of all segments whose origin is this Intersection.
 	 */
-	public Intersection(Long Id, double latitude, double longitude, ArrayList<Segment> segments) {
-		this.id = Id;
+	public Intersection(Long id, double latitude, double longitude, ArrayList<Segment> segments) {
+		this.id = id;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.coordinates = null;
@@ -42,7 +55,11 @@ public class Intersection {
 		}
 	}
 
-	// TODO: Javadoc
+	/**
+	 * Copy constructor of Intersection
+	 * 
+	 * @param intersection 		This Intersection to copy.
+	 */
 	public Intersection(Intersection intersection) {
 		this.id = intersection.getId();
 		this.latitude = intersection.getLatitude();
@@ -52,21 +69,23 @@ public class Intersection {
 	}
 	
 	/**
-	 * @return the coordinates of the intersection
+	 * @return The coordinates of the intersection.
 	 */
 	public Point getCoordinates() {
 		return coordinates;
 	}
 
 	/**
-	 * @param coordinates used to update an Intersection's coordinates
+	 * Default setter.
+	 * 
+	 * @param coordinates Used to update an Intersection's coordinates.
 	 */
 	public void setCoordinates(Point coordinates) {
 		this.coordinates = coordinates;
 	}
 
 	/**
-	 * @return the list of Intersections directly linked to this one via a Segment
+	 * @return The list of Intersections directly linked to this one via a Segment.
 	 */
 	public List<Intersection> getNeighbors() {
 		ArrayList<Intersection> neighbors = new ArrayList<Intersection>();
@@ -77,23 +96,25 @@ public class Intersection {
 	}
 
 	/**
-	 * Method used to add a Segment whose origin is this Intersection
-	 * @param segment
+	 * Method used to add a Segment whose origin is this Intersection to this Intersection.
+	 * 
+	 * @param segment The segment to add.
 	 */
 	public void addOutboundSegment(Segment segment) {
 		this.outboundSegments.add(segment);
 	}
 
 	/**
-	 * Method used to remove a Segment whose origin is this Intersection
-	 * @param segment
+	 * Method used to remove a Segment whose origin is this Intersection from this Intersection.
+	 * 
+	 * @param segment The segment to remove.
 	 */
 	public void removeOutboundSegment(Segment segment) {
 		this.outboundSegments.remove(segment);
 	}
 
 	/**
-	 * @return a textual representation of an Intersection
+	 * @return A textual representation of this Intersection.
 	 */
 	@Override
 	public String toString() {
@@ -101,42 +122,54 @@ public class Intersection {
 	}
 
 	/**
-	 * @return the latitude of the intersection
+	 * Default getter.
+	 * 
+	 * @return The latitude of this intersection.
 	 */
 	public double getLatitude() {
 		return latitude;
 	}
 	
 	/**
-	 * @param latitude used to update an Intersection's latitude
+	 * Default setter.
+	 * 
+	 * @param latitude Used to update this Intersection's latitude.
 	 */
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
 	/**
-	 * @return the longitude of the intersection
+	 * Default getter.
+	 * 
+	 * @return The longitude of this intersection.
 	 */
 	public double getLongitude() {
 		return longitude;
 	}
 
 	/**
-	 * @param longitude used to update an Intersection's longitude
+	 * Default setter.
+	 * 
+	 * @param longitude Used to update this Intersection's longitude.
 	 */
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
 	/**
-	 * @return the segments whose origin is this intersection
+	 * Default getter.
+	 * 
+	 * @return The list of all segments whose origin is this intersection.
 	 */
 	public ArrayList<Segment> getOutboundSegments() {
 		return outboundSegments;
 	}
 
 	/**
-	 * @return the id of the intersection
+	 * Default getter.
+	 * 
+	 * @return The id of this intersection.
 	 */
 	public Long getId() {
 		return id;

@@ -14,6 +14,11 @@ import modele.Request;
 import modele.Tour;
 import view.Window;
 
+/**
+ * State Reached when 'Modify Order Button is clicked'.
+ * @author H4414
+ *
+ */
 public class ChangeOrderState implements State {
 	private static final Logger logger = LoggerFactory.getLogger(ChangeOrderState.class);
 

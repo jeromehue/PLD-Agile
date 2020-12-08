@@ -20,6 +20,10 @@ import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
+/**
+ * State reached from InitState when a map is loaded.
+ * @author H4414
+ */
 public class MapLoadedState implements State {
 
 	private static final Logger logger = LoggerFactory.getLogger(XMLRequestParser.class);
@@ -100,11 +104,20 @@ public class MapLoadedState implements State {
 			List<Segment> allsegments = graphicalView.getCityMap().getSegments();
 			float mindist = (float) 0.5;
 			Segment sclosest = null;
+			int x1;
+			int y1;
+			int x2;
+			int y2;
 			for (Segment s : allsegments) {
-				int x1 = s.getOrigin().getCoordinates().getX();
-				int y1 = s.getOrigin().getCoordinates().getY();
-				int x2 = s.getDestination().getCoordinates().getX();
-				int y2 = s.getDestination().getCoordinates().getY();
+				try {
+					x1 = s.getOrigin().getCoordinates().getX();
+					y1 = s.getOrigin().getCoordinates().getY();
+					x2 = s.getDestination().getCoordinates().getX();
+					y2 = s.getDestination().getCoordinates().getY();
+				} catch (Exception e) {
+					logger.info("Error in mouseMoved method");
+					break;
+				}
 				float distance = (float) 1.1;
 				if (p.inBox(x1, y1, x2, y2)) {
 					distance = p.distBetweenPointAndLine(x1, y1, x2, y2);
