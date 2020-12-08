@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+/**
+ * This class stores all the informations given by the user concerning the tour.
+ * 
+ * 
+ * @author H4414
+ * 
+ */
 public class Request {
 
 	private Intersection startingLocation;

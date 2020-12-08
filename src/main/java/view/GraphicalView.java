@@ -128,7 +128,7 @@ public class GraphicalView extends JPanel implements Observer {
 
 		// draw the cityMap
 		if (cityMap != null) {
-			cityMap.setIntersectionCordinates(this);
+			cityMap.setIntersectionCoordinates(this);
 			drawCityMap(graphics);
 
 			// draw the request
