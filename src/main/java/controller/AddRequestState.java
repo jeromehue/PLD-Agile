@@ -12,8 +12,8 @@ import view.GraphicalView;
 import view.Window;
 
 /**
+ * State reached after a click on the 'Add a request' button.
  * @author H4414
- *
  */
 
 public class AddRequestState implements State {

@@ -9,8 +9,8 @@ import modele.Way;
 
 /**
  * A custom button with a 'way' attribute, which allows you to highlight 
- * that path when you click on the button.
- * 
+ * that way when you click on the button.
+ * @author H4414
  * @see modele.Way
  * */
 public class ButtonWay extends JButton {
@@ -21,7 +21,7 @@ public class ButtonWay extends JButton {
 	
 	/**
 	 * Association of a button and a way to make steps of the textual view clickables
-	 * Does the link between graphical and textual view  
+	 * Does the link between graphical and textual view. 
 	 * @param way the way 
 	 * @param buttonListener the button listener 
 	 * @param text the label 

@@ -14,6 +14,11 @@ import modele.Tour;
 import view.GraphicalView;
 import view.Window;
 
+/**
+ * State reached after a pickup point is selected in AddRequestState.
+ * @author H4414
+ */
+
 public class AddRequestState2 implements State {
 	private static final Logger logger = LoggerFactory.getLogger(AddRequestState2.class);
 	
@@ -56,6 +61,8 @@ public class AddRequestState2 implements State {
 		}
 	}
 	
+	
+	@Override
 	public void leftClick(Point p, Controller c, Window w) {
 		logger.info("Clicked on the map to delivery intersection");
 		logger.info("Intersection : {}", w.getGraphicalView().getHighlightedIntersectionId());
