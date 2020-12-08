@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -48,7 +47,6 @@ public class Window extends JFrame {
 	protected final static String MODIFY_TOUR = "Enter tour edition mode";
 	protected final static String EXIT_MODIFY_TOUR = "Exit tour edition mode";
 	protected final static String MODIFY_ORDER = "Change order";
-	protected final static String MODIFY_REQUEST = "Move a request";
 	protected final static String ADD_REQUEST = "Add a request";
 	protected final static String REMOVE_REQUEST = "Delete a request";
 	protected final static String UNDO = "<html><strong>Undo<html/><strong/>";
@@ -208,7 +206,6 @@ public class Window extends JFrame {
 		toolBar.add(this.createButton(Color.black, UNDO));
 		toolBar.add(this.createButton(Color.black, REDO));
 		toolBar.add(this.createButton(Color.darkGray, ADD_REQUEST));
-		toolBar.add(this.createButton(Color.darkGray, MODIFY_REQUEST));
 		toolBar.add(this.createButton(Color.darkGray, MODIFY_ORDER));
 		toolBar.add(this.createButton(Color.darkGray, REMOVE_REQUEST));
 		return toolBar;
@@ -227,6 +224,9 @@ public class Window extends JFrame {
 		return newFrame;
 	}
 	
+	/**
+	 * Method called to initialize the bottom bar 
+	 */
 	private JLabel createBottomBar(){
 		JLabel newBottomBar = new JLabel();
 		newBottomBar.setPreferredSize(new Dimension(50,20));
@@ -277,6 +277,7 @@ public class Window extends JFrame {
 			this.switchmode.setText(MODIFY_TOUR);
 		}
 		this.toolBar.setVisible(optionalsButtonsVisible);
+		this.textualView.setTourEditionLabelVisibility(optionalsButtonsVisible);
 	}
     
     

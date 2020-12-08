@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -7,8 +8,10 @@ import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +33,9 @@ public class TextualView extends JPanel implements Observer {
 	private Tour tour;
 	private ArrayList<JButton> pointsJButtonList;
 	private JScrollPane scrollPane;
+	private JLabel tourEditionLabel;
+	private int width;
+	private int height;
 	
 	/**
 	 * Create a textual view of the computed tour in window
@@ -39,7 +45,9 @@ public class TextualView extends JPanel implements Observer {
 	public TextualView(Tour tour, ButtonListener buttonListener) {
 		super();
 		setBorder(BorderFactory.createTitledBorder("Itinerary"));
-		this.setPreferredSize(new Dimension(600, 500));
+		this.width = 600;
+		this.height = 500;
+		this.setPreferredSize(new Dimension(this.width, this.height));
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setBackground(Window.BACKGROUND_COLOR);
 		this.tour = tour;
@@ -50,8 +58,15 @@ public class TextualView extends JPanel implements Observer {
 		this.scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		this.pointsJButtonList = new ArrayList<JButton>();
 		this.buttonListener = buttonListener;
+		this.tourEditionLabel = createTourEditionLabel();
+		this.add(this.tourEditionLabel);
 	}
 	
+	public void setTourEditionLabelVisibility(boolean visible) {
+		this.tourEditionLabel.setVisible(visible);
+	}
+	
+
 	/**
 	 * Method called by tour observed by this each time it is modified
 	 * @param observed an updated object which is observed by textual view
@@ -70,6 +85,20 @@ public class TextualView extends JPanel implements Observer {
 
 	public void setScrollPane(JScrollPane scrollPane) {
 		this.scrollPane = scrollPane;
+	}
+	
+	/**
+	 * Method called to initialize the button edition mode label 
+	 */
+	public JLabel createTourEditionLabel() {
+		JLabel label = new JLabel("[ Edition mode ]");
+		int labelHeight = 15;
+		int labelWidth = this.width - 100;
+		label.setVisible(false);
+		label.setForeground(Color.red);
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setPreferredSize(new Dimension(labelWidth,labelHeight));
+		return label;
 	}
 
 	/**

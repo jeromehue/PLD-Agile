@@ -103,7 +103,7 @@ public class RequestLoadedState implements State {
 		t.notifyObservers();
 
 		w.getGraphicalView().setHighlightedWay(null);
-		w.setMessage("Your tour");
+		w.setMessage("You can modify the tour with the tour edition mode.");
 	}
 
 	@Override
