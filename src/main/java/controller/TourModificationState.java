@@ -1,14 +1,11 @@
 package controller;
 
-import java.util.List;
 
 import javax.swing.JButton;
 
-import modele.Intersection;
 import modele.Point;
 import modele.Tour;
 import modele.Way;
-import view.GraphicalView;
 import view.Window;
 
 public class TourModificationState implements State {
