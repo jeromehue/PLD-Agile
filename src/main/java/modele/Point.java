@@ -5,11 +5,16 @@ package modele;
  * 
  * @author H4414
  *
- * @param x coordinate on the x axis
- * @param y coordinate on the y axis
  */
 public class Point {
+	/**
+	 * Coordinate on the x axis.
+	 */
 	private int x;
+	
+	/**
+	 * Coordinate on the y axis.
+	 */
 	private int y;
 
 	/**

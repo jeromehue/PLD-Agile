@@ -9,34 +9,50 @@ import view.GraphicalView;
  * This class contains all the elements to draw a map.
  * 
  * @author H4414
- *
- * @param intersections   	list of all intersections
- * @param segments 			list of all segments
- * @param minLatitude  		lowest intersection on the map
- * @param minLongitude 		farthest intersection on the left of the map
- * @param maxLatitude   	highest intersection on the map
- * @param minLongitude 		farthest intersection on the right of the map
  *            
  */
 
 public class CityMap {
+	/**
+	 * List of all intersections of the map gotten from the XML parser.
+	 */
 	private List<Intersection> intersections;
+	
+	/**
+	 * List of all segments of the map gotten from the XML parser.
+	 */
 	private List<Segment> segments;
+	
+	/**
+	 * The latitude of the farthest south intersection of the map.
+	 */
 	private double minLatitude;
+	
+	/**
+	 * The longitude of the farthest west intersection of the map.
+	 */
 	private double minLongitude;
+	
+	/**
+	 * The latitude of the farthest north intersection of the map.
+	 */
 	private double maxLatitude;
+	
+	/**
+	 * The longitude of the farthest east intersection of the map.
+	 */
 	private double maxLongitude;
 
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public CityMap() {
 	}
 
 	/**
 	 * Constructor to initialize a full map.
-	 * @param intersections 	list of intersections
-	 * @param segments 			list of segments
+	 * @param intersections 	List of intersections.
+	 * @param segments 			List of segments.
 	 */
 	public CityMap(List<Intersection> intersections, List<Segment> segments) {
 		this.intersections = intersections;

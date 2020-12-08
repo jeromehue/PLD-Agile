@@ -40,9 +40,9 @@ public class CompleteGraph implements Graph {
 
 	/**
 	 * Constructor of CompleteGraph, initializes the costs matrix with
-	 * DOUBLE.MAX_VALUE
+	 * DOUBLE.MAX_VALUE.
 	 * 
-	 * @param startVertices list of the vertices for the graph (steps of the tour)
+	 * @param startVertices List of the vertices for the graph (steps of the tour).
 	 */
 	public CompleteGraph(List<Intersection> startVertices) {
 		this.nbVertices = startVertices.size();
@@ -52,8 +52,8 @@ public class CompleteGraph implements Graph {
 		this.costsMatrix = new double[nbVertices][nbVertices];
 		for (int i = 0; i < nbVertices; ++i) {
 			Intersection inter = startVertices.get(i);
-			index.put(inter.getId(), i); // initialisation de index
-			reverseIndex.put(i, inter.getId()); // init de reverse index
+			index.put(inter.getId(), i);
+			reverseIndex.put(i, inter.getId());
 
 			for (int j = 0; j < nbVertices; ++j) {
 				costsMatrix[i][j] = Double.MAX_VALUE;
@@ -62,12 +62,12 @@ public class CompleteGraph implements Graph {
 	}
 
 	/**
-	 * updating a line of the costs matrix when a vertex has been released
+	 * Updating a line of the costs matrix when a vertex has been released.
 	 * 
-	 * @param startId the id of the intersection whose departing edges are being
-	 *                updated
-	 * @param costs   hashmap linking a target intersection id to its new cost
-	 * @param targets list of intersections linked to the one being released
+	 * @param startId The id of the intersection whose departing edges are being
+	 *                updated.
+	 * @param costs   Hashmap linking a target intersection id to its new cost.
+	 * @param targets List of intersections linked to the one being released.
 	 */
 	public void updateCompleteGraph(Long startId, HashMap<Long, IntersectionPcc> costs, List<Intersection> targets) {
 		Integer startIndex = index.get(startId);
@@ -77,20 +77,12 @@ public class CompleteGraph implements Graph {
 		}
 	}
 
-	/**
-	 * Returns the number of vertices of the complete graph
-	 */
+	
 	@Override
 	public int getNbVertices() {
 		return nbVertices;
 	}
 
-	/**
-	 * Returns the cost between two vertices of the graph
-	 * 
-	 * @param i index in the costs matrix of the first vertex
-	 * @param j index in the costs matrix of the second vertex
-	 */
 	@Override
 	public double getCost(int i, int j) {
 		if ((i < 0) || (i >= nbVertices) || (j < 0) || (j >= nbVertices)) {
@@ -99,12 +91,6 @@ public class CompleteGraph implements Graph {
 		return costsMatrix[i][j];
 	}
 
-	/**
-	 * Returns true if the two vertices are linked by an edge, else false
-	 * 
-	 * @param i index in the costs matrix of the first vertex
-	 * @param j index in the costs matrix of the second vertex
-	 */
 	@Override
 	public boolean isArc(int i, int j) {
 		if ((i < 0) || (i >= nbVertices) || (j < 0) || (j >= nbVertices)) {
@@ -114,16 +100,16 @@ public class CompleteGraph implements Graph {
 	}
 
 	/**
-	 * Returns the index of the costs matrix of the intersection whose id is passed
+	 * @return The index of the costs matrix of the intersection whose id is passed.
 	 * 
-	 * @param id intersection's id whose index is wanted
+	 * @param id Intersection's id whose index is wanted.
 	 */
 	public Integer getIndex(Long id) {
 		return index.get(id);
 	}
 
 	/**
-	 * Returns a textual representation of the complete graph
+	 * @return A textual representation of the complete graph.
 	 */
 	@Override
 	public String toString() {
@@ -142,11 +128,6 @@ public class CompleteGraph implements Graph {
 		return ret;
 	}
 
-	/**
-	 * Returns the intersection whose index of the costs matrix is passed
-	 * 
-	 * @param i index in the costs matrix of an intersection
-	 */
 	@Override
 	public Long getIdFromIndex(Integer i) {
 		return reverseIndex.get(i);
