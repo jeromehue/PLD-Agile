@@ -117,7 +117,7 @@ public class MapLoadedState implements State {
 			}
 			if (sclosest != null) {
 				graphicalView.highlight(sclosest);
-				w.setMessage(sclosest.getName());
+				w.setStreet(sclosest.getName());
 			}
 		}
 	}
