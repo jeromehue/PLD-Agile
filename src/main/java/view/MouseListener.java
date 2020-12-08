@@ -13,7 +13,7 @@ import modele.PointFactory;
 /**
  * Receives interesting events from the mouse and 
  * calls the controller to update data and view.
- * 
+ * @author H4414
  * @see java.awt.event.MouseAdapter
  * */
 
