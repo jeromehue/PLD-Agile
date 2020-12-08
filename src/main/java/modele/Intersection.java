@@ -31,7 +31,7 @@ public class Intersection {
 	private ArrayList<Segment> outboundSegments;
 	
 	/**
-	 * X and y coordinates to draw the Intersection on the map.
+	 * X and y coordinates on the window to draw the Intersection on the displayed map.
 	 */
 	private Point coordinates;
 

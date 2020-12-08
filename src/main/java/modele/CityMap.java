@@ -44,10 +44,9 @@ public class CityMap {
 	private double maxLongitude;
 
 	/**
-	 * Empty constructor.
+	 * Empty constructor used for tests.
 	 */
-	public CityMap() {
-	}
+	public CityMap() {};
 
 	/**
 	 * Constructor to initialize a full map. The extrema are initialized by the 
@@ -65,7 +64,8 @@ public class CityMap {
 	 * Initializes the coordinates on the window of all intersections.
 	 * @param graphicalView Used to create the Points containing the coordinates.
 	 */
-	public void setIntersectionCordinates(GraphicalView graphicalView) {
+	public void setIntersectionCoordinates(GraphicalView graphicalView) {
+		System.out.println(getMinLatitude());
 		PointFactory.initPointFactory(graphicalView, this);
 		Iterator<Intersection> itIntersections = getIntersectionsIterator();
 		while (itIntersections.hasNext()) {

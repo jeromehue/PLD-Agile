@@ -1,8 +1,9 @@
 package modele;
 
 /**
- * This class contains the coordinates (x,y) of an Intersection on the window. 
- * 
+ * This class contains the coordinates (x,y) of a pixel on the window.
+ * Only the part of the window where the map is displayed is concerned. 
+ * A Point can be added to an Intersection if their locations coincide. 
  * @author H4414
  *
  */
@@ -105,7 +106,7 @@ public class Point {
 	 * @param y1 Y coordinate of the first point of the segment.
 	 * @param x2 X coordinate of the second point of the segment.
 	 * @param y2 Y coordinate of the second point of the segment.
-	 * @return
+	 * @return The minimal distance between this and the segment.
 	 */
 	public float distBetweenPointAndLine(int x1, int y1, int x2, int y2) {
 
@@ -115,33 +116,35 @@ public class Point {
 		float AB = distBetween(x, y, x1, y1);
 		float BC = distBetween(x1, y1, x2, y2);
 		float AC = distBetween(x, y, x2, y2);
+		
+		if(x1 == x2 && y1 == y2) {
+			return AB;
+		}
 
 		// Heron's formula
 		float s = (AB + BC + AC) / 2;
 		float area = (float) Math.sqrt(s * (s - AB) * (s - BC) * (s - AC));
 
-		// but also area == (BC * AD) / 2
-		// BC * AD == 2 * area
-		// AD == (2 * area) / BC
-		// TODO: check if BC == 0
 		float AD = (2 * area) / BC;
 		return AD;
 	}
 	
 	/**
-	 * Calculates the distance bet
+	 * Calculates the Euclidian distance between two points whose coordinates 
+	 * are passed as parameters. Only used for the <code>distBetweenPointAndLine
+	 * </code> function.
 	 * 
-	 * @param x
-	 * @param y
-	 * @param x1
-	 * @param y1
-	 * @return
+	 * @param x1 X coordinate of the first point of the segment.
+	 * @param y1 Y coordinate of the first point of the segment.
+	 * @param x2 X coordinate of the second point of the segment.
+	 * @param y2 Y coordinate of the second point of the segment.
+	 * @return The distance between the two Points.
 	 */
-	private static float distBetween(int x, int y, int x1, int y1) {
-		float xx = (float) x1 - x;
-		float yy = (float) y1 - y;
+	private static float distBetween(int x1, int y1, int x2, int y2) {
+		float deltaX = (float) x1 - x2;
+		float deltaY = (float) y1 - y2;
 
-		return (float) Math.sqrt(xx * xx + yy * yy);
+		return (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 	}
 
 	/**
