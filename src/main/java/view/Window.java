@@ -35,9 +35,9 @@ import modele.Tour;
 import modele.PointFactory;
 
 /**
- * The main window of our program, divided into three main areas: a graphical 
- * view to display the map, a text view to display information about steps, 
- * and a box to display messages.
+ * The main window of our program, divided into four main areas: a graphical 
+ * view to display the map, a text view to display information about steps, a 
+ * menu and a box to display messages.
  * 
  *  @author H4414
  * 
@@ -60,17 +60,19 @@ public class Window extends JFrame {
 	protected final static String EXIT_MODIFY_TOUR = "Exit tour edition mode";
 	protected final static String MODIFY_ORDER = "Change order";
 	protected final static String ADD_REQUEST = "Add a request";
-	protected final static String REMOVE_REQUEST = "Delete a request";
+	protected final static String REMOVE_REQUEST = "Delete a step";
 	protected final static String UNDO = "<html><strong>Undo<html/><strong/>";
 	protected final static String REDO = "<html><strong>Redo<html/><strong/>";
 	protected final static String QUIT_TOUR_EDITION = " ";
 	
-	private String HEADER_TEXT = "PLD-AGILE 4IF-H4414 Quentin Regaud - "
+	private String HEADER_TEXT = "PLD-AGILE 4IF-H4414 - "
+									+ "Quentin Regaud - "
 									+ "Sylvain de Verclos - "
 									+ "Yohan Meyer - "
 									+ "Jérome Hue - "
 									+ "Lucie Clémenceau - "
-									+ "Charly Poirier";
+									+ "Charly Poirier - "
+									+ "2020 ";
 
 	// Components
 	private GraphicalView graphicalView;
