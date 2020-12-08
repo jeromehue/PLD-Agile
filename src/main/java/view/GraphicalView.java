@@ -23,7 +23,8 @@ import observer.Observable;
 import observer.Observer;
 
 /**
- * The graphicaview area of our window, that displays the map.
+ * The area of the window that displays the map and the computed tour.
+ * @author H4414
  * */
 
 public class GraphicalView extends JPanel implements Observer {
