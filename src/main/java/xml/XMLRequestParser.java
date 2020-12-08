@@ -22,11 +22,27 @@ public class XMLRequestParser extends XMLParser {
 
 	private CityMap cityMap;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param filename the file to be parsed.
+	 * @param cityMap the CityMap object that contains all segments and intersections
+	 */
 	public XMLRequestParser(String filename, CityMap cityMap) {
 		super(filename);
 		this.cityMap = cityMap;
 	}
 
+	
+	/**
+	 * Parse an XML file and return a request.
+	 * 
+	 * @return the request contained int the XML file of the class.
+	 * @throws InvalidRequestException
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 */
 	public Request parse() throws InvalidRequestException, ParserConfigurationException, SAXException, IOException {
 
 		ArrayList<Intersection> pickUpLocations = new ArrayList<Intersection>();
