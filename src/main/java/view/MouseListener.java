@@ -10,6 +10,10 @@ import controller.Controller;
 import modele.Point;
 import modele.PointFactory;
 
+/**
+ * Receives interesting events from the mouse and 
+ * calls the controller to update data and view.
+ * */
 
 public class MouseListener extends MouseAdapter {
 

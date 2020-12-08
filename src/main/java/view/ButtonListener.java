@@ -8,6 +8,11 @@ import org.slf4j.LoggerFactory;
 
 import controller.Controller;
 
+/**
+ * Receives button clicks events and calls
+ *  the controller to update data and view.
+ * */
+
 public class ButtonListener implements ActionListener {
 	private static final Logger logger = LoggerFactory.getLogger(ButtonListener.class);
 

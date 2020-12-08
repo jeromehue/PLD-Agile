@@ -318,6 +318,8 @@ public class Window extends JFrame {
     
     /**
      * Method called to display a number input dialog window.
+     * @param msg The message displayed to the user.
+     * @return The duration of pickup/delivery, as an int.
      * */
     public int displaySelectTimeDialog(String msg) {
     	logger.info("displaySelectTimeDialog()");
@@ -342,7 +344,8 @@ public class Window extends JFrame {
 
 	
 	/**
-	 * Method called to open a dialog frame and select a file path  
+	 * Method called to open a dialog frame and select a file path. 
+	 * @return The file to be later parse, as a string.
 	 */
 	public String createDialogBoxToGetFilePath() {
 		final JFileChooser fc = new JFileChooser();
@@ -361,7 +364,8 @@ public class Window extends JFrame {
 	}
 	
 	/**
-	 * Method called to open a dialog frame and select a number
+	 * Method called to open a dialog frame and select a number.
+	 * @return the number entered by user
 	 */
 	public int displaySelectOrderDialog() {
 		logger.info("Entering displaySelectOrderDialog");

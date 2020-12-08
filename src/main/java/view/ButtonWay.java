@@ -7,6 +7,12 @@ import javax.swing.JLabel;
 
 import modele.Way;
 
+/**
+ * A custom button with a 'way' attribute, which allows you to highlight 
+ * that path when you click on the button.
+ * 
+ * @see modele.Way
+ * */
 public class ButtonWay extends JButton {
 
 	private static final long serialVersionUID = 1L;
