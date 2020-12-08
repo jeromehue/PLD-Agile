@@ -64,8 +64,15 @@ public class AddRequestState2 implements State {
 		if( deliveryDuration < 0 ) {
 			return ;
 		}
+		int nbPoints = w.getGraphicalView().getTour().getWaysList().size();
 		int deliveryIndex = w.displaySelectTimeDialog("Enter delivery index : ");
-		if( deliveryIndex < 0 ) {
+		while ( deliveryIndex <= 0 || deliveryIndex >=nbPoints +1 ) {
+			deliveryIndex = w.displaySelectTimeDialog("Bad index ! Enter delivery index : ");
+			if( deliveryIndex == -1 ) {
+				return ;
+			}
+		}
+		if( deliveryIndex == -1 ) {
 			return ;
 		}
 		
