@@ -10,6 +10,11 @@ import modele.Point;
 import view.GraphicalView;
 import view.Window;
 
+/**
+ * @author H4414
+ *
+ */
+
 public class AddRequestState implements State {
 	private static final Logger logger = LoggerFactory.getLogger(AddRequestState.class);
 	
@@ -23,6 +28,7 @@ public class AddRequestState implements State {
 		}
 	}
 	
+
 	@Override
 	public void mouseMoved(Controller c, Window w, Point p) {
 		GraphicalView graphicalView = w.getGraphicalView();
