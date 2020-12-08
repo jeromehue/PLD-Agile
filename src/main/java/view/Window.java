@@ -26,6 +26,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import controller.Controller;
@@ -51,6 +53,7 @@ public class Window extends JFrame {
 	protected final static String REMOVE_REQUEST = "Delete a request";
 	protected final static String UNDO = "<html><strong>Undo<html/><strong/>";
 	protected final static String REDO = "<html><strong>Redo<html/><strong/>";
+	protected final static String QUIT_TOUR_EDITION = " ";
 	
 	private String HEADER_TEXT = "PLD-AGILE 4IF-H4414 Quentin Regaud - Sylvain de Verclos - Yohan Meyer - Jérome Hue - Lucie Clémenceau - Charly Poirier";
 
@@ -208,6 +211,13 @@ public class Window extends JFrame {
 		toolBar.add(this.createButton(Color.darkGray, ADD_REQUEST));
 		toolBar.add(this.createButton(Color.darkGray, MODIFY_ORDER));
 		toolBar.add(this.createButton(Color.darkGray, REMOVE_REQUEST));
+		
+		JButton cancelButton = createButton(Color.black, QUIT_TOUR_EDITION);
+		Icon icon = new ImageIcon("src/main/resources/icons/icons8-cancel-16.png");
+	    //JButton cancelButton = new JButton(icon);
+	    cancelButton.setIcon(icon);
+	    cancelButton.setContentAreaFilled(false);
+		toolBar.add(cancelButton);
 		return toolBar;
 	}
 	
