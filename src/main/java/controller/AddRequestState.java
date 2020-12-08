@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import modele.Intersection;
 import modele.Point;
+import modele.Segment;
 import view.GraphicalView;
 import view.Window;
 
@@ -41,7 +42,6 @@ public class AddRequestState implements State {
 				int distance = p.distanceWithCoordinates(i.getCoordinates().getX(), i.getCoordinates().getY());
 				if(distance < mindist ) {
 					mindist = distance;
-					//System.out.println("distance : " +distance);
 					iclosest = i;
 					if (mindist < floor) 
 						break;
@@ -50,6 +50,27 @@ public class AddRequestState implements State {
 			if (iclosest != null) {
 				graphicalView.setHighlightInter(iclosest);
 				w.setMessage("Select the pickup point");
+			}
+			
+			List<Segment> allsegments = graphicalView.getCityMap().getSegments();
+			float mindist2 = (float) 0.5;
+			Segment sclosest = null;
+			for (Segment s : allsegments) {
+				int x1 = s.getOrigin().getCoordinates().getX();
+				int y1 = s.getOrigin().getCoordinates().getY();
+				int x2 = s.getDestination().getCoordinates().getX();
+				int y2 = s.getDestination().getCoordinates().getY();
+				float distance = (float) 1.1;
+				if (p.inBox(x1, y1, x2, y2)) {
+					distance = p.distBetweenPointAndLine(x1, y1, x2, y2);
+				}
+				if (distance < mindist2) {
+					mindist2 = distance;
+					sclosest = s;
+				}
+			}
+			if (sclosest != null && iclosest!= null) {
+				w.setStreet("Adress is " + iclosest.getId() + ", " + sclosest.getName());
 			}
 		}
 	}
