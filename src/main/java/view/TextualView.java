@@ -96,6 +96,7 @@ public class TextualView extends JPanel implements Observer {
 	
 	/**
 	 * Method called to initialize the button edition mode label 
+	 * @return The created JLabel.
 	 */
 	public JLabel createTourEditionLabel() {
 		JLabel label = new JLabel("[ Edition mode ]");

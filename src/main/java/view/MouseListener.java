@@ -13,6 +13,8 @@ import modele.PointFactory;
 /**
  * Receives interesting events from the mouse and 
  * calls the controller to update data and view.
+ * 
+ * @see java.awt.event.MouseAdapter
  * */
 
 public class MouseListener extends MouseAdapter {
@@ -22,21 +24,24 @@ public class MouseListener extends MouseAdapter {
 	private Controller controller;
 
 	/**
-	 * @param controller
-	 * @param window
-	 * @param graphicalView
+	 * Constructor
+	 * 
+	 * @param controller The Controller.
+	 * @param window The Window.
+	 * @param graphicalView The Graphical View.
 	 */
 	public MouseListener(Window window, GraphicalView graphicalView, Controller controller) {
 		this.window = window;
 		this.graphicalView = graphicalView;
 		this.controller = controller;
 	}
-
-	//public void mousePressed(MouseEvent e) {
-		//Point p = coordinates(e);
-		//this.window.setMessage("HEY !!");
-	//}
 	
+	
+	
+	/**
+	 * Invoked when the mouse button has been clicked (pressed and released)
+	 * on graphicalView.
+	 */
 	@Override
 	public void mouseClicked(MouseEvent evt) {
 		switch (evt.getButton()){
@@ -53,6 +58,12 @@ public class MouseListener extends MouseAdapter {
 		}
 	}
 
+	
+	/**
+	 * Invoked when the mouse cursor has been moved onto a component but 
+	 * no buttons have been pushed.
+	 */
+	@Override
 	public void mouseMoved(MouseEvent evt) {
 		Point p = coordinates(evt);
 		if (p != null) {
@@ -65,6 +76,12 @@ public class MouseListener extends MouseAdapter {
 
 	}
 
+	/**
+	 * Invoked by mouseClicked to determine the point whose coordinates a those
+	 * of mouse cursor
+	 * @return A point whose coordinates are those of the mouse.
+	 * @see view.MouseListenr#mouseClicked(MouseEvent)
+	 */
 	private Point coordinates(MouseEvent evt) {
 		MouseEvent e = SwingUtilities.convertMouseEvent(window, evt, graphicalView);
 		int x = Math.round(e.getX());
