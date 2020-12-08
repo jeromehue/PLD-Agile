@@ -22,8 +22,8 @@ public class Point {
 	 * Because of the Design Pattern FlyWeight, the instances of Point
 	 * are created by a PointFactory.
 	 * 
-	 * @param x coordinate on the x axis
-	 * @param y coordinate on the y axis
+	 * @param x Coordinate on the x axis.
+	 * @param y Coordinate on the y axis.
 	 */
 	protected Point(int x, int y) { 
 		this.x = x;
@@ -31,32 +31,32 @@ public class Point {
 	}
 
 	/**
-	 * @return the new coordinates corresponding to a translation of this point.
+	 * @return The new coordinates corresponding to a translation of this point.
 
-	 * @param deltaX the number of unit moves on the x-axis
-	 * @param deltaY the number of unit moves on the y-axis
+	 * @param deltaX The number of unit moves on the x axis.
+	 * @param deltaY The number of unit moves on the y axis.
 	 */
 	public Point move(int deltaX, int deltaY) {
 		return PointFactory.createPoint(x + deltaX, y + deltaY);
 	}
 
 	/**
-	 * Computes the Euclidian distance between this Point and another
+	 * Computes the Euclidian distance between this Point and another.
 	 * 
-	 * @param p a Point
-	 * @return the distance between this Point and p
+	 * @param p A Point.
+	 * @return The distance between this Point and p.
 	 */
 	public int distance(Point p) {
 		return (int) (Math.sqrt((x - p.getX()) * (x - p.getX()) + (double) (y - p.getY()) * (y - p.getY())));
 	}
 
 	/**
-	 * Computes the Euclidian distance between this Point and another (as coordinates)
+	 * Computes the Euclidian distance between this Point and another (as coordinates).
 	 * 
-	 * @param x1 coordinate on the x axis
-	 * @param y1 coordinate on the y axis
+	 * @param x1 Coordinate on the x axis.
+	 * @param y1 Coordinate on the y axis.
 	 * 
-	 * @return the distance between this Point and the coordinates
+	 * @return The distance between this Point and the coordinates.
 	 */
 	public int distanceWithCoordinates(int x1, int y1) {
 		return (int) (Math.sqrt((x - x1) * (x - x1) + (double) (y - y1) * (y - y1)));
@@ -64,11 +64,12 @@ public class Point {
 
 	/**
 	 * Allows to know if this Point is in a rectangle of known coordinates.
-	 * @param x1 one edge of the box
-	 * @param y1 one edge of the box
-	 * @param x2 one edge of the box
-	 * @param y2 one edge of the box
-	 * @return true if this Point is in the rectangle, else false
+	 * 
+	 * @param x1 One edge of the box.
+	 * @param y1 One edge of the box.
+	 * @param x2 One edge of the box.
+	 * @param y2 One edge of the box.
+	 * @return True if this Point is in the rectangle, else false.
 	 */
 	public boolean inBox(int x1, int y1, int x2, int y2) {
 		int x = this.getX();
@@ -94,11 +95,19 @@ public class Point {
 		return ( (x <= maxX && x >= minX) && (y <= maxY && y >= minY) );
 	}
 
+	/**
+	 * Computes the minimal distance between this Point (named A)
+	 * and a segment [BC] whose associated two Points are passed as parameters
+	 * (named B and C).
+	 * The orthogonal projection of this point on the segment is named D. 
+	 * 
+	 * @param x1 X coordinate of the first point of the segment.
+	 * @param y1 Y coordinate of the first point of the segment.
+	 * @param x2 X coordinate of the second point of the segment.
+	 * @param y2 Y coordinate of the second point of the segment.
+	 * @return
+	 */
 	public float distBetweenPointAndLine(int x1, int y1, int x2, int y2) {
-		// A - the standalone point (x, y)
-		// B - start point of the line segment (x1, y1)
-		// C - end point of the line segment (x2, y2)
-		// D - the crossing point between line from A to BC
 
 		int x = this.getX();
 		int y = this.getY();
@@ -118,7 +127,16 @@ public class Point {
 		float AD = (2 * area) / BC;
 		return AD;
 	}
-
+	
+	/**
+	 * Calculates the distance bet
+	 * 
+	 * @param x
+	 * @param y
+	 * @param x1
+	 * @param y1
+	 * @return
+	 */
 	private static float distBetween(int x, int y, int x1, int y1) {
 		float xx = (float) x1 - x;
 		float yy = (float) y1 - y;
@@ -126,10 +144,20 @@ public class Point {
 		return (float) Math.sqrt(xx * xx + yy * yy);
 	}
 
+	/**
+	 * Default getter.
+	 * 
+	 * @return The x coordinate of this Point.
+	 */
 	public int getX() {
 		return x;
 	}
 
+	/**
+	 * Default getter.
+	 * 
+	 * @return The y coordinate of this Point.
+	 */
 	public int getY() {
 		return y;
 	}
