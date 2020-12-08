@@ -43,7 +43,7 @@ public class AddRequestState implements State {
 			}
 			if (iclosest != null) {
 				graphicalView.setHighlightInter(iclosest);
-				w.setMessage("truc");
+				w.setMessage("Select the pickup point");
 			}
 		}
 	}
