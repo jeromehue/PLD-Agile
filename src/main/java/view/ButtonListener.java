@@ -52,6 +52,10 @@ public class ButtonListener implements ActionListener {
 				logger.info("Click on MODIFY_TOUR button");
 				controller.modifyTour();
 				break;
+			case Window.QUIT_TOUR_EDITION:
+				logger.info("Click on MODIFY_TOUR button");
+				controller.modifyTour();
+				break;
 			case Window.EXIT_MODIFY_TOUR:
 				logger.info("Click on EXIT_MODIFY_TOUR button");
 				controller.modifyTour();

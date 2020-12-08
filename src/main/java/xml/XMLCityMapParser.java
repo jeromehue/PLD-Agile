@@ -22,10 +22,22 @@ import modele.*;
 
 public class XMLCityMapParser extends XMLParser {
 
+	/**
+	 * @param filename
+	 */
 	public XMLCityMapParser(String filename) {
 		super(filename);
 	}
 
+	/**
+	 * Parse an XML file and return a map
+	 * 
+	 * @return the citymap that was parsed from the XML file
+	 * @throws ParserConfigurationException
+	 * @throws IOException
+	 * @throws SAXException
+	 * @throws InvalidMapException
+	 */
 	public CityMap parse() throws ParserConfigurationException, IOException, SAXException, InvalidMapException {
 
 		List<Intersection> intersections = new ArrayList<Intersection>();
