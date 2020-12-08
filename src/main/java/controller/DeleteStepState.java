@@ -8,6 +8,11 @@ import modele.Tour;
 import modele.Way;
 import view.Window;
 
+/**
+ * State reached after a click on 'Delete a request ' button.
+ * @author H4414
+ */
+
 public class DeleteStepState implements State {
 
 	@Override

@@ -20,6 +20,10 @@ import xml.InvalidRequestException;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
+/**
+ * State reached from InitState when a map is loaded.
+ * @author H4414
+ */
 public class MapLoadedState implements State {
 
 	private static final Logger logger = LoggerFactory.getLogger(XMLRequestParser.class);

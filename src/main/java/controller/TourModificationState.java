@@ -11,6 +11,12 @@ import modele.Way;
 import view.GraphicalView;
 import view.Window;
 
+
+/**
+ * State reached when clicking on the 'Edit-> Enter the tour edition mode' 
+ * button, or after a modification is successfully performed.
+ * @author H4414
+ */
 public class TourModificationState implements State {
 
 	@Override
@@ -24,14 +30,10 @@ public class TourModificationState implements State {
 		c.setCurrentstate(c.orderModificationState);
 	}
 
+	@Override
 	public void addRequest(Controller c, Window w) {
 		w.setMessage("Select the pickup intersection on the map");
 		c.setCurrentstate(c.addRequestState);
-		//Tour addRequest (Tour tour, Intersection pickup, Intersection delivery, Integer pickUpDuration, Integer deliveryDuration,
-		//Integer pickupIndex, Integer deliveryIndex)
-		// Tour addRequest (Tour tour, Intersection pickup, Intersection delivery,
-		// Integer pickUpDuration, Integer deliveryDuration,
-		// Integer pickupIndex, Integer deliveryIndex)
 	}
 
 	@Override

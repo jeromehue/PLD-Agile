@@ -15,6 +15,10 @@ import xml.InvalidMapException;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
+/**
+ * Initial state, left as soon as a map is loaded.
+ * @author H4414
+ * */
 public class InitState implements State {
 
 	private static final Logger logger = LoggerFactory.getLogger(XMLRequestParser.class);
@@ -57,6 +61,7 @@ public class InitState implements State {
 		w.setMessage("Before trying to compute a tour, please load a map and a requests file.");
 	}
 
+	@Override
 	public void modifyTour(Controller c, Window w) {
 		w.setMessage("Before trying to modify a tour, please load a map and a requests file, then compute the Tour");
 	}

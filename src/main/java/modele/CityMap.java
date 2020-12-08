@@ -62,7 +62,7 @@ public class CityMap {
 
 	/**
 	 * Initializes the coordinates on the window of all intersections
-	 * @param graphicalView
+	 * @param graphicalView 
 	 */
 	public void setIntersectionCordinates(GraphicalView graphicalView) {
 		PointFactory.initPointFactory(graphicalView, this);
