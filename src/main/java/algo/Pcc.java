@@ -238,9 +238,6 @@ public class Pcc {
 
 		TSP1 tsp = new TSP1(graph, request, 100);
 
-		tsp.init();
-		System.out.println("okay TSP init");
-
 		long startTime = System.currentTimeMillis();
 		tsp.searchSolution(40000);
 		System.out.print("Solution of cost " + tsp.getSolutionCost() + " found in "
