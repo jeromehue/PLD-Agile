@@ -13,6 +13,7 @@ import algo.Pcc;
 import modele.CityMap;
 import modele.Request;
 import modele.Segment;
+import modele.Tour;
 import modele.Way;
 import modele.Intersection;
 import xml.XMLCityMapParser;
@@ -153,9 +154,65 @@ class TestPcc {
 		
 		Pcc pcc = new Pcc(city, request);
 		pcc.computePcc();
-		//Intersection start = new Intersection(null, 0.0, 0.0, null);
-		//Intersection finish = new Intersection(null, 0.0, 0.0, null);
-		//List<Way> list = pcc.getRoads(start, finish);
+
+		//Tour t = pcc.computeGooodTSPTour();
+		System.out.print(request.getStartingLocation().getId()+" - ");
+		for(Intersection inter : request.getDeliveryLocations()) {
+			System.out.print(inter.getId()+" - ");
+		}
+		for(Intersection inter : request.getPickUpLocations()) {
+			System.out.print(inter.getId()+" - ");
+		}
+		
+		boolean sameName = true;
+		Intersection start = new Intersection(342873658L, 0.0,0.0,null);
+		Intersection finish = new Intersection(25173820L, 0.0,0.0,null);
+		List<Segment> listToCompare = pcc.getRoads(start, finish);
+		List<String> nameList = new ArrayList<String>();
+		
+		nameList.add("Rue Richelieu");
+		nameList.add("Rue Richelieu");
+		nameList.add("Rue Richelieu");
+		nameList.add("");
+		nameList.add("");
+		nameList.add("Rue Richelieu");
+		
+		nameList.add("Rue Frédéric Mistral");
+		nameList.add("Rue Frédéric Mistral");
+		nameList.add("Rue Frédéric Mistral");
+		nameList.add("Rue Frédéric Mistral");
+		
+		nameList.add("Avenue Félix Faure");
+		nameList.add("Avenue Félix Faure");
+		nameList.add("Avenue Félix Faure");
+		nameList.add("Avenue Félix Faure");
+		nameList.add("Avenue Félix Faure");
+		nameList.add("Avenue Félix Faure");
+		nameList.add("Avenue Félix Faure");
+		nameList.add("Avenue Félix Faure");
+		nameList.add("Avenue Félix Faure");
+		nameList.add("Avenue Félix Faure");
+		
+		nameList.add("Rue du Général Mouton-Duvernet");
+		nameList.add("Rue du Général Mouton-Duvernet");
+		nameList.add("Rue du Général Mouton-Duvernet");
+		nameList.add("Rue du Général Mouton-Duvernet");
+		nameList.add("Rue du Général Mouton-Duvernet");
+		
+		nameList.add("Cours Albert Thomas");
+		nameList.add("");
+		nameList.add("Cours Gambetta");
+		
+		int i=0;
+		System.out.println("Affichage des rues:");
+		for(Segment s : listToCompare) {
+			System.out.println(s.getName()+" - ");
+			if(!s.getName().equals(nameList.get(i))) {
+				sameName =false;
+			}
+			i++;
+		}
+		assert(sameName);
 	}
 	
 }

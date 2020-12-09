@@ -431,7 +431,7 @@ public class Pcc {
 				list.add(w.getDeparture());
 			}
 		}
-
+		//computePcc();
 		tour.setWaysList(computeWaysList(list));
 
 		tour.updateIsPositionConsistent(intersection.getId());
