@@ -76,13 +76,14 @@ public class AddRequestState implements State {
 	}
 	
 	@Override
-	public void leftClick(Point p, Controller c, Window w) {
+	public void leftClick(Point p, ListOfCommands l, Controller c, Window w) {
 		logger.info("Clicked on the map to add intersection");
 		logger.info("Intersection : {}", w.getGraphicalView().getHighlightedIntersectionId());
-		int pickupTime = w.displaySelectTimeDialog("Enter pickup duration : ");
+		int pickupTime = w.displaySelectTimeDialog("Enter pickup duration (minutes) : ");
 		if( pickupTime < 0 ) {		// Cancel
 			return ;
 		}
+		pickupTime *= 60;
 		int nbPoints = w.getGraphicalView().getTour().getWaysList().size();
 		int pickupIndex = w.displaySelectTimeDialog("Enter delivery index : ");
 		while ( pickupIndex <= 0 || pickupIndex >=nbPoints +1 ) {
