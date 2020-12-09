@@ -338,6 +338,7 @@ public class Window extends JFrame {
         			i = Integer.parseInt(response);
         		} catch(Exception e) {
         			logger.error("Number entered is not a valid number");
+        			return -2;
         		}
     		} else  {
     			logger.info("Cancel button clicked");

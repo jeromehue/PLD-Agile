@@ -68,16 +68,19 @@ public class AddRequestState2 implements State {
 		logger.info("Intersection : {}", w.getGraphicalView().getHighlightedIntersectionId());
 		
 		int deliveryDuration = w.displaySelectTimeDialog("Enter delivery duration : ");
-		if( deliveryDuration < 0 ) {
-			return ;
+		while ( deliveryDuration < 0 ) {
+			if( deliveryDuration == -1 ) {
+				return ;
+			}
+			deliveryDuration = w.displaySelectTimeDialog("Wrong input ! Enter delivery duration : ");
 		}
 		int nbPoints = w.getGraphicalView().getTour().getWaysList().size();
 		int deliveryIndex = w.displaySelectTimeDialog("Enter delivery index : ");
 		while ( deliveryIndex <= 0 || deliveryIndex >=nbPoints +1 ) {
-			deliveryIndex = w.displaySelectTimeDialog("Bad index ! Enter delivery index : ");
 			if( deliveryIndex == -1 ) {
 				return ;
 			}
+			deliveryIndex = w.displaySelectTimeDialog("Bad index ! Enter delivery index : ");
 		}
 		if( deliveryIndex == -1 ) {
 			return ;
