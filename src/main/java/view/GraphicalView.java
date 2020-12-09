@@ -55,7 +55,6 @@ public class GraphicalView extends JPanel implements Observer {
 		this.tour.addObserver(this); // observes tour changes
 	}
 	
-	
 	public void setRequest(Request request) {
 		this.request = request;
 		this.repaint();
@@ -109,6 +108,9 @@ public class GraphicalView extends JPanel implements Observer {
 	 */
 	@Override
 	public void update(Observable observed) {
+		if (this.tour != null) {
+			this.request = this.tour.getRequest();
+		}
 		this.repaint();
 		logger.info(observed.getClass() + " object was modified: graphical view updated");
 	}
@@ -138,7 +140,7 @@ public class GraphicalView extends JPanel implements Observer {
 				if (tour != null) {
 					drawTour(graphics);
 				}
-
+				
 				drawRequest(graphics);
 
 				if (tour != null && this.highlightedWay != null) {
