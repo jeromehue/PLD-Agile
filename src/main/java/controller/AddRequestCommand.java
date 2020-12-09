@@ -13,17 +13,17 @@ public class AddRequestCommand implements Command {
 	 * @param s the shape added to p
 	 */
 	public AddRequestCommand() {
-
+		
 	}
 
 	@Override
 	public void doCommand() {
-
+		
 	}
 
 	@Override
 	public void undoCommand() {
-
+		
 	}
 
 }

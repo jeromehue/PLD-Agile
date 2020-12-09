@@ -65,7 +65,6 @@ public class CityMap {
 	 * @param graphicalView Used to create the Points containing the coordinates.
 	 */
 	public void setIntersectionCoordinates(GraphicalView graphicalView) {
-		System.out.println(getMinLatitude());
 		PointFactory.initPointFactory(graphicalView, this);
 		Iterator<Intersection> itIntersections = getIntersectionsIterator();
 		while (itIntersections.hasNext()) {

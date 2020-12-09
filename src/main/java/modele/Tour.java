@@ -60,7 +60,7 @@ public class Tour extends Observable {
 		this.isPositionConsistent = t2.getIsPositionConsistent();
 	}
 
-	public void ClearTour() {
+	public void clearTour() {
 		waysList.clear();
 		notifyObservers();
 	}
@@ -149,7 +149,7 @@ public class Tour extends Observable {
 		int index = -1;
 		int i = 0;
 		for (Way w : this.waysList) {
-			if (w.getDeparture().getId() == idIntersection) {
+			if (w.getDeparture().getId().equals(idIntersection)) {
 				index = i;
 			}
 			i++;

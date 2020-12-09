@@ -12,6 +12,9 @@ import modele.Tour;
 import modele.Way;
 import view.Window;
 
+/**
+ * Classe that call the methods defined in the State interface.
+ */
 public class Controller {
 	private static final Logger logger = LoggerFactory.getLogger(Controller.class);
 

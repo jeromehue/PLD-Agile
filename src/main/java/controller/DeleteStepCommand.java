@@ -34,12 +34,14 @@ public class DeleteStepCommand implements Command {
 		
 		Tour newTour = this.pcc.deleteStep(this.tour, this.intersection); // On modifie le tour
 		this.tour.setTour(newTour);
+		g.getCityMap().setIntersectionCoordinates(g);
 		this.tour.notifyObservers();
 	}
 
 	@Override
 	public void undoCommand() {
 		this.tour.setTour(this.oldTour);
+		g.getCityMap().setIntersectionCoordinates(g);
 		this.tour.notifyObservers();
 	}
 
