@@ -63,10 +63,9 @@ public class AddRequestState2 implements State {
 	
 	
 	@Override
-	public void leftClick(Point p, Controller c, Window w) {
+	public void leftClick(Point p, ListOfCommands l, Controller c, Window w) {
 		logger.info("Clicked on the map to delivery intersection");
 		logger.info("Intersection : {}", w.getGraphicalView().getHighlightedIntersectionId());
-		
 		int deliveryDuration = w.displaySelectTimeDialog("Enter delivery duration : ");
 		while ( deliveryDuration < 0 ) {
 			if( deliveryDuration == -1 ) {
@@ -74,6 +73,7 @@ public class AddRequestState2 implements State {
 			}
 			deliveryDuration = w.displaySelectTimeDialog("Wrong input ! Enter delivery duration : ");
 		}
+		deliveryDuration *= 60;
 		int nbPoints = w.getGraphicalView().getTour().getWaysList().size();
 		int deliveryIndex = w.displaySelectTimeDialog("Enter delivery index : ");
 		while ( deliveryIndex <= 0 || deliveryIndex >=nbPoints +1 ) {
@@ -95,17 +95,15 @@ public class AddRequestState2 implements State {
 		
 		Intersection pickup 	= cityMap.getIntersectionFromId(this.pickUpId);
 		Intersection delivery 	= cityMap.getIntersectionFromId(w.getGraphicalView().getHighlightedIntersectionId());
-		Integer pickUpDuration 	= this.pickUpDuration;
-		Integer pickUpIndex 	= this.pickUpIndex;
+		int pickUpDuration 	= this.pickUpDuration;
+		int  pickUpIndex 	= this.pickUpIndex;
 		
 		logger.info("pickup : {} ", pickup.getId());
 		logger.info("delivery : {}", delivery.getId());
 		
-
-		Tour newTour = shortestPathComputer.addRequest(tour, pickup, delivery, 
-				pickUpDuration, deliveryDuration, pickUpIndex, deliveryIndex);
-		tour.setTour(newTour);
-		tour.notifyObservers();
+		l.add(new AddRequestCommand(w.getGraphicalView(), shortestPathComputer, tour, pickup, delivery, 
+				pickUpDuration, deliveryDuration, pickUpIndex, deliveryIndex));
+		
 		w.getGraphicalView().setHighlightedWay(null);
 		w.setMessage("");
 		c.setCurrentstate(c.tourModificationState);

@@ -101,7 +101,7 @@ public interface State {
 	 * @param c the controller
 	 * @param w the window
 	 */
-	public default void leftClick(Point p, Controller c, Window w) {
+	public default void leftClick(Point p, ListOfCommands l, Controller c, Window w) {
 	}
 	
 	/**
