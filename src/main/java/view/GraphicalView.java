@@ -125,7 +125,7 @@ public class GraphicalView extends JPanel implements Observer {
 		super.paintComponent(graphics);
 
 		// draw white background
-		graphics.setColor(new Color(248, 255, 242));
+		graphics.setColor(new Color(255, 254, 237));
 		graphics.setStroke(new BasicStroke(1));
 		graphics.fillRect(0, 0, getWidth(), getHeight());
 
@@ -170,7 +170,7 @@ public class GraphicalView extends JPanel implements Observer {
 		// draw white rectangle in Top-Left corner
 		if (cityMap != null) {
 			graphics.setColor(new Color(248, 255, 242));
-			graphics.fillRect(0, 0, 52, 18);
+			graphics.fillRect(0, 0, 36, 18);
 		}
 	}
 	
@@ -266,30 +266,44 @@ public class GraphicalView extends JPanel implements Observer {
 		}
 		
 		int requestNumber = 0;
-		Intersection pickUpAdresseToDraw;
-		Intersection deliveryAdressToDraw;
+		Intersection pickUpAddressToDraw;
+		Intersection deliveryAddressToDraw;
 		Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
 		Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
-		while (itPickUpTest.hasNext() && itDeliveryTest.hasNext()) {
-			pickUpAdresseToDraw = itPickUpTest.next();
-			deliveryAdressToDraw = itDeliveryTest.next();
-
-			//logger.info("Pickup 	: {} ", pickUpAdresseToDraw.getId());
-			//logger.info("Delivery 	: {} ", deliveryAdressToDraw.getId());
+		while (itPickUpTest.hasNext()) {
+			pickUpAddressToDraw = itPickUpTest.next();
+			deliveryAddressToDraw = this.request.getDeliveryIntersectionFromPickUp(pickUpAddressToDraw.getId());
 			
-			Color color = new Color(pickUpAdresseToDraw.hashCode()).darker();
+			Color color = new Color(pickUpAddressToDraw.hashCode()).darker();
 			graphics.setColor(color);
 
+			String label;
 			// System.out.println(pickUpAdresseToDraw);
-			if (pickUpAdresseToDraw != null) {
-				String label = "Pick-up " + (char)(requestNumber + 65);
-				drawIntersectionSquare(graphics, pickUpAdresseToDraw, label);
+			if (pickUpAddressToDraw != null) {
+				if(deliveryAddressToDraw != null) {
+					 label = "Pick-up " + (char)(requestNumber + 65);
+				}
+				else {
+					 label = "Stand-alone Pick-up ";
+				}
+				drawIntersectionSquare(graphics, pickUpAddressToDraw, label);
 			}
-
+			
 			// System.out.println(deliveryAdressToDraw);
-			if (deliveryAdressToDraw != null) {
-				String label = "Delivery " + (char)(requestNumber + 65);
-				drawIntersectionCircle(graphics, deliveryAdressToDraw, label);
+			if (deliveryAddressToDraw != null) {
+				label = "Delivery " + (char)(requestNumber + 65);
+				drawIntersectionCircle(graphics, deliveryAddressToDraw, label);
+			}
+			++requestNumber;
+		}
+		Intersection aloneDeliveryAdressToDraw;
+		while (itDeliveryTest.hasNext()) { // draw alone delivery points
+			aloneDeliveryAdressToDraw = itDeliveryTest.next();
+			Color color = new Color(aloneDeliveryAdressToDraw.hashCode()).darker();
+			graphics.setColor(color);
+			if (aloneDeliveryAdressToDraw != null && !this.request.hasPickup(aloneDeliveryAdressToDraw.getId())) {
+				String label = "Stand-alone delivery"; //S+ (char)(requestNumber + 65);
+				drawIntersectionCircle(graphics, aloneDeliveryAdressToDraw, label);
 			}
 			++requestNumber;
 		}

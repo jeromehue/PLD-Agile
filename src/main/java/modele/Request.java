@@ -62,20 +62,18 @@ public class Request {
 		}
 	}
 	
-	// Ah c'est le constructeur par copie que j'ai ajouté
 	public Request(Request request) {
 		this.startingLocation = new Intersection(request.getStartingLocation());
 		this.startingTime = request.getStartingTime();
-		this.pickUpLocations = new ArrayList<Intersection>();
+		this.pickUpLocations = new ArrayList<>();
 		for (Intersection i : request.getPickUpLocations()) {
-			this.pickUpLocations.add( new Intersection(i) );
+			this.pickUpLocations.add(i);
 		}
 		this.deliveryLocations = new ArrayList<Intersection>();
 		for (Intersection i : request.getDeliveryLocations()) {
-			this.deliveryLocations.add( new Intersection(i) );
+			this.deliveryLocations.add(i);
 		}
 		this.durations = new HashMap<Long, Integer>(request.getDurations());
-		//this.deliveryFromPickUp = new HashMap<Long, Long>();
 		this.deliveryFromPickUp = request.getDeliveryFromPickUp();
 	}
 	
@@ -120,6 +118,16 @@ public class Request {
 	public Long getDeliveryFromPickUp(Long id) {
 		return deliveryFromPickUp.get(id);
 	}
+	
+	public Intersection getDeliveryIntersectionFromPickUp(Long id) {
+		Long deliveryId = deliveryFromPickUp.get(id);
+		for(Intersection i : deliveryLocations) {
+			if(deliveryId == i.getId()) {
+				return i;
+			}
+		}
+		return null;
+	}
 
 	public Boolean isPickUp(Long id) {
 		return (deliveryFromPickUp.get(id) != null);
@@ -127,6 +135,15 @@ public class Request {
 
 	public Boolean hasDelivery(Long id) {
 		return (deliveryFromPickUp.get(id) != null && deliveryFromPickUp.get(id) != -1);
+	}
+	
+	public Boolean hasPickup(Long id) {
+		for(Intersection i : pickUpLocations) {
+			if(this.getDeliveryFromPickUp(i.getId()) == id) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

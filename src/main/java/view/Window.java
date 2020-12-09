@@ -49,21 +49,23 @@ public class Window extends JFrame {
 	private static final Logger logger = LoggerFactory.getLogger(Window.class);
 	private static final long serialVersionUID = 1L;
 
-	protected final static Color BACKGROUND_COLOR = new Color(224, 224, 224);
+	protected static final Color BACKGROUND_COLOR = new Color(224, 224, 224);
 
 	// Buttons labels
-	protected final static String LOAD_MAP = "Load XML Map";
-	protected final static String LOAD_REQUEST = "Load XML Requests";
-	protected final static String COMPUTE_TOUR = "Compute tour";
-	protected final static String CLICK_STEP = "Display tour";
-	protected final static String MODIFY_TOUR = "Enter tour edition mode";
-	protected final static String EXIT_MODIFY_TOUR = "Exit tour edition mode";
-	protected final static String MODIFY_ORDER = "Change order";
-	protected final static String ADD_REQUEST = "Add a request";
-	protected final static String REMOVE_REQUEST = "Delete a step";
-	protected final static String UNDO = "<html><strong>Undo<html/><strong/>";
-	protected final static String REDO = "<html><strong>Redo<html/><strong/>";
-	protected final static String QUIT_TOUR_EDITION = " ";
+	protected static final  String LOAD_MAP = "Load XML Map";
+	protected static final  String LOAD_REQUEST = "Load XML Requests";
+	protected static final  String COMPUTE_TOUR = "Compute tour";
+	protected static final  String CLICK_STEP = "Display tour";
+	protected static final  String MODIFY_TOUR = "Enter tour edition mode";
+	protected static final  String EXIT_MODIFY_TOUR = "Exit tour edition mode";
+	protected static final  String MODIFY_ORDER = "Change order";
+	protected static final  String ADD_REQUEST = "Add a request";
+	protected static final  String REMOVE_REQUEST = "Delete a step";
+	protected static final  String UNDO = "<html><strong>Undo<html/><strong/>";
+	protected static final  String REDO = "<html><strong>Redo<html/><strong/>";
+	protected static final  String QUIT_TOUR_EDITION = " ";
+	
+	
 	
 	private String HEADER_TEXT = "PLD-AGILE 4IF-H4414 - "
 									+ "Quentin Regaud - "
@@ -107,7 +109,7 @@ public class Window extends JFrame {
 		this.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 
 		this.optionalsButtonsVisible = false;
-		optionalsButtons = new ArrayList<JButton>();
+		optionalsButtons = new ArrayList<>();
 		try { UIManager.setLookAndFeel(new NimbusLookAndFeel()); } catch (Exception e) {}
 
 		JPanel contentPane = (JPanel) getContentPane();
@@ -336,6 +338,7 @@ public class Window extends JFrame {
         			i = Integer.parseInt(response);
         		} catch(Exception e) {
         			logger.error("Number entered is not a valid number");
+        			return -2;
         		}
     		} else  {
     			logger.info("Cancel button clicked");

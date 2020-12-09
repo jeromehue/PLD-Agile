@@ -95,7 +95,7 @@ public class Controller {
 	}
 
 	public void leftClick(Point p, Window w) {
-		currentState.leftClick(p, this, w);
+		currentState.leftClick(p, l, this, w);
 	}
 
 	public void rightClick() {
