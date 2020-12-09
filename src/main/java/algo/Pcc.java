@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import app.Main;
+
 import java.util.HashMap;
 import java.time.LocalTime;
 
@@ -23,7 +28,7 @@ import java.time.LocalTime;
  */
 
 public class Pcc {
-		
+	private static final Logger logger = LoggerFactory.getLogger(Pcc.class);	
 	/**
 	 * All the intersections gotten from CityMap.
 	 */
@@ -233,15 +238,15 @@ public class Pcc {
 	 */
 	public Tour computeGooodTSPTour() {
 		CompleteGraph graph = computePcc();
-		System.out.println("[PCC.computeTour] taille graphe : " + graph.getNbVertices());
+		logger.info("[PCC.computeTour] taille graphe : {}" ,graph.getNbVertices());
 		// TODO: remove 1000 and set a real max discrepancy
 
 		TSP1 tsp = new TSP1(graph, request, 100);
 
 		long startTime = System.currentTimeMillis();
 		tsp.searchSolution(40000);
-		System.out.print("Solution of cost " + tsp.getSolutionCost() + " found in "
-				+ (System.currentTimeMillis() - startTime) + "ms : ");
+		logger.info("Solution of cost {} found in {} ms :" , tsp.getSolutionCost(),
+			 (System.currentTimeMillis() - startTime) );
 
 		Intersection inter;
 		Long idInter;

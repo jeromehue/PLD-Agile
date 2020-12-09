@@ -25,6 +25,7 @@ public class AddRequestState implements State {
 		if (w.isOptionalsButtonsVisible()) {
 			c.setCurrentstate(c.tourModificationState);
 		} else {
+			w.setMessage("");
 			c.setCurrentstate(c.requestLoadedState);
 		}
 	}
