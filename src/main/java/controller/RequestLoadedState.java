@@ -71,12 +71,12 @@ public class RequestLoadedState implements State {
 		w.getGraphicalView().setHighlightedWay(null);
 		if (path != null) {
 			try {
+				t.clearTour();
 				XMLRequestParser p = new XMLRequestParser(path, w.getGraphicalView().getCityMap());
 				Request request = p.parse();
 				w.getGraphicalView().setRequest(request);
 				c.setCurrentstate(c.requestLoadedState);
 				w.setMessage("The requests were successfully loaded. You may now compute the tour.");
-				t.clearTour();
 			} catch (InvalidRequestException e) {
 				w.setMessage("A problem occurred while trying to load the requests file.");
 				logger.error(

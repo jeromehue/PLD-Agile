@@ -244,7 +244,7 @@ public class Pcc {
 		TSP1 tsp = new TSP1(graph, request, 100);
 
 		long startTime = System.currentTimeMillis();
-		tsp.searchSolution(40000);
+		tsp.searchSolution(4000);
 		logger.info("Solution of cost {} found in {} ms :" , tsp.getSolutionCost(),
 			 (System.currentTimeMillis() - startTime) );
 
