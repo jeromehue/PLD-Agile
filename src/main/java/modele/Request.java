@@ -120,6 +120,16 @@ public class Request {
 	public Long getDeliveryFromPickUp(Long id) {
 		return deliveryFromPickUp.get(id);
 	}
+	
+	public Intersection getDeliveryIntersectionFromPickUp(Long id) {
+		Long deliveryId = deliveryFromPickUp.get(id);
+		for(Intersection i : deliveryLocations) {
+			if(deliveryId == i.getId()) {
+				return i;
+			}
+		}
+		return null;
+	}
 
 	public Boolean isPickUp(Long id) {
 		return (deliveryFromPickUp.get(id) != null);
@@ -127,6 +137,15 @@ public class Request {
 
 	public Boolean hasDelivery(Long id) {
 		return (deliveryFromPickUp.get(id) != null && deliveryFromPickUp.get(id) != -1);
+	}
+	
+	public Boolean hasPickup(Long id) {
+		for(Intersection i : pickUpLocations) {
+			if(this.getDeliveryFromPickUp(i.getId()) == id) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

@@ -270,26 +270,42 @@ public class GraphicalView extends JPanel implements Observer {
 		Intersection deliveryAdressToDraw;
 		Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
 		Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
-		while (itPickUpTest.hasNext() && itDeliveryTest.hasNext()) {
+		while (itPickUpTest.hasNext()) {
 			pickUpAdresseToDraw = itPickUpTest.next();
-			deliveryAdressToDraw = itDeliveryTest.next();
-
+			deliveryAdressToDraw = this.request.getDeliveryIntersectionFromPickUp(pickUpAdresseToDraw.getId());
+			
 			//logger.info("Pickup 	: {} ", pickUpAdresseToDraw.getId());
 			//logger.info("Delivery 	: {} ", deliveryAdressToDraw.getId());
 			
 			Color color = new Color(pickUpAdresseToDraw.hashCode()).darker();
 			graphics.setColor(color);
-
+			String label;
 			// System.out.println(pickUpAdresseToDraw);
 			if (pickUpAdresseToDraw != null) {
-				String label = "Pick-up " + (char)(requestNumber + 65);
+				if(deliveryAdressToDraw != null) {
+					 label = "Pick-up " + (char)(requestNumber + 65);
+				}
+				else {
+					 label = "Stand-alone Pick-up ";
+				}
 				drawIntersectionSquare(graphics, pickUpAdresseToDraw, label);
 			}
-
+			
 			// System.out.println(deliveryAdressToDraw);
 			if (deliveryAdressToDraw != null) {
-				String label = "Delivery " + (char)(requestNumber + 65);
+				label = "Delivery " + (char)(requestNumber + 65);
 				drawIntersectionCircle(graphics, deliveryAdressToDraw, label);
+			}
+			++requestNumber;
+		}
+		Intersection aloneDeliveryAdressToDraw;
+		while (itDeliveryTest.hasNext()) { // draw alone delivery points
+			aloneDeliveryAdressToDraw = itDeliveryTest.next();
+			Color color = new Color(aloneDeliveryAdressToDraw.hashCode()).darker();
+			graphics.setColor(color);
+			if (aloneDeliveryAdressToDraw != null && !this.request.hasPickup(aloneDeliveryAdressToDraw.getId())) {
+				String label = "Stand-alone delivery"; //S+ (char)(requestNumber + 65);
+				drawIntersectionCircle(graphics, aloneDeliveryAdressToDraw, label);
 			}
 			++requestNumber;
 		}
