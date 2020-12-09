@@ -125,7 +125,7 @@ public class GraphicalView extends JPanel implements Observer {
 		super.paintComponent(graphics);
 
 		// draw white background
-		graphics.setColor(new Color(248, 255, 242));
+		graphics.setColor(new Color(255, 254, 237));
 		graphics.setStroke(new BasicStroke(1));
 		graphics.fillRect(0, 0, getWidth(), getHeight());
 
