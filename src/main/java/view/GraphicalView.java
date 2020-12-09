@@ -125,7 +125,7 @@ public class GraphicalView extends JPanel implements Observer {
 		super.paintComponent(graphics);
 
 		// draw white background
-		graphics.setColor(new Color(248, 255, 242));
+		graphics.setColor(new Color(255, 254, 237));
 		graphics.setStroke(new BasicStroke(1));
 		graphics.fillRect(0, 0, getWidth(), getHeight());
 
@@ -170,7 +170,7 @@ public class GraphicalView extends JPanel implements Observer {
 		// draw white rectangle in Top-Left corner
 		if (cityMap != null) {
 			graphics.setColor(new Color(248, 255, 242));
-			graphics.fillRect(0, 0, 52, 18);
+			graphics.fillRect(0, 0, 36, 18);
 		}
 	}
 	
@@ -266,35 +266,33 @@ public class GraphicalView extends JPanel implements Observer {
 		}
 		
 		int requestNumber = 0;
-		Intersection pickUpAdresseToDraw;
-		Intersection deliveryAdressToDraw;
+		Intersection pickUpAddressToDraw;
+		Intersection deliveryAddressToDraw;
 		Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
 		Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
 		while (itPickUpTest.hasNext()) {
-			pickUpAdresseToDraw = itPickUpTest.next();
-			deliveryAdressToDraw = this.request.getDeliveryIntersectionFromPickUp(pickUpAdresseToDraw.getId());
+			pickUpAddressToDraw = itPickUpTest.next();
+			deliveryAddressToDraw = this.request.getDeliveryIntersectionFromPickUp(pickUpAddressToDraw.getId());
 			
-			//logger.info("Pickup 	: {} ", pickUpAdresseToDraw.getId());
-			//logger.info("Delivery 	: {} ", deliveryAdressToDraw.getId());
-			
-			Color color = new Color(pickUpAdresseToDraw.hashCode()).darker();
+			Color color = new Color(pickUpAddressToDraw.hashCode()).darker();
 			graphics.setColor(color);
+
 			String label;
 			// System.out.println(pickUpAdresseToDraw);
-			if (pickUpAdresseToDraw != null) {
-				if(deliveryAdressToDraw != null) {
+			if (pickUpAddressToDraw != null) {
+				if(deliveryAddressToDraw != null) {
 					 label = "Pick-up " + (char)(requestNumber + 65);
 				}
 				else {
 					 label = "Stand-alone Pick-up ";
 				}
-				drawIntersectionSquare(graphics, pickUpAdresseToDraw, label);
+				drawIntersectionSquare(graphics, pickUpAddressToDraw, label);
 			}
 			
 			// System.out.println(deliveryAdressToDraw);
-			if (deliveryAdressToDraw != null) {
+			if (deliveryAddressToDraw != null) {
 				label = "Delivery " + (char)(requestNumber + 65);
-				drawIntersectionCircle(graphics, deliveryAdressToDraw, label);
+				drawIntersectionCircle(graphics, deliveryAddressToDraw, label);
 			}
 			++requestNumber;
 		}

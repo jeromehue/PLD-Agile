@@ -13,7 +13,6 @@ import algo.Pcc;
 import modele.CityMap;
 import modele.Request;
 import modele.Segment;
-import modele.Way;
 import modele.Intersection;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
@@ -58,15 +57,15 @@ class TestPcc {
 
 		Intersection passage = chemin.get(0).getOrigin();
 
-		//System.out.println("\n\nOn commence au point (" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
+		System.out.println("\n\nOn commence au point (" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
 		for (Segment s : chemin) {
 			passage = s.getDestination();
-			//System.out.print("On prend la rue : ");
-			//System.out.println(s.getName());
+			System.out.print("On prend la rue : ");
+			System.out.println(s.getName());
 
-			//System.out.println("On passe au point (" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
+			System.out.println("On passe au point (" + passage.getLatitude() + " ; " + passage.getLongitude() + ")");
 		}
-		//System.out.println();
+		System.out.println();
 
 		for (int i = 0; i < graph.getNbVertices(); ++i) {
 			for (int j = 0; j < graph.getNbVertices(); ++j) {

@@ -25,9 +25,12 @@ public class AddRequestState implements State {
 		if (w.isOptionalsButtonsVisible()) {
 			c.setCurrentstate(c.tourModificationState);
 		} else {
+			w.setMessage("");
 			c.setCurrentstate(c.requestLoadedState);
 		}
 	}
+	
+	
 	
 
 	@Override
@@ -76,20 +79,24 @@ public class AddRequestState implements State {
 	}
 	
 	@Override
-	public void leftClick(Point p, Controller c, Window w) {
+	public void leftClick(Point p, ListOfCommands l, Controller c, Window w) {
 		logger.info("Clicked on the map to add intersection");
 		logger.info("Intersection : {}", w.getGraphicalView().getHighlightedIntersectionId());
 		int pickupTime = w.displaySelectTimeDialog("Enter pickup duration : ");
-		if( pickupTime < 0 ) {		// Cancel
-			return ;
+		while ( pickupTime < 0 ) {
+			if( pickupTime == -1 ) { // Cancel button
+				return ;
+			}
+			pickupTime = w.displaySelectTimeDialog("Wrong input ! Enter pickup duration : ");
 		}
+		pickupTime *= 60;
 		int nbPoints = w.getGraphicalView().getTour().getWaysList().size();
-		int pickupIndex = w.displaySelectTimeDialog("Enter delivery index : ");
+		int pickupIndex = w.displaySelectTimeDialog("Enter pickup index : ");
 		while ( pickupIndex <= 0 || pickupIndex >=nbPoints +1 ) {
-			pickupIndex = w.displaySelectTimeDialog("Bad index ! Enter delivery index : ");
 			if( pickupIndex == -1 ) {
 				return ;
 			}
+			pickupIndex = w.displaySelectTimeDialog("Bad index ! Enter pickup index : ");
 		}
 		if( pickupIndex == -1 ) {
 			return ;

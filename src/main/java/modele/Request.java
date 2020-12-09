@@ -62,20 +62,18 @@ public class Request {
 		}
 	}
 	
-	// Ah c'est le constructeur par copie que j'ai ajouté
 	public Request(Request request) {
 		this.startingLocation = new Intersection(request.getStartingLocation());
 		this.startingTime = request.getStartingTime();
-		this.pickUpLocations = new ArrayList<Intersection>();
+		this.pickUpLocations = new ArrayList<>();
 		for (Intersection i : request.getPickUpLocations()) {
-			this.pickUpLocations.add( new Intersection(i) );
+			this.pickUpLocations.add(i);
 		}
 		this.deliveryLocations = new ArrayList<Intersection>();
 		for (Intersection i : request.getDeliveryLocations()) {
-			this.deliveryLocations.add( new Intersection(i) );
+			this.deliveryLocations.add(i);
 		}
 		this.durations = new HashMap<Long, Integer>(request.getDurations());
-		//this.deliveryFromPickUp = new HashMap<Long, Long>();
 		this.deliveryFromPickUp = request.getDeliveryFromPickUp();
 	}
 	

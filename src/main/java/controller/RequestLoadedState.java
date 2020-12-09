@@ -122,6 +122,7 @@ public class RequestLoadedState implements State {
 	public void modifyTour(Controller c, Window w) {
 		w.changeOptionalsButtonsVisibility();
 		if (w.isOptionalsButtonsVisible()) {
+			w.getGraphicalView().setHighlightedWay(null);
 			c.setCurrentstate(c.tourModificationState);
 		} else {
 			c.setCurrentstate(c.requestLoadedState);
