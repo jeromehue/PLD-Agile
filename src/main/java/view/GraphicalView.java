@@ -169,7 +169,7 @@ public class GraphicalView extends JPanel implements Observer {
 
 		// draw white rectangle in Top-Left corner
 		if (cityMap != null) {
-			graphics.setColor(Color.white);
+			graphics.setColor(new Color(248, 255, 242));
 			graphics.fillRect(0, 0, 52, 18);
 		}
 	}
