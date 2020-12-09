@@ -44,8 +44,8 @@ public class RequestLoadedState implements State {
 				CityMap cityMap = p.parse();
 				w.getGraphicalView().setCityMap(cityMap);
 				c.setCurrentstate(c.mapLoadedState);
+				t.clearTour();
 				w.getGraphicalView().setRequest(null);
-				t.ClearTour();
 			} catch (InvalidMapException e) {
 				w.setMessage("A problem occurred while trying to load the map file.");
 				logger.error("Error while trying to load the map file because the file is not correct.");
@@ -76,7 +76,7 @@ public class RequestLoadedState implements State {
 				w.getGraphicalView().setRequest(request);
 				c.setCurrentstate(c.requestLoadedState);
 				w.setMessage("The requests were successfully loaded. You may now compute the tour.");
-				t.ClearTour();
+				t.clearTour();
 			} catch (InvalidRequestException e) {
 				w.setMessage("A problem occurred while trying to load the requests file.");
 				logger.error(
