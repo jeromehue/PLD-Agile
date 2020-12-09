@@ -59,8 +59,8 @@ public class TextualView extends JPanel implements Observer {
 		this.setBackground(Window.BACKGROUND_COLOR);
 		this.tour = tour;
 		this.scrollPane = new JScrollPane(this
-				,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS
-				,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+				,javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS
+				,javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.tour.addObserver(this);
 		this.scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		this.pointsJButtonList = new ArrayList<JButton>();
@@ -87,7 +87,8 @@ public class TextualView extends JPanel implements Observer {
 		this.clearPointJButtonList();
 		this.displaySteps();
 		this.setPreferredSize(new Dimension(600, this.pointsJButtonList.size()*100));
-		logger.info(observed.getClass() + " object was modified: textual view updated");
+		logger.info("{} object was modified: textual view updated", 
+				observed.getClass());
 	}
 	
 	public JScrollPane getScrollPane() {

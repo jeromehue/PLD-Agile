@@ -66,7 +66,7 @@ public class Request {
 	public Request(Request request) {
 		this.startingLocation = new Intersection(request.getStartingLocation());
 		this.startingTime = request.getStartingTime();
-		this.pickUpLocations = new ArrayList<Intersection>();
+		this.pickUpLocations = new ArrayList<>();
 		for (Intersection i : request.getPickUpLocations()) {
 			this.pickUpLocations.add( new Intersection(i) );
 		}
@@ -75,7 +75,6 @@ public class Request {
 			this.deliveryLocations.add( new Intersection(i) );
 		}
 		this.durations = new HashMap<Long, Integer>(request.getDurations());
-		//this.deliveryFromPickUp = new HashMap<Long, Long>();
 		this.deliveryFromPickUp = request.getDeliveryFromPickUp();
 	}
 	
