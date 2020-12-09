@@ -266,24 +266,24 @@ public class GraphicalView extends JPanel implements Observer {
 		}
 		
 		int requestNumber = 0;
-		Intersection pickUpAdresseToDraw;
+		Intersection pickUpAddressToDraw;
 		Intersection deliveryAdressToDraw;
 		Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
 		Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
 		while (itPickUpTest.hasNext() && itDeliveryTest.hasNext()) {
-			pickUpAdresseToDraw = itPickUpTest.next();
+			pickUpAddressToDraw = itPickUpTest.next();
 			deliveryAdressToDraw = itDeliveryTest.next();
 
-			//logger.info("Pickup 	: {} ", pickUpAdresseToDraw.getId());
+			//logger.info("Pickup 	: {} ", pickUpAddressToDraw.getId());
 			//logger.info("Delivery 	: {} ", deliveryAdressToDraw.getId());
 			
-			Color color = new Color(pickUpAdresseToDraw.hashCode()).darker();
+			Color color = new Color(pickUpAddressToDraw.hashCode()).darker();
 			graphics.setColor(color);
 
-			// System.out.println(pickUpAdresseToDraw);
-			if (pickUpAdresseToDraw != null) {
+			// System.out.println(pickUpAddressToDraw);
+			if (pickUpAddressToDraw != null) {
 				String label = "Pick-up " + (char)(requestNumber + 65);
-				drawIntersectionSquare(graphics, pickUpAdresseToDraw, label);
+				drawIntersectionSquare(graphics, pickUpAddressToDraw, label);
 			}
 
 			// System.out.println(deliveryAdressToDraw);
