@@ -35,7 +35,7 @@ public class Request {
 	
 	/**
 	 * HashMap linking an Intersection (pick-up or delivery) to its duration
-	 * (time spent on the location).
+	 * (time spent on the location in minutes).
 	 */
 	private HashMap<Long, Integer> durations;
 	
@@ -259,10 +259,10 @@ public class Request {
 	/**
 	 * Used to add two steps to the tour (a pick-up and its corresponding delivery).
 	 * 
-	 * @param pickUp 			The pick-up point to add.
-	 * @param delivery			
-	 * @param pickUpDuration
-	 * @param deliveryDuration
+	 * @param pickUp 			The intersection corresponding to the pick-up point to add.
+	 * @param delivery			The intersection corresponding to the delivery point to add.
+	 * @param pickUpDuration	The time needed for the pick-up (in minutes).
+	 * @param deliveryDuration	The time needed for the delivery (in minutes).
 	 */
 	public void addRequest(Intersection pickUp, Intersection delivery, Integer pickUpDuration,
 			Integer deliveryDuration) {

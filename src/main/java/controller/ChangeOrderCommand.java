@@ -11,7 +11,6 @@ public class ChangeOrderCommand implements Command {
 	private Tour tour;
 	private Intersection intersection;
 	private int offset;
-	private GraphicalView g;
 
 	/**
 	 * Create the command which adds the shape s to the plan p
@@ -24,7 +23,6 @@ public class ChangeOrderCommand implements Command {
 		this.tour = g.getTour();
 		this.intersection = i;
 		this.offset = offset;
-		this.g = g;
 	}
 
 	@Override
