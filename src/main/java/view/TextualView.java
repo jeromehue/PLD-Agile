@@ -107,7 +107,7 @@ public class TextualView extends JPanel implements Observer {
 		int labelHeight = 15;
 		int labelWidth = this.width - 100;
 		label.setVisible(false);
-		label.setForeground(Color.red);
+		label.setForeground(Color.blue);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setPreferredSize(new Dimension(labelWidth,labelHeight));
 		return label;
