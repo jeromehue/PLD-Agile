@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /**
- * This class stores all the informations given by the user concerning the tour.
- * 
+ * This class stores all the informations given by the user concerning the tour
+ * before the tour is computed to be optimal.
  * 
  * @author H4414
  * 
