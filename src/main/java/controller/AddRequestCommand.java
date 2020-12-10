@@ -34,6 +34,9 @@ public class AddRequestCommand implements Command {
 		this.g = g;
 	}
 
+	/**
+	 * Allow to use redo command
+	 */
 	@Override
 	public void doCommand() {
 		this.oldTour = new Tour(this.tour);
@@ -47,6 +50,9 @@ public class AddRequestCommand implements Command {
 		this.tour.notifyObservers();
 	}
 
+	/**
+	 * Allow to use undo command
+	 */
 	@Override
 	public void undoCommand() {
 		this.tour.setTour(this.oldTour);

@@ -27,6 +27,9 @@ public class DeleteStepCommand implements Command {
 	}
 
 	@Override
+	/*
+	 * Allow the redo command.
+	 */
 	public void doCommand() {
 		this.oldTour = new Tour(this.tour); // Copie du tour (contenant le step)
 		this.oldTour.setTour(this.oldTour);
@@ -39,6 +42,9 @@ public class DeleteStepCommand implements Command {
 	}
 
 	@Override
+	/**
+	 * Allow the undo method.
+	 */
 	public void undoCommand() {
 		this.tour.setTour(this.oldTour);
 		g.getCityMap().setIntersectionCoordinates(g);

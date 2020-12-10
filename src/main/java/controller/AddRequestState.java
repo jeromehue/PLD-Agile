@@ -20,6 +20,9 @@ public class AddRequestState implements State {
 	private static final Logger logger = LoggerFactory.getLogger(AddRequestState.class);
 	
 	@Override
+	/**
+	 * Change the state of the application
+	 */
 	public void modifyTour(Controller c, Window w) {
 		w.changeOptionalsButtonsVisibility();
 		if (w.isOptionalsButtonsVisible()) {
@@ -29,11 +32,12 @@ public class AddRequestState implements State {
 			c.setCurrentstate(c.requestLoadedState);
 		}
 	}
-	
-	
-	
 
 	@Override
+	/**
+	 * Higlight the point closest to the mouse before the selection of a pickup point.
+	 * 
+	 */
 	public void mouseMoved(Controller c, Window w, Point p) {
 		GraphicalView graphicalView = w.getGraphicalView();
 		if( graphicalView.getCityMap() != null ) {
@@ -79,6 +83,9 @@ public class AddRequestState implements State {
 	}
 	
 	@Override
+	/**
+	 * Select a pickup point.
+	 */
 	public void leftClick(Point p, ListOfCommands l, Controller c, Window w) {
 		logger.info("Clicked on the map to add intersection");
 		logger.info("Intersection : {}", w.getGraphicalView().getHighlightedIntersectionId());

@@ -22,11 +22,23 @@ import view.Window;
 public class AddRequestState2 implements State {
 	private static final Logger logger = LoggerFactory.getLogger(AddRequestState2.class);
 	
+	/**
+	 * Pick up id.
+	 */
 	private Long pickUpId;
+	/**
+	 * Time spent a the pick up point.
+	 */
 	private int pickUpDuration;
+	/**
+	 * Index of the pick up point in the Tour.
+	 */
 	private int pickUpIndex;
 	
 	@Override
+	/**
+	 * Changes the state of the application.
+	 */
 	public void modifyTour(Controller c, Window w) {
 		w.changeOptionalsButtonsVisibility();
 		if (w.isOptionalsButtonsVisible()) {
@@ -38,6 +50,10 @@ public class AddRequestState2 implements State {
 	}
 	
 	@Override
+	/**
+	 * Higlight the point closest to the mouse before the selection of a delivery point..
+	 * 
+	 */
 	public void mouseMoved(Controller c, Window w, Point p) {
 		GraphicalView graphicalView = w.getGraphicalView();
 		if( graphicalView.getCityMap() != null ) {
@@ -64,6 +80,9 @@ public class AddRequestState2 implements State {
 	
 	
 	@Override
+	/**
+	 * Select a delivery point.
+	 */
 	public void leftClick(Point p, ListOfCommands l, Controller c, Window w) {
 		logger.info("Clicked on the map to delivery intersection");
 		logger.info("Intersection : {}", w.getGraphicalView().getHighlightedIntersectionId());

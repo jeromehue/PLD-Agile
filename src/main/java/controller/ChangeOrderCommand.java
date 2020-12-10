@@ -26,6 +26,9 @@ public class ChangeOrderCommand implements Command {
 	}
 
 	@Override
+	/**
+	 * Allow redo command
+	 */
 	public void doCommand() {
 		this.pcc.changeOrder(tour, intersection, offset);
 		tour.setTour(tour);
@@ -33,6 +36,9 @@ public class ChangeOrderCommand implements Command {
 	}
 
 	@Override
+	/**
+	 * Allow undo command.
+	 */
 	public void undoCommand() {
 		this.pcc.changeOrder(tour, intersection, -offset);
 		tour.setTour(tour);
