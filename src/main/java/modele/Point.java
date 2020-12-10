@@ -4,6 +4,7 @@ package modele;
  * This class contains the coordinates (x,y) of a pixel on the window.
  * Only the part of the window where the map is displayed is concerned. 
  * A Point can be added to an Intersection if their locations coincide. 
+ * 
  * @author H4414
  *
  */

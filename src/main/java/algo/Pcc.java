@@ -14,8 +14,6 @@ import java.util.PriorityQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import app.Main;
-
 import java.util.HashMap;
 import java.time.LocalTime;
 
@@ -244,7 +242,7 @@ public class Pcc {
 		TSP1 tsp = new TSP1(graph, request, 100);
 
 		long startTime = System.currentTimeMillis();
-		tsp.searchSolution(40000);
+		tsp.searchSolution(4000);
 		logger.info("Solution of cost {} found in {} ms :" , tsp.getSolutionCost(),
 			 (System.currentTimeMillis() - startTime) );
 
