@@ -45,28 +45,70 @@ import modele.PointFactory;
 
 
 public class Window extends JFrame {
-
+	/**
+	 * The logger instance, used to log relevant information to the console.
+	 */
 	private static final Logger logger = LoggerFactory.getLogger(Window.class);
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Define the background color
+	 */
 	protected static final Color BACKGROUND_COLOR = new Color(224, 224, 224);
 
 	// Buttons labels
+	/**
+	 * String we display in the button to load a XML Map.
+	 */
 	protected static final  String LOAD_MAP = "Load XML Map";
+	/**
+	 * String we display in the button to load a XML Request.
+	 */
 	protected static final  String LOAD_REQUEST = "Load XML Requests";
+	/**
+	 * String we display in the button to compute a XML Tour.
+	 */
 	protected static final  String COMPUTE_TOUR = "Compute tour";
+	/**
+	 * String we display in the button to display tour.
+	 */
 	protected static final  String CLICK_STEP = "Display tour";
+	/**
+	 * String we display in the button to enter tour edition mode.
+	 */
 	protected static final  String MODIFY_TOUR = "Enter tour edition mode";
+	/**
+	 * String we display in the button to exit tour edition mode.
+	 */
 	protected static final  String EXIT_MODIFY_TOUR = "Exit tour edition mode";
+	/**
+	 * String we display in the button to change the order.
+	 */
 	protected static final  String MODIFY_ORDER = "Change order";
+	/**
+	 * String we display in the button to add a request.
+	 */
 	protected static final  String ADD_REQUEST = "Add a request";
+	/**
+	 * String we display in the button to delete a step.
+	 */
 	protected static final  String REMOVE_REQUEST = "Delete a step";
-	protected static final  String UNDO = "<html><strong>Undo<html/><strong/>";
+	/**
+	 * String we display in the button to undo the action.
+	 */
+	protected static final  String UNDO = "<html><strong>Undo<html/><strong/>";/**
+	 * String we display in the button to redo the action.
+	 */
 	protected static final  String REDO = "<html><strong>Redo<html/><strong/>";
+	/**
+	 * String we display in the button to quit the tour edition.
+	 */
 	protected static final  String QUIT_TOUR_EDITION = " ";
 	
 	
-	
+	/**
+	 * Display the authorts of the application
+	 */
 	private String HEADER_TEXT = "PLD-AGILE 4IF-H4414 - "
 									+ "Quentin Regaud - "
 									+ "Sylvain de Verclos - "
@@ -77,19 +119,51 @@ public class Window extends JFrame {
 									+ "2020 ";
 
 	// Components
+	/**
+	 * The graphical view we display
+	 */
 	private GraphicalView graphicalView;
+	/**
+	 * Left part of the pannel where we writte inforamtions about the tour.
+	 */
 	private TextualView textualView;
+	/**
+	 * Spot where we display messages to help the user.
+	 */
 	private JLabel messageFrame;
+	/**
+	 * Displays the name of the street which is highlighted
+	 */
 	private JLabel streetFrame;
+	/**
+	 * Spot where we display the authors
+	 */
 	private JLabel bottomBar;
+	/**
+	 * Bar which appears when we enter in the edition mode
+	 */
 	private JToolBar toolBar;
+	/**
+	 * Lis of the buttons in the tool bar.
+	 */
 	private ArrayList<JButton> optionalsButtons;
+	/**
+	 * Button with a text which can change, depending the mode
+	 */
 	private JMenuItem switchmode;
 	
 	// Listeners
+	/**
+	 * Listen when a button is clicked
+	 */
 	private ButtonListener buttonListener;
+	/**
+	 * Listen when the mouse is moving
+	 */
 	private MouseListener mouseListener;
-	
+	/**
+	 * To know if the optionals buttons are visible.
+	 */
 	private boolean optionalsButtonsVisible;
 	
 	/**
