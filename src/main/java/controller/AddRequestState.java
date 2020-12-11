@@ -40,7 +40,7 @@ public class AddRequestState implements State {
 
 	@Override
 	/**
-	 * Higlight the point closest to the mouse before the selection of a pickup
+	 * Highlight the point closest to the mouse before the selection of a pickup
 	 * point.
 	 * 
 	 */

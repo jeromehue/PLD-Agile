@@ -87,7 +87,7 @@ public class Window extends JFrame {
 	 * Create a window with menu bar, a graphical zone to display the map, the
 	 * request and the tour, a frame for displaying messages, a textual zone for
 	 * describing steps of the tour, and listeners which catch events and forward
-	 * them to controller
+	 * them to controller.
 	 * 
 	 * @param tour       the tour
 	 * @param controller the controller
@@ -157,7 +157,7 @@ public class Window extends JFrame {
 	}
 
 	/**
-	 * Return true if Optionals buttons are visible, wich means that we are in the
+	 * Return true if Optionals buttons are visible, which means that we are in the
 	 * 'Tour Modification' mode.
 	 * 
 	 * @return A boolean variable indicating the visibility of the optional buttons.
@@ -213,9 +213,9 @@ public class Window extends JFrame {
 	/**
 	 * Method called to create a button of the menu bar.
 	 * 
-	 * @param foregroundColor The foreground color of the Jbutton.
-	 * @param label           The label of the Jbutton.
-	 * @return The Jbutton created
+	 * @param foregroundColor The foreground color of the JButton.
+	 * @param label           The label of the JButton.
+	 * @return The JButton created
 	 */
 	private JButton createButton(Color foregroundColor, String label) {
 		JButton createdButton = new JButton(label);

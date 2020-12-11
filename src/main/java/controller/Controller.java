@@ -13,7 +13,7 @@ import modele.Way;
 import view.Window;
 
 /**
- * Classe that call the methods defined in the State interface.
+ * Class that call the methods defined in the State interface.
  */
 public class Controller {
 
@@ -105,7 +105,7 @@ public class Controller {
 	}
 
 	/**
-	 * Swtiches the order of two steps in the tour.
+	 * Switches the order of two steps in the tour.
 	 */
 	public void modifyOrder() {
 		currentState.modifyOrder(this, this.window);
@@ -157,7 +157,7 @@ public class Controller {
 	}
 
 	/**
-	 * Method called when a left clicked has occured on the graphical view.
+	 * Method called when a left clicked has occurred on the graphical view.
 	 * 
 	 * @param p The Point object representing the mouse position
 	 * @param w The window instance
@@ -167,7 +167,7 @@ public class Controller {
 	}
 
 	/**
-	 * Method called when a right clicked has occured on the graphical view.
+	 * Method called when a right clicked has occurred on the graphical view.
 	 * 
 	 * @param p The Point object representing the mouse position
 	 * @param w The window instance
