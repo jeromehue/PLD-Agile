@@ -6,13 +6,46 @@ import modele.Tour;
 import view.GraphicalView;
 
 public class AddRequestCommand implements Command {
-
+	/**
+	 *  The graphical view displayed
+	 */
 	private GraphicalView g;
+	/**
+	 * Contains all the shortest ways between intersection and delivery points
+	 */
 	private Pcc pcc;
-
-	private Tour oldTour, tour;
-	private Intersection pickup, delivery;
-	private int pickUpDuration, deliveryDuration, pickUpIndex, deliveryIndex;
+	/**
+	 * Tour we save to the undo method
+	 */
+	private Tour oldTour;
+	/**
+	 * Current tour.
+	 */
+	private Tour tour;
+	/**
+	 * The pick up intersection to add to the request
+	 */
+	private Intersection pickup;
+	/**
+	 * The delivery intersection to add to the request
+	 */
+	private Intersection delivery;
+	/**
+	 * The duration to pick up the package
+	 */
+	private int pickUpDuration;
+	/**
+	 * The duration deliver the package
+	 */
+	private int deliveryDuration;
+	/**
+	 * The index of the pick up point
+	 */
+	private int pickUpIndex;
+	/**
+	 * The index of the delivery point
+	 */
+	private int deliveryIndex;
 
 	/**
 	 * Create the command which adds the shape s to the plan p
@@ -22,8 +55,8 @@ public class AddRequestCommand implements Command {
 	 * @param tour the tour to which we add a request
 	 * @param pickup the pickup intersection we add to the tour
 	 * @param delivery the delivery intersection we add to the tour
-	 * @param pickUpDuration the duration to pick up the 
-	 * @param deliveryDuration the duration to delivers the
+	 * @param pickUpDuration the duration to pick up the package
+	 * @param deliveryDuration the duration to delivers the package
 	 * @param pickUpIndex the index of the pick up point
 	 * @param deliveryIndex the index of the delivery point
 	 */
@@ -41,9 +74,7 @@ public class AddRequestCommand implements Command {
 		this.g = g;
 	}
 
-	/**
-	 * Allow to use redo command
-	 */
+	
 	@Override
 	public void doCommand() {
 		this.oldTour = new Tour(this.tour);
@@ -57,9 +88,7 @@ public class AddRequestCommand implements Command {
 		this.tour.notifyObservers();
 	}
 
-	/**
-	 * Allow to use undo command
-	 */
+	
 	@Override
 	public void undoCommand() {
 		this.tour.setTour(this.oldTour);

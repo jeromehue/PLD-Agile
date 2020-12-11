@@ -6,10 +6,25 @@ import modele.Tour;
 import view.GraphicalView;
 
 public class DeleteStepCommand implements Command {
-
+	/**
+	 * Contains all the shortest ways between intersection and delivery points
+	 */
 	private Pcc pcc;
-	private Tour oldTour, tour;
+	/**
+	 * Tour we save to the undo method
+	 */
+	private Tour oldTour;
+	/**
+	 * The pick up intersection to add to the request
+	 */
+	private Tour tour;
+	/**
+	 * Intersection to delete in the tour
+	 */
 	private Intersection intersection;
+	/**
+	 *  The graphical view displayed
+	 */
 	private GraphicalView g;
 
 	/**
@@ -29,9 +44,6 @@ public class DeleteStepCommand implements Command {
 	}
 
 	@Override
-	/*
-	 * Allow the redo command.
-	 */
 	public void doCommand() {
 		this.oldTour = new Tour(this.tour); // Copie du tour (contenant le step)
 		this.oldTour.setTour(this.oldTour);
@@ -44,9 +56,6 @@ public class DeleteStepCommand implements Command {
 	}
 
 	@Override
-	/**
-	 * Allow the undo method.
-	 */
 	public void undoCommand() {
 		this.tour.setTour(this.oldTour);
 		g.getCityMap().setIntersectionCoordinates(g);

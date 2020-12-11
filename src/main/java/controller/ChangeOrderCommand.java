@@ -7,9 +7,21 @@ import view.GraphicalView;
 
 public class ChangeOrderCommand implements Command {
 
+	/**
+	 * Contains all the shortest ways between intersection and delivery points.
+	 */
 	private Pcc pcc;
+	/**
+	 * The current tour.
+	 */
 	private Tour tour;
+	/**
+	 * The intersection which changes its order
+	 */
 	private Intersection intersection;
+	/**
+	 * Offset the shift of the intersection in the tour
+	 */
 	private int offset;
 
 	/**
