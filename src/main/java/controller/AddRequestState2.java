@@ -71,7 +71,6 @@ public class AddRequestState2 implements State {
 				int distance = p.distanceWithCoordinates(i.getCoordinates().getX(), i.getCoordinates().getY());
 				if (distance < mindist) {
 					mindist = distance;
-					// System.out.println("distance : " +distance);
 					iclosest = i;
 					if (mindist < floor)
 						break;
@@ -132,9 +131,15 @@ public class AddRequestState2 implements State {
 		w.getGraphicalView().setHighlightedWay(null);
 		w.setMessage("");
 		c.setCurrentstate(c.tourModificationState);
-
 	}
 
+	/**
+	 * Sets variables before entering the AddRequestState2.
+	 * 
+	 * @param pickUpId       A pick-up intersection id
+	 * @param pickUpDuration The time it takes to pick-up, in minutes
+	 * @param pickUpIndex    The index for which to set the pick-up intersection
+	 */
 	protected void enterAction(Long pickUpId, Integer pickUpDuration, Integer pickUpIndex) {
 		this.pickUpId = pickUpId;
 		this.pickUpDuration = pickUpDuration;
