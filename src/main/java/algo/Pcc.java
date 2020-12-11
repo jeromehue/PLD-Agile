@@ -239,10 +239,10 @@ public class Pcc {
 		logger.info("[PCC.computeTour] taille graphe : {}" ,graph.getNbVertices());
 		// TODO: remove 1000 and set a real max discrepancy
 
-		TSP1 tsp = new TSP1(graph, request, 100);
+		TSP1 tsp = new TSP1(graph, request, 200);
 
 		long startTime = System.currentTimeMillis();
-		tsp.searchSolution(4000);
+		tsp.searchSolution(1000000);
 		logger.info("Solution of cost {} found in {} ms :" , tsp.getSolutionCost(),
 			 (System.currentTimeMillis() - startTime) );
 
