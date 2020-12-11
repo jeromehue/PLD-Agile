@@ -136,7 +136,7 @@ public class TextualView extends JPanel implements Observer {
 	/**
 	 * Method called to set the scroll pane.
 	 * 
-	 * @param The scrollPane to set. 
+	 * @param scrollPane The scrollPane to set. 
 	 */
 	public void setScrollPane(JScrollPane scrollPane) {
 		this.scrollPane = scrollPane;

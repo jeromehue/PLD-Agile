@@ -106,7 +106,7 @@ public class Window extends JFrame {
 	
 	
 	/**
-	 * Display the authorts of the application
+	 * Display the authors of the application
 	 */
 	private String HEADER_TEXT = "PLD-AGILE 4IF-H4414 - "
 									+ "Quentin Regaud - "
@@ -123,7 +123,7 @@ public class Window extends JFrame {
 	 */
 	private GraphicalView graphicalView;
 	/**
-	 * Left part of the pannel where we writte inforamtions about the tour.
+	 * Left part of the panel where we write informations about the tour.
 	 */
 	private TextualView textualView;
 	/**
@@ -143,7 +143,7 @@ public class Window extends JFrame {
 	 */
 	private JToolBar toolBar;
 	/**
-	 * Lis of the buttons in the tool bar.
+	 * List of the buttons in the tool bar.
 	 */
 	private ArrayList<JButton> optionalsButtons;
 	/**
@@ -162,7 +162,7 @@ public class Window extends JFrame {
 	private MouseListener mouseListener;
 
 	/**
-	 * To know if the optionals buttons are visible.
+	 * To know if the optional buttons are visible.
 	 */
 	private boolean optionalsButtonsVisible;
 
