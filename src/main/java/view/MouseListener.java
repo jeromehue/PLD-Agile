@@ -94,7 +94,6 @@ public class MouseListener extends MouseAdapter {
 	 * 
 	 * @param evt The mouse event that was performed by the user.
 	 * @return A point whose coordinates are those of the mouse.
-	 * @see view.MouseListener#mouseClicked(MouseEvent)
 	 */
 	private Point coordinates(MouseEvent evt) {
 		MouseEvent e = SwingUtilities.convertMouseEvent(window, evt, graphicalView);

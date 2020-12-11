@@ -174,6 +174,7 @@ public class Window extends JFrame {
 	
 	/**
 	 * Method called to create the menu bar component.
+	 * @return a JMenuBar object 
 	 */
 	private JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
@@ -233,6 +234,7 @@ public class Window extends JFrame {
 	 * Method called to create the tool bar component (edition mode) which 
 	 * is hidden when application starts.
 	 * @param controller the controller
+	 * @return a JToolBar object
 	 */
 	private JToolBar createToolBar(Controller controller) {
 		JToolBar toolBar = new JToolBar();
@@ -254,6 +256,7 @@ public class Window extends JFrame {
 	/**
 	 * Method called to create the message frame component 
 	 * @param title The title of the message frame.
+	 * @return a JLabel object
 	 */
 	private JLabel createMessageFrame(String title) {
 		JLabel newFrame = new JLabel();
@@ -267,6 +270,7 @@ public class Window extends JFrame {
 	
 	/**
 	 * Method called to initialize the bottom bar. 
+	 * @return a JLabel object
 	 */
 	private JLabel createBottomBar(){
 		JLabel newBottomBar = new JLabel();
@@ -280,6 +284,7 @@ public class Window extends JFrame {
 	
 	/**
 	 * Method called initialize south panel. 
+	 * @return a JLabel object
 	 */
 	private JPanel CreateSouthPanel() {
 		JPanel southPanel = new JPanel(new BorderLayout());
@@ -294,6 +299,7 @@ public class Window extends JFrame {
 	
 	/**
 	 * Method called initialize center panel. 
+	 * @return a JLabel object
 	 */
 	private JPanel createCenterPanel() {
 		JPanel centerPanel = new JPanel(new BorderLayout());
