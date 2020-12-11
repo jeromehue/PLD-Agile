@@ -1,24 +1,19 @@
 package viewTest;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import javax.swing.JFrame;
 
-import algo.Pcc;
+import org.junit.jupiter.api.Test;
+
 import modele.CityMap;
-import modele.Intersection;
 import modele.Request;
-import modele.Segment;
 import modele.Tour;
 import view.GraphicalView;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
 public class testGraphicalView {
-	public static void main(String[] args) {
-
+		@Test
+		void test() {
 		JFrame frame = new JFrame("test vue grapique");
 
 		XMLCityMapParser p = new XMLCityMapParser("src/main/resources/largeMap.xml");
@@ -41,36 +36,8 @@ public class testGraphicalView {
 			System.exit(0);
 		}
 
-		// create a Tour
-		Tour tour = new Tour(request);
-		Pcc shortestPathComputer = new Pcc(cityMap, request);
-		shortestPathComputer.computePcc();
-
-		Intersection intersection = request.getStartingLocation();
-		Intersection oldIntersecction;
-		ArrayList<Segment> paths = new ArrayList<Segment>();
-		Iterator<Intersection> itPickUpTest = request.getPickUpLocationsIterator();
-		while (itPickUpTest.hasNext()) {
-			oldIntersecction = intersection;
-			intersection = itPickUpTest.next();
-
-			List<Segment> localPaths = shortestPathComputer.getRoads(oldIntersecction, intersection);
-			paths.addAll(localPaths);
-
-		}
-		Iterator<Intersection> itDeliveryTest = request.getDeliveryLocationsIterator();
-		while (itDeliveryTest.hasNext()) {
-			oldIntersecction = intersection;
-			intersection = itDeliveryTest.next();
-
-			List<Segment> localPaths2 = shortestPathComputer.getRoads(oldIntersecction, intersection);
-			paths.addAll(localPaths2);
-
-		}
-		// tour.setPath(paths);
-
 		// set graphical view
-		GraphicalView graphicalView = new GraphicalView(tour);
+		GraphicalView graphicalView = new GraphicalView(new Tour());
 		graphicalView.setCityMap(cityMap);
 		graphicalView.setRequest(request);
 
