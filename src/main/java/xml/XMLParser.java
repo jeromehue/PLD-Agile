@@ -3,8 +3,8 @@ package xml;
 import java.io.File;
 
 /**
- *   Abstract class implemented by the parsers. 
- * */
+ * Abstract class implemented by the parsers.
+ */
 
 public abstract class XMLParser {
 

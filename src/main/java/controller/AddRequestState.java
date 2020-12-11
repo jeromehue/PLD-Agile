@@ -13,16 +13,17 @@ import view.Window;
 
 /**
  * State reached after a click on the 'Add a request' button.
+ * 
  * @author H4414
  */
 
 public class AddRequestState implements State {
-	
+
 	/**
 	 * The logger instance, used to log relevant information to the console.
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(AddRequestState.class);
-	
+
 	@Override
 	/**
 	 * Change the state of the application
@@ -39,22 +40,23 @@ public class AddRequestState implements State {
 
 	@Override
 	/**
-	 * Higlight the point closest to the mouse before the selection of a pickup point.
+	 * Highlight the point closest to the mouse before the selection of a pickup
+	 * point.
 	 * 
 	 */
 	public void mouseMoved(Controller c, Window w, Point p) {
 		GraphicalView graphicalView = w.getGraphicalView();
-		if( graphicalView.getCityMap() != null ) {
+		if (graphicalView.getCityMap() != null) {
 			List<Intersection> intersections = graphicalView.getCityMap().getIntersections();
-			float mindist= (float) 100;
+			float mindist = (float) 100;
 			int floor = 1;
 			Intersection iclosest = null;
-			for(Intersection i: intersections) {
+			for (Intersection i : intersections) {
 				int distance = p.distanceWithCoordinates(i.getCoordinates().getX(), i.getCoordinates().getY());
-				if(distance < mindist ) {
+				if (distance < mindist) {
 					mindist = distance;
 					iclosest = i;
-					if (mindist < floor) 
+					if (mindist < floor)
 						break;
 				}
 			}
@@ -62,7 +64,7 @@ public class AddRequestState implements State {
 				graphicalView.setHighlightInter(iclosest);
 				w.setMessage("Select the pickup point");
 			}
-			
+
 			List<Segment> allsegments = graphicalView.getCityMap().getSegments();
 			float mindist2 = (float) 0.5;
 			Segment sclosest = null;
@@ -80,12 +82,12 @@ public class AddRequestState implements State {
 					sclosest = s;
 				}
 			}
-			if (sclosest != null && iclosest!= null) {
+			if (sclosest != null && iclosest != null) {
 				w.setStreet("Adress is " + iclosest.getId() + ", " + sclosest.getName());
 			}
 		}
 	}
-	
+
 	@Override
 	/**
 	 * Select a pickup point.
@@ -94,28 +96,27 @@ public class AddRequestState implements State {
 		logger.info("Clicked on the map to add intersection");
 		logger.info("Intersection : {}", w.getGraphicalView().getHighlightedIntersectionId());
 		int pickupTime = w.displaySelectTimeDialog("Enter pickup duration : ");
-		while ( pickupTime < 0 ) {
-			if( pickupTime == -1 ) { // Cancel button
-				return ;
+		while (pickupTime < 0) {
+			if (pickupTime == -1) { // Cancel button
+				return;
 			}
 			pickupTime = w.displaySelectTimeDialog("Wrong input ! Enter pickup duration : ");
 		}
 		pickupTime *= 60;
 		int nbPoints = w.getGraphicalView().getTour().getWaysList().size();
 		int pickupIndex = w.displaySelectTimeDialog("Enter pickup index : ");
-		while ( pickupIndex <= 0 || pickupIndex >=nbPoints +1 ) {
-			if( pickupIndex == -1 ) {
-				return ;
+		while (pickupIndex <= 0 || pickupIndex >= nbPoints + 1) {
+			if (pickupIndex == -1) {
+				return;
 			}
 			pickupIndex = w.displaySelectTimeDialog("Bad index ! Enter pickup index : ");
 		}
-		if( pickupIndex == -1 ) {
-			return ;
+		if (pickupIndex == -1) {
+			return;
 		}
 		logger.info("pick-up time : {}", pickupTime);
-		c.addRequestState2.enterAction( w.getGraphicalView().getHighlightedIntersectionId() , pickupTime, pickupIndex);
+		c.addRequestState2.enterAction(w.getGraphicalView().getHighlightedIntersectionId(), pickupTime, pickupIndex);
 		c.setCurrentstate(c.addRequestState2);
 	}
-	
-	
+
 }

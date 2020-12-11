@@ -23,19 +23,19 @@ import observer.Observable;
 import observer.Observer;
 
 /**
- * The textual view of the window, that indicates the steps when a tour
- * is computed.
+ * The textual view of the window, that indicates the steps when a tour is
+ * computed.
  * 
  * @author H4414
  * 
- * */
+ */
 
 public class TextualView extends JPanel implements Observer {
 
 	private static final Logger logger = LoggerFactory.getLogger(TextualView.class);
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private ButtonListener buttonListener;
 	private Tour tour;
 	private ArrayList<JButton> pointsJButtonList;
@@ -43,11 +43,12 @@ public class TextualView extends JPanel implements Observer {
 	private JLabel tourEditionLabel;
 	private int width;
 	private int height;
-	
+
 	/**
 	 * Create a textual view of the computed tour in window.
+	 * 
 	 * @param buttonListener the buttonListener
-	 * @param tour the computed tour from controller 
+	 * @param tour           the computed tour from controller
 	 */
 	public TextualView(Tour tour, ButtonListener buttonListener) {
 		super();
@@ -58,9 +59,8 @@ public class TextualView extends JPanel implements Observer {
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setBackground(Window.BACKGROUND_COLOR);
 		this.tour = tour;
-		this.scrollPane = new JScrollPane(this
-				,javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS
-				,javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		this.scrollPane = new JScrollPane(this, javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.tour.addObserver(this);
 		this.scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		this.pointsJButtonList = new ArrayList<JButton>();
@@ -68,39 +68,41 @@ public class TextualView extends JPanel implements Observer {
 		this.tourEditionLabel = createTourEditionLabel();
 		this.add(this.tourEditionLabel);
 	}
-	
+
 	/**
 	 * Set visibility of the 'edition mode' label.
+	 * 
 	 * @param visible boolean value indicating the visibility of the label.
 	 */
 	public void setTourEditionLabelVisibility(boolean visible) {
 		this.tourEditionLabel.setVisible(visible);
 	}
-	
 
 	/**
 	 * Method called by tour observed by this each time it is modified.
-	 * @param observed an updated object which is observed by textual view
+	 * 
+	 * @param observed An updated object which is observed by textual view.
 	 */
 	@Override
 	public void update(Observable observed) {
 		this.clearPointJButtonList();
 		this.displaySteps();
-		this.setPreferredSize(new Dimension(600, this.pointsJButtonList.size()*100));
-		logger.info("{} object was modified: textual view updated", 
-				observed.getClass());
+		this.setPreferredSize(new Dimension(600, this.pointsJButtonList.size() * 100));
+		logger.info("{} object was modified: textual view updated", observed.getClass());
 	}
-	
+
+	/**
+	 * Default getter.
+	 * 
+	 * @return The scroll pane of the textual view.
+	 */
 	public JScrollPane getScrollPane() {
 		return scrollPane;
 	}
 
-	public void setScrollPane(JScrollPane scrollPane) {
-		this.scrollPane = scrollPane;
-	}
-	
 	/**
-	 * Method called to initialize the button edition mode label. 
+	 * Method called to initialize the button edition mode label.
+	 * 
 	 * @return The created JLabel.
 	 */
 	public JLabel createTourEditionLabel() {
@@ -110,7 +112,7 @@ public class TextualView extends JPanel implements Observer {
 		label.setVisible(false);
 		label.setForeground(Color.blue);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setPreferredSize(new Dimension(labelWidth,labelHeight));
+		label.setPreferredSize(new Dimension(labelWidth, labelHeight));
 		return label;
 	}
 
@@ -124,16 +126,16 @@ public class TextualView extends JPanel implements Observer {
 		}
 		this.pointsJButtonList.clear();
 	}
-	
+
 	/**
-	 * Reset graphical selection effect around text areas.  
+	 * Reset graphical selection effect around text areas.
 	 */
 	public void clearAllTextArea() {
 		for (JButton b : pointsJButtonList) {
 			b.setContentAreaFilled(false);
 		}
 	}
-	
+
 	/**
 	 * Method called to display steps of the tour on the graphical view.
 	 */

@@ -17,24 +17,21 @@ public class CompleteGraph implements Graph {
 	 * The number of vertices in the graph.
 	 */
 	private int nbVertices;
-	
+
 	/**
-	 * The costs matrix of the graph. At the index (i, j),
-	 * it contains the lowest known cost to go from the Intersection
-	 * corresponding to the index i to the Intersection corresponding
-	 * to the index j.
+	 * The costs matrix of the graph. At the index (i, j), it contains the lowest
+	 * known cost to go from the Intersection corresponding to the index i to the
+	 * Intersection corresponding to the index j.
 	 */
 	private double[][] costsMatrix;
-	
+
 	/**
-	 * A HashMap linking an intersection's id to its index in the
-	 * costs matrix.
+	 * A HashMap linking an intersection's id to its index in the costs matrix.
 	 */
 	private HashMap<Long, Integer> index;
-	
+
 	/**
-	 * A HashMap linking an index in the costs matrix to its
-	 * intersection's id.
+	 * A HashMap linking an index in the costs matrix to its intersection's id.
 	 */
 	private HashMap<Integer, Long> reverseIndex;
 
@@ -77,7 +74,6 @@ public class CompleteGraph implements Graph {
 		}
 	}
 
-	
 	@Override
 	public int getNbVertices() {
 		return nbVertices;

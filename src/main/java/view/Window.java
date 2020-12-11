@@ -35,14 +35,13 @@ import modele.Tour;
 import modele.PointFactory;
 
 /**
- * The main window of our program, divided into four main areas: a graphical 
- * view to display the map, a text view to display information about steps, a 
+ * The main window of our program, divided into four main areas: a graphical
+ * view to display the map, a text view to display information about steps, a
  * menu and a box to display messages.
  * 
- *  @author H4414
+ * @author H4414
  * 
- * */
-
+ */
 
 public class Window extends JFrame {
 	/**
@@ -151,7 +150,7 @@ public class Window extends JFrame {
 	 * Button with a text which can change, depending the mode
 	 */
 	private JMenuItem switchmode;
-	
+
 	// Listeners
 	/**
 	 * Listen when a button is clicked
@@ -161,34 +160,40 @@ public class Window extends JFrame {
 	 * Listen when the mouse is moving
 	 */
 	private MouseListener mouseListener;
+
 	/**
 	 * To know if the optionals buttons are visible.
 	 */
 	private boolean optionalsButtonsVisible;
-	
+
 	/**
-	 * Create a window with menu bar, a graphical zone to display the map, the 
-	 * request and the tour, a frame for displaying messages, a textual zone 
-	 * for describing steps of the tour,
-	 * and listeners which catch events and forward them to controller 
-	 * @param tour the tour
-	 * @param controller the controller
+	 * Create a window with menu bar, a graphical zone to display the map, the
+	 * request and the tour, a frame for displaying messages, a textual zone for
+	 * describing steps of the tour, and listeners which catch events and forward
+	 * them to controller.
+	 * 
+	 * @param tour       The tour to be added to the textual view.
+	 * @param controller The controller which will handle events and states of the 
+	 * application.
 	 */
 	public Window(Controller controller, Tour tour) {
 		super("Deliver'IF");
 		this.buttonListener = new ButtonListener(controller);
-		this.setSize(1400,1000);
+		this.setSize(1400, 1000);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 
 		this.optionalsButtonsVisible = false;
 		optionalsButtons = new ArrayList<>();
-		try { UIManager.setLookAndFeel(new NimbusLookAndFeel()); } catch (Exception e) {}
+		try {
+			UIManager.setLookAndFeel(new NimbusLookAndFeel());
+		} catch (Exception e) {
+		}
 
 		JPanel contentPane = (JPanel) getContentPane();
 		contentPane.setLayout(new BorderLayout());
-		
+
 		contentPane.add(this.CreateSouthPanel(), BorderLayout.SOUTH);
 
 		this.toolBar = createToolBar(controller);
@@ -201,9 +206,8 @@ public class Window extends JFrame {
 		this.graphicalView = new GraphicalView(tour);
 		contentPane.add(this.createCenterPanel(), BorderLayout.CENTER);
 
-
-        this.mouseListener = new MouseListener(this, graphicalView, controller);
-        addMouseListener(mouseListener);
+		this.mouseListener = new MouseListener(this, graphicalView, controller);
+		addMouseListener(mouseListener);
 		addMouseMotionListener(mouseListener);
 
 		JMenuBar menuBar = createMenuBar();
@@ -214,41 +218,51 @@ public class Window extends JFrame {
 		// To be placed after the set visible.
 		PointFactory.initPointFactory(graphicalView, null);
 	}
-	
+
+	/**
+	 * Default getter.
+	 * 
+	 * @return The graphical view of the window.
+	 */
 	public GraphicalView getGraphicalView() {
 		return graphicalView;
 	}
 
+	/**
+	 * Default getter.
+	 * @return The textual view of the window.
+	 */
 	public TextualView getTextualView() {
 		return textualView;
 	}
-	
+
 	/**
 	 * Displays a message in the message frame
+	 * 
 	 * @param message the message to display.
 	 */
 	public void setMessage(String message) {
-		this.messageFrame.setText("<html><strong>" + 
-				message + "<html/><strong/>");
+		this.messageFrame.setText("<html><strong>" + message + "<html/><strong/>");
 	}
-	
+
 	public void setStreet(String street) {
 		this.streetFrame.setText(street);
 	}
 
 	/**
-	 * Return true if Optionals buttons are visible, wich means that we are
-	 * in the 'Tour Modification' mode.
-	 * @return A boolean variable indicating the visibility of the optional 
-	 * buttons.
+	 * Return true if Optionals buttons are visible, which means that we are in the
+	 * 'Tour Modification' mode.
+	 * 
+	 * @return A boolean variable indicating the visibility of the optional buttons.
 	 */
 	public boolean isOptionalsButtonsVisible() {
 		return optionalsButtonsVisible;
 	}
-	
+
 	/**
 	 * Method called to create the menu bar component.
-	 * @return a JMenuBar object 
+	 * 
+	 * @return A JMenuBar object.
 	 */
 	private JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
@@ -285,15 +299,16 @@ public class Window extends JFrame {
 		this.switchmode = modifyTour;
 		mnuEdit.add(modifyTour);
 		menuBar.add(mnuEdit);
-		
+
 		return menuBar;
 	}
-	
+
 	/**
 	 * Method called to create a button of the menu bar.
-	 * @param foregroundColor The foreground color of the Jbutton.
-	 * @param label The label of the Jbutton.
-	 * @return The Jbutton created
+	 * 
+	 * @param foregroundColor The foreground color of the JButton.
+	 * @param label           The label of the JButton.
+	 * @return The JButton created
 	 */
 	private JButton createButton(Color foregroundColor, String label) {
 		JButton createdButton = new JButton(label);
@@ -303,10 +318,11 @@ public class Window extends JFrame {
 		this.optionalsButtons.add(createdButton);
 		return createdButton;
 	}
-	
+
 	/**
-	 * Method called to create the tool bar component (edition mode) which 
-	 * is hidden when application starts.
+	 * Method called to create the tool bar component (edition mode) which is hidden
+	 * when application starts.
+	 * 
 	 * @param controller the controller
 	 * @return a JToolBar object
 	 */
@@ -315,9 +331,9 @@ public class Window extends JFrame {
 		toolBar.setPreferredSize(new Dimension(100, 30));
 		JButton cancelButton = createButton(Color.black, QUIT_TOUR_EDITION);
 		Icon icon = new ImageIcon("src/main/resources/icons/icons8-cancel-16.png");
-	    cancelButton.setIcon(icon);
-	    cancelButton.setPreferredSize(new Dimension(50,20));
-	    cancelButton.setContentAreaFilled(false);
+		cancelButton.setIcon(icon);
+		cancelButton.setPreferredSize(new Dimension(50, 20));
+		cancelButton.setContentAreaFilled(false);
 		toolBar.add(cancelButton);
 		toolBar.add(this.createButton(Color.black, UNDO));
 		toolBar.add(this.createButton(Color.black, REDO));
@@ -326,9 +342,10 @@ public class Window extends JFrame {
 		toolBar.add(this.createButton(Color.darkGray, REMOVE_REQUEST));
 		return toolBar;
 	}
-	
+
 	/**
-	 * Method called to create the message frame component 
+	 * Method called to create the message frame component
+	 * 
 	 * @param title The title of the message frame.
 	 * @return a JLabel object
 	 */
@@ -341,28 +358,30 @@ public class Window extends JFrame {
 		newFrame.setBackground(BACKGROUND_COLOR);
 		return newFrame;
 	}
-	
+
 	/**
-	 * Method called to initialize the bottom bar. 
+	 * Method called to initialize the bottom bar.
+	 * 
 	 * @return a JLabel object
 	 */
-	private JLabel createBottomBar(){
+	private JLabel createBottomBar() {
 		JLabel newBottomBar = new JLabel();
-		newBottomBar.setPreferredSize(new Dimension(50,20));
+		newBottomBar.setPreferredSize(new Dimension(50, 20));
 		newBottomBar.setHorizontalAlignment(SwingConstants.CENTER);
 		newBottomBar.setVerticalAlignment(SwingConstants.CENTER);
 		newBottomBar.setText(this.HEADER_TEXT);
 		newBottomBar.setFont(new Font("", 0, 10));
 		return newBottomBar;
 	}
-	
+
 	/**
-	 * Method called initialize south panel. 
+	 * Method called initialize south panel.
+	 * 
 	 * @return a JLabel object
 	 */
 	private JPanel CreateSouthPanel() {
 		JPanel southPanel = new JPanel(new BorderLayout());
-		southPanel.setPreferredSize(new Dimension(50,100));
+		southPanel.setPreferredSize(new Dimension(50, 100));
 		this.messageFrame = createMessageFrame("Messages");
 		this.bottomBar = createBottomBar();
 		this.setMessage("To begin, please load a map (XML file).");
@@ -370,16 +389,17 @@ public class Window extends JFrame {
 		southPanel.add(this.bottomBar, BorderLayout.SOUTH);
 		return southPanel;
 	}
-	
+
 	/**
-	 * Method called initialize center panel. 
+	 * Method called initialize center panel.
+	 * 
 	 * @return a JLabel object
 	 */
 	private JPanel createCenterPanel() {
 		JPanel centerPanel = new JPanel(new BorderLayout());
 		centerPanel.setBackground(Color.white);
 		this.streetFrame = createMessageFrame("Street");
-		this.streetFrame.setPreferredSize(new Dimension(50,50));
+		this.streetFrame.setPreferredSize(new Dimension(50, 50));
 		centerPanel.add(this.graphicalView, BorderLayout.CENTER);
 		centerPanel.add(this.streetFrame, BorderLayout.SOUTH);
 		return centerPanel;
@@ -400,38 +420,37 @@ public class Window extends JFrame {
 		this.toolBar.setVisible(optionalsButtonsVisible);
 		this.textualView.setTourEditionLabelVisibility(optionalsButtonsVisible);
 	}
-    
-    
-    /**
-     * Method called to display a number input dialog window.
-     * @param msg The message displayed to the user.
-     * @return The duration of pickup/delivery, as an int.
-     * */
-    public int displaySelectTimeDialog(String msg) {
-    	logger.info("displaySelectTimeDialog()");
-    	int i = -1;
-    	while (i < 0) {
-    		String response = JOptionPane.showInputDialog(this, msg);
-    		logger.info("String from showInput dialog {}", response);
-    		if ((response != null) && (response.length() > 0)) {
-    			try {
-        			i = Integer.parseInt(response);
-        		} catch(Exception e) {
-        			logger.error("Number entered is not a valid number");
-        			return -2;
-        		}
-    		} else  {
-    			logger.info("Cancel button clicked");
-    			return -1;
-    		}
-    	}
-    	return i;
-    }
 
-
-	
 	/**
-	 * Method called to open a dialog frame and select a file path. 
+	 * Method called to display a number input dialog window.
+	 * 
+	 * @param msg The message displayed to the user.
+	 * @return The duration of pickup/delivery, as an int.
+	 */
+	public int displaySelectTimeDialog(String msg) {
+		logger.info("displaySelectTimeDialog()");
+		int i = -1;
+		while (i < 0) {
+			String response = JOptionPane.showInputDialog(this, msg);
+			logger.info("String from showInput dialog {}", response);
+			if ((response != null) && (response.length() > 0)) {
+				try {
+					i = Integer.parseInt(response);
+				} catch (Exception e) {
+					logger.error("Number entered is not a valid number");
+					return -2;
+				}
+			} else {
+				logger.info("Cancel button clicked");
+				return -1;
+			}
+		}
+		return i;
+	}
+
+	/**
+	 * Method called to open a dialog frame and select a file path.
+	 * 
 	 * @return The file to be later parse, as a string.
 	 */
 	public String createDialogBoxToGetFilePath() {
@@ -443,21 +462,21 @@ public class Window extends JFrame {
 		int returnVal = fc.showOpenDialog(null);
 		String absPath = null;
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			logger.info("You chose totv open this file: " + 
-					fc.getSelectedFile().getAbsolutePath());
+			logger.info("You chose totv open this file: " + fc.getSelectedFile().getAbsolutePath());
 			absPath = fc.getSelectedFile().getAbsolutePath();
 		}
 		return absPath;
 	}
-	
+
 	/**
 	 * Method called to open a dialog frame and select a number.
+	 * 
 	 * @return the number entered by user
 	 */
 	public int displaySelectOrderDialog() {
 		logger.info("Entering displaySelectOrderDialog");
 		int i = 0;
-		
+
 		String str = JOptionPane.showInputDialog(this, "Enter the new index of this step");
 		logger.info("String from showInput dialog {}", str);
 		if (str == null) {
@@ -468,7 +487,7 @@ public class Window extends JFrame {
 		} catch (Exception e) {
 			logger.error("You did not enter a valid number, or it was equal to zero");
 		}
-		
+
 		return i;
 	}
 }

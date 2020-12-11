@@ -11,10 +11,10 @@ import modele.Way;
 import view.GraphicalView;
 import view.Window;
 
-
 /**
- * State reached when clicking on the 'Edit' then 'Enter the tour edition mode' 
+ * State reached when clicking on the 'Edit' then 'Enter the tour edition mode'
  * button, or after a modification is successfully performed.
+ * 
  * @author H4414
  */
 public class TourModificationState implements State {

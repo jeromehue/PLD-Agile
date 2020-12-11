@@ -1,9 +1,9 @@
 package modele;
 
 /**
- * This class contains the coordinates (x,y) of a pixel on the window.
- * Only the part of the window where the map is displayed is concerned. 
- * A Point can be added to an Intersection if their locations coincide. 
+ * This class contains the coordinates (x,y) of a pixel on the window. Only the
+ * part of the window where the map is displayed is concerned. A Point can be
+ * added to an Intersection if their locations coincide.
  * 
  * @author H4414
  *
@@ -13,28 +13,27 @@ public class Point {
 	 * Coordinate on the x axis.
 	 */
 	private int x;
-	
+
 	/**
 	 * Coordinate on the y axis.
 	 */
 	private int y;
 
 	/**
-	 * Constructor to initialize a Point of coordinates (x,y)
-	 * Because of the Design Pattern FlyWeight, the instances of Point
-	 * are created by a PointFactory.
+	 * Constructor to initialize a Point of coordinates (x,y) Because of the Design
+	 * Pattern FlyWeight, the instances of Point are created by a PointFactory.
 	 * 
 	 * @param x Coordinate on the x axis.
 	 * @param y Coordinate on the y axis.
 	 */
-	protected Point(int x, int y) { 
+	protected Point(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
 	/**
 	 * @return The new coordinates corresponding to a translation of this point.
-
+	 * 
 	 * @param deltaX The number of unit moves on the x axis.
 	 * @param deltaY The number of unit moves on the y axis.
 	 */
@@ -53,7 +52,8 @@ public class Point {
 	}
 
 	/**
-	 * Computes the Euclidian distance between this Point and another (as coordinates).
+	 * Computes the Euclidian distance between this Point and another (as
+	 * coordinates).
 	 * 
 	 * @param x1 Coordinate on the x axis.
 	 * @param y1 Coordinate on the y axis.
@@ -94,14 +94,13 @@ public class Point {
 			maxY = y1;
 			minY = y2;
 		}
-		return ( (x <= maxX && x >= minX) && (y <= maxY && y >= minY) );
+		return ((x <= maxX && x >= minX) && (y <= maxY && y >= minY));
 	}
 
 	/**
-	 * Computes the minimal distance between this Point (named A)
-	 * and a segment [BC] whose associated two Points are passed as parameters
-	 * (named B and C).
-	 * The orthogonal projection of this point on the segment is named D. 
+	 * Computes the minimal distance between this Point (named A) and a segment [BC]
+	 * whose associated two Points are passed as parameters (named B and C). The
+	 * orthogonal projection of this point on the segment is named D.
 	 * 
 	 * @param x1 X coordinate of the first point of the segment.
 	 * @param y1 Y coordinate of the first point of the segment.
@@ -117,8 +116,8 @@ public class Point {
 		float AB = distBetween(x, y, x1, y1);
 		float BC = distBetween(x1, y1, x2, y2);
 		float AC = distBetween(x, y, x2, y2);
-		
-		if(x1 == x2 && y1 == y2) {
+
+		if (x1 == x2 && y1 == y2) {
 			return AB;
 		}
 
@@ -129,10 +128,10 @@ public class Point {
 		float AD = (2 * area) / BC;
 		return AD;
 	}
-	
+
 	/**
-	 * Calculates the Euclidian distance between two points whose coordinates 
-	 * are passed as parameters. Only used for the <code>distBetweenPointAndLine
+	 * Calculates the Euclidian distance between two points whose coordinates are
+	 * passed as parameters. Only used for the <code>distBetweenPointAndLine
 	 * </code> function.
 	 * 
 	 * @param x1 X coordinate of the first point of the segment.

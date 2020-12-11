@@ -1,7 +1,5 @@
 package xml;
 
-
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.XMLConstants;
@@ -25,7 +23,7 @@ import modele.*;
  * 
  * @author H4414
  * 
- * */
+ */
 
 public class XMLCityMapParser extends XMLParser {
 
@@ -41,10 +39,14 @@ public class XMLCityMapParser extends XMLParser {
 	 * 
 	 * @return The citymap that was parsed from the XML file.
 	 * @throws ParserConfigurationException indicates at serious configuration error
-	 * @throws IOException signals that an I/O exception of some sort has occurred. This class is the 
-	 * 			general class of exceptions produced by failed or interrupted I/O operations.
-	 * @throws SAXException Encapsulate a general SAX error or warning. 
-	 * @throws InvalidMapException The xml file to be parsed is badly formed.
+	 * @throws IOException                  signals that an I/O exception of some
+	 *                                      sort has occurred. This class is the
+	 *                                      general class of exceptions produced by
+	 *                                      failed or interrupted I/O operations.
+	 * @throws SAXException                 Encapsulate a general SAX error or
+	 *                                      warning.
+	 * @throws InvalidMapException          The xml file to be parsed is badly
+	 *                                      formed.
 	 */
 	public CityMap parse() throws ParserConfigurationException, IOException, SAXException, InvalidMapException {
 

@@ -22,6 +22,7 @@ import xml.XMLRequestParser;
 
 /**
  * State reached from InitState when a map is loaded.
+ * 
  * @author H4414
  */
 public class MapLoadedState implements State {
@@ -127,7 +128,6 @@ public class MapLoadedState implements State {
 				}
 				if (distance < mindist) {
 					mindist = distance;
-					// System.out.println("distance : " +distance);
 					sclosest = s;
 				}
 			}

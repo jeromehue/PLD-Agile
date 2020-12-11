@@ -6,42 +6,43 @@ import java.util.List;
 /**
  * This class contains all informations relative to an Intersection.
  * 
- * @author H4414 	
- *            
+ * @author H4414
+ * 
  */
 public class Intersection {
 	/**
 	 * Unique identifier of an Intersection.
 	 */
 	private Long id;
-	
+
 	/**
 	 * Latitude of the intersection (given by the XML file).
 	 */
 	private double latitude;
-	
+
 	/**
 	 * Longitude of the intersection (given by the XML file).
 	 */
 	private double longitude;
-	
+
 	/**
 	 * List of Segments whose origin is this Intersection.
 	 */
 	private ArrayList<Segment> outboundSegments;
-	
+
 	/**
-	 * X and y coordinates on the window to draw the Intersection on the displayed map.
+	 * X and y coordinates on the window to draw the Intersection on the displayed
+	 * map.
 	 */
 	private Point coordinates;
 
 	/**
 	 * Constructor to initialize an Intersection.
 	 * 
-	 * @param id 		This Intersection's id.
-	 * @param latitude 	This Intersection's latitude.
-	 * @param longitude	This Intersection's longitude.
-	 * @param segments	The list of all segments whose origin is this Intersection.
+	 * @param id        This Intersection's id.
+	 * @param latitude  This Intersection's latitude.
+	 * @param longitude This Intersection's longitude.
+	 * @param segments  The list of all segments whose origin is this Intersection.
 	 */
 	public Intersection(Long id, double latitude, double longitude, ArrayList<Segment> segments) {
 		this.id = id;
@@ -58,7 +59,7 @@ public class Intersection {
 	/**
 	 * Copy constructor of Intersection
 	 * 
-	 * @param intersection 		This Intersection to copy.
+	 * @param intersection This Intersection to copy.
 	 */
 	public Intersection(Intersection intersection) {
 		this.id = intersection.getId();
@@ -67,7 +68,7 @@ public class Intersection {
 		this.coordinates = new Point(intersection.getCoordinates().getX(), intersection.getCoordinates().getY());
 		this.outboundSegments = new ArrayList<Segment>(intersection.getOutboundSegments());
 	}
-	
+
 	/**
 	 * @return The coordinates of the intersection.
 	 */
@@ -96,7 +97,8 @@ public class Intersection {
 	}
 
 	/**
-	 * Method used to add a Segment whose origin is this Intersection to this Intersection.
+	 * Method used to add a Segment whose origin is this Intersection to this
+	 * Intersection.
 	 * 
 	 * @param segment The segment to add.
 	 */
@@ -105,7 +107,8 @@ public class Intersection {
 	}
 
 	/**
-	 * Method used to remove a Segment whose origin is this Intersection from this Intersection.
+	 * Method used to remove a Segment whose origin is this Intersection from this
+	 * Intersection.
 	 * 
 	 * @param segment The segment to remove.
 	 */
@@ -129,7 +132,7 @@ public class Intersection {
 	public double getLatitude() {
 		return latitude;
 	}
-	
+
 	/**
 	 * Default setter.
 	 * 

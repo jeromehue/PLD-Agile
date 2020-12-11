@@ -46,7 +46,7 @@ class XMLMapParserTest {
 			fail();
 		}
 	}
-	
+
 	@Test
 	@DisplayName("Loading a small map with missing longitude")
 	void missingIntersection() {

@@ -17,12 +17,12 @@ import java.util.ArrayList;
 import modele.*;
 
 /**
- * XML Parser for requests.
- * From https://mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/ 
+ * XML Parser for requests. From
+ * https://mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
  * 
  * @author H4414
  * 
- * */
+ */
 
 public class XMLRequestParser extends XMLParser {
 
@@ -32,24 +32,29 @@ public class XMLRequestParser extends XMLParser {
 	 * Default constructor for this class.
 	 * 
 	 * @param filename The file to be parsed.
-	 * @param cityMap The CityMap object that contains all segments and intersections.
+	 * @param cityMap  The CityMap object that contains all segments and
+	 *                 intersections.
 	 */
 	public XMLRequestParser(String filename, CityMap cityMap) {
 		super(filename);
 		this.cityMap = cityMap;
 	}
 
-	
 	/**
-	 * Parse an XML file containing a request ( a starting point, a list of pickup and delivery points and 
-	 * delivery and pickup duration for each point ) and return the map.
+	 * Parse an XML file containing a request ( a starting point, a list of pickup
+	 * and delivery points and delivery and pickup duration for each point ) and
+	 * return the map.
 	 * 
 	 * @return The citymap that was parsed from the XML file.
 	 * @throws ParserConfigurationException Indicates a serious configuration error.
-	 * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the 
-	 * 			general class of exceptions produced by failed or interrupted I/O operations.
-	 * @throws SAXException Encapsulate a general SAX error or warning. 
-	 * @throws InvalidRequestException The xml file to be parsed is badly formed.
+	 * @throws IOException                  Signals that an I/O exception of some
+	 *                                      sort has occurred. This class is the
+	 *                                      general class of exceptions produced by
+	 *                                      failed or interrupted I/O operations.
+	 * @throws SAXException                 Encapsulate a general SAX error or
+	 *                                      warning.
+	 * @throws InvalidRequestException      The xml file to be parsed is badly
+	 *                                      formed.
 	 */
 	public Request parse() throws InvalidRequestException, ParserConfigurationException, SAXException, IOException {
 

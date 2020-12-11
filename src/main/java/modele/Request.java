@@ -17,32 +17,30 @@ public class Request {
 	 * This intersection is the starting and ending point of the tour.
 	 */
 	private Intersection startingLocation;
-	
+
 	/**
 	 * The time at which the tour is planned to begin.
 	 */
 	private LocalTime startingTime;
-	
+
 	/**
 	 * List of all intersections corresponding to pick-up locations.
 	 */
 	private ArrayList<Intersection> pickUpLocations;
-	
+
 	/**
 	 * List of all intersections corresponding to delivery locations.
 	 */
 	private ArrayList<Intersection> deliveryLocations;
-	
+
 	/**
-	 * HashMap linking an Intersection (pick-up or delivery) to its duration
-	 * (time spent on the location in minutes).
+	 * HashMap linking an Intersection (pick-up or delivery) to its duration (time
+	 * spent on the location in minutes).
 	 */
 	private HashMap<Long, Integer> durations;
-	
-	
+
 	/**
-	 * HashMap linking each intersection corresponding to a pick-up
-	 * to its delivery.
+	 * HashMap linking each intersection corresponding to a pick-up to its delivery.
 	 */
 	private HashMap<Long, Long> deliveryFromPickUp;
 
@@ -55,11 +53,11 @@ public class Request {
 	/**
 	 * Constructor to initialize all fields of this Request.
 	 * 
-	 * @param startingLocation 	Starting and ending point of the tour.
-	 * @param startingTime 		The time at which the tour is planned to begin.
-	 * @param pickUpDurations 	All durations corresponding to pick-ups.
+	 * @param startingLocation  Starting and ending point of the tour.
+	 * @param startingTime      The time at which the tour is planned to begin.
+	 * @param pickUpDurations   All durations corresponding to pick-ups.
 	 * @param deliveryDurations All durations corresponding to deliveries.
-	 * @param pickUpLocations 	All intersections corresponding to pick-ups.
+	 * @param pickUpLocations   All intersections corresponding to pick-ups.
 	 * @param deliveryLocations All intersections corresponding to deliveries.
 	 */
 	public Request(Intersection startingLocation, LocalTime startingTime, ArrayList<Integer> pickUpDurations,
@@ -86,7 +84,7 @@ public class Request {
 			deliveryFromPickUp.put(pickUpLocations.get(i).getId(), deliveryLocations.get(i).getId());
 		}
 	}
-	
+
 	/**
 	 * Default copy constructor.
 	 * 
@@ -106,12 +104,12 @@ public class Request {
 		this.durations = new HashMap<Long, Integer>(request.getDurations());
 		this.deliveryFromPickUp = request.getDeliveryFromPickUp();
 	}
-	
+
 	/**
 	 * Default getter.
 	 * 
-	 * @return This Request's HashMap linking each intersection corresponding 
-	 * to a pick-up to its delivery.
+	 * @return This Request's HashMap linking each intersection corresponding to a
+	 *         pick-up to its delivery.
 	 */
 	public HashMap<Long, Long> getDeliveryFromPickUp() {
 		return this.deliveryFromPickUp;
@@ -138,9 +136,8 @@ public class Request {
 	/**
 	 * Default getter.
 	 * 
-	 * @return A list containing all Intersections of the tour
-	 * which correspond to pick-up points.
-	 * It may not be ordered as the tour's optimal order.
+	 * @return A list containing all Intersections of the tour which correspond to
+	 *         pick-up points. It may not be ordered as the tour's optimal order.
 	 */
 	public ArrayList<Intersection> getPickUpLocations() {
 		return pickUpLocations;
@@ -149,9 +146,8 @@ public class Request {
 	/**
 	 * Default getter.
 	 * 
-	 * @return A list containing all Intersections of the tour
-	 * which correspond to delivery points.
-	 * It may not be ordered as the tour's optimal order.
+	 * @return A list containing all Intersections of the tour which correspond to
+	 *         delivery points. It may not be ordered as the tour's optimal order.
 	 */
 	public ArrayList<Intersection> getDeliveryLocations() {
 		return deliveryLocations;
@@ -160,8 +156,8 @@ public class Request {
 	/**
 	 * Default getter.
 	 * 
-	 * @return A HashMap linking every Intersection of the tour
-	 * to its corresponding duration.
+	 * @return A HashMap linking every Intersection of the tour to its corresponding
+	 *         duration.
 	 */
 	public HashMap<Long, Integer> getDurations() {
 		return durations;
@@ -182,8 +178,8 @@ public class Request {
 	}
 
 	/**
-	 * Used to retrieve the intersection's id of the delivery
-	 * corresponding to a given pick-up. 
+	 * Used to retrieve the intersection's id of the delivery corresponding to a
+	 * given pick-up.
 	 * 
 	 * @param id A pick-up's intersection's id.
 	 * @return The id of the corresponding delivery's intersection.
@@ -191,11 +187,17 @@ public class Request {
 	public Long getDeliveryFromPickUp(Long id) {
 		return deliveryFromPickUp.get(id);
 	}
-	
+
+	/**
+	 * Used to retrieve the delivery intersection given the pick-up id
+	 * 
+	 * @param id A pick-up's intersection's id.
+	 * @return The corresponding delivery's intersection object.
+	 */
 	public Intersection getDeliveryIntersectionFromPickUp(Long id) {
 		Long deliveryId = deliveryFromPickUp.get(id);
-		for(Intersection i : deliveryLocations) {
-			if(deliveryId.equals(i.getId())) {
+		for (Intersection i : deliveryLocations) {
+			if (deliveryId.equals(i.getId())) {
 				return i;
 			}
 		}
@@ -206,30 +208,35 @@ public class Request {
 	 * Used to check whether a given Intersection is pick-up.
 	 * 
 	 * @param id The id of the Intersection to check.
-	 * @return True if the intersection is a pick-up point,
-	 * false if it is a delivery point or the starting point.
+	 * @return True if the intersection is a pick-up point, false if it is a
+	 *         delivery point or the starting point.
 	 */
 	public Boolean isPickUp(Long id) {
 		return (deliveryFromPickUp.get(id) != null);
 	}
 
 	/**
-	 * Used to check whether an Intersection has a corresponding
-	 * delivery point.
-	 * It always returns false for delivery points and for the
-	 * starting point.
+	 * Used to check whether an Intersection has a corresponding delivery point. It
+	 * always returns false for delivery points and for the starting point.
 	 * 
 	 * @param id The intersection's id to check.
-	 * @return True if the intersection's a pick-up point
-	 * and if it has a corresponding delivery, else false.
+	 * @return True if the intersection's a pick-up point and if it has a
+	 *         corresponding delivery, else false.
 	 */
 	public Boolean hasDelivery(Long id) {
 		return (deliveryFromPickUp.get(id) != null && deliveryFromPickUp.get(id) != -1);
 	}
-	
+
+	/**
+	 * Tests if the pick-up intersection has a corresponding pick-up intersection.
+	 * 
+	 * @param id The id of a delivery intersection
+	 * @return true if there is a corresponding pick-up intersection, false
+	 *         otherwise
+	 */
 	public Boolean hasPickup(Long id) {
-		for(Intersection i : pickUpLocations) {
-			if(this.getDeliveryFromPickUp(i.getId()).equals(id)) {
+		for (Intersection i : pickUpLocations) {
+			if (this.getDeliveryFromPickUp(i.getId()).equals(id)) {
 				return true;
 			}
 		}
@@ -248,8 +255,8 @@ public class Request {
 	/**
 	 * Used to retrieve the duration of a specific step of the tour.
 	 * 
-	 * @param id The id corresponding to the intersection whose
-	 * duration we want to know.
+	 * @param id The id corresponding to the intersection whose duration we want to
+	 *           know.
 	 * @return The corresponding duration.
 	 */
 	public Integer getDurationPickUpDelivery(Long id) {
@@ -259,10 +266,12 @@ public class Request {
 	/**
 	 * Used to add two steps to the tour (a pick-up and its corresponding delivery).
 	 * 
-	 * @param pickUp 			The intersection corresponding to the pick-up point to add.
-	 * @param delivery			The intersection corresponding to the delivery point to add.
-	 * @param pickUpDuration	The time needed for the pick-up (in minutes).
-	 * @param deliveryDuration	The time needed for the delivery (in minutes).
+	 * @param pickUp           The intersection corresponding to the pick-up point
+	 *                         to add.
+	 * @param delivery         The intersection corresponding to the delivery point
+	 *                         to add.
+	 * @param pickUpDuration   The time needed for the pick-up (in minutes).
+	 * @param deliveryDuration The time needed for the delivery (in minutes).
 	 */
 	public void addRequest(Intersection pickUp, Intersection delivery, Integer pickUpDuration,
 			Integer deliveryDuration) {

@@ -1,7 +1,5 @@
 package controller;
 
-//import java.util.ArrayList;
-
 import javax.swing.JButton;
 
 import org.slf4j.Logger;
@@ -13,10 +11,10 @@ import modele.Way;
 import view.Window;
 
 /**
- * Classe that call the methods defined in the State interface.
+ * Class that call the methods defined in the State interface.
  */
 public class Controller {
-	
+
 	/**
 	 * The logger instance, used to log relevant information to the console.
 	 */
@@ -31,27 +29,59 @@ public class Controller {
 	 * The list of recorded commands, to be able to undo/redo them later.
 	 */
 	private ListOfCommands l;
-	
+
 	/**
 	 * The current state of our application.
 	 */
 	private State currentState;
-	
+
 	/**
 	 * The current Tour object that is being read or edited.
 	 */
 	private Tour tour;
 
-	// States
+	/**
+	 * Initial state of the application.
+	 */
 	protected final InitState initState = new InitState();
+
+	/**
+	 * State that is used when a map has been loaded.
+	 */
 	protected final MapLoadedState mapLoadedState = new MapLoadedState();
+
+	/**
+	 * State that is used when a request has been loaded.
+	 */
 	protected final RequestLoadedState requestLoadedState = new RequestLoadedState();
+
+	/**
+	 * State that is used when entering the "edit tour" mode.
+	 */
 	protected final TourModificationState tourModificationState = new TourModificationState();
+
+	/**
+	 * State that is used when switching steps in a tour.
+	 */
 	protected final ChangeOrderState orderModificationState = new ChangeOrderState();
+
+	/**
+	 * State that is used when deleting a step from a tour.
+	 */
 	protected final DeleteStepState deleteStepState = new DeleteStepState();
+
+	/**
+	 * State that is used when adding a new request to the tour. This one adds a new
+	 * pick-up intersection.
+	 */
 	protected final AddRequestState addRequestState = new AddRequestState();
+
+	/**
+	 * State that is used when adding a new request to the tour. This one adds a new
+	 * delivery intersection.
+	 */
 	protected final AddRequestState2 addRequestState2 = new AddRequestState2();
-	
+
 	/**
 	 * Constructor to initialize the controller.
 	 */
@@ -64,7 +94,8 @@ public class Controller {
 
 	/**
 	 * Sets a new state for the application.
-	 * @param state
+	 * 
+	 * @param state The state the controller has to switch to.
 	 */
 	protected void setCurrentstate(State state) {
 		currentState = state;
@@ -93,17 +124,18 @@ public class Controller {
 	}
 
 	/**
-	 * Method triggered when the user clicks on a step in the textual view.
-	 * It is used to highlight it and show the corresponding step on the graphical view.
-	 * @param way		The way object that should be highlighted
-	 * @param button	The button the click is coming from
+	 * Method triggered when the user clicks on a step in the textual view. It is
+	 * used to highlight it and show the corresponding step on the graphical view.
+	 * 
+	 * @param way    The way object that should be highlighted
+	 * @param button The button the click is coming from
 	 */
 	public void clickOnStep(Way way, JButton button) {
 		currentState.clickOnStep(this, this.window, l, way, button, this.tour);
 	}
 
 	/**
-	 * Swtiches the order of two steps in the tour.
+	 * Switches the order of two steps in the tour.
 	 */
 	public void modifyOrder() {
 		currentState.modifyOrder(this, this.window);
@@ -124,16 +156,16 @@ public class Controller {
 	}
 
 	/**
-	 * Adds a request (pick-up & delivery) to the tour.
+	 * Adds a request (pick-up and delivery) to the tour.
 	 */
 	public void addRequest() {
 		currentState.addRequest(this, this.window);
-
 	}
 
 	/**
 	 * Method called when the mouse has been moved on the graphical view.
-	 * @param p	The Point object representing the mouse position
+	 * 
+	 * @param p The Point object representing the mouse position
 	 */
 	public void mouseMoved(Point p) {
 		currentState.mouseMoved(this, this.window, p);
@@ -154,21 +186,12 @@ public class Controller {
 	}
 
 	/**
-	 * Method called when a left clicked has occured on the graphical view.
-	 * @param p	The Point object representing the mouse position
-	 * @param w	The window instance
+	 * Method called when a left clicked has occurred on the graphical view.
+	 * 
+	 * @param p The Point object representing the mouse position
+	 * @param w The window instance
 	 */
 	public void leftClick(Point p, Window w) {
 		currentState.leftClick(p, l, this, w);
 	}
-
-	/**
-	 * Method called when a right clicked has occured on the graphical view.
-	 * @param p	The Point object representing the mouse position
-	 * @param w	The window instance
-	 */
-	public void rightClick() {
-	}
-	
-
 }

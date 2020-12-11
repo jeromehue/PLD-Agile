@@ -1,7 +1,8 @@
 package observer;
+
 /**
- * This class is an interface to force Graphical and textual 
- * views to update with observer / observable design pattern.
+ * This class is an interface to force Graphical and textual views to update
+ * with observer / observable design pattern.
  * 
  * @author H4414
  *

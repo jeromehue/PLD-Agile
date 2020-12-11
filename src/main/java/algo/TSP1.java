@@ -6,14 +6,14 @@ import java.util.Iterator;
 import modele.Request;
 
 /**
- * This class is an utility for computing the Traveling 
- * Salesman Problem on a directed asymmetric graph.
+ * This class is an utility for computing the Traveling Salesman Problem on a
+ * directed asymmetric graph.
  * 
  * @author H4414
  *
  */
 public class TSP1 extends TemplateTSP {
-	
+
 	/**
 	 * The request containing the tour's steps entered by the user.
 	 */
@@ -22,15 +22,14 @@ public class TSP1 extends TemplateTSP {
 	/**
 	 * Constructor to initialize all parameters of this.
 	 * 
-	 * @param graph The graph on which the TSP will be computed.
+	 * @param graph   The graph on which the TSP will be computed.
 	 * @param request The request containing the tour's steps entered by the user.
-	 * @param dMax The maximal discrepancy used for the LDS meta-heuristic.
+	 * @param dMax    The maximal discrepancy used for the LDS meta-heuristic.
 	 */
 	public TSP1(Graph graph, Request request, Integer dMax) {
 		this.g = graph;
 		this.request = request;
 		this.maxDiscrepancy = dMax;
-		// TODO : adapt dmax value according to number of intersections
 	}
 
 	@Override

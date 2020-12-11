@@ -11,20 +11,18 @@ import java.util.NoSuchElementException;
 import modele.Request;
 
 /**
- * This class provides a custom iterator for the TSP algorithm.
- * It allows the implementation of an order heuristic
- * and to satisfy the constraint of visiting pick-up points
- * before their associated delivery points.
+ * This class provides a custom iterator for the TSP algorithm. It allows the
+ * implementation of an order heuristic and to satisfy the constraint of
+ * visiting pick-up points before their associated delivery points.
  * 
  * @author H4414
- *               
+ * 
  */
 public class SeqIter implements Iterator<Integer> {
 	/**
-	 * The indexes in the costs matrix of the Intersections
-	 * to be iterated through.
+	 * The indexes in the costs matrix of the Intersections to be iterated through.
 	 */
-	
+
 	private Integer[] candidates;
 	/**
 	 * The number of considered Intersections.
@@ -35,10 +33,10 @@ public class SeqIter implements Iterator<Integer> {
 	 * Create an iterator to traverse the set of vertices in <code>unvisited</code>
 	 * which are successors of <code>currentVertex</code> in <code>g</code>.
 	 * 
-	 * @param unvisited The collection of vertices to be iterated through.
+	 * @param unvisited     The collection of vertices to be iterated through.
 	 * @param currentVertex The last visited vertex.
-	 * @param g The whole graph.
-	 * @param request The request containing all steps of the tour.
+	 * @param g             The whole graph.
+	 * @param request       The request containing all steps of the tour.
 	 */
 	public SeqIter(Collection<Integer> unvisited, int currentVertex, Graph g, Request request) {
 		this.candidates = new Integer[unvisited.size()];
@@ -89,8 +87,8 @@ public class SeqIter implements Iterator<Integer> {
 	}
 
 	/**
-	 * @return True if the iterator isn't pointing on
-	 * the last element of the collection, else returns false.
+	 * @return True if the iterator isn't pointing on the last element of the
+	 *         collection, else returns false.
 	 */
 	@Override
 	public boolean hasNext() {

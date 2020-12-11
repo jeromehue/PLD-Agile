@@ -17,8 +17,9 @@ import xml.XMLRequestParser;
 
 /**
  * Initial state, left as soon as a map is loaded.
+ * 
  * @author H4414
- * */
+ */
 public class InitState implements State {
 
 	/**
