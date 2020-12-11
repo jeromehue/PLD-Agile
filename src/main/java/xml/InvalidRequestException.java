@@ -1,8 +1,8 @@
 package xml;
 
 /**
- * This class allows the handling of invalid XML files that should
- * represent a Request (or a list of requests).
+ * This class allows the handling of invalid XML files that should represent a
+ * Request (or a list of requests).
  * 
  * @author H4414
  * 

@@ -12,8 +12,8 @@ import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
 public class testGraphicalView {
-		@Test
-		void test() {
+	@Test
+	void test() {
 		JFrame frame = new JFrame("test vue grapique");
 
 		XMLCityMapParser p = new XMLCityMapParser("src/main/resources/largeMap.xml");

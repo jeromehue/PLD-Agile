@@ -5,65 +5,65 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * This abstract class provides a template for the class responsible
- * for the execution of the TSP algorithm.
+ * This abstract class provides a template for the class responsible for the
+ * execution of the TSP algorithm.
  * 
  * @author H4414
- * 	
+ * 
  */
 
 public abstract class TemplateTSP implements TSP {
 	/**
-	 * Array storing the indexes of the vertices corresponding
-	 * to the best known solution.
+	 * Array storing the indexes of the vertices corresponding to the best known
+	 * solution.
 	 */
 	private Integer[] bestSol;
-	
+
 	/*
 	 * The graph on which the TSP algorithm is being conducted.
 	 */
 	protected Graph g;
-	
+
 	/**
 	 * The total cost associated to the best known solution.
 	 */
 	protected Double bestSolCost;
-	
+
 	/**
 	 * The maximal discrepancy for the LDS meta-heuristic.
 	 */
 	protected Integer maxDiscrepancy;
-	
+
 	/**
 	 * The last visited vertex.
 	 */
 	protected Integer currentVertex;
-	
+
 	/**
 	 * A collection of vertices that have to be explored.
 	 */
 	protected Collection<Integer> unvisited;
-	
+
 	/**
 	 * A collection of all vertices already explored.
 	 */
 	protected Collection<Integer> visited;
-	
+
 	/**
 	 * The cost associated to the solution which is being computed.
 	 */
 	protected Double currentCost;
-	
+
 	/**
 	 * The discrepancy associated to the solution which is being computed.
 	 */
 	protected Integer discrepancy;
-	
+
 	/**
 	 * The time limit that can't be exceeded.
 	 */
 	private Integer timeLimit;
-	
+
 	/**
 	 * The time at which the computation was started.
 	 */
@@ -109,8 +109,8 @@ public abstract class TemplateTSP implements TSP {
 	/**
 	 * Method that must be defined in TemplateTSP subclasses.
 	 * 
-	 * @param 	currentVertex The last visited vertex.
-	 * @param 	unvisited A collection of vertices that we have to explore.
+	 * @param currentVertex The last visited vertex.
+	 * @param unvisited     A collection of vertices that we have to explore.
 	 * @return A lower bound of the cost of paths in <code>g</code> starting from
 	 *         <code>currentVertex</code>, visiting every vertex in
 	 *         <code>unvisited</code> exactly once, and returning back to vertex
@@ -122,9 +122,9 @@ public abstract class TemplateTSP implements TSP {
 	 * Method that must be defined in TemplateTSP subclasses
 	 * 
 	 * @param currentVertex The last visited vertex.
-	 * @param unvisited 	A collection of vertices that we have to explore.
-	 * @param g 			The graph on which we operate.
-	 * @return 				An iterator for visiting all vertices in <code>unvisited
+	 * @param unvisited     A collection of vertices that we have to explore.
+	 * @param g             The graph on which we operate.
+	 * @return An iterator for visiting all vertices in <code>unvisited
 	 * </code> which are successors of <code>currentVertex</code>.
 	 */
 	protected abstract Iterator<Integer> iterator(Integer currentVertex, Collection<Integer> unvisited, Graph g);
@@ -139,7 +139,7 @@ public abstract class TemplateTSP implements TSP {
 	 *                      (including currentVertex)
 	 * @param currentCost   the cost of the path corresponding to
 	 *                      <code>visited</code>
-	 * @param discrepancy 	the current discrepancy for the LDS meta-heuristic
+	 * @param discrepancy   the current discrepancy for the LDS meta-heuristic
 	 */
 	private void branchAndBound(Integer currentVertex, Collection<Integer> unvisited, Collection<Integer> visited,
 			Double currentCost, Integer discrepancy) {

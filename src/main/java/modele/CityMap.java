@@ -9,7 +9,7 @@ import view.GraphicalView;
  * This class contains all the elements to draw a map.
  * 
  * @author H4414
- *            
+ * 
  */
 
 public class CityMap {
@@ -17,27 +17,27 @@ public class CityMap {
 	 * List of all intersections of the map gotten from the XML parser.
 	 */
 	private List<Intersection> intersections;
-	
+
 	/**
 	 * List of all segments of the map gotten from the XML parser.
 	 */
 	private List<Segment> segments;
-	
+
 	/**
 	 * The latitude of the farthest south intersection of the map.
 	 */
 	private double minLatitude;
-	
+
 	/**
 	 * The longitude of the farthest west intersection of the map.
 	 */
 	private double minLongitude;
-	
+
 	/**
 	 * The latitude of the farthest north intersection of the map.
 	 */
 	private double maxLatitude;
-	
+
 	/**
 	 * The longitude of the farthest east intersection of the map.
 	 */
@@ -46,13 +46,15 @@ public class CityMap {
 	/**
 	 * Empty constructor used for tests.
 	 */
-	public CityMap() {};
+	public CityMap() {
+	};
 
 	/**
-	 * Constructor to initialize a full map. The extrema are initialized by the 
+	 * Constructor to initialize a full map. The extrema are initialized by the
 	 * <code>findMinMax()</code> function.
-	 * @param intersections 	List of all intersections of the map.
-	 * @param segments 			List of all segments of the map.
+	 * 
+	 * @param intersections List of all intersections of the map.
+	 * @param segments      List of all segments of the map.
 	 */
 	public CityMap(List<Intersection> intersections, List<Segment> segments) {
 		this.intersections = intersections;
@@ -62,6 +64,7 @@ public class CityMap {
 
 	/**
 	 * Initializes the coordinates on the window of all intersections
+	 * 
 	 * @param graphicalView Used to create the Points containing the coordinates.
 	 */
 	public void setIntersectionCoordinates(GraphicalView graphicalView) {
@@ -76,6 +79,7 @@ public class CityMap {
 
 	/**
 	 * Adds an intersection to the map.
+	 * 
 	 * @param inter The intersection to add.
 	 */
 	public void addIntersection(Intersection inter) {
@@ -85,6 +89,7 @@ public class CityMap {
 
 	/**
 	 * Adds a segment to the map.
+	 * 
 	 * @param seg The segment to add.
 	 */
 	public void addSegment(Segment seg) {
@@ -174,8 +179,9 @@ public class CityMap {
 
 	/**
 	 * Finds the Intersection corresponding to a given id.
+	 * 
 	 * @param id The id of the Intersection to find.
-	 * @return	The Intersection corresponding to the given id.
+	 * @return The Intersection corresponding to the given id.
 	 */
 	public Intersection getIntersectionFromId(Long id) {
 		for (Intersection intersection : intersections) {

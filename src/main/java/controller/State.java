@@ -25,6 +25,7 @@ public interface State {
 
 	/**
 	 * Method called by the controller after a click on the "Load XML Map" button
+	 * 
 	 * @param c the controller
 	 * @param w the window
 	 * @param t the tour

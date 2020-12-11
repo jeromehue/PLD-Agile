@@ -25,8 +25,9 @@ import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
 
 /**
- *  State reached after a request is loaded.
- *  @author H4414
+ * State reached after a request is loaded.
+ * 
+ * @author H4414
  */
 
 public class RequestLoadedState implements State {

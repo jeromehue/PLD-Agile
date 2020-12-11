@@ -1,6 +1,6 @@
 /**
- *  Provides the entrypoint of our programm.
+ * Provides the entrypoint of our programm.
  * 
- * */
+ */
 
 package app;

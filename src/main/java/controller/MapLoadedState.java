@@ -22,6 +22,7 @@ import xml.XMLRequestParser;
 
 /**
  * State reached from InitState when a map is loaded.
+ * 
  * @author H4414
  */
 public class MapLoadedState implements State {

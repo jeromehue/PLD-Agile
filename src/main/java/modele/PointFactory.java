@@ -3,8 +3,8 @@ package modele;
 import view.GraphicalView;
 
 /**
- * This class creates and stores all Points of the window.
- * It also provides utility functions for distance calculations.
+ * This class creates and stores all Points of the window. It also provides
+ * utility functions for distance calculations.
  * 
  * @author H4414
  * 
@@ -14,12 +14,12 @@ public class PointFactory {
 	 * A 2D array containing all points of the window.
 	 */
 	private static Point points[][];
-	
+
 	/**
 	 * The instance containing all informations relative to the map.
 	 */
 	private static CityMap cityMap;
-	
+
 	/**
 	 * Used to get the dimensions of the window.
 	 */
@@ -30,8 +30,8 @@ public class PointFactory {
 	 * [0,width]x[0,height]. Use fly weight to recycle points.
 	 * 
 	 * @param graphicalView Used to retrieve the dimensions of the window.
-	 * @param cityMap 		Used to retrieve the maximal and minimal 
-	 * latitude and longitude of the map.
+	 * @param cityMap       Used to retrieve the maximal and minimal latitude and
+	 *                      longitude of the map.
 	 */
 	public static void initPointFactory(GraphicalView graphicalView, CityMap cityMap) {
 		PointFactory.points = new Point[graphicalView.getWidth() + 1][graphicalView.getHeight() + 1];
@@ -66,7 +66,7 @@ public class PointFactory {
 	 * 
 	 * @param i The intersection corresponding to the Point to be created.
 	 * @return An instance of a Point whose coordinates are retrieved and calculated
-	 * from the latitude and longitude of the given Intersection.
+	 *         from the latitude and longitude of the given Intersection.
 	 */
 	public static Point createPoint(Intersection i) {
 		int x = intersectionToPixelLatitude(i);
@@ -82,8 +82,8 @@ public class PointFactory {
 	 * Utility method used for creating a point from an Intersection.
 	 * 
 	 * @param i The intersection from which information is extracted.
-	 * @return The x coordinate of the window corresponding to the latitude
-	 * of the given Intersection.
+	 * @return The x coordinate of the window corresponding to the latitude of the
+	 *         given Intersection.
 	 */
 	private static int intersectionToPixelLatitude(Intersection i) {
 		double longPourcent = (cityMap.getMaxLongitude() - i.getLongitude())
@@ -96,8 +96,8 @@ public class PointFactory {
 	 * Utility method used for creating a point from an Intersection.
 	 * 
 	 * @param i The intersection from which information is extracted.
-	 * @return The y coordinate of the window corresponding to the longitude
-	 * of the given Intersection.
+	 * @return The y coordinate of the window corresponding to the longitude of the
+	 *         given Intersection.
 	 */
 	private static int intersectionToPixelLongitude(Intersection i) {
 		double latPourcent = (cityMap.getMaxLatitude() - i.getLatitude())

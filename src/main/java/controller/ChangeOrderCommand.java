@@ -6,8 +6,9 @@ import modele.Tour;
 import view.GraphicalView;
 
 /**
- * Command that switches two steps in a tour,
- * after a click on the 'Change order' button.
+ * Command that switches two steps in a tour, after a click on the 'Change
+ * order' button.
+ * 
  * @author H4414
  */
 
@@ -33,10 +34,10 @@ public class ChangeOrderCommand implements Command {
 	/**
 	 * Create the command which adds the shape s to the plan p
 	 * 
-	 * @param p the plan to which f is added
-	 * @param g the graphical view to display
-	 * @param t the tour to which we change the order
-	 * @param i the intersection which changes its order
+	 * @param p      the plan to which f is added
+	 * @param g      the graphical view to display
+	 * @param t      the tour to which we change the order
+	 * @param i      the intersection which changes its order
 	 * @param offset the shift of the intersection in the tour
 	 */
 	public ChangeOrderCommand(GraphicalView g, Pcc p, Tour t, Intersection i, int offset) {

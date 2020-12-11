@@ -1,8 +1,8 @@
 package xml;
 
 /**
- * This class allows the handling of invalid XML files that should
- * represent a map.
+ * This class allows the handling of invalid XML files that should represent a
+ * map.
  * 
  * @author H4414
  * 

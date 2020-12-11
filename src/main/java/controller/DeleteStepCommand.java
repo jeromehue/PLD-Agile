@@ -6,13 +6,14 @@ import modele.Tour;
 import view.GraphicalView;
 
 /**
- * Command that deletes or puts back a step in a tour,
- * after a click on the 'Delete step' button.
+ * Command that deletes or puts back a step in a tour, after a click on the
+ * 'Delete step' button.
+ * 
  * @author H4414
  */
 
 public class DeleteStepCommand implements Command {
-	
+
 	/**
 	 * Contains all the shortest ways between intersection and delivery points
 	 */
@@ -30,7 +31,7 @@ public class DeleteStepCommand implements Command {
 	 */
 	private Intersection intersection;
 	/**
-	 *  The graphical view displayed
+	 * The graphical view displayed
 	 */
 	private GraphicalView g;
 
@@ -55,7 +56,7 @@ public class DeleteStepCommand implements Command {
 		this.oldTour = new Tour(this.tour); // Copie du tour (contenant le step)
 		this.oldTour.setTour(this.oldTour);
 		this.oldTour.notifyObservers();
-		
+
 		Tour newTour = this.pcc.deleteStep(this.tour, this.intersection); // On modifie le tour
 		this.tour.setTour(newTour);
 		g.getCityMap().setIntersectionCoordinates(g);

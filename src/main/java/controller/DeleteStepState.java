@@ -10,6 +10,7 @@ import view.Window;
 
 /**
  * State reached after a click on 'Delete a request ' button.
+ * 
  * @author H4414
  */
 
@@ -20,17 +21,16 @@ public class DeleteStepState implements State {
 		Intersection stepToDelete = wa.getDeparture();
 		Long startId = t.getRequest().getStartingLocation().getId();
 		System.out.println(stepToDelete.toString());
-		
-		if ( stepToDelete.getId().equals(startId) ) {
+
+		if (stepToDelete.getId().equals(startId)) {
 			w.setMessage("You can't delete the starting point !");
-		}
-		else {			
+		} else {
 			Pcc shortestPathComputer = new Pcc(w.getGraphicalView().getCityMap(), w.getGraphicalView().getRequest());
 			shortestPathComputer.computePcc();
-	
+
 			l.add(new DeleteStepCommand(w.getGraphicalView(), shortestPathComputer, t, stepToDelete));
 		}
-			
+
 		c.setCurrentstate(c.tourModificationState);
 	}
 

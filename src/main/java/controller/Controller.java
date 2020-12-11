@@ -16,7 +16,7 @@ import view.Window;
  * Classe that call the methods defined in the State interface.
  */
 public class Controller {
-	
+
 	/**
 	 * The logger instance, used to log relevant information to the console.
 	 */
@@ -31,12 +31,12 @@ public class Controller {
 	 * The list of recorded commands, to be able to undo/redo them later.
 	 */
 	private ListOfCommands l;
-	
+
 	/**
 	 * The current state of our application.
 	 */
 	private State currentState;
-	
+
 	/**
 	 * The current Tour object that is being read or edited.
 	 */
@@ -51,7 +51,7 @@ public class Controller {
 	protected final DeleteStepState deleteStepState = new DeleteStepState();
 	protected final AddRequestState addRequestState = new AddRequestState();
 	protected final AddRequestState2 addRequestState2 = new AddRequestState2();
-	
+
 	/**
 	 * Constructor to initialize the controller.
 	 */
@@ -64,6 +64,7 @@ public class Controller {
 
 	/**
 	 * Sets a new state for the application.
+	 * 
 	 * @param state
 	 */
 	protected void setCurrentstate(State state) {
@@ -93,10 +94,11 @@ public class Controller {
 	}
 
 	/**
-	 * Method triggered when the user clicks on a step in the textual view.
-	 * It is used to highlight it and show the corresponding step on the graphical view.
-	 * @param way		The way object that should be highlighted
-	 * @param button	The button the click is coming from
+	 * Method triggered when the user clicks on a step in the textual view. It is
+	 * used to highlight it and show the corresponding step on the graphical view.
+	 * 
+	 * @param way    The way object that should be highlighted
+	 * @param button The button the click is coming from
 	 */
 	public void clickOnStep(Way way, JButton button) {
 		currentState.clickOnStep(this, this.window, l, way, button, this.tour);
@@ -133,7 +135,8 @@ public class Controller {
 
 	/**
 	 * Method called when the mouse has been moved on the graphical view.
-	 * @param p	The Point object representing the mouse position
+	 * 
+	 * @param p The Point object representing the mouse position
 	 */
 	public void mouseMoved(Point p) {
 		currentState.mouseMoved(this, this.window, p);
@@ -155,8 +158,9 @@ public class Controller {
 
 	/**
 	 * Method called when a left clicked has occured on the graphical view.
-	 * @param p	The Point object representing the mouse position
-	 * @param w	The window instance
+	 * 
+	 * @param p The Point object representing the mouse position
+	 * @param w The window instance
 	 */
 	public void leftClick(Point p, Window w) {
 		currentState.leftClick(p, l, this, w);
@@ -164,11 +168,11 @@ public class Controller {
 
 	/**
 	 * Method called when a right clicked has occured on the graphical view.
-	 * @param p	The Point object representing the mouse position
-	 * @param w	The window instance
+	 * 
+	 * @param p The Point object representing the mouse position
+	 * @param w The window instance
 	 */
 	public void rightClick() {
 	}
-	
 
 }

@@ -16,6 +16,7 @@ import view.Window;
 
 /**
  * State Reached when 'Modify Order Button is clicked'.
+ * 
  * @author H4414
  *
  */
@@ -34,22 +35,21 @@ public class ChangeOrderState implements State {
 		logger.info("Modify order of tour in controller");
 
 		Intersection intersection = wa.getDeparture();
-		
-		int newIndex=-1;
+
+		int newIndex = -1;
 		int nbIntersectionTour = t.getWaysList().size();
 
 		// If we don't select a starting point, we can't change the position.
-		if(!intersection.getId().equals(t.getRequest().getStartingLocation().getId())) {
+		if (!intersection.getId().equals(t.getRequest().getStartingLocation().getId())) {
 			newIndex = w.displaySelectOrderDialog();
-			while(newIndex < 0 || newIndex >= nbIntersectionTour) {
+			while (newIndex < 0 || newIndex >= nbIntersectionTour) {
 				newIndex = w.displaySelectOrderDialog();
 				w.setMessage("You can't select this index.");
 			}
-		}
-		else {
+		} else {
 			w.setMessage("You can't change the order of the starting point.");
 		}
-		
+
 		logger.info("New index : {}", newIndex);
 		Tour t1 = w.getGraphicalView().getTour();
 		int shift = newIndex - t1.getIndex(intersection.getId());
@@ -62,7 +62,7 @@ public class ChangeOrderState implements State {
 		l.add(new ChangeOrderCommand(w.getGraphicalView(), shortestPathComputer, t1, intersection, shift));
 
 		c.setCurrentstate(c.tourModificationState);
-		
+
 	}
 
 	@Override
