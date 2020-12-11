@@ -48,7 +48,6 @@ class TestPcc {
 		Pcc pcc = new Pcc(city, request);
 
 		CompleteGraph graph = pcc.computePcc();
-		// System.out.println(graph.toString());
 
 		ArrayList<Intersection> deliveries = request.getDeliveryLocations();
 		Integer randomDeliveryLocation = (int) ((Math.random() * deliveries.size()));
@@ -150,7 +149,6 @@ class TestPcc {
 		Pcc pcc = new Pcc(city, request);
 		pcc.computePcc();
 
-		// Tour t = pcc.computeGooodTSPTour();
 		System.out.print(request.getStartingLocation().getId() + " - ");
 		for (Intersection inter : request.getDeliveryLocations()) {
 			System.out.print(inter.getId() + " - ");
