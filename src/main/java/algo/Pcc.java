@@ -244,7 +244,6 @@ public class Pcc {
 
 		Intersection inter;
 		Long idInter;
-		System.out.println("okay TSP");
 		List<Intersection> goodInterList = new ArrayList<Intersection>();
 
 		for (int i = 0; i < graph.getNbVertices(); i++) {

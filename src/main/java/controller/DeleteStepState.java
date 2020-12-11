@@ -20,7 +20,6 @@ public class DeleteStepState implements State {
 	public void clickOnStep(Controller c, Window w, ListOfCommands l, Way wa, JButton button, Tour t) {
 		Intersection stepToDelete = wa.getDeparture();
 		Long startId = t.getRequest().getStartingLocation().getId();
-		System.out.println(stepToDelete.toString());
 
 		if (stepToDelete.getId().equals(startId)) {
 			w.setMessage("You can't delete the starting point !");

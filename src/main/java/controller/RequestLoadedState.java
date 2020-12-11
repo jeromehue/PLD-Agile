@@ -152,7 +152,6 @@ public class RequestLoadedState implements State {
 				}
 				if (distance < mindist) {
 					mindist = distance;
-					// System.out.println("distance : " +distance);
 					sclosest = s;
 				}
 			}
