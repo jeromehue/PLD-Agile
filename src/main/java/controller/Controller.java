@@ -1,7 +1,5 @@
 package controller;
 
-//import java.util.ArrayList;
-
 import javax.swing.JButton;
 
 import org.slf4j.Logger;
