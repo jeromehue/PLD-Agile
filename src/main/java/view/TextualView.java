@@ -43,45 +43,45 @@ public class TextualView extends JPanel implements Observer {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Button listener to listen buttonWays of pointJButtonList
+	 * Button listener to listen buttonWays of pointJButtonList.
 	 */
 	private ButtonListener buttonListener;
 	
 	/**
-	 * The tour initialized in the controller and observed by this 
+	 * The tour initialized in the controller and observed by this.
 	 */
 	private Tour tour;
 	
 	/**
-	 * List of buttons used to display the steps of the tour and make them clickable
+	 * List of buttons used to display the steps of the tour and make them clickable.
 	 */
 	private ArrayList<JButton> pointsJButtonList;
 	
 	/**
-	 * The component which encapsulates this, it is resized depending on the size of this
+	 * The component which encapsulates this, it is resized depending on the size of this.
 	 */
 	private JScrollPane scrollPane;
 	
 	/**
-	 * Label to signal tour edition mode is on
+	 * Label to signal tour edition mode is on.
 	 */
 	private JLabel tourEditionLabel;
 	
 	/**
-	 * Width of this, used to set the size of the scroll bar, and the tourEditionLabel
+	 * Width of this, used to set the size of the scroll bar, and the tourEditionLabel.
 	 */
 	private int width;
 	
 	/**
-	 * Height of the textual view, used to set the size of th scroll bar 
+	 * Height of the textual view, used to set the size of the scroll bar.
 	 */
 	private int height;
 
 	/**
 	 * Create a textual view of the computed tour in window.
 	 * 
-	 * @param buttonListener the buttonListener
-	 * @param tour           the computed tour from controller
+	 * @param buttonListener The buttonListener of the application.
+	 * @param tour           The computed tour from the controller.
 	 */
 	public TextualView(Tour tour, ButtonListener buttonListener) {
 		super();
@@ -125,7 +125,7 @@ public class TextualView extends JPanel implements Observer {
 	}
 
 	/**
-	 * Default getter, called in Window
+	 * Default getter, called in Window.
 	 * 
 	 * @return The scroll pane of the textual view.
 	 */
@@ -134,9 +134,9 @@ public class TextualView extends JPanel implements Observer {
 	}
 	
 	/**
-	 * Method called to set the scroll pane
+	 * Method called to set the scroll pane.
 	 * 
-	 * @param the scrollPane to set 
+	 * @param The scrollPane to set. 
 	 */
 	public void setScrollPane(JScrollPane scrollPane) {
 		this.scrollPane = scrollPane;
