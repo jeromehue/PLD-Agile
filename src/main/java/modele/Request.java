@@ -188,10 +188,16 @@ public class Request {
 		return deliveryFromPickUp.get(id);
 	}
 
+	/**
+	 * Used to retrive the delivery intersection given the pick-up id
+	 * 
+	 * @param id A pick-up's intersection's id.
+	 * @return The corresponding delivery's intersection object.
+	 */
 	public Intersection getDeliveryIntersectionFromPickUp(Long id) {
 		Long deliveryId = deliveryFromPickUp.get(id);
 		for (Intersection i : deliveryLocations) {
-			if (deliveryId == i.getId()) {
+			if (deliveryId.equals(i.getId())) {
 				return i;
 			}
 		}
@@ -221,9 +227,16 @@ public class Request {
 		return (deliveryFromPickUp.get(id) != null && deliveryFromPickUp.get(id) != -1);
 	}
 
+	/**
+	 * Tests if the pick-up intersection has a corresponding pick-up intersection.
+	 * 
+	 * @param id The id of a delivery intersection
+	 * @return true if there is a corresponding pick-up intersection, false
+	 *         otherwise
+	 */
 	public Boolean hasPickup(Long id) {
 		for (Intersection i : pickUpLocations) {
-			if (this.getDeliveryFromPickUp(i.getId()) == id) {
+			if (this.getDeliveryFromPickUp(i.getId()).equals(id)) {
 				return true;
 			}
 		}
