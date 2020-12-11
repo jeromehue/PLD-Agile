@@ -30,7 +30,6 @@ public class TSP1 extends TemplateTSP {
 		this.g = graph;
 		this.request = request;
 		this.maxDiscrepancy = dMax;
-		// TODO : adapt dmax value according to number of intersections
 	}
 
 	@Override

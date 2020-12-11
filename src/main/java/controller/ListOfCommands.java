@@ -12,17 +12,17 @@ import java.util.LinkedList;
 public class ListOfCommands {
 
 	/**
-	 * The linked list of recorded commands
+	 * The linked list of recorded commands.
 	 */
 	private LinkedList<Command> list;
 
 	/**
-	 * The current command index in the linked list
+	 * The current command index in the linked list.
 	 */
 	private int currentIndex;
 
 	/**
-	 * Constructor to create a new list of commands
+	 * Constructor to create a new list of commands.
 	 */
 	public ListOfCommands() {
 		currentIndex = -1;
@@ -30,7 +30,7 @@ public class ListOfCommands {
 	}
 
 	/**
-	 * Add command c to this
+	 * Add command c to this.
 	 * 
 	 * @param c the command to add
 	 */
@@ -46,7 +46,7 @@ public class ListOfCommands {
 
 	/**
 	 * Temporary remove the last added command (this command may be reinserted again
-	 * with redo)
+	 * with redo).
 	 */
 	public void undo() {
 		if (currentIndex >= 0) {
@@ -58,7 +58,7 @@ public class ListOfCommands {
 
 	/**
 	 * Permanently remove the last added command (this command cannot be reinserted
-	 * again with redo)
+	 * again with redo).
 	 */
 	public void cancel() {
 		if (currentIndex >= 0) {
@@ -70,7 +70,7 @@ public class ListOfCommands {
 	}
 
 	/**
-	 * Reinsert the last command removed by undo
+	 * Reinsert the last command removed by undo.
 	 */
 	public void redo() {
 		if (currentIndex < list.size() - 1) {
@@ -81,7 +81,7 @@ public class ListOfCommands {
 	}
 
 	/**
-	 * Permanently remove all commands from the list
+	 * Permanently remove all commands from the list.
 	 */
 	public void reset() {
 		currentIndex = -1;

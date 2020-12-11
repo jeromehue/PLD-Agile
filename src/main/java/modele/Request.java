@@ -189,7 +189,7 @@ public class Request {
 	}
 
 	/**
-	 * Used to retrive the delivery intersection given the pick-up id
+	 * Used to retrieve the delivery intersection given the pick-up id
 	 * 
 	 * @param id A pick-up's intersection's id.
 	 * @return The corresponding delivery's intersection object.

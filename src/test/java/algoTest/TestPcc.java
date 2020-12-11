@@ -13,8 +13,6 @@ import algo.Pcc;
 import modele.CityMap;
 import modele.Request;
 import modele.Segment;
-import modele.Tour;
-import modele.Way;
 import modele.Intersection;
 import xml.XMLCityMapParser;
 import xml.XMLRequestParser;
