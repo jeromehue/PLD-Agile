@@ -230,6 +230,7 @@ public class Window extends JFrame {
 
 	/**
 	 * Default getter.
+	 * 
 	 * @return The textual view of the window.
 	 */
 	public TextualView getTextualView() {
