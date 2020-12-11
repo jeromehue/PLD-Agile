@@ -136,9 +136,9 @@ public class AddRequestState2 implements State {
 	/**
 	 * Sets variables before entering the AddRequestState2.
 	 * 
-	 * @param pickUpId       A pick-up intersection id
-	 * @param pickUpDuration The time it takes to pick-up, in minutes
-	 * @param pickUpIndex    The index for which to set the pick-up intersection
+	 * @param pickUpId       A pick-up intersection id.
+	 * @param pickUpDuration The time it takes to pick-up, in minutes.
+	 * @param pickUpIndex    The index for which to set the pick-up intersection.
 	 */
 	protected void enterAction(Long pickUpId, Integer pickUpDuration, Integer pickUpIndex) {
 		this.pickUpId = pickUpId;

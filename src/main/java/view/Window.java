@@ -89,8 +89,9 @@ public class Window extends JFrame {
 	 * describing steps of the tour, and listeners which catch events and forward
 	 * them to controller.
 	 * 
-	 * @param tour       the tour
-	 * @param controller the controller
+	 * @param tour       The tour to be added to the textual view.
+	 * @param controller The controller which will handle events and states of the 
+	 * application.
 	 */
 	public Window(Controller controller, Tour tour) {
 		super("Deliver'IF");
@@ -135,10 +136,19 @@ public class Window extends JFrame {
 		PointFactory.initPointFactory(graphicalView, null);
 	}
 
+	/**
+	 * Default getter.
+	 * 
+	 * @return The graphical view of the window.
+	 */
 	public GraphicalView getGraphicalView() {
 		return graphicalView;
 	}
 
+	/**
+	 * Default getter.
+	 * @return The textual view of the window.
+	 */
 	public TextualView getTextualView() {
 		return textualView;
 	}
@@ -169,7 +179,7 @@ public class Window extends JFrame {
 	/**
 	 * Method called to create the menu bar component.
 	 * 
-	 * @return a JMenuBar object
+	 * @return A JMenuBar object.
 	 */
 	private JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
