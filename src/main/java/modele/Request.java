@@ -195,7 +195,7 @@ public class Request {
 	public Intersection getDeliveryIntersectionFromPickUp(Long id) {
 		Long deliveryId = deliveryFromPickUp.get(id);
 		for(Intersection i : deliveryLocations) {
-			if(deliveryId == i.getId()) {
+			if(deliveryId.equals(i.getId())) {
 				return i;
 			}
 		}
@@ -229,7 +229,7 @@ public class Request {
 	
 	public Boolean hasPickup(Long id) {
 		for(Intersection i : pickUpLocations) {
-			if(this.getDeliveryFromPickUp(i.getId()) == id) {
+			if(this.getDeliveryFromPickUp(i.getId()).equals(id)) {
 				return true;
 			}
 		}
