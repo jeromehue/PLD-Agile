@@ -18,7 +18,14 @@ public class AddRequestCommand implements Command {
 	 * Create the command which adds the shape s to the plan p
 	 * 
 	 * @param p the plan to which f is added
-	 * @param s the shape added to p
+	 * @param g the graphical view displayed
+	 * @param tour the tour to which we add a request
+	 * @param pickup the pickup intersection we add to the tour
+	 * @param delivery the delivery intersection we add to the tour
+	 * @param pickUpDuration the duration to pick up the 
+	 * @param deliveryDuration the duration to delivers the
+	 * @param pickUpIndex the index of the pick up point
+	 * @param deliveryIndex the index of the delivery point
 	 */
 	public AddRequestCommand(GraphicalView g, Pcc p, Tour tour, Intersection pickup, Intersection delivery,
 			int pickUpDuration, int deliveryDuration, int pickUpIndex, int deliveryIndex) {

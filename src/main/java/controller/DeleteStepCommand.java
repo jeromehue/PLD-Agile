@@ -16,7 +16,9 @@ public class DeleteStepCommand implements Command {
 	 * Create the command which adds the shape s to the plan p
 	 * 
 	 * @param p the plan to which f is added
-	 * @param s the shape added to p
+	 * @param g the graphical view to display
+	 * @param t the tour to which we delete the intersection
+	 * @param i the intersection to delete
 	 */
 	public DeleteStepCommand(GraphicalView g, Pcc p, Tour t, Intersection i) {
 		this.pcc = p;
