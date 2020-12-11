@@ -1,7 +1,5 @@
 package xml;
 
-// From https://mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/ 
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.XMLConstants;
@@ -20,21 +18,21 @@ import modele.*;
 
 /**
  * XML Parser for requests.
+ * From https://mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/ 
  * 
  * @author H4414
  * 
  * */
-
 
 public class XMLRequestParser extends XMLParser {
 
 	private CityMap cityMap;
 
 	/**
-	 * Constructor
+	 * Default constructor for this class.
 	 * 
-	 * @param filename the file to be parsed.
-	 * @param cityMap the CityMap object that contains all segments and intersections
+	 * @param filename The file to be parsed.
+	 * @param cityMap The CityMap object that contains all segments and intersections.
 	 */
 	public XMLRequestParser(String filename, CityMap cityMap) {
 		super(filename);
@@ -47,8 +45,8 @@ public class XMLRequestParser extends XMLParser {
 	 * delivery and pickup duration for each point ) and return the map.
 	 * 
 	 * @return The citymap that was parsed from the XML file.
-	 * @throws ParserConfigurationException indicates at serious configuration error
-	 * @throws IOException signals that an I/O exception of some sort has occurred. This class is the 
+	 * @throws ParserConfigurationException Indicates a serious configuration error.
+	 * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the 
 	 * 			general class of exceptions produced by failed or interrupted I/O operations.
 	 * @throws SAXException Encapsulate a general SAX error or warning. 
 	 * @throws InvalidRequestException The xml file to be parsed is badly formed.
