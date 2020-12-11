@@ -24,24 +24,64 @@ import observer.Observer;
 
 /**
  * The area of the window that displays the map and the computed tour.
+ * 
  * @author H4414
  * */
 
 public class GraphicalView extends JPanel implements Observer {
+	/**
+	 * Used to log properly actions and exceptions that may have to reported.
+	 */
 	private static final Logger logger = LoggerFactory.getLogger(GraphicalView.class);
 
+	/**
+	 * Recommended parameter to avoid unexpected InvalidClassExceptions.
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * This field contains all informations relative to the map that this
+	 * has to display.
+	 */
 	private CityMap cityMap;
+	
+	/**
+	 * This field contains all informations relative to the requests provided
+	 * by the user in his XML file.
+	 */
 	private Request request;
+	
+	/**
+	 * The segment that is nearest of the mouse cursor and that has to be highlighted
+	 * on the map. The name of its street will also be displayed.
+	 */
 	private Segment highlightedSegment;
+	
+	/**
+	 * If the user clicks on a step, the intersection corresponding to the origin
+	 * of this step will be highlighted on the map.
+	 */
 	private Intersection highlightedIntersection;
+	
+	/**
+	 * If the user clicks on a step, the list of all segments composing the step
+	 * will be highlighted on the map.
+	 */
 	private Way highlightedWay;
-	private Tour tour; // tour is unique -> modified in the controller and observed to display changes
+	
+	/**
+	 * This field contains all informations relative to the current version of the tour.
+	 * It is at first computed by the algo package, then modified by the controller if the
+	 * user performs modifications on the tour.
+	 * It is observed by this class to be notified of its changes, so that the updates
+	 * can be displayed on the window.
+	 */
+	private Tour tour;
 
 	/**
-	 * Create the graphical view for drawing Map, request and tour  
-	 * @param tour the observed Tour to redraw on graphical view each time it is modified
+	 * Create the graphical view for drawing Map, request and tour.
+	 * 
+	 * @param tour The observed Tour to redraw on graphical view every time it is modified.
 	 */
 	public GraphicalView(Tour tour) {
 		super();
@@ -55,56 +95,107 @@ public class GraphicalView extends JPanel implements Observer {
 		this.tour.addObserver(this); // observes tour changes
 	}
 	
+	/**
+	 * Default setter.
+	 * 
+	 * @param request Used when a new set of requests is loaded into the application.
+	 */
 	public void setRequest(Request request) {
 		this.request = request;
 		this.repaint();
 	}
 
+	/**
+	 * Default setter. 
+	 * 
+	 * @param cityMap Used when a new map is loaded into the application.
+	 */
 	public void setCityMap(CityMap cityMap) {
 		this.cityMap = cityMap;
 		this.repaint();
 	}
 
+	/**
+	 * Used when the user moves his mouse over the map to highlight the nearest segment.
+	 * 
+	 * @param segment The segment that is nearest to the mouse cursor. 
+	 */
 	public void highlight(Segment segment) {
 		this.highlightedSegment = segment;
 		this.repaint();
 	}
 
+	/**
+	 * When the user clicks on a step, the corresponding intersection is highlighted.
+	 * 
+	 * @param intersection The intersection to highlight.
+	 */
 	public void setHighlightInter(Intersection intersection) {
 		this.highlightedIntersection = intersection;
 		this.repaint();
 	}
 
+	
+	/**
+	 * When the user clicks on a step, the corresponding list way is highlighted.
+	 * 
+	 * @param intersection The way to highlight.
+	 */
 	public void setHighlightedWay(Way way) {
 		this.highlightedWay = way;
 		this.repaint();
 	}
 
+	/**
+	 * Default getter.
+	 * 
+	 * @return The cityMap displayed on the screen.
+	 */
 	public CityMap getCityMap() {
 		return this.cityMap;
 	}
 
+	/**
+	 * Default getter.
+	 * 
+	 * @return The set of requests displayed on the screen.
+	 */
 	public Request getRequest() {
 		return this.request;
 	}
 
+	/**
+	 * Default getter.
+	 * 
+	 * @return The current version of the tour displayed on the screen.
+	 */
 	public Tour getTour() {
 		return this.tour;
 	}
 
-	
+	/**
+	 * Default getter.
+	 * 
+	 * @return The id of the currently highlighted intersection, when the user
+	 * has clicked on a step. 
+	 */
 	public Long getHighlightedIntersectionId() {
 		return this.highlightedIntersection.getId();
 	}
 	
-
+	/**
+	 * Default setter.
+	 * 
+	 * @param tour The tour to be added (after computing the tour) or updated
+	 * if it has been modified.
+	 */
 	public void setTour(Tour tour) {
 		this.tour = tour;
 		
 	}
 	
 	/**
-	 * Method called by objects observed by this graphical view each time they are modified
+	 * Method called by objects (Tour) observed by this graphical view each time they are modified.
 	 */
 	@Override
 	public void update(Observable observed) {
@@ -116,8 +207,8 @@ public class GraphicalView extends JPanel implements Observer {
 	}
 
 	/**
-	 * Method called each time this must be redrawn
-	 * @param _graphics the graphic context of the view
+	 * Method called each time this must be redrawn.
+	 * @param _graphics The graphical context of the view.
 	 */
 	@Override
 	protected void paintComponent(Graphics _graphics) {
@@ -175,8 +266,9 @@ public class GraphicalView extends JPanel implements Observer {
 	}
 	
 	/**
-	 * Method called to draw this.tour 
-	 * @param graphics the graphic context of the view
+	 * Method called to draw this tour when it has been computed or updated.
+	 * 
+	 * @param graphics The graphical context of the view.
 	 */
 	private void drawTour(Graphics2D graphics) {
 		Color from = new Color(3, 115, 252); // Blue
@@ -219,9 +311,10 @@ public class GraphicalView extends JPanel implements Observer {
 	}
 	
 	/**
-	 * Method called to draw a Way
-	 * @param graphics the graphic context of the view
-	 * @param way the Way to draw   
+	 * Method called to draw a Way on the map.
+	 * 
+	 * @param graphics The graphical context of the view.
+	 * @param way The list of Segments to draw on the map.   
 	 */
 	private void drawWay(Graphics2D graphics, Way way) {
 		Iterator<Segment> itSegment = way.getSegmentListIterator();
@@ -231,8 +324,9 @@ public class GraphicalView extends JPanel implements Observer {
 	}
 	
 	/**
-	 * Method called to draw this.cityMap 
-	 * @param graphics the graphic context of the view
+	 * Method called to draw the city map loaded into the application.
+	 *  
+	 * @param graphics The graphic context of the view.
 	 */
 	private void drawCityMap(Graphics2D graphics) {
 		graphics.setColor(Color.darkGray);
@@ -245,9 +339,10 @@ public class GraphicalView extends JPanel implements Observer {
 	}
 	
 	/**
-	 * Method called to draw a Segment
-	 * @param graphics the graphic context of the view
-	 * @param s the Segment to draw   
+	 * Method called to draw a specific Segment.
+	 * 
+	 * @param graphics The graphical context of the view.
+	 * @param s The Segment to draw on the map.   
 	 */
 	private void drawSegment(Graphics graphics, Segment s) {
 		graphics.drawLine(s.getOrigin().getCoordinates().getX(), s.getOrigin().getCoordinates().getY(),
@@ -255,8 +350,9 @@ public class GraphicalView extends JPanel implements Observer {
 	}
 	
 	/**
-	 * Method called to draw this.request
-	 * @param graphics the graphic context of the view 
+	 * Method called to draw this request.
+	 * 
+	 * @param graphics The graphical context of the view. 
 	 */
 	private void drawRequest(Graphics graphics) {
 		// draw start point
@@ -278,7 +374,6 @@ public class GraphicalView extends JPanel implements Observer {
 			graphics.setColor(color);
 
 			String label;
-			// System.out.println(pickUpAdresseToDraw);
 			if (pickUpAddressToDraw != null) {
 				if(deliveryAddressToDraw != null) {
 					 label = "Pick-up " + (char)(requestNumber + 65);
@@ -289,7 +384,6 @@ public class GraphicalView extends JPanel implements Observer {
 				drawIntersectionSquare(graphics, pickUpAddressToDraw, label);
 			}
 			
-			// System.out.println(deliveryAdressToDraw);
 			if (deliveryAddressToDraw != null) {
 				label = "Delivery " + (char)(requestNumber + 65);
 				drawIntersectionCircle(graphics, deliveryAddressToDraw, label);
@@ -302,7 +396,7 @@ public class GraphicalView extends JPanel implements Observer {
 			Color color = new Color(aloneDeliveryAdressToDraw.hashCode()).darker();
 			graphics.setColor(color);
 			if (aloneDeliveryAdressToDraw != null && !this.request.hasPickup(aloneDeliveryAdressToDraw.getId())) {
-				String label = "Stand-alone delivery"; //S+ (char)(requestNumber + 65);
+				String label = "Stand-alone delivery";
 				drawIntersectionCircle(graphics, aloneDeliveryAdressToDraw, label);
 			}
 			++requestNumber;
@@ -310,10 +404,13 @@ public class GraphicalView extends JPanel implements Observer {
 	}
 	
 	/**
-	 * Method called to draw a delivery point
-	 * @param graphics the graphic context of the view
-	 * @param intersection the delivery point intersection to draw 
-	 * @param label the label 
+	 * Method called to draw a delivery point.
+	 * 
+	 * @param graphics The graphical context of the view.
+	 * @param intersection The intersection to draw corresponding
+	 * to the delivery point.  
+	 * @param label The label of the delivery point (containing its
+	 * position in the tour). 
 	 */
 	private void drawIntersectionCircle(Graphics graphics, Intersection intersection, String label) {
 		if (intersection.getId() != null) {
@@ -326,10 +423,13 @@ public class GraphicalView extends JPanel implements Observer {
 	}
 	
 	/**
-	 * Method called to draw a pick up point
-	 * @param graphics the graphic context of the view
-	 * @param intersection the pick up point intersection to draw  
-	 * @param label the label 
+	 * Method called to draw a pick-up point.
+	 * 
+	 * @param graphics The graphical context of the view.
+	 * @param intersection The intersection to draw corresponding
+	 * to the pick-up point.  
+	 * @param label The label of the pick-up point (containing its
+	 * position in the tour). 
 	 */
 	private void drawIntersectionSquare(Graphics graphics, Intersection intersection, String label) {
 		graphics.setFont(graphics.getFont().deriveFont(Font.BOLD, 14f));
@@ -339,9 +439,11 @@ public class GraphicalView extends JPanel implements Observer {
 	}
 
 	/**
-	 * Method called to draw the starting point
-	 * @param graphics the graphic context of the view
-	 * @param intersection of the starting point  
+	 * Method called to draw the starting point.
+	 * 
+	 * @param graphics The graphic context of the view.
+	 * @param intersection The intersection to draw corresponding
+	 * to the starting point. 
 	 */
 	private void drawStartIntersection(Graphics graphics, Intersection intersection) {
 		graphics.setColor(Color.red);

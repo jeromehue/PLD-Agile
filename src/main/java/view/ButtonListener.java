@@ -9,8 +9,9 @@ import org.slf4j.LoggerFactory;
 import controller.Controller;
 
 /**
- * Receives button clicks events and calls
- *  the controller to update data and view.
+ * The button listener of the window, receives button clicks 
+ * events and calls the controller to update data and view.
+ *  
  *  @author H4414
  * */
 
@@ -20,16 +21,18 @@ public class ButtonListener implements ActionListener {
 	private Controller controller;
 	
 	/**
-	 * The vutton listener of the window.
-	 * @param controller The controller.
+	 * Default constructor for this class.
+	 * 
+	 * @param controller The controller to notify.
 	 */
 	public ButtonListener(Controller controller) {
 		this.controller = controller;
 	}
 	
 	/**
-	 * Call controller after a button event
-	 * @param e The event?
+	 * Call controller after a button event.
+	 * 
+	 * @param e The action that was performed on the window.
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() instanceof ButtonWay) {
