@@ -139,7 +139,7 @@ public class GraphicalView extends JPanel implements Observer {
 	/**
 	 * When the user clicks on a step, the corresponding list way is highlighted.
 	 * 
-	 * @param intersection The way to highlight.
+	 * @param way The way to highlight.
 	 */
 	public void setHighlightedWay(Way way) {
 		this.highlightedWay = way;
