@@ -31,6 +31,9 @@ import xml.XMLRequestParser;
 
 public class RequestLoadedState implements State {
 
+	/**
+	 * The logger instance, used to log relevant information to the console.
+	 */
 	private static final Logger logger = LoggerFactory.getLogger(XMLRequestParser.class);
 
 	@Override

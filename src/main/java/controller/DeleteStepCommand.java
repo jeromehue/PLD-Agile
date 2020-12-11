@@ -5,7 +5,14 @@ import modele.Intersection;
 import modele.Tour;
 import view.GraphicalView;
 
+/**
+ * Command that deletes or puts back a step in a tour,
+ * after a click on the 'Delete step' button.
+ * @author H4414
+ */
+
 public class DeleteStepCommand implements Command {
+	
 	/**
 	 * Contains all the shortest ways between intersection and delivery points
 	 */

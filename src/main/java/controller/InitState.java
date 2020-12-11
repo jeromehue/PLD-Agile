@@ -21,6 +21,9 @@ import xml.XMLRequestParser;
  * */
 public class InitState implements State {
 
+	/**
+	 * The logger instance, used to log relevant information to the console.
+	 */
 	private static final Logger logger = LoggerFactory.getLogger(XMLRequestParser.class);
 
 	@Override

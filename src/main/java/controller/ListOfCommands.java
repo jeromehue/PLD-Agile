@@ -2,10 +2,27 @@ package controller;
 
 import java.util.LinkedList;
 
+/**
+ * Class that keeps a record of all the commands the user has executed, in order to
+ * be able to under/redo previous commands.
+ * @author H4414
+ */
+
 public class ListOfCommands {
+	
+	/**
+	 * The linked list of recorded commands
+	 */
 	private LinkedList<Command> list;
+	
+	/**
+	 * The current command index in the linked list
+	 */
 	private int currentIndex;
 
+	/**
+	 * Constructor to create a new list of commands
+	 */
 	public ListOfCommands() {
 		currentIndex = -1;
 		list = new LinkedList<Command>();

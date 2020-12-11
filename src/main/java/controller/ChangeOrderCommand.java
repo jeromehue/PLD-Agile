@@ -5,6 +5,12 @@ import modele.Intersection;
 import modele.Tour;
 import view.GraphicalView;
 
+/**
+ * Command that switches two steps in a tour,
+ * after a click on the 'Change order' button.
+ * @author H4414
+ */
+
 public class ChangeOrderCommand implements Command {
 
 	/**

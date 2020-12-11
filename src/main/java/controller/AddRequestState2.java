@@ -20,6 +20,10 @@ import view.Window;
  */
 
 public class AddRequestState2 implements State {
+
+	/**
+	 * The logger instance, used to log relevant information to the console.
+	 */
 	private static final Logger logger = LoggerFactory.getLogger(AddRequestState2.class);
 	
 	/**

@@ -20,8 +20,13 @@ import view.Window;
  *
  */
 public class ChangeOrderState implements State {
+
+	/**
+	 * The logger instance, used to log relevant information to the console.
+	 */
 	private static final Logger logger = LoggerFactory.getLogger(ChangeOrderState.class);
 
+	@Override
 	public void clickOnStep(Controller c, Window w, ListOfCommands l, Way wa, JButton button, Tour t) {
 		logger.info("[Order Modification State] Modify order of tour in controller");
 		logger.info("[Order Modification State] Intersection to be modify" + wa.getDeparture());
@@ -33,7 +38,7 @@ public class ChangeOrderState implements State {
 		int newIndex=-1;
 		int nbIntersectionTour = t.getWaysList().size();
 
-		//Si on sélectionne pas le point de départ on ne peut pas changer la position
+		// If we don't select a starting point, we can't change the position.
 		if(!intersection.getId().equals(t.getRequest().getStartingLocation().getId())) {
 			newIndex = w.displaySelectOrderDialog();
 			while(newIndex < 0 || newIndex >= nbIntersectionTour) {

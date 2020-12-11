@@ -5,6 +5,13 @@ import modele.Intersection;
 import modele.Tour;
 import view.GraphicalView;
 
+
+/**
+ * Command that adds or remove a request from a tour,
+ * after a click on the 'Add a request' button.
+ * @author H4414
+ */
+
 public class AddRequestCommand implements Command {
 	/**
 	 *  The graphical view displayed

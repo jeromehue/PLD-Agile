@@ -17,6 +17,10 @@ import view.Window;
  */
 
 public class AddRequestState implements State {
+	
+	/**
+	 * The logger instance, used to log relevant information to the console.
+	 */
 	private static final Logger logger = LoggerFactory.getLogger(AddRequestState.class);
 	
 	@Override
