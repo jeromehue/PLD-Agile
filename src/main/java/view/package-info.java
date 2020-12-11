@@ -1,6 +1,6 @@
 /**
  *  Provides the window with the two graphical and textual views, 
- *  as well as the listeners.
+ *  menu bar, tool bar, message frames as well as the listeners.
  * 
  * */
 

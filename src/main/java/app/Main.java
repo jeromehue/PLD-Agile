@@ -6,10 +6,12 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * Main class, should be run to start the program
+ */
 public class Main {
 	private static final Logger logger = LoggerFactory.getLogger(Main.class);
-
+	
 	public static void main(String[] args) {
 		logger.info("Creating controller");
 		Locale.setDefault(new Locale("en", "US"));
