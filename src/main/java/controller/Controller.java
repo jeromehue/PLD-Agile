@@ -65,7 +65,7 @@ public class Controller {
 	/**
 	 * Sets a new state for the application.
 	 * 
-	 * @param state
+	 * @param state The state the controller has to switch to.
 	 */
 	protected void setCurrentstate(State state) {
 		currentState = state;
@@ -126,11 +126,10 @@ public class Controller {
 	}
 
 	/**
-	 * Adds a request (pick-up & delivery) to the tour.
+	 * Adds a request (pick-up and delivery) to the tour.
 	 */
 	public void addRequest() {
 		currentState.addRequest(this, this.window);
-
 	}
 
 	/**
@@ -165,14 +164,4 @@ public class Controller {
 	public void leftClick(Point p, Window w) {
 		currentState.leftClick(p, l, this, w);
 	}
-
-	/**
-	 * Method called when a right clicked has occurred on the graphical view.
-	 * 
-	 * @param p The Point object representing the mouse position
-	 * @param w The window instance
-	 */
-	public void rightClick() {
-	}
-
 }
