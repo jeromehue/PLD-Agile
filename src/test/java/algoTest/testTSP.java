@@ -47,16 +47,13 @@ public class testTSP {
 		TSP1 tsp;
 
 		Integer offset = 80;
-		// paramètre à faire varier pour tester, à partir de dmax = 85 pour 7 requetes
-		// ça trouve le chemin optimal
-		// pour 9 requetes : ???
 
 		for (Integer i = 0; i < 1; ++i) {
 
 			tsp = new TSP1(graph, request, offset + i);
 
 			Long startTime = System.currentTimeMillis();
-			tsp.searchSolution(400000);
+			tsp.searchSolution(40000);
 
 			System.out
 					.println("dmax : " + (offset + i) + " - Solution of cost " + (int) Math.round(tsp.getSolutionCost())

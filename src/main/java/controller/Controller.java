@@ -1,7 +1,5 @@
 package controller;
 
-//import java.util.ArrayList;
-
 import javax.swing.JButton;
 
 import org.slf4j.Logger;
@@ -42,14 +40,46 @@ public class Controller {
 	 */
 	private Tour tour;
 
-	// States
+	/**
+	 * Initial state of the application.
+	 */
 	protected final InitState initState = new InitState();
+
+	/**
+	 * State that is used when a map has been loaded.
+	 */
 	protected final MapLoadedState mapLoadedState = new MapLoadedState();
+
+	/**
+	 * State that is used when a request has been loaded.
+	 */
 	protected final RequestLoadedState requestLoadedState = new RequestLoadedState();
+
+	/**
+	 * State that is used when entering the "edit tour" mode.
+	 */
 	protected final TourModificationState tourModificationState = new TourModificationState();
+
+	/**
+	 * State that is used when switching steps in a tour.
+	 */
 	protected final ChangeOrderState orderModificationState = new ChangeOrderState();
+
+	/**
+	 * State that is used when deleting a step from a tour.
+	 */
 	protected final DeleteStepState deleteStepState = new DeleteStepState();
+
+	/**
+	 * State that is used when adding a new request to the tour. This one adds a new
+	 * pick-up intersection.
+	 */
 	protected final AddRequestState addRequestState = new AddRequestState();
+
+	/**
+	 * State that is used when adding a new request to the tour. This one adds a new
+	 * delivery intersection.
+	 */
 	protected final AddRequestState2 addRequestState2 = new AddRequestState2();
 
 	/**

@@ -91,7 +91,6 @@ public class Pcc {
 		pickUpVertices = request.getPickUpLocations();
 		deliveryVertices = request.getDeliveryLocations();
 		start = request.getStartingLocation();
-		// HashMap< idStartVertex, <idCurrentVertex, idLastVertex> >
 		savePredecessors = new HashMap<Long, HashMap<Long, Segment>>();
 		this.request = request;
 	}
@@ -233,7 +232,6 @@ public class Pcc {
 	public Tour computeGooodTSPTour() {
 		CompleteGraph graph = computePcc();
 		logger.info("[PCC.computeTour] taille graphe : {}", graph.getNbVertices());
-		// TODO: remove 1000 and set a real max discrepancy
 
 		TSP1 tsp = new TSP1(graph, request, 200);
 
@@ -244,7 +242,6 @@ public class Pcc {
 
 		Intersection inter;
 		Long idInter;
-		System.out.println("okay TSP");
 		List<Intersection> goodInterList = new ArrayList<Intersection>();
 
 		for (int i = 0; i < graph.getNbVertices(); i++) {
@@ -343,8 +340,6 @@ public class Pcc {
 			i++;
 		}
 
-		// TODO
-		// Verify shift is consistent with oldIndex and tour.getWaysList().size
 		if (oldIndex + shift > 0 && oldIndex + shift < tour.getWaysList().size()) {
 			list.add(oldIndex + shift, intersection);
 		} else {
@@ -417,7 +412,7 @@ public class Pcc {
 				list.add(w.getDeparture());
 			}
 		}
-		// computePcc();
+
 		tour.setWaysList(computeWaysList(list));
 
 		tour.updateIsPositionConsistent(intersection.getId());

@@ -114,7 +114,7 @@ public class TextualView extends JPanel implements Observer {
 	/**
 	 * Method called by tour observed by this each time it is modified.
 	 * 
-	 * @param observed an updated object which is observed by textual view
+	 * @param observed An updated object which is observed by textual view.
 	 */
 	@Override
 	public void update(Observable observed) {
@@ -123,11 +123,11 @@ public class TextualView extends JPanel implements Observer {
 		this.setPreferredSize(new Dimension(600, this.pointsJButtonList.size() * 100));
 		logger.info("{} object was modified: textual view updated", observed.getClass());
 	}
-	
+
 	/**
-	 * Method called in the window to get the scroll bar 
+	 * Default getter, called in Window
 	 * 
-	 * @return the scroll pane 
+	 * @return The scroll pane of the textual view.
 	 */
 	public JScrollPane getScrollPane() {
 		return scrollPane;
